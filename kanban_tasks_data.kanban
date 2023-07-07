@@ -10,7 +10,9 @@
 		{
 			"uuid": "2672f96a-9194-47de-b5a1-7961b242be5a",
 			"title": "Todo",
-			"tasks": []
+			"tasks": [
+				"6e36c9e7-8574-47dd-808e-8f37d976e5b9"
+			]
 		},
 		{
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
@@ -23,7 +25,15 @@
 			"tasks": []
 		}
 	],
-	"tasks": [],
+	"tasks": [
+		{
+			"uuid": "6e36c9e7-8574-47dd-808e-8f37d976e5b9",
+			"title": "Dedupe spritesheet resources",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		}
+	],
 	"layout": {
 		"columns": [
 			[

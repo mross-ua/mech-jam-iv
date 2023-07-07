@@ -24,14 +24,15 @@
 				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
 				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
 				"7e206230-1945-43db-9228-ad0085d786ee",
-				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"421b6547-2391-4f9e-82ff-794a094451b0"
 			]
 		},
 		{
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"333761d4-a5ef-4e56-a8d1-449f87448b67"
+			]
 		},
 		{
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
@@ -180,7 +181,7 @@
 			"steps": [
 				{
 					"details": "Enable immunity automatically by damage",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Allow player to turn on immunity",

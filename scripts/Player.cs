@@ -17,6 +17,8 @@ public partial class Player : CharacterBody2D
 
 	private AnimatedSprite2D animatedSprite2D;
 
+	private SceneTreeTimer immunityTimer = null;
+
     public override void _Ready()
     {
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
@@ -25,6 +27,11 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (Health <= 0)
+		{
+			return;
+		}
+
 		Vector2 velocity = Velocity;
 
 		if (IsOnFloor() && Input.IsActionJustPressed("jump"))
@@ -55,14 +62,29 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public void Hurt(int damage)
+	public async void HurtAsync(int damage)
 	{
+		if (immunityTimer != null)
+		{
+			return;
+		}
+		else if (Health <= 0)
+		{
+			return;
+		}
+
+		immunityTimer = GetTree().CreateTimer(2.0f);
+
 		Health = Math.Max(0, Health - damage);
 
 		if (Health <= 0)
 		{
-			//TODO do something
+			animatedSprite2D.Play("death", 0.2f);
 		}
+
+		await ToSignal(immunityTimer, SceneTreeTimer.SignalName.Timeout);
+
+		immunityTimer = null;
 	}
 
 }

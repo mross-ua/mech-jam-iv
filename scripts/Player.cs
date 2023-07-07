@@ -16,6 +16,7 @@ public partial class Player : CharacterBody2D
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	private AnimatedSprite2D animatedSprite2D;
+	private GpuParticles2D immunityShield;
 
 	private SceneTreeTimer immunityTimer = null;
 
@@ -23,6 +24,7 @@ public partial class Player : CharacterBody2D
     {
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
         animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -75,6 +77,8 @@ public partial class Player : CharacterBody2D
 
 		immunityTimer = GetTree().CreateTimer(2.0f);
 
+		immunityShield.Visible = true;
+
 		Health = Math.Max(0, Health - damage);
 
 		if (Health <= 0)
@@ -83,6 +87,8 @@ public partial class Player : CharacterBody2D
 		}
 
 		await ToSignal(immunityTimer, SceneTreeTimer.SignalName.Timeout);
+
+		immunityShield.Visible = false;
 
 		immunityTimer = null;
 	}

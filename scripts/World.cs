@@ -4,6 +4,8 @@ using System;
 public partial class World : Node2D
 {
 
+	private Player player;
+
 	private ProgressBar healthBar;
 
 	public override void _Ready()

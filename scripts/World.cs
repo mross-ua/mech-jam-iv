@@ -18,9 +18,13 @@ public partial class World : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionJustPressed("quit"))
+        if (Input.IsActionPressed("quit"))
 		{
 			GetTree().Quit();
+		}
+		else if (Input.IsActionPressed("reset"))
+		{
+			GetTree().ReloadCurrentScene();
 		}
     }
 

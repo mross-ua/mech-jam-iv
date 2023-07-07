@@ -28,7 +28,7 @@ public partial class Robot : CharacterBody2D
 
 		if (vectorToMarker.IsZeroApprox())
 		{
-			animatedSprite2D.Play("idle", 0.2f);
+			animatedSprite2D.Play("idle");
 		}
 		else if (vectorToMarker.Length() < Speed)
 		{
@@ -38,7 +38,7 @@ public partial class Robot : CharacterBody2D
 		{
 			velocity = vectorToMarker.Normalized() * Speed;
 
-			animatedSprite2D.Play("idle", 0.2f);
+			animatedSprite2D.Play("idle");
 		}
 
 		Velocity = velocity;

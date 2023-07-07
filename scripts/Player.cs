@@ -59,13 +59,13 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 
-			animatedSprite2D.Play("idle", 0.2f);
+			animatedSprite2D.Play("idle");
 		}
 		else
 		{
 			velocity.X = direction.X * Speed;
 
-			animatedSprite2D.Play("run", 0.2f);
+			animatedSprite2D.Play("run");
 		}
 
 		Velocity = velocity;
@@ -92,7 +92,7 @@ public partial class Player : CharacterBody2D
 
 		if (Health <= 0)
 		{
-			animatedSprite2D.Play("death", 0.2f);
+			animatedSprite2D.Play("death");
 		}
 
 		EmitSignal(SignalName.Hurt, damage);

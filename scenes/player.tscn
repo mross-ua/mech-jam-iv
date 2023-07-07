@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://bt7vafft2mqcp"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_bcjvt"]
+[ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/char-sheet-alpha.png" id="1_fkqgm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_euxq4"]
+size = Vector2(18, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jogux"]
+atlas = ExtResource("1_fkqgm")
+region = Rect2(46, 0, 46, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6upf"]
+atlas = ExtResource("1_fkqgm")
+region = Rect2(0, 0, 46, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bbvn"]
+atlas = ExtResource("1_fkqgm")
+region = Rect2(92, 0, 46, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw1p8"]
+atlas = ExtResource("1_fkqgm")
+region = Rect2(138, 0, 46, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_is7rl"]
+atlas = ExtResource("1_fkqgm")
+region = Rect2(184, 0, 46, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bqh6"]
+atlas = ExtResource("1_fkqgm")
+region = Rect2(230, 0, 46, 46)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xxkfi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jogux")
+}],
+"loop": true,
+"name": &"crouch",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6upf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bbvn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nw1p8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_is7rl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bqh6")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(0, -23)
+collision_layer = 2
+script = ExtResource("1_bcjvt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_euxq4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xxkfi")
+animation = &"run"
+frame_progress = 0.771291

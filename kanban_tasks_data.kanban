@@ -17,7 +17,15 @@
 			"title": "Todo",
 			"tasks": [
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
-				"0b257823-8c70-4621-86f4-cfd78225b416"
+				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
+				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
+				"0b257823-8c70-4621-86f4-cfd78225b416",
+				"d2cefd83-5059-436b-8b3d-da385b594029",
+				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
+				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
+				"7e206230-1945-43db-9228-ad0085d786ee",
+				"333761d4-a5ef-4e56-a8d1-449f87448b67",
+				"421b6547-2391-4f9e-82ff-794a094451b0"
 			]
 		},
 		{
@@ -69,6 +77,131 @@
 				}
 			]
 		},
+		{
+			"uuid": "09728062-4873-4a0b-8827-b0f2c9d45e2a",
+			"title": "Add credits scene",
+			"description": "Don't forget artist attribution!\n\nWe are using these resources so far:\n\n* https://opengameart.org/content/super-dead-space-gunner-merc-redux-platform-shmup-hero\n* https://opengameart.org/content/space-merc-redux-platform-shmup-tileset\n\nPossible alternative art:\n\n* https://opengameart.org/content/mecha-platformer-pixelart",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Add my credit",
+					"done": false
+				},
+				{
+					"details": "Check .tscn files to confirm which assets are being used",
+					"done": false
+				},
+				{
+					"details": "Add artist credits",
+					"done": false
+				},
+				{
+					"details": "Add special thanks",
+					"done": false
+				},
+				{
+					"details": "Add credits/attributions to README",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "067f3d45-a8c3-46f1-97dc-fc28583328fe",
+			"title": "Add license",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "d2cefd83-5059-436b-8b3d-da385b594029",
+			"title": "Fix player sprite",
+			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": [
+				{
+					"details": "Don't play run animation while in the air",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
+			"title": "Add crouch ability",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Shrink collision shape during crouch",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
+			"title": "Add damage animation to player",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Add red flash",
+					"done": false
+				},
+				{
+					"details": "Add particle effect",
+					"done": false
+				},
+				{
+					"details": "Add sound",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "7e206230-1945-43db-9228-ad0085d786ee",
+			"title": "Add spawn point",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Add animation",
+					"done": false
+				},
+				{
+					"details": "Add particle effect",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "333761d4-a5ef-4e56-a8d1-449f87448b67",
+			"title": "Add immunity timer to player",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Enable immunity automatically by damage",
+					"done": false
+				},
+				{
+					"details": "Allow player to turn on immunity",
+					"done": false
+				},
+				{
+					"details": "Add animation/particle effect",
+					"done": false
+				},
+				{
+					"details": "Add UI element to show immunity status",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "421b6547-2391-4f9e-82ff-794a094451b0",
+			"title": "Add enums for physics layers",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
 		}
 	],
 	"layout": {

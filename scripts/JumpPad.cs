@@ -12,6 +12,13 @@ public partial class JumpPad : Area2D
 	public override void _Ready()
 	{
 		animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		animatedSprite2D.AnimationFinished += () =>
+		{
+			if (animatedSprite2D.Animation == "jump")
+			{
+				animatedSprite2D.Animation = "idle";
+			}
+		};
 
 		BodyEntered += (body) =>
 		{

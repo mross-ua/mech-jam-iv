@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://dtsnbv8umgt5h"]
+
+[ext_resource type="Script" path="res://scripts/Robot.cs" id="1_ga06e"]
+[ext_resource type="Texture2D" uid="uid://bxs1dcnhhud8d" path="res://raw_assets/space-merc-redux-platform-shmup-tileset/tiles-tech-gold-blue-alpha.png" id="1_xq3as"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_751yh"]
+radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsws0"]
+atlas = ExtResource("1_xq3as")
+region = Rect2(128, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgurq"]
+atlas = ExtResource("1_xq3as")
+region = Rect2(128, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64kt6"]
+atlas = ExtResource("1_xq3as")
+region = Rect2(128, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hnwf"]
+atlas = ExtResource("1_xq3as")
+region = Rect2(128, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4dncl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsws0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgurq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64kt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hnwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64kt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64kt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hnwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64kt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgurq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hnwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64kt6")
+}],
+"loop": true,
+"name": &"talk",
+"speed": 5.0
+}]
+
+[node name="Robot" type="CharacterBody2D"]
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("1_ga06e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_751yh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4dncl")
+animation = &"idle"

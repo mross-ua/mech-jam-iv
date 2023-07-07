@@ -9,12 +9,15 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public float JumpVelocity { get; set; } = -400.0f;
 
+	public Marker2D RobotMarker;
+
 	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	private AnimatedSprite2D animatedSprite2D;
 
     public override void _Ready()
     {
+		RobotMarker = GetNode<Marker2D>("RobotMarker");
         animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 

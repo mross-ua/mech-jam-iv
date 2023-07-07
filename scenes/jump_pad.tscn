@@ -1,0 +1,101 @@
+[gd_scene load_steps=11 format=3 uid="uid://bjdstnq527cta"]
+
+[ext_resource type="Script" path="res://scripts/JumpPad.cs" id="1_1xent"]
+[ext_resource type="Texture2D" uid="uid://5rgsfkhthdce" path="res://raw_assets/space-merc-redux-platform-shmup-tileset/tiles-tech-steel-green-alpha.png" id="1_f23xd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ax1m2"]
+size = Vector2(16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5utwj"]
+atlas = ExtResource("1_f23xd")
+region = Rect2(400, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lg6a"]
+atlas = ExtResource("1_f23xd")
+region = Rect2(416, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6em0x"]
+atlas = ExtResource("1_f23xd")
+region = Rect2(432, 64, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2mens"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5utwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lg6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6em0x")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_udwco"]
+resource_name = "hover"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6001, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_w5oxm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bb76q"]
+_data = {
+"RESET": SubResource("Animation_w5oxm"),
+"hover": SubResource("Animation_udwco")
+}
+
+[node name="JumpPad" type="Area2D"]
+position = Vector2(0, -16)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_1xent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_ax1m2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2mens")
+animation = &"jump"
+frame = 2
+frame_progress = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "hover"
+libraries = {
+"": SubResource("AnimationLibrary_bb76q")
+}

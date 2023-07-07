@@ -4,6 +4,11 @@
 			"uuid": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"title": "Task",
 			"color": "70bafa"
+		},
+		{
+			"uuid": "d7f3156e-deab-4272-904a-646df391c36d",
+			"title": "Bug",
+			"color": "e32007"
 		}
 	],
 	"stages": [
@@ -11,7 +16,8 @@
 			"uuid": "2672f96a-9194-47de-b5a1-7961b242be5a",
 			"title": "Todo",
 			"tasks": [
-				"6e36c9e7-8574-47dd-808e-8f37d976e5b9"
+				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
+				"0b257823-8c70-4621-86f4-cfd78225b416"
 			]
 		},
 		{
@@ -31,6 +37,12 @@
 			"title": "Dedupe spritesheet resources",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+		},
+		{
+			"uuid": "0b257823-8c70-4621-86f4-cfd78225b416",
+			"title": "Fix jump_pad sprite",
+			"description": "There is a 1 pixel bleed on top and bottom",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		}
 	],

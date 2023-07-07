@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://nqbfpa8gpdu8"]
+[gd_scene load_steps=8 format=3 uid="uid://nqbfpa8gpdu8"]
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_ei5o8"]
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/player.tscn" id="1_hv76r"]
 [ext_resource type="Texture2D" uid="uid://5rgsfkhthdce" path="res://raw_assets/space-merc-redux-platform-shmup-tileset/tiles-tech-steel-green-alpha.png" id="2_1wvg3"]
 [ext_resource type="PackedScene" uid="uid://dtsnbv8umgt5h" path="res://scenes/robot.tscn" id="4_b1hit"]
+[ext_resource type="PackedScene" uid="uid://bjdstnq527cta" path="res://scenes/jump_pad.tscn" id="5_thnu3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uca4c"]
 resource_name = "steel-green"
@@ -174,3 +175,8 @@ position = Vector2(571, 319)
 
 [node name="Robot" parent="." instance=ExtResource("4_b1hit")]
 position = Vector2(548, 296)
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="JumpPad" parent="Environment" instance=ExtResource("5_thnu3")]
+position = Vector2(674, 373)

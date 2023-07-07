@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx2gfd1kayu52"]
+
+[ext_resource type="Texture2D" uid="uid://5rgsfkhthdce" path="res://raw_assets/space-merc-redux-platform-shmup-tileset/tiles-tech-steel-green-alpha.png" id="1_aupdy"]
+[ext_resource type="Script" path="res://scripts/Spikes.cs" id="1_x56ow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7upb"]
+atlas = ExtResource("1_aupdy")
+region = Rect2(112, 16, 16, 16)
+
+[node name="Spikes" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_x56ow")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-16, 0, -13, -14, 13, -14, 16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-8, -8)
+texture = SubResource("AtlasTexture_e7upb")
+region_rect = Rect2(112, 16, 16, 16)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(8, -8)
+texture = SubResource("AtlasTexture_e7upb")
+region_rect = Rect2(112, 16, 16, 16)

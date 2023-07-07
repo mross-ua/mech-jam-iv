@@ -28,7 +28,9 @@
 		{
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
 			"title": "Done",
-			"tasks": []
+			"tasks": [
+				"806e0924-0ff3-402a-b13e-3ac2254a9976"
+			]
 		}
 	],
 	"tasks": [
@@ -54,6 +56,19 @@
 			"description": "There is a 1 pixel bleed on top and bottom",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
+		},
+		{
+			"uuid": "806e0924-0ff3-402a-b13e-3ac2254a9976",
+			"title": "Add spike trap",
+			"description": "A death animation is already available on the player",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Add spike trap",
+					"done": true
+				}
+			]
+		},
 		}
 	],
 	"layout": {

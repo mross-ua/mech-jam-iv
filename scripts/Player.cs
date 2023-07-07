@@ -5,6 +5,8 @@ public partial class Player : CharacterBody2D
 {
 
 	[Export]
+	public int Health { get; set; } = 100;
+	[Export]
 	public float Speed { get; set; } = 300.0f;
 	[Export]
 	public float JumpVelocity { get; set; } = -400.0f;
@@ -51,6 +53,16 @@ public partial class Player : CharacterBody2D
 		Velocity = velocity;
 
 		MoveAndSlide();
+	}
+
+	public void Hurt(int damage)
+	{
+		Health = Math.Max(0, Health - damage);
+
+		if (Health <= 0)
+		{
+			//TODO do something
+		}
 	}
 
 }

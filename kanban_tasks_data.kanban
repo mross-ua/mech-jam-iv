@@ -35,8 +35,18 @@
 		{
 			"uuid": "6e36c9e7-8574-47dd-808e-8f37d976e5b9",
 			"title": "Dedupe spritesheet resources",
-			"description": "",
+			"description": "When we drop a texture onto a node, it creates a unique resource. The resources can be deduped by saving the texture as a resource.",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Save spritesheet as resource",
+					"done": false
+				},
+				{
+					"details": "Ensure all consumers are using the resource, not the image directly",
+					"done": false
+				}
+			]
 		},
 		{
 			"uuid": "0b257823-8c70-4621-86f4-cfd78225b416",

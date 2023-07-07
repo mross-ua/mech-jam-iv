@@ -25,7 +25,10 @@
 				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
 				"7e206230-1945-43db-9228-ad0085d786ee",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
-				"4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5"
+				"4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
+				"e623005c-7655-41f5-93af-a0436331d420",
+				"67e7ea18-c0b9-418b-9978-fca800a87fef",
+				"b75301a4-84a6-4399-b9b9-37b317dc5b8b"
 			]
 		},
 		{
@@ -210,6 +213,36 @@
 			"title": "Immunity particle effect needs improvement",
 			"description": "The particles persist after being made not visible and when set to visible again, the particles from the previous time the effect was enabled appear. In addition, setting the particles to not visible makes them immediately disappear rather than live out their lifetime; the transition is abrupt.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "e623005c-7655-41f5-93af-a0436331d420",
+			"title": "Add particle effect to robot companion for its movement",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "67e7ea18-c0b9-418b-9978-fca800a87fef",
+			"title": "Create theme for UI",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Save as reusable resource",
+					"done": false
+				},
+				{
+					"details": "Remove any theme overrides as needed",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "b75301a4-84a6-4399-b9b9-37b317dc5b8b",
+			"title": "Add portals?",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		}
 	],

@@ -4,6 +4,11 @@ using System;
 public partial class Player : CharacterBody2D
 {
 
+	[Signal]
+	public delegate void HealEventHandler(int hp);
+	[Signal]
+	public delegate void HurtEventHandler(int damage);
+
 	[Export]
 	public int Health { get; set; } = 100;
 	[Export]
@@ -85,6 +90,8 @@ public partial class Player : CharacterBody2D
 		{
 			animatedSprite2D.Play("death", 0.2f);
 		}
+
+		EmitSignal(SignalName.Hurt, damage);
 
 		await ToSignal(immunityTimer, SceneTreeTimer.SignalName.Timeout);
 

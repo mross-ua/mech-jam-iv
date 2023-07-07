@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://nqbfpa8gpdu8"]
+[gd_scene load_steps=13 format=3 uid="uid://nqbfpa8gpdu8"]
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_ei5o8"]
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/player.tscn" id="1_hv76r"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dtsnbv8umgt5h" path="res://scenes/robot.tscn" id="4_b1hit"]
 [ext_resource type="PackedScene" uid="uid://bjdstnq527cta" path="res://scenes/jump_pad.tscn" id="5_thnu3"]
 [ext_resource type="PackedScene" uid="uid://cx2gfd1kayu52" path="res://scenes/spikes.tscn" id="6_3a6ab"]
+[ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/char-sheet-alpha.png" id="7_ns3fb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uca4c"]
 resource_name = "steel-green"
@@ -163,6 +164,34 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.396078, 0.305882, 0.678431, 1)
 sources/0 = SubResource("TileSetAtlasSource_uca4c")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbrpc"]
+bg_color = Color(0.207843, 0.207843, 0.207843, 1)
+skew = Vector2(0.5, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gse8l"]
+bg_color = Color(0.74902, 0.0980392, 0, 1)
+skew = Vector2(0.5, 0)
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.266667, 0.0980392, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aejij"]
+atlas = ExtResource("7_ns3fb")
+region = Rect2(230, 0, 46, 46)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_ei5o8")
 
@@ -175,6 +204,34 @@ layer_0/tile_data = PackedInt32Array(1703960, 65536, 9, 1703961, 131072, 9, 1638
 position = Vector2(571, 319)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="UI" type="Control" parent="Player/Camera2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -571.0
+offset_top = -319.0
+offset_right = -531.0
+offset_bottom = -279.0
+
+[node name="HealthBar" type="ProgressBar" parent="Player/Camera2D/UI"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 20.0
+offset_right = 110.0
+offset_bottom = 47.0
+theme_override_styles/background = SubResource("StyleBoxFlat_dbrpc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gse8l")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="Player/Camera2D/UI/HealthBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -15.0
+offset_right = 134.0
+offset_bottom = 31.0
+texture = SubResource("AtlasTexture_aejij")
 
 [node name="Robot" parent="." instance=ExtResource("4_b1hit")]
 position = Vector2(548, 296)

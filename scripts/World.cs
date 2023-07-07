@@ -4,11 +4,16 @@ using System;
 public partial class World : Node2D
 {
 
-	Player player;
+	private ProgressBar healthBar;
 
 	public override void _Ready()
 	{
 		player = GetNode<Player>("Player");
+		player.Heal += (hp) => healthBar.Value = player.Health;
+		player.Hurt += (hp) => healthBar.Value = player.Health;
+
+		healthBar = GetNode<ProgressBar>("Player/Camera2D/UI/HealthBar");
+		healthBar.Value = player.Health;
 	}
 
 	public override void _Process(double delta)

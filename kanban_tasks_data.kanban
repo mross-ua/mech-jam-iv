@@ -28,7 +28,8 @@
 				"4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
-				"b75301a4-84a6-4399-b9b9-37b317dc5b8b"
+				"b75301a4-84a6-4399-b9b9-37b317dc5b8b",
+				"bc336b5d-ae80-4d1f-822b-8cf8655641a2"
 			]
 		},
 		{
@@ -248,6 +249,26 @@
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
+		},
+		{
+			"uuid": "bc336b5d-ae80-4d1f-822b-8cf8655641a2",
+			"title": "Add pickups",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Add medkit pickup",
+					"done": false
+				},
+				{
+					"details": "Add shield recharge pickup",
+					"done": false
+				},
+				{
+					"details": "Add shield boost (temporary overcharge)",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

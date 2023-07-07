@@ -197,6 +197,10 @@
 				},
 				{
 					"details": "Add UI element to show immunity status",
+					"done": true
+				},
+				{
+					"details": "Add shield discharge/recharge",
 					"done": false
 				}
 			]

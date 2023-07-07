@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://nqbfpa8gpdu8"]
+[gd_scene load_steps=14 format=3 uid="uid://nqbfpa8gpdu8"]
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_ei5o8"]
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/player.tscn" id="1_hv76r"]
 [ext_resource type="Texture2D" uid="uid://5rgsfkhthdce" path="res://raw_assets/space-merc-redux-platform-shmup-tileset/tiles-tech-steel-green-alpha.png" id="2_1wvg3"]
 [ext_resource type="PackedScene" uid="uid://dtsnbv8umgt5h" path="res://scenes/robot.tscn" id="4_b1hit"]
+[ext_resource type="PackedScene" uid="uid://tatq2gmyab34" path="res://scenes/immunity_shield.tscn" id="5_fynxg"]
 [ext_resource type="PackedScene" uid="uid://bjdstnq527cta" path="res://scenes/jump_pad.tscn" id="5_thnu3"]
 [ext_resource type="PackedScene" uid="uid://cx2gfd1kayu52" path="res://scenes/spikes.tscn" id="6_3a6ab"]
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/char-sheet-alpha.png" id="7_ns3fb"]
@@ -222,7 +223,7 @@ offset_bottom = 47.0
 theme_override_styles/background = SubResource("StyleBoxFlat_dbrpc")
 theme_override_styles/fill = SubResource("StyleBoxFlat_gse8l")
 step = 1.0
-value = 50.0
+value = 100.0
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="Player/Camera2D/UI/HealthBar"]
@@ -231,7 +232,13 @@ offset_left = 88.0
 offset_top = -15.0
 offset_right = 134.0
 offset_bottom = 31.0
+pivot_offset = Vector2(23, 23)
 texture = SubResource("AtlasTexture_aejij")
+
+[node name="ImmunityShield" parent="Player/Camera2D/UI/HealthBar/TextureRect" instance=ExtResource("5_fynxg")]
+visible = false
+position = Vector2(23, 30)
+local_coords = true
 
 [node name="Robot" parent="." instance=ExtResource("4_b1hit")]
 position = Vector2(548, 296)

@@ -8,6 +8,10 @@ public partial class Player : CharacterBody2D
 	public delegate void HealEventHandler(int hp);
 	[Signal]
 	public delegate void HurtEventHandler(int damage);
+	[Signal]
+	public delegate void ImmunityShieldActivatedEventHandler();
+	[Signal]
+	public delegate void ImmunityShieldDeactivatedEventHandler();
 
 	[Export]
 	public int Health { get; set; } = 100;
@@ -82,7 +86,7 @@ public partial class Player : CharacterBody2D
 
 		immunityTimer = GetTree().CreateTimer(2.0f);
 
-		immunityShield.Visible = true;
+		ActivateShield();
 
 		Health = Math.Max(0, Health - damage);
 
@@ -95,9 +99,23 @@ public partial class Player : CharacterBody2D
 
 		await ToSignal(immunityTimer, SceneTreeTimer.SignalName.Timeout);
 
-		immunityShield.Visible = false;
+		DeactivateShield();
 
 		immunityTimer = null;
+	}
+
+	public void ActivateShield()
+	{
+		immunityShield.Visible = true;
+
+		EmitSignal(SignalName.ImmunityShieldActivated);
+	}
+
+	public void DeactivateShield()
+	{
+		immunityShield.Visible = false;
+
+		EmitSignal(SignalName.ImmunityShieldDeactivated);
 	}
 
 }

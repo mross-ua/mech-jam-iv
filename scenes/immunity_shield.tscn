@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://tatq2gmyab34"]
+
+[sub_resource type="Gradient" id="Gradient_4f87c"]
+offsets = PackedFloat32Array(0, 0.314159)
+colors = PackedColorArray(0.243137, 0.0588235, 0.929412, 1, 0.662745, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dmfq8"]
+gradient = SubResource("Gradient_4f87c")
+
+[sub_resource type="Curve" id="Curve_aui8x"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.229572, 0.0210526), 0.0, 0.0, 0, 0, Vector2(0.389105, 0.957895), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_nk0la"]
+curve = SubResource("Curve_aui8x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bqtl8"]
+lifetime_randomness = 0.8
+emission_shape = 3
+emission_box_extents = Vector3(9, 16, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 2.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_max = 10.0
+linear_accel_curve = SubResource("CurveTexture_nk0la")
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_dmfq8")
+
+[node name="ImmunityShield" type="GPUParticles2D"]
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_bqtl8")

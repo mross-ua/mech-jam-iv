@@ -8,7 +8,9 @@ namespace MechJamIV {
         Player,
         Robot,
         Environment,
-        Hazard
+        Hazard,
+        Hitbox,
+        Enemy
     }
 
     [Flags]
@@ -18,6 +20,8 @@ namespace MechJamIV {
         Player,
         Robot,
         Environment,
-        Hazard
+        Hazard,
+        Hitbox,
+        Enemy
     }
 }

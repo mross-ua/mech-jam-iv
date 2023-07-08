@@ -29,7 +29,8 @@
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
 				"b75301a4-84a6-4399-b9b9-37b317dc5b8b",
-				"bc336b5d-ae80-4d1f-822b-8cf8655641a2"
+				"bc336b5d-ae80-4d1f-822b-8cf8655641a2",
+				"780e9834-6fbc-4523-9449-fd62af2283bd"
 			]
 		},
 		{
@@ -269,6 +270,13 @@
 					"done": false
 				}
 			]
+		},
+		{
+			"uuid": "780e9834-6fbc-4523-9449-fd62af2283bd",
+			"title": "Create tileset/map for hazards",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
 		}
 	],
 	"layout": {

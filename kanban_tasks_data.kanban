@@ -294,6 +294,13 @@
 					"done": false
 				}
 			]
+		},
+		{
+			"uuid": "a08753e1-778b-4c43-b1bc-bf8f70a3db7a",
+			"title": "Add enemy",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
 		}
 	],
 	"layout": {

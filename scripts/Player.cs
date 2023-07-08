@@ -22,7 +22,7 @@ public partial class Player : CharacterBody2D
 
 	public Marker2D RobotMarker;
 
-	private float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	private Vector2 gravity = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	private AnimatedSprite2D animatedSprite2D;
 	private GpuParticles2D immunityShield;
@@ -51,7 +51,7 @@ public partial class Player : CharacterBody2D
 		}
 		else if (!IsOnFloor())
 		{
-			velocity.Y += gravity * (float)delta;
+			velocity += gravity * (float)delta;
 		}
 
 		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");

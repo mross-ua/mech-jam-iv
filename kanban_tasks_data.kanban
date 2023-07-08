@@ -37,7 +37,8 @@
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
 			"title": "Doing",
 			"tasks": [
-				"333761d4-a5ef-4e56-a8d1-449f87448b67"
+				"333761d4-a5ef-4e56-a8d1-449f87448b67",
+				"a8fb3ba2-cef9-42b0-b355-42ae5553381f"
 			]
 		},
 		{
@@ -247,7 +248,7 @@
 		{
 			"uuid": "b75301a4-84a6-4399-b9b9-37b317dc5b8b",
 			"title": "Add portals?",
-			"description": "",
+			"description": "The portals (from Sportal) still don't have an easy way to be rearranged in a scene, so don't waste any time on trying to fix them.",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		},
@@ -277,6 +278,18 @@
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
+		},
+		{
+			"uuid": "a8fb3ba2-cef9-42b0-b355-42ae5553381f",
+			"title": "Add README",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Add notes about downloading art assets",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

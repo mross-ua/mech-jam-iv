@@ -24,7 +24,6 @@
 				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
 				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
 				"7e206230-1945-43db-9228-ad0085d786ee",
-				"421b6547-2391-4f9e-82ff-794a094451b0",
 				"4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
@@ -45,7 +44,8 @@
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
 			"title": "Done",
 			"tasks": [
-				"806e0924-0ff3-402a-b13e-3ac2254a9976"
+				"806e0924-0ff3-402a-b13e-3ac2254a9976",
+				"421b6547-2391-4f9e-82ff-794a094451b0"
 			]
 		}
 	],
@@ -285,6 +285,10 @@
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": [
+				{
+					"details": "Write script to download art assets",
+					"done": false
+				},
 				{
 					"details": "Add notes about downloading art assets",
 					"done": false

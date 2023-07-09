@@ -8,7 +8,7 @@ public partial class HitScanBulletEmitter : Node2D
 {
 
 	[Export]
-	public float HitScanDistance = 10000.0f;
+	public float HitScanDistance { get; set; } = 10000.0f;
 
 	private Godot.Collections.Array<Rid> _bodiesToExclude = new ();
 

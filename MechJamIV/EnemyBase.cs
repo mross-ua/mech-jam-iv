@@ -9,7 +9,7 @@ namespace MechJamIV {
 
         #region Node references
 
-        protected Player player;
+        protected Player Player { get; private set; }
 
         #endregion
 
@@ -18,7 +18,7 @@ namespace MechJamIV {
         {
             base._Ready();
 
-            player = (Player)GetTree().GetFirstNodeInGroup("player");
+            Player = (Player)GetTree().GetFirstNodeInGroup("player");
 
             foreach (Node2D node in GetNode<Node2D>("Hitboxes").GetChildren())
             {

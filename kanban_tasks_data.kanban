@@ -32,7 +32,8 @@
 				"780e9834-6fbc-4523-9449-fd62af2283bd",
 				"41e15c4c-55f1-41c6-9794-bd340f357613",
 				"204a1279-b3f5-4634-b737-c924b635a8cc",
-				"64a8d8da-d2cf-4033-a590-f7b8e00dc9d6"
+				"64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
+				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0"
 			]
 		},
 		{
@@ -345,6 +346,13 @@
 		{
 			"uuid": "64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
 			"title": "Resolve naming conflicts of hit/hurt methods and event handlers",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "cc285e8e-36dd-49c4-abef-ee1cadd6c9b0",
+			"title": "Rebase robot character on CharacterBase",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []

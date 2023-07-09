@@ -135,6 +135,10 @@
 				{
 					"details": "Don't play run animation while in the air",
 					"done": false
+				},
+				{
+					"details": "Match animation FPS based on proportion of speed to max speed",
+					"done": false
 				}
 			]
 		},

@@ -33,7 +33,9 @@
 				"41e15c4c-55f1-41c6-9794-bd340f357613",
 				"204a1279-b3f5-4634-b737-c924b635a8cc",
 				"64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
-				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0"
+				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0",
+				"1475d785-346f-4dbe-b6b9-9665aef66301",
+				"f019bee2-f622-4151-aa14-8245ea787d3a"
 			]
 		},
 		{
@@ -363,6 +365,13 @@
 			"steps": []
 		},
 		{
+			"uuid": "1475d785-346f-4dbe-b6b9-9665aef66301",
+			"title": "Add behavior for mech enemy",
+			"description": "Use state machine",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
 			"uuid": "5738d7de-d303-4119-bf94-afe9ad149b6e",
 			"title": "Make troid enemy",
 			"description": "",
@@ -374,6 +383,26 @@
 				},
 				{
 					"details": "Troid should choose to attack player or robot",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "f019bee2-f622-4151-aa14-8245ea787d3a",
+			"title": "Add sounds",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Popping sound for Troids",
+					"done": false
+				},
+				{
+					"details": "Gun sounds",
+					"done": false
+				},
+				{
+					"details": "Mech sounds",
 					"done": false
 				}
 			]

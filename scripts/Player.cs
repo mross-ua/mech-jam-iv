@@ -48,26 +48,30 @@ public partial class Player : CharacterBase
 		return direction;
 	}
 
-    protected override bool IsJumping()
-    {
-        return IsOnFloor() && Input.IsActionJustPressed("jump");
-    }
+    protected override bool IsJumping() => IsOnFloor() && Input.IsActionJustPressed("jump");
 
 	protected override bool IsAttacking() => Input.IsActionPressed("fire");
 
-    public override void _PhysicsProcess(double delta)
+    protected override void ProcessAttack(double delta)
     {
-		if (Health <= 0)
-		{
-			return;
-		}
+		hitScanBulletEmitter.Fire();
+    }
 
-		if (IsAttacking())
+    protected override void AnimateMovement(Vector2 direction, double delta)
+    {
+		if (Mathf.IsZeroApprox(direction.X))
 		{
-			hitScanBulletEmitter.Fire();
+			animatedSprite2D.Play("idle");
 		}
+		else
+		{
+			animatedSprite2D.Play("run");
+		}
+    }
 
-        base._PhysicsProcess(delta);
+    protected override void AnimateDeath()
+    {
+		animatedSprite2D.Play("death");
     }
 
 	public override async void HurtAsync(int damage, Vector2 normal)
@@ -76,7 +80,10 @@ public partial class Player : CharacterBase
 		{
 			return;
 		}
-		else if (Health <= 0)
+
+		base.HurtAsync(damage, normal);
+
+		if (Health <= 0)
 		{
 			return;
 		}
@@ -84,18 +91,6 @@ public partial class Player : CharacterBase
 		immunityTimer = GetTree().CreateTimer(2.0f);
 
 		ActivateShield();
-
-		base.HurtAsync(damage, normal);
-
-		if (Health <= 0)
-		{
-			animatedSprite2D.Play("death");
-
-			await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
-
-			//TODO be careful with this (it messes up the camera and probably the robot too)
-			//QueueFree();
-		}
 
 		await ToSignal(immunityTimer, SceneTreeTimer.SignalName.Timeout);
 

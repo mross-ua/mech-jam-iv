@@ -30,7 +30,7 @@ namespace MechJamIV {
             drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
 		}
 
-		protected abstract Vector2 GetMovementDirection(double delta);
+		protected virtual Vector2 GetMovementDirection(double delta) => Vector2.Zero;
 
 		protected virtual bool IsJumping() => false;
 
@@ -45,12 +45,12 @@ namespace MechJamIV {
 
 			if (IsAttacking())
             {
-                //TODO
+                ProcessAttack(delta);
             }
 
             Vector2 direction = GetMovementDirection(delta);
 
-            //TODO play movement animation
+            AnimateMovement(direction, delta);
 
 			Velocity += MoveAcceleration * direction - drag * Velocity + (float)delta * gravity;
 
@@ -62,6 +62,12 @@ namespace MechJamIV {
 			}
 		}
 
+        protected abstract void ProcessAttack(double delta);
+
+        protected abstract void AnimateMovement(Vector2 direction, double delta);
+
+        protected abstract void AnimateDeath();
+
         public virtual async void HurtAsync(int damage, Vector2 normal)
         {
             if (Health <= 0)
@@ -71,17 +77,30 @@ namespace MechJamIV {
 
             Health = Math.Max(0, Health - damage);
 
+            EmitSignal(SignalName.Hurt, damage);
+
             if (Health <= 0)
             {
-                //TODO play death animation
-            }
+                AnimateDeath();
 
-            EmitSignal(SignalName.Hurt, damage);
+                await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
+
+                //TODO the game is reacting poorly when we free the player
+			    //QueueFree();
+            }
         }
 
 		public virtual async void HealAsync(int amount)
 		{
+            if (Health <= 0)
+            {
+                return;
+            }
 
+            //TODO we need to know initial/max health
+            Health = Math.Min(100, Health + amount);
+
+            EmitSignal(SignalName.Heal, amount);
 		}
 
 	}

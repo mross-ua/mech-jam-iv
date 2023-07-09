@@ -28,10 +28,15 @@ public partial class Enemy : CharacterBase
 		}
     }
 
-	protected override Vector2 GetMovementDirection(double delta)
-	{
-		Vector2 direction = Vector2.Zero;
+	protected override Vector2 GetMovementDirection(double delta) => base.GetMovementDirection(delta);
 
+    protected override void ProcessAttack(double delta)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void AnimateMovement(Vector2 direction, double delta)
+    {
 		if (Mathf.IsZeroApprox(direction.X))
 		{
 			animatedSprite2D.Play("idle");
@@ -40,27 +45,11 @@ public partial class Enemy : CharacterBase
 		{
 			animatedSprite2D.Play("run");
 		}
+    }
 
-		return direction;
-	}
-
-	public override async void HurtAsync(int damage, Vector2 normal)
-	{
-		if (Health <= 0)
-		{
-			return;
-		}
-
-		base.HurtAsync(damage, normal);
-
-		if (Health <= 0)
-		{
-			animatedSprite2D.Play("death");
-
-			await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
-
-			QueueFree();
-		}
-	}
+    protected override void AnimateDeath()
+    {
+		animatedSprite2D.Play("death");
+    }
 
 }

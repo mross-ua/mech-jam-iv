@@ -21,8 +21,8 @@ namespace MechJamIV {
         [Export]
         public float JumpVelocity { get; set; } = -400.0f;
 
-	    private Vector2 gravity = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
-		private Vector2 drag = Vector2.Zero;
+	    protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+		protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
 
         #region Node references
 
@@ -32,7 +32,7 @@ namespace MechJamIV {
 
 		public override void _Ready()
 		{
-            drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
+            Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
 
             characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 		}
@@ -59,7 +59,7 @@ namespace MechJamIV {
 
             AnimateMovement(direction, delta);
 
-			Velocity += MoveAcceleration * direction - drag * Velocity + (float)delta * gravity;
+			Velocity += MoveAcceleration * direction - Drag * Velocity + (float)delta * Gravity;
 
 			MoveAndSlide();
 

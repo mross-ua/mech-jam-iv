@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://raw_assets/super-dead-gunner-batch-2/enemies2-sheet-alpha.png" id="1_e23bj"]
 [ext_resource type="Script" path="res://scripts/EnemyMech.cs" id="1_kyk5f"]
 [ext_resource type="Texture2D" uid="uid://bscr5no8hdlm8" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/jrob774-explosion_2-sheet-alpha.png" id="2_g4aft"]
-[ext_resource type="Script" path="res://scripts/Hitbox.cs" id="2_um8ci"]
 [ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_pw5xl"]
+[ext_resource type="PackedScene" uid="uid://blpij04jleg8e" path="res://hitbox.tscn" id="5_jof1d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwasa"]
 atlas = ExtResource("2_g4aft")
@@ -233,6 +233,7 @@ script = ExtResource("1_kyk5f")
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f71hv")
 animation = &"idle"
+autoplay = "idle"
 script = ExtResource("4_pw5xl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -241,10 +242,7 @@ shape = SubResource("RectangleShape2D_u1v5i")
 
 [node name="Hitboxes" type="Node2D" parent="."]
 
-[node name="Hitbox" type="Area2D" parent="Hitboxes"]
-collision_layer = 32
-collision_mask = 0
-script = ExtResource("2_um8ci")
+[node name="Hitbox" parent="Hitboxes" instance=ExtResource("5_jof1d")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hitbox"]
 position = Vector2(-10, -15)

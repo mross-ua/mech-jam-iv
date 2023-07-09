@@ -1,7 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwc210e86gkpi"]
+[gd_scene load_steps=20 format=3 uid="uid://bwc210e86gkpi"]
 
 [ext_resource type="Script" path="res://scripts/EnemyTroid.cs" id="1_l108c"]
 [ext_resource type="Texture2D" uid="uid://b376i71q83ere" path="res://raw_assets/super-dead-gunner-batch-2/enemies-16col-sheet-alpha.png" id="2_4vtbx"]
+[ext_resource type="Texture2D" uid="uid://dbuffy8gymi7y" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/impacts-sheet-colour-2-alpha.png" id="2_585xy"]
+[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_4be1k"]
+[ext_resource type="PackedScene" uid="uid://blpij04jleg8e" path="res://hitbox.tscn" id="4_eqwrd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prhsh"]
+atlas = ExtResource("2_585xy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwaor"]
+atlas = ExtResource("2_585xy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_635u6"]
+atlas = ExtResource("2_585xy")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tlk2"]
+atlas = ExtResource("2_585xy")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ugos"]
+atlas = ExtResource("2_585xy")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2a6k0"]
+atlas = ExtResource("2_585xy")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4f2ee"]
+atlas = ExtResource("2_585xy")
+region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1vo5s"]
 atlas = ExtResource("2_4vtbx")
@@ -11,26 +42,102 @@ region = Rect2(0, 58, 20, 24)
 atlas = ExtResource("2_4vtbx")
 region = Rect2(20, 58, 20, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi72y"]
+atlas = ExtResource("2_4vtbx")
+region = Rect2(0, 58, 20, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqlkd"]
+atlas = ExtResource("2_4vtbx")
+region = Rect2(20, 58, 20, 24)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_osp1x"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prhsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwaor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_635u6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tlk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ugos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2a6k0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4f2ee")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"death",
+"speed": 20.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1vo5s")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vp71v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vp71v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vp71v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vo5s")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi72y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqlkd")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
 }]
 
-[node name="EnemyTroid" type="CharacterBody2D"]
-script = ExtResource("1_l108c")
+[sub_resource type="CircleShape2D" id="CircleShape2D_jfukp"]
+radius = 11.0454
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[sub_resource type="CircleShape2D" id="CircleShape2D_eu3kn"]
+radius = 9.0
+
+[node name="EnemyTroid" type="CharacterBody2D"]
+collision_layer = 64
+motion_mode = 1
+script = ExtResource("1_l108c")
+Health = 5
+
+[node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_osp1x")
 animation = &"idle"
-frame_progress = 0.478996
+autoplay = "idle"
+script = ExtResource("4_4be1k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jfukp")
+
+[node name="Hitboxes" type="Node2D" parent="."]
+
+[node name="Hitbox" parent="Hitboxes" instance=ExtResource("4_eqwrd")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hitbox"]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_eu3kn")

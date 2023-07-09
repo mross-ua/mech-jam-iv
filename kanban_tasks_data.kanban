@@ -29,7 +29,10 @@
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
 				"b75301a4-84a6-4399-b9b9-37b317dc5b8b",
 				"bc336b5d-ae80-4d1f-822b-8cf8655641a2",
-				"780e9834-6fbc-4523-9449-fd62af2283bd"
+				"780e9834-6fbc-4523-9449-fd62af2283bd",
+				"41e15c4c-55f1-41c6-9794-bd340f357613",
+				"204a1279-b3f5-4634-b737-c924b635a8cc",
+				"64a8d8da-d2cf-4033-a590-f7b8e00dc9d6"
 			]
 		},
 		{
@@ -37,7 +40,8 @@
 			"title": "Doing",
 			"tasks": [
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
-				"a8fb3ba2-cef9-42b0-b355-42ae5553381f"
+				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
+				"0b57bc7b-4a34-4ac6-a04a-32cf84658353"
 			]
 		},
 		{
@@ -297,6 +301,18 @@
 			]
 		},
 		{
+			"uuid": "0b57bc7b-4a34-4ac6-a04a-32cf84658353",
+			"title": "Critical hits should be random",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Weak spots should increase probability of a critical hit",
+					"done": false
+				}
+			]
+		},
+		{
 			"uuid": "a08753e1-778b-4c43-b1bc-bf8f70a3db7a",
 			"title": "Add enemy",
 			"description": "",
@@ -313,6 +329,24 @@
 			]
 		},
 		{
+			"uuid": "41e15c4c-55f1-41c6-9794-bd340f357613",
+			"title": "Use different method to get mouse coordinates",
+			"description": "From docs: https://docs.godotengine.org/en/stable/tutorials/inputs/mouse_and_input_coordinates.html\n\nWhen the mouse mode is set to Input.MOUSE_MODE_CAPTURED, the event.position value from InputEventMouseMotion is the center of the screen. Use event.relative instead of event.position and event.speed to process mouse movement and position changes.",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "204a1279-b3f5-4634-b737-c924b635a8cc",
+			"title": "Review mouse position logic in HitScanBulletEmitter.Fire()",
+			"description": "It is a bit hacked together and depends on the presence of a Camera2D node.",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
+			"title": "Resolve naming conflicts of hit/hurt methods and event handlers",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		}
 	],

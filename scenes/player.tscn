@@ -311,6 +311,7 @@ script = ExtResource("1_bcjvt")
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xxkfi")
 animation = &"idle"
+autoplay = "idle"
 script = ExtResource("4_wlw4n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

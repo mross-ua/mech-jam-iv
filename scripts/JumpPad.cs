@@ -31,7 +31,7 @@ public partial class JumpPad : Area2D
 		};
 	}
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 
 	}

@@ -45,7 +45,8 @@
 			"title": "Done",
 			"tasks": [
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
-				"421b6547-2391-4f9e-82ff-794a094451b0"
+				"421b6547-2391-4f9e-82ff-794a094451b0",
+				"a08753e1-778b-4c43-b1bc-bf8f70a3db7a"
 			]
 		}
 	],
@@ -300,6 +301,18 @@
 			"title": "Add enemy",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Add hitboxes",
+					"done": true
+				},
+				{
+					"details": "Add shooting ability to player",
+					"done": true
+				}
+			]
+		},
+		{
 			"steps": []
 		}
 	],

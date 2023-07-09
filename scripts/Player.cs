@@ -17,6 +17,7 @@ public partial class Player : CharacterBase
 	public Marker2D RobotMarker;
 	private AnimatedSprite2D animatedSprite2D;
 	private GpuParticles2D immunityShield;
+	private HitScanBulletEmitter hitScanBulletEmitter;
 
 	#endregion
 
@@ -27,6 +28,8 @@ public partial class Player : CharacterBase
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
         animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
+
+		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
     }
 
 	protected override Vector2 GetMovementDirection(double delta)
@@ -50,9 +53,24 @@ public partial class Player : CharacterBase
         return IsOnFloor() && Input.IsActionJustPressed("jump");
     }
 
-	//protected override bool IsAttacking() => false;
+	protected override bool IsAttacking() => Input.IsActionPressed("fire");
 
-	public override async void HurtAsync(int damage)
+    public override void _PhysicsProcess(double delta)
+    {
+		if (Health <= 0)
+		{
+			return;
+		}
+
+		if (IsAttacking())
+		{
+			hitScanBulletEmitter.Fire();
+		}
+
+        base._PhysicsProcess(delta);
+    }
+
+	public override async void HurtAsync(int damage, Vector2 normal)
 	{
 		if (immunityTimer != null)
 		{
@@ -67,11 +85,16 @@ public partial class Player : CharacterBase
 
 		ActivateShield();
 
-		base.HurtAsync(damage);
+		base.HurtAsync(damage, normal);
 
 		if (Health <= 0)
 		{
 			animatedSprite2D.Play("death");
+
+			await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
+
+			//TODO be careful with this (it messes up the camera and probably the robot too)
+			//QueueFree();
 		}
 
 		await ToSignal(immunityTimer, SceneTreeTimer.SignalName.Timeout);

@@ -62,7 +62,7 @@ namespace MechJamIV {
 			}
 		}
 
-        public virtual async void HurtAsync(int damage)
+        public virtual async void HurtAsync(int damage, Vector2 normal)
         {
             if (Health <= 0)
             {

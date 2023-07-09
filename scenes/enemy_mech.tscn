@@ -1,9 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://dyh1s8bk7j5t2"]
+[gd_scene load_steps=35 format=3 uid="uid://dyh1s8bk7j5t2"]
 
-[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_217he"]
 [ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://raw_assets/super-dead-gunner-batch-2/enemies2-sheet-alpha.png" id="1_e23bj"]
+[ext_resource type="Script" path="res://scripts/EnemyMech.cs" id="1_kyk5f"]
 [ext_resource type="Texture2D" uid="uid://bscr5no8hdlm8" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/jrob774-explosion_2-sheet-alpha.png" id="2_g4aft"]
 [ext_resource type="Script" path="res://scripts/Hitbox.cs" id="2_um8ci"]
+[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_pw5xl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwasa"]
 atlas = ExtResource("2_g4aft")
@@ -227,11 +228,12 @@ radius = 10.0499
 [node name="EnemyMech" type="CharacterBody2D"]
 position = Vector2(0, -29)
 collision_layer = 64
-script = ExtResource("1_217he")
+script = ExtResource("1_kyk5f")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f71hv")
 animation = &"idle"
+script = ExtResource("4_pw5xl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

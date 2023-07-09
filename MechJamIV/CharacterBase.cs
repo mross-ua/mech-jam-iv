@@ -1,4 +1,3 @@
-
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -25,16 +24,24 @@ namespace MechJamIV {
 	    private Vector2 gravity = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 		private Vector2 drag = Vector2.Zero;
 
+        #region Node references
+
+        private CharacterAnimator characterAnimator;
+
+        #endregion
+
 		public override void _Ready()
 		{
             drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
+
+            characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 		}
 
-		protected virtual Vector2 GetMovementDirection(double delta) => Vector2.Zero;
+		protected abstract Vector2 GetMovementDirection(double delta);
 
-		protected virtual bool IsJumping() => false;
+		protected abstract bool IsJumping();
 
-		protected virtual bool IsAttacking() => false;
+		protected abstract bool IsAttacking();
 
 		public override void _PhysicsProcess(double delta)
 		{
@@ -64,9 +71,9 @@ namespace MechJamIV {
 
         protected abstract void ProcessAttack(double delta);
 
-        protected abstract void AnimateMovement(Vector2 direction, double delta);
+        protected void AnimateMovement(Vector2 direction, double delta) => characterAnimator.AnimateMovement(direction, delta);
 
-        protected abstract void AnimateDeath();
+        protected void AnimateDeath() => characterAnimator.AnimateDeath();
 
         public virtual async void HurtAsync(int damage, Vector2 normal)
         {
@@ -83,9 +90,9 @@ namespace MechJamIV {
             {
                 AnimateDeath();
 
-                await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
-
                 //TODO the game is reacting poorly when we free the player
+                //await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
+
 			    //QueueFree();
             }
         }

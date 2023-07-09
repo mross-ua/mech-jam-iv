@@ -42,7 +42,8 @@
 			"tasks": [
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
-				"0b57bc7b-4a34-4ac6-a04a-32cf84658353"
+				"0b57bc7b-4a34-4ac6-a04a-32cf84658353",
+				"5738d7de-d303-4119-bf94-afe9ad149b6e"
 			]
 		},
 		{
@@ -360,6 +361,22 @@
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
+		},
+		{
+			"uuid": "5738d7de-d303-4119-bf94-afe9ad149b6e",
+			"title": "Make troid enemy",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Make robot attackable",
+					"done": false
+				},
+				{
+					"details": "Troid should choose to attack player or robot",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

@@ -46,7 +46,7 @@ public partial class HitScanBulletEmitter : Node2D
     {
         base._Draw();
 
-		DrawLine(Position, GetRelativeMousePosition(), Colors.Green, 1.0f);
+		DrawLine(Vector2.Zero, GetRelativeMousePosition(), Colors.Green, 1.0f);
     }
 
 	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
@@ -61,7 +61,8 @@ public partial class HitScanBulletEmitter : Node2D
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
 			From = GlobalTransform.Origin,
-			To = (Position + mousePos).Normalized() * HitScanDistance,
+			//TODO why does this work?
+			To = mousePos.Normalized() * HitScanDistance,
 			Exclude = _bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,

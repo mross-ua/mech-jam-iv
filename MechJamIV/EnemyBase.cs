@@ -7,9 +7,18 @@ namespace MechJamIV {
     public abstract partial class EnemyBase : CharacterBase
     {
 
+        #region Node references
+
+        protected Player player;
+
+        #endregion
+
+
         public override void _Ready()
         {
             base._Ready();
+
+            player = (Player)GetTree().GetFirstNodeInGroup("player");
 
             foreach (Node2D node in GetNode<Node2D>("Hitboxes").GetChildren())
             {

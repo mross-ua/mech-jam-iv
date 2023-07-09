@@ -32,16 +32,33 @@ namespace MechJamIV {
 
 		public override void _Ready()
 		{
-            Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
+            if (MotionMode == MotionModeEnum.Grounded)
+            {
+                Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
+            }
+            else
+            {
+                Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, MoveAcceleration / MaxMoveSpeed);
+            }
 
             characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 		}
 
-		protected abstract Vector2 GetMovementDirection(double delta);
+		protected abstract Vector2 GetMovementDirection();
 
 		protected abstract bool IsJumping();
 
 		protected abstract bool IsAttacking();
+
+        public override void _Process(double delta)
+        {
+            QueueRedraw();
+        }
+
+        public override void _Draw()
+        {
+            DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
+        }
 
 		public override void _PhysicsProcess(double delta)
 		{
@@ -55,7 +72,7 @@ namespace MechJamIV {
                 ProcessAttack(delta);
             }
 
-            Vector2 direction = GetMovementDirection(delta);
+            Vector2 direction = GetMovementDirection();
 
             AnimateMovement(direction, delta);
 

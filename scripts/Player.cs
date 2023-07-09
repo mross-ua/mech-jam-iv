@@ -30,7 +30,7 @@ public partial class Player : CharacterBase
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
     }
 
-	protected override Vector2 GetMovementDirection(double delta) => Input.GetVector("move_left", "move_right", "move_up", "move_down");
+	protected override Vector2 GetMovementDirection() => Input.GetVector("move_left", "move_right", "move_up", "move_down");
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
 

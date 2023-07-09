@@ -10,7 +10,7 @@ public partial class EnemyMech : EnemyBase
 		base._Ready();
 	}
 
-	protected override Vector2 GetMovementDirection(double delta) => Vector2.Zero;
+	protected override Vector2 GetMovementDirection() => Vector2.Zero;
 
     protected override bool IsJumping() => false;
 

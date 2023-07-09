@@ -12,9 +12,6 @@ collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_x56ow")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-16, 0, -13, -14, 13, -14, 16, 0)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-8, -8)
 texture = SubResource("AtlasTexture_e7upb")
@@ -24,3 +21,6 @@ region_rect = Rect2(112, 16, 16, 16)
 position = Vector2(8, -8)
 texture = SubResource("AtlasTexture_e7upb")
 region_rect = Rect2(112, 16, 16, 16)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-16, 0, -13, -14, 13, -14, 16, 0)

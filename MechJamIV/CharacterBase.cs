@@ -90,6 +90,8 @@ namespace MechJamIV {
 
         protected void AnimateMovement(Vector2 direction, double delta) => characterAnimator.AnimateMovement(direction, delta);
 
+        protected abstract void AnimateInjuryAsync(int damage, Vector2 normal);
+
         protected void AnimateDeath() => characterAnimator.AnimateDeath();
 
         public virtual async void HurtAsync(int damage, Vector2 normal)
@@ -102,6 +104,8 @@ namespace MechJamIV {
             Health = Math.Max(0, Health - damage);
 
             EmitSignal(SignalName.Hurt, damage);
+
+            AnimateInjuryAsync(damage, normal);
 
             if (Health <= 0)
             {

@@ -20,6 +20,12 @@ public partial class Player : CharacterBase
 
 	#endregion
 
+	#region Resources
+
+	private PackedScene bloodSplatter = ResourceLoader.Load<PackedScene>("res://scenes/blood_splatter.tscn");
+
+	#endregion
+
     public override void _Ready()
     {
 		base._Ready();
@@ -65,6 +71,19 @@ public partial class Player : CharacterBase
 
 		immunityTimer = null;
 	}
+
+	protected async override void AnimateInjuryAsync(int damage, Vector2 normal)
+    {
+        GpuParticles2D splatter = bloodSplatter.Instantiate<GpuParticles2D>();
+
+		AddChild(splatter);
+
+		splatter.Emitting = true;
+
+		await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
+
+		splatter.QueueFree();
+    }
 
 	public void ActivateShield()
 	{

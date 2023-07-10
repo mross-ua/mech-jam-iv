@@ -22,7 +22,6 @@
 				"0b257823-8c70-4621-86f4-cfd78225b416",
 				"d2cefd83-5059-436b-8b3d-da385b594029",
 				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
-				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
 				"7e206230-1945-43db-9228-ad0085d786ee",
 				"4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
 				"e623005c-7655-41f5-93af-a0436331d420",
@@ -47,7 +46,8 @@
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 				"0b57bc7b-4a34-4ac6-a04a-32cf84658353",
-				"5738d7de-d303-4119-bf94-afe9ad149b6e"
+				"5738d7de-d303-4119-bf94-afe9ad149b6e",
+				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c"
 			]
 		},
 		{
@@ -171,7 +171,7 @@
 				},
 				{
 					"details": "Add particle effect",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add sound",

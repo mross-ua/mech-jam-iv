@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2fgbc8librcm"]
+
+[sub_resource type="Gradient" id="Gradient_4bs8x"]
+offsets = PackedFloat32Array(0, 0.221239, 0.482301, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 1, 0.235294, 0.333333, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8uv3t"]
+gradient = SubResource("Gradient_4bs8x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d4e1w"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+angular_velocity_max = 3.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color_ramp = SubResource("GradientTexture1D_8uv3t")
+
+[node name="ShrapnelSplatter" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_d4e1w")
+one_shot = true
+explosiveness = 1.0

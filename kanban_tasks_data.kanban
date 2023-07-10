@@ -41,7 +41,8 @@
 				"dfffbd50-cb43-4aef-9c5f-16b7f515d9eb",
 				"e060b4f2-62f3-42c6-93f7-251796b3fd61",
 				"bda2224d-406c-418a-b6b0-f523d681203d",
-				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4"
+				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4",
+				"f8dda55a-578b-4880-9b17-775cabd85440"
 			]
 		},
 		{
@@ -486,6 +487,13 @@
 			"title": "Player takes damage from hitbox after enemy death",
 			"description": "Just need to to make the hitboxes invisible (all of them).",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "f8dda55a-578b-4880-9b17-775cabd85440",
+			"title": "Add a dog to the game?",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		}
 	],

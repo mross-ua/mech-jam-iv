@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://du3si7fvnoa5m"]
+
+[ext_resource type="Script" path="res://scripts/ExplosiveBarrel.cs" id="1_et6ja"]
+[ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://raw_assets/space-merc/space_merc.png" id="2_4gtso"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eohit"]
+atlas = ExtResource("2_4gtso")
+region = Rect2(544, 120, 16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_avao1"]
+size = Vector2(16, 23)
+
+[node name="ExplosiveBarrel" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 95
+script = ExtResource("1_et6ja")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_eohit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_avao1")

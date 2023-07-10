@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://nqbfpa8gpdu8"]
+[gd_scene load_steps=18 format=3 uid="uid://nqbfpa8gpdu8"]
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_ei5o8"]
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/player.tscn" id="1_hv76r"]
@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bjdstnq527cta" path="res://scenes/jump_pad.tscn" id="5_thnu3"]
 [ext_resource type="PackedScene" uid="uid://cx2gfd1kayu52" path="res://scenes/spikes.tscn" id="6_3a6ab"]
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/char-sheet-alpha.png" id="7_ns3fb"]
+[ext_resource type="PackedScene" uid="uid://c6df5qfxoappy" path="res://scenes/barrel.tscn" id="8_7tdd8"]
 [ext_resource type="PackedScene" uid="uid://dyh1s8bk7j5t2" path="res://scenes/enemy_mech.tscn" id="9_7mfof"]
+[ext_resource type="PackedScene" uid="uid://du3si7fvnoa5m" path="res://scenes/explosive_barrel.tscn" id="9_s7g5v"]
 [ext_resource type="PackedScene" uid="uid://bwc210e86gkpi" path="res://scenes/enemy_troid.tscn" id="10_hrug0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uca4c"]
@@ -261,6 +263,15 @@ metadata/_edit_lock_ = true
 [node name="JumpPad" parent="Environment" instance=ExtResource("5_thnu3")]
 position = Vector2(416, 373)
 metadata/_edit_lock_ = true
+
+[node name="Barrel" parent="Environment" instance=ExtResource("8_7tdd8")]
+position = Vector2(705, 388)
+
+[node name="Barrel2" parent="Environment" instance=ExtResource("8_7tdd8")]
+position = Vector2(695, 365)
+
+[node name="ExplosiveBarrel" parent="Environment" instance=ExtResource("9_s7g5v")]
+position = Vector2(683, 388)
 
 [node name="Hazards" type="Node" parent="."]
 

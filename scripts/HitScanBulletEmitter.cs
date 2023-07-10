@@ -77,6 +77,10 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				hitbox.Hurt(Damage, normal);
 			}
+			else if (collision["collider"].Obj is Barrel barrel)
+			{
+				barrel.HurtAsync(Damage, normal);
+			}
 			else
 			{
 				// environment hit

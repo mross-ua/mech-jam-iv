@@ -40,7 +40,9 @@
 				"dfffbd50-cb43-4aef-9c5f-16b7f515d9eb",
 				"e060b4f2-62f3-42c6-93f7-251796b3fd61",
 				"bda2224d-406c-418a-b6b0-f523d681203d",
-				"f8dda55a-578b-4880-9b17-775cabd85440"
+				"f8dda55a-578b-4880-9b17-775cabd85440",
+				"11b3a022-755c-40d6-af8a-a1164177b9b2",
+				"7171987d-0355-4db3-be06-05746adb5967"
 			]
 		},
 		{
@@ -290,6 +292,10 @@
 				{
 					"details": "Add shield boost (temporary overcharge)",
 					"done": false
+				},
+				{
+					"details": "Add ammo",
+					"done": false
 				}
 			]
 		},
@@ -492,6 +498,20 @@
 		{
 			"uuid": "f8dda55a-578b-4880-9b17-775cabd85440",
 			"title": "Add a dog to the game?",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "11b3a022-755c-40d6-af8a-a1164177b9b2",
+			"title": "Add plasma gun",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "7171987d-0355-4db3-be06-05746adb5967",
+			"title": "Add ammo",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []

@@ -25,6 +25,18 @@ namespace MechJamIV {
                 if (node is Hitbox hitbox)
                 {
                     hitbox.Hit += (damage, normal) => HurtAsync(damage, normal);
+                    hitbox.Colliding += (body) =>
+                    {
+                        if (Health <= 0)
+                        {
+                            return;
+                        }
+
+                        if (body is Player player)
+                        {
+                            player.HurtAsync(hitbox.Damage, Vector2.Zero);
+                        }
+                    };
                 }
             }
         }

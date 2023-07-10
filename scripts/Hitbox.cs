@@ -8,6 +8,9 @@ public partial class Hitbox : Area2D
 
 	[Signal]
 	public delegate void HitEventHandler(int damage, Vector2 direction);
+	[Obsolete("This is probably not very performant as we don't have any rate limiting on this.")]
+	[Signal]
+	public delegate void CollidingEventHandler(Node2D body);
 
 	[Export]
 	public int Damage { get; set; } = 10;
@@ -26,7 +29,7 @@ public partial class Hitbox : Area2D
 			{
 				collidingBodies.Add(player.GetRid(), player);
 
-				player.HurtAsync(Damage, Vector2.Zero);
+				EmitSignal(SignalName.Colliding, player);
 			}
 		};
 		BodyExited += (body) =>
@@ -44,7 +47,7 @@ public partial class Hitbox : Area2D
 		{
 			foreach (KeyValuePair<Rid, Player> kvp in collidingBodies)
 			{
-				kvp.Value.HurtAsync(Damage, Vector2.Zero);
+				EmitSignal(SignalName.Colliding, kvp.Value);
 			}
 		}
 	}

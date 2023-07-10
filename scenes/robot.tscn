@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtsnbv8umgt5h"]
+[gd_scene load_steps=10 format=3 uid="uid://dtsnbv8umgt5h"]
 
 [ext_resource type="Script" path="res://scripts/Robot.cs" id="1_ga06e"]
 [ext_resource type="Texture2D" uid="uid://bxs1dcnhhud8d" path="res://raw_assets/space-merc-redux-platform-shmup-tileset/tiles-tech-gold-blue-alpha.png" id="1_xq3as"]
+[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="3_5unbu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dsws0"]
 atlas = ExtResource("1_xq3as")
@@ -83,10 +84,11 @@ collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_ga06e")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4dncl")
 animation = &"idle"
 autoplay = "idle"
+script = ExtResource("3_5unbu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_751yh")

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://co8t223oorgqn"]
+
+[ext_resource type="Script" path="res://scripts/Spawn.cs" id="1_lewgn"]
+[ext_resource type="PackedScene" uid="uid://cses4a08f7sqs" path="res://scenes/tile_map_tech_steel_green.tscn" id="1_lodwd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o5a4"]
+size = Vector2(48, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2phkp"]
+emission_shape = 3
+emission_box_extents = Vector3(24, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = -8.0
+initial_velocity_max = -8.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color = Color(0, 0.666667, 0, 1)
+
+[node name="Spawn" type="Node2D" groups=["spawn"]]
+script = ExtResource("1_lewgn")
+
+[node name="TileMapTechSteelGreen" parent="." instance=ExtResource("1_lodwd")]
+position = Vector2(8, 0)
+layer_0/tile_data = PackedInt32Array(65534, 458752, 13, 65535, 524288, 13, 0, 589824, 13)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(8, 0)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-8, -0.5)
+shape = SubResource("RectangleShape2D_6o5a4")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, -23)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_2phkp")

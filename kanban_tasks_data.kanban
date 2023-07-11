@@ -50,6 +50,7 @@
 			"tasks": [
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
+				"7e206230-1945-43db-9228-ad0085d786ee",
 				"a08753e1-778b-4c43-b1bc-bf8f70a3db7a",
 				"5738d7de-d303-4119-bf94-afe9ad149b6e",
 				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4",
@@ -236,12 +237,8 @@
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": [
 				{
-					"details": "Add animation",
-					"done": false
-				},
-				{
 					"details": "Add particle effect",
-					"done": false
+					"done": true
 				}
 			]
 		},
@@ -441,6 +438,10 @@
 				},
 				{
 					"details": "Explosion sounds",
+					"done": false
+				},
+				{
+					"details": "Spawn",
 					"done": false
 				}
 			]

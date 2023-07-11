@@ -1,13 +1,22 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class World : Node2D
 {
+
+	#region Node references
 
 	private Player player;
 
 	private ProgressBar healthBar;
 	private GpuParticles2D immunityShield;
+
+	private IList<Spawn> spawns;
+	private Spawn activeSpawn;
+
+	#endregion
 
 	public override void _Ready()
 	{
@@ -19,8 +28,25 @@ public partial class World : Node2D
 
 		healthBar = GetNode<ProgressBar>("Player/Camera2D/UI/HealthBar");
 		healthBar.Value = player.Health;
-
 		immunityShield = GetNode<GpuParticles2D>("Player/Camera2D/UI/HealthBar/TextureRect/ImmunityShield");
+
+		spawns = new List<Spawn>();
+		foreach (Spawn spawn in GetTree().GetNodesInGroup("spawn").OfType<Spawn>())
+		{
+			spawns.Add(spawn);
+
+			if (activeSpawn == null && spawn.IsWorldSpawn)
+			{
+				activeSpawn = spawn;
+			}
+
+			spawn.SpawnReached += (player) =>
+			{
+				activeSpawn = spawn;
+			};
+		}
+
+		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 	}
 
 	public override void _Process(double delta)
@@ -36,7 +62,7 @@ public partial class World : Node2D
 		}
 		else if (Input.IsActionPressed("reset"))
 		{
-			GetTree().ReloadCurrentScene();
+			player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 		}
     }
 

@@ -47,6 +47,11 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				barrel.HurtAsync(Damage, normal);
 			}
+			//BUG: Grenades are not currently in the Environment layer. (See kanban task.)
+			else if (collision["collider"].Obj is Grenade grenade)
+			{
+				grenade.HurtAsync(Damage, normal);
+			}
 			else
 			{
 				// environment hit

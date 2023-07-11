@@ -95,6 +95,7 @@
 			"title": "Other",
 			"tasks": [
 				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
+				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
 				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
 				"3c665da5-ea9e-458c-9068-0b0ef93e0fc7",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
@@ -644,6 +645,13 @@
 			"uuid": "9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 			"title": "Dead enemies/explosives continue to collide",
 			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
+			"title": "Grenade bugs due to not being in a collision layer",
+			"description": "Grenades cannot be shot because they are not in a collision layer. They were not put in the Environment layer because they would immediately collide with the player. We may need a new layer just for grenades.\n\nAlso, grenades cannot trigger explosions of other grenades.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		}

@@ -31,9 +31,12 @@
 			"uuid": "2672f96a-9194-47de-b5a1-7961b242be5a",
 			"title": "Todo",
 			"tasks": [
+				"429a4d67-879f-4d41-8518-567ee61afb8a",
 				"1475d785-346f-4dbe-b6b9-9665aef66301",
 				"bda2224d-406c-418a-b6b0-f523d681203d",
-				"5b14b405-f3ad-40ee-b866-d9435c868fb9"
+				"5b14b405-f3ad-40ee-b866-d9435c868fb9",
+				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
+				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b"
 			]
 		},
 		{
@@ -62,6 +65,7 @@
 			"uuid": "ea59d79b-f8bf-487b-82fd-1ae4113af119",
 			"title": "Gameplay Ideas",
 			"tasks": [
+				"b5487c7d-88f5-43cd-b06b-9545a2928f88",
 				"0b57bc7b-4a34-4ac6-a04a-32cf84658353",
 				"38820a96-6835-4276-b34b-2538875d9eeb",
 				"11b3a022-755c-40d6-af8a-a1164177b9b2",
@@ -90,7 +94,9 @@
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
 			"title": "Other",
 			"tasks": [
+				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
+				"3c665da5-ea9e-458c-9068-0b0ef93e0fc7",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
 				"f019bee2-f622-4151-aa14-8245ea787d3a",
 				"d2cefd83-5059-436b-8b3d-da385b594029",
@@ -99,11 +105,12 @@
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
+				"69960687-446b-4e41-9686-b53b43ff652f",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
+				"204a1279-b3f5-4634-b737-c924b635a8cc",
 				"780e9834-6fbc-4523-9449-fd62af2283bd",
 				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
 				"940a4908-25af-461e-a939-a8d1ed90a95c",
-				"204a1279-b3f5-4634-b737-c924b635a8cc",
 				"41e15c4c-55f1-41c6-9794-bd340f357613",
 				"64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
 				"69cb3884-3f49-4dcf-8122-482362823170"
@@ -583,6 +590,35 @@
 					"done": false
 				}
 			]
+		},
+		{
+			"uuid": "429a4d67-879f-4d41-8518-567ee61afb8a",
+			"title": "Explosion damage should scale to distance (like push force)",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
+			"title": "Bullet trails (tracers)",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
+			"title": "Add parallax background",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "3c665da5-ea9e-458c-9068-0b0ef93e0fc7",
+			"title": "Improved player animation",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
 		{
 			"uuid": "c904ff3c-dd79-48d0-aa18-f12735de0abf",
 			"title": "Add grenade",
@@ -591,6 +627,25 @@
 			"steps": []
 		},
 		{
+			"uuid": "69960687-446b-4e41-9686-b53b43ff652f",
+			"title": "Timer refactor",
+			"description": "Which is better? Coroutine or event?\n\n    await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);\n\nor (NOTE THAT THIS MAY REQUIRE KEEPING A REFERENCE TO THE TIMER SO IT ISN'T GC'd)\n\n    explosionTimer = GetTree().CreateTimer(3.0f);\n\texplosionTimer.Timeout += () => Explode();",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": []
+		},
+		{
+			"uuid": "b5487c7d-88f5-43cd-b06b-9545a2928f88",
+			"title": "Allow grenades to be picked up",
+			"description": "",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": []
+		},
+		{
+			"uuid": "9cffd7b1-a177-44e3-bde8-de147bdfbc09",
+			"title": "Dead enemies/explosives continue to collide",
+			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
 		}
 	],
 	"layout": {

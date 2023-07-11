@@ -1,0 +1,117 @@
+[gd_scene load_steps=17 format=3 uid="uid://bg2lrlwoo7stu"]
+
+[ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://raw_assets/space-merc/space_merc.png" id="1_2e28v"]
+[ext_resource type="Script" path="res://scripts/Grenade.cs" id="1_k8bcu"]
+[ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/impacts-sheet-colour-3-alpha.png" id="2_tts1i"]
+[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_twoyx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ajwn"]
+atlas = ExtResource("2_tts1i")
+region = Rect2(0, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxccc"]
+atlas = ExtResource("2_tts1i")
+region = Rect2(32, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uojkj"]
+atlas = ExtResource("2_tts1i")
+region = Rect2(64, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk4db"]
+atlas = ExtResource("2_tts1i")
+region = Rect2(96, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7isd8"]
+atlas = ExtResource("2_tts1i")
+region = Rect2(128, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ga17y"]
+atlas = ExtResource("2_tts1i")
+region = Rect2(160, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ofpa"]
+atlas = ExtResource("2_tts1i")
+region = Rect2(192, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sric"]
+atlas = ExtResource("1_2e28v")
+region = Rect2(240, 152, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl60u"]
+atlas = ExtResource("1_2e28v")
+region = Rect2(240, 152, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gsn40"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ajwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxccc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uojkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xk4db")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7isd8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ga17y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ofpa")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"death",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sric")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl60u")
+}],
+"loop": false,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b3mic"]
+radius = 4.12311
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bo8vd"]
+radius = 50.0
+
+[node name="Grenade" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 89
+script = ExtResource("1_k8bcu")
+
+[node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gsn40")
+animation = &"run"
+autoplay = "idle"
+script = ExtResource("4_twoyx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b3mic")
+
+[node name="ExplosionAreaOfEffect" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 110
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionAreaOfEffect"]
+shape = SubResource("CircleShape2D_bo8vd")

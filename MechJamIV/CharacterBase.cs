@@ -48,7 +48,7 @@ namespace MechJamIV {
 
 		protected abstract bool IsJumping();
 
-		protected abstract bool IsAttacking();
+		protected abstract AttackType? IsAttacking();
 
         public override void _Process(double delta)
         {
@@ -67,9 +67,10 @@ namespace MechJamIV {
                 return;
             }
 
-			if (IsAttacking())
+            AttackType? attackType = IsAttacking();
+			if (attackType.HasValue)
             {
-                ProcessAttack(delta);
+                ProcessAttack(delta, attackType.Value);
             }
 
             Vector2 direction = GetMovementDirection();
@@ -86,7 +87,7 @@ namespace MechJamIV {
 			}
 		}
 
-        protected abstract void ProcessAttack(double delta);
+        protected abstract void ProcessAttack(double delta, AttackType attackType);
 
         protected void AnimateMovement(Vector2 direction, double delta) => characterAnimator.AnimateMovement(direction, delta);
 

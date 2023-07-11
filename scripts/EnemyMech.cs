@@ -20,9 +20,9 @@ public partial class EnemyMech : EnemyBase
 
     protected override bool IsJumping() => false;
 
-	protected override bool IsAttacking() => false;
+	protected override AttackType? IsAttacking() => null;
 
-    protected override void ProcessAttack(double delta)
+    protected override void ProcessAttack(double delta, AttackType attackType)
     {
         throw new NotImplementedException();
     }

@@ -52,6 +52,7 @@
 				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4",
 				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
 				"dfffbd50-cb43-4aef-9c5f-16b7f515d9eb",
+				"c904ff3c-dd79-48d0-aa18-f12735de0abf",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0"
@@ -582,6 +583,14 @@
 					"done": false
 				}
 			]
+		{
+			"uuid": "c904ff3c-dd79-48d0-aa18-f12735de0abf",
+			"title": "Add grenade",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
 		}
 	],
 	"layout": {

@@ -24,4 +24,11 @@ namespace MechJamIV {
         Hitbox = 32,
         Enemy = 64
     }
+
+    public enum AttackType
+    {
+        Gunfire,
+        SustainedGunfire,
+        Explosive
+    }
 }

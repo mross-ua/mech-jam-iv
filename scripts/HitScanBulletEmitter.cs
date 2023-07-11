@@ -18,47 +18,13 @@ public partial class HitScanBulletEmitter : Node2D
 
 	//private PackedScene bulletHitEffect = ResourceLoader.Load<PackedScene>("res://assets/effects/bullet_hit_effect.tscn");
 
-	#region Node references
-
-	//TODO remove! this is temporary!
-	private Camera2D camera2D;
-
-	#endregion
-
-	public override void _Ready()
-	{
-		camera2D = GetParent().GetNode<Camera2D>("Camera2D");
-	}
-
-	public override void _Process(double delta)
-	{
-		QueueRedraw();
-	}
-
-	private Vector2 GetRelativeMousePosition()
-	{
-		//return GetViewport().GetMousePosition();
-		//return GetGlobalMousePosition();
-		//TODO why does this work?
-		return camera2D.GetGlobalMousePosition() - GlobalTransform.Origin;
-	}
-
-    public override void _Draw()
-    {
-        base._Draw();
-
-		DrawLine(Vector2.Zero, GetRelativeMousePosition(), Colors.Green, 1.0f);
-    }
-
 	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
 	{
 		_bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
 	}
 
-	public void Fire()
+	public void Fire(Vector2 mousePos)
 	{
-		Vector2 mousePos = GetRelativeMousePosition();
-
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
 			From = GlobalTransform.Origin,

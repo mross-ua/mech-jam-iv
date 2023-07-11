@@ -17,7 +17,8 @@ public partial class Player : CharacterBase
 
 	#region Node references
 
-	public Marker2D RobotMarker;
+	public Marker2D RobotMarker { get; set; }
+
 	private GpuParticles2D immunityShield;
 	private HitScanBulletEmitter hitScanBulletEmitter;
 	//TODO remove! this is temporary!

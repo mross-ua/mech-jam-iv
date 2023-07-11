@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://du3si7fvnoa5m"]
+[gd_scene load_steps=17 format=3 uid="uid://du3si7fvnoa5m"]
 
 [ext_resource type="Script" path="res://scripts/ExplosiveBarrel.cs" id="1_et6ja"]
 [ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://raw_assets/space-merc/space_merc.png" id="2_4gtso"]
@@ -92,6 +92,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avao1"]
 size = Vector2(16, 23)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_keovr"]
+radius = 47.0106
+
 [node name="ExplosiveBarrel" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 95
@@ -106,3 +109,10 @@ script = ExtResource("4_f8lv1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_avao1")
+
+[node name="ExplosionAreaOfEffect" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 110
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionAreaOfEffect"]
+shape = SubResource("CircleShape2D_keovr")

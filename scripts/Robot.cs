@@ -27,12 +27,12 @@ public partial class Robot : CharacterBase
 
     protected override void ProcessAttack(double delta)
 	{
-		throw new NotImplementedException();
+		//TODO
 	}
 
 	protected async override void AnimateInjuryAsync(int damage, Vector2 normal)
 	{
-		throw new NotImplementedException();
+		//TODO
 	}
 
 }

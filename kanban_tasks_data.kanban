@@ -9,6 +9,21 @@
 			"uuid": "d7f3156e-deab-4272-904a-646df391c36d",
 			"title": "Bug",
 			"color": "e32007"
+		},
+		{
+			"uuid": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"title": "Idea",
+			"color": "ff9900"
+		},
+		{
+			"uuid": "8098e19b-3628-4202-bf0e-6c124903a6bc",
+			"title": "Polish",
+			"color": "ffff29"
+		},
+		{
+			"uuid": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"title": "Other",
+			"color": "9895aa"
 		}
 	],
 	"stages": [
@@ -16,55 +31,81 @@
 			"uuid": "2672f96a-9194-47de-b5a1-7961b242be5a",
 			"title": "Todo",
 			"tasks": [
-				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
-				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
-				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
-				"0b257823-8c70-4621-86f4-cfd78225b416",
-				"d2cefd83-5059-436b-8b3d-da385b594029",
-				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
-				"7e206230-1945-43db-9228-ad0085d786ee",
-				"4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
-				"e623005c-7655-41f5-93af-a0436331d420",
-				"67e7ea18-c0b9-418b-9978-fca800a87fef",
-				"b75301a4-84a6-4399-b9b9-37b317dc5b8b",
-				"bc336b5d-ae80-4d1f-822b-8cf8655641a2",
-				"780e9834-6fbc-4523-9449-fd62af2283bd",
-				"41e15c4c-55f1-41c6-9794-bd340f357613",
-				"204a1279-b3f5-4634-b737-c924b635a8cc",
-				"64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
 				"1475d785-346f-4dbe-b6b9-9665aef66301",
-				"f019bee2-f622-4151-aa14-8245ea787d3a",
-				"5b14b405-f3ad-40ee-b866-d9435c868fb9",
-				"69cb3884-3f49-4dcf-8122-482362823170",
-				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
-				"e060b4f2-62f3-42c6-93f7-251796b3fd61",
 				"bda2224d-406c-418a-b6b0-f523d681203d",
-				"f8dda55a-578b-4880-9b17-775cabd85440",
-				"11b3a022-755c-40d6-af8a-a1164177b9b2",
-				"7171987d-0355-4db3-be06-05746adb5967"
+				"5b14b405-f3ad-40ee-b866-d9435c868fb9"
 			]
 		},
 		{
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
 			"title": "Doing",
-			"tasks": [
-				"333761d4-a5ef-4e56-a8d1-449f87448b67",
-				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
-				"0b57bc7b-4a34-4ac6-a04a-32cf84658353",
-				"5738d7de-d303-4119-bf94-afe9ad149b6e",
-				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
 			"title": "Done",
 			"tasks": [
+				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
-				"421b6547-2391-4f9e-82ff-794a094451b0",
 				"a08753e1-778b-4c43-b1bc-bf8f70a3db7a",
+				"5738d7de-d303-4119-bf94-afe9ad149b6e",
 				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4",
-				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0",
-				"dfffbd50-cb43-4aef-9c5f-16b7f515d9eb"
+				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
+				"dfffbd50-cb43-4aef-9c5f-16b7f515d9eb",
+				"421b6547-2391-4f9e-82ff-794a094451b0",
+				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
+				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0"
+			]
+		},
+		{
+			"uuid": "ea59d79b-f8bf-487b-82fd-1ae4113af119",
+			"title": "Gameplay Ideas",
+			"tasks": [
+				"0b57bc7b-4a34-4ac6-a04a-32cf84658353",
+				"38820a96-6835-4276-b34b-2538875d9eeb",
+				"11b3a022-755c-40d6-af8a-a1164177b9b2",
+				"1cfa25d8-84ca-492f-b1c5-40a6a718a15f",
+				"74fb86a6-2527-47c8-8624-c0c9442ec0a6",
+				"f8dda55a-578b-4880-9b17-775cabd85440",
+				"b75301a4-84a6-4399-b9b9-37b317dc5b8b",
+				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92"
+			]
+		},
+		{
+			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
+			"title": "Expedite",
+			"tasks": []
+		},
+		{
+			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
+			"title": "Expedite",
+			"tasks": [
+				"7e206230-1945-43db-9228-ad0085d786ee",
+				"7171987d-0355-4db3-be06-05746adb5967",
+				"bc336b5d-ae80-4d1f-822b-8cf8655641a2"
+			]
+		},
+		{
+			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
+			"title": "Other",
+			"tasks": [
+				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
+				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
+				"f019bee2-f622-4151-aa14-8245ea787d3a",
+				"d2cefd83-5059-436b-8b3d-da385b594029",
+				"0b257823-8c70-4621-86f4-cfd78225b416",
+				"4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
+				"e623005c-7655-41f5-93af-a0436331d420",
+				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
+				"67e7ea18-c0b9-418b-9978-fca800a87fef",
+				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
+				"780e9834-6fbc-4523-9449-fd62af2283bd",
+				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
+				"940a4908-25af-461e-a939-a8d1ed90a95c",
+				"204a1279-b3f5-4634-b737-c924b635a8cc",
+				"41e15c4c-55f1-41c6-9794-bd340f357613",
+				"64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
+				"69cb3884-3f49-4dcf-8122-482362823170"
 			]
 		}
 	],
@@ -73,7 +114,7 @@
 			"uuid": "6e36c9e7-8574-47dd-808e-8f37d976e5b9",
 			"title": "Dedupe spritesheet resources",
 			"description": "When we drop a texture onto a node, it creates a unique resource. The resources can be deduped by saving the texture as a resource.",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": [
 				{
 					"details": "Save spritesheet as resource",
@@ -89,7 +130,7 @@
 			"uuid": "0b257823-8c70-4621-86f4-cfd78225b416",
 			"title": "Fix jump_pad sprite",
 			"description": "There is a 1 pixel bleed on top and bottom",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": []
 		},
 		{
@@ -136,14 +177,14 @@
 			"uuid": "067f3d45-a8c3-46f1-97dc-fc28583328fe",
 			"title": "Add license",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
 		{
 			"uuid": "d2cefd83-5059-436b-8b3d-da385b594029",
 			"title": "Fix player sprite",
 			"description": "",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": [
 				{
 					"details": "Don't play run animation while in the air",
@@ -159,7 +200,7 @@
 			"uuid": "04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
 			"title": "Add crouch ability",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": [
 				{
 					"details": "Shrink collision shape during crouch",
@@ -174,16 +215,8 @@
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": [
 				{
-					"details": "Add red flash",
-					"done": false
-				},
-				{
 					"details": "Add particle effect",
 					"done": true
-				},
-				{
-					"details": "Add sound",
-					"done": false
 				}
 			]
 		},
@@ -214,20 +247,12 @@
 					"done": true
 				},
 				{
-					"details": "Allow player to turn on immunity",
-					"done": false
-				},
-				{
 					"details": "Add animation/particle effect",
 					"done": true
 				},
 				{
 					"details": "Add UI element to show immunity status",
 					"done": true
-				},
-				{
-					"details": "Add shield discharge/recharge",
-					"done": false
 				}
 			]
 		},
@@ -242,21 +267,21 @@
 			"uuid": "4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
 			"title": "Immunity particle effect needs improvement",
 			"description": "The particles persist after being made not visible and when set to visible again, the particles from the previous time the effect was enabled appear. In addition, setting the particles to not visible makes them immediately disappear rather than live out their lifetime; the transition is abrupt.",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": []
 		},
 		{
 			"uuid": "e623005c-7655-41f5-93af-a0436331d420",
 			"title": "Add particle effect to robot companion for its movement",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": []
 		},
 		{
 			"uuid": "67e7ea18-c0b9-418b-9978-fca800a87fef",
 			"title": "Create theme for UI",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": [
 				{
 					"details": "Save as reusable resource",
@@ -272,7 +297,7 @@
 			"uuid": "b75301a4-84a6-4399-b9b9-37b317dc5b8b",
 			"title": "Add portals?",
 			"description": "The portals (from Sportal) still don't have an easy way to be rearranged in a scene, so don't waste any time on trying to fix them.",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
 		},
 		{
@@ -303,30 +328,21 @@
 			"uuid": "780e9834-6fbc-4523-9449-fd62af2283bd",
 			"title": "Create tileset/map for hazards",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
 		{
 			"uuid": "a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 			"title": "Add README",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
-			"steps": [
-				{
-					"details": "Write script to download art assets",
-					"done": false
-				},
-				{
-					"details": "Add notes about downloading art assets",
-					"done": false
-				}
-			]
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": []
 		},
 		{
 			"uuid": "0b57bc7b-4a34-4ac6-a04a-32cf84658353",
 			"title": "Critical hits should be random",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": [
 				{
 					"details": "Weak spots should increase probability of a critical hit",
@@ -354,28 +370,28 @@
 			"uuid": "41e15c4c-55f1-41c6-9794-bd340f357613",
 			"title": "Use different method to get mouse coordinates",
 			"description": "From docs: https://docs.godotengine.org/en/stable/tutorials/inputs/mouse_and_input_coordinates.html\n\nWhen the mouse mode is set to Input.MOUSE_MODE_CAPTURED, the event.position value from InputEventMouseMotion is the center of the screen. Use event.relative instead of event.position and event.speed to process mouse movement and position changes.",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
 		{
 			"uuid": "204a1279-b3f5-4634-b737-c924b635a8cc",
 			"title": "Review mouse position logic in HitScanBulletEmitter.Fire()",
 			"description": "It is a bit hacked together and depends on the presence of a Camera2D node.",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
 		{
 			"uuid": "64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
 			"title": "Resolve naming conflicts of hit/hurt methods and event handlers",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
 		{
 			"uuid": "cc285e8e-36dd-49c4-abef-ee1cadd6c9b0",
 			"title": "Rebase robot character on CharacterBase",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
 		{
@@ -390,22 +406,13 @@
 			"title": "Make troid enemy",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
-			"steps": [
-				{
-					"details": "Make robot attackable",
-					"done": false
-				},
-				{
-					"details": "Troid should choose to attack player or robot",
-					"done": false
-				}
-			]
+			"steps": []
 		},
 		{
 			"uuid": "f019bee2-f622-4151-aa14-8245ea787d3a",
 			"title": "Add sounds",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": [
 				{
 					"details": "Popping sound for Troids",
@@ -418,6 +425,14 @@
 				{
 					"details": "Mech sounds",
 					"done": false
+				},
+				{
+					"details": "Damage sounds",
+					"done": false
+				},
+				{
+					"details": "Explosion sounds",
+					"done": false
 				}
 			]
 		},
@@ -425,21 +440,21 @@
 			"uuid": "5b14b405-f3ad-40ee-b866-d9435c868fb9",
 			"title": "Add flag to draw debug stuff",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
 		{
 			"uuid": "69cb3884-3f49-4dcf-8122-482362823170",
 			"title": "Drag is not working the way i expect",
 			"description": "When using the '*' operator between two vectors, the components are multiplied. So do we want the Y component to be 0.0 or 1.0?\n\nAlso, is this a real or even practical equation? Shouldn't drag be dependent on velocity?\n    Drag = MoveAcceleration / MaxMoveSpeed\n",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
 		{
 			"uuid": "4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 			"title": "Accessibility",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": [
 				{
 					"details": "Make splatter colors accessible",
@@ -475,13 +490,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "e060b4f2-62f3-42c6-93f7-251796b3fd61",
-			"title": "Add firing rate and reload mechanism",
-			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
-			"steps": []
-		},
-		{
 			"uuid": "bda2224d-406c-418a-b6b0-f523d681203d",
 			"title": "Splatter effects are not emitting from collision location",
 			"description": "Just need to capture the collision location like we do the normal.",
@@ -499,30 +507,95 @@
 			"uuid": "f8dda55a-578b-4880-9b17-775cabd85440",
 			"title": "Add a dog to the game?",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
 		},
 		{
 			"uuid": "11b3a022-755c-40d6-af8a-a1164177b9b2",
 			"title": "Add plasma gun",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
 		},
 		{
 			"uuid": "7171987d-0355-4db3-be06-05746adb5967",
-			"title": "Add ammo",
+			"title": "Add ammo and firing rate",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Add reload mechanism",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "940a4908-25af-461e-a939-a8d1ed90a95c",
+			"title": "Automate inclusion of art assets",
+			"description": "",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": [
+				{
+					"details": "Write script to download art assets",
+					"done": false
+				},
+				{
+					"details": "Add notes about downloading art assets to README",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
+			"title": "Improved damage animations",
+			"description": "",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
+			"steps": [
+				{
+					"details": "Add red flash",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "1cfa25d8-84ca-492f-b1c5-40a6a718a15f",
+			"title": "Allow player to turn on shield",
+			"description": "",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
+		},
+		{
+			"uuid": "38820a96-6835-4276-b34b-2538875d9eeb",
+			"title": "Add shield discharge/recharge",
+			"description": "",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": []
+		},
+		{
+			"uuid": "74fb86a6-2527-47c8-8624-c0c9442ec0a6",
+			"title": "Make robot attackable",
+			"description": "",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": [
+				{
+					"details": "Troid should choose to attack player or robot",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {
 		"columns": [
 			[
+				"ea59d79b-f8bf-487b-82fd-1ae4113af119",
+				"86426af1-d49f-4980-af92-7c39d92ddf80"
+			],
+			[
+				"a2075292-05ae-4a5a-862c-065770c5f9d4",
 				"2672f96a-9194-47de-b5a1-7961b242be5a"
 			],
 			[
+				"dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 				"ea9a30db-7c6c-4a78-9aa3-578a9c774714"
 			],
 			[

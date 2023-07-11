@@ -106,6 +106,7 @@
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
+				"584da712-8cb9-4299-a2b6-84e1d71e5cc8",
 				"69960687-446b-4e41-9686-b53b43ff652f",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
 				"204a1279-b3f5-4634-b737-c924b635a8cc",
@@ -654,6 +655,18 @@
 			"description": "Grenades cannot be shot because they are not in a collision layer. They were not put in the Environment layer because they would immediately collide with the player. We may need a new layer just for grenades.\n\nAlso, grenades cannot trigger explosions of other grenades.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
+		},
+		{
+			"uuid": "584da712-8cb9-4299-a2b6-84e1d71e5cc8",
+			"title": "Async methods must return Task rather than void",
+			"description": "",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": [
+				{
+					"details": "Fix async/await for overriden methods of base Godot classes",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

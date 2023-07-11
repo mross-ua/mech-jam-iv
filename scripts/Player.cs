@@ -107,14 +107,14 @@ public partial class Player : CharacterBase
 		}
     }
 
-	public override async void HurtAsync(int damage, Vector2 normal)
+	public override async System.Threading.Tasks.Task HurtAsync(int damage, Vector2 normal)
 	{
 		if (immunityTimer != null)
 		{
 			return;
 		}
 
-		base.HurtAsync(damage, normal);
+		await base.HurtAsync(damage, normal);
 
 		if (Health <= 0)
 		{
@@ -132,7 +132,7 @@ public partial class Player : CharacterBase
 		immunityTimer = null;
 	}
 
-	protected async override void AnimateInjuryAsync(int damage, Vector2 normal)
+	protected async override System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal)
     {
         GpuParticles2D splatter = bloodSplatterResource.Instantiate<GpuParticles2D>();
 

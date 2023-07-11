@@ -23,7 +23,7 @@ public partial class HitScanBulletEmitter : Node2D
 		_bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
 	}
 
-	public void Fire(Vector2 mousePos)
+	public async void Fire(Vector2 mousePos)
 	{
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
@@ -45,12 +45,12 @@ public partial class HitScanBulletEmitter : Node2D
 			}
 			else if (collision["collider"].Obj is Barrel barrel)
 			{
-				barrel.HurtAsync(Damage, normal);
+				await barrel.HurtAsync(Damage, normal);
 			}
 			//BUG: Grenades are not currently in the Environment layer. (See kanban task.)
 			else if (collision["collider"].Obj is Grenade grenade)
 			{
-				grenade.HurtAsync(Damage, normal);
+				await grenade.HurtAsync(Damage, normal);
 			}
 			else
 			{

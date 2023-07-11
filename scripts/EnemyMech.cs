@@ -27,7 +27,7 @@ public partial class EnemyMech : EnemyBase
         throw new NotImplementedException();
     }
 
-	protected async override void AnimateInjuryAsync(int damage, Vector2 normal)
+	protected async override System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal)
     {
         GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
 

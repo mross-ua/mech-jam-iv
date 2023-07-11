@@ -91,11 +91,11 @@ namespace MechJamIV {
 
         protected void AnimateMovement(Vector2 direction, double delta) => characterAnimator.AnimateMovement(direction, delta);
 
-        protected abstract void AnimateInjuryAsync(int damage, Vector2 normal);
+        protected abstract System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal);
 
         protected void AnimateDeath() => characterAnimator.AnimateDeath();
 
-        public virtual async void HurtAsync(int damage, Vector2 normal)
+        public virtual async System.Threading.Tasks.Task HurtAsync(int damage, Vector2 normal)
         {
             if (Health <= 0)
             {
@@ -106,7 +106,7 @@ namespace MechJamIV {
 
             EmitSignal(SignalName.Hurt, damage);
 
-            AnimateInjuryAsync(damage, normal);
+            await AnimateInjuryAsync(damage, normal);
 
             if (Health <= 0)
             {
@@ -119,7 +119,7 @@ namespace MechJamIV {
             }
         }
 
-		public virtual async void HealAsync(int amount)
+		public virtual async System.Threading.Tasks.Task HealAsync(int amount)
 		{
             if (Health <= 0)
             {

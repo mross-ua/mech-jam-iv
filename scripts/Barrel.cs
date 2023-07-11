@@ -13,7 +13,7 @@ public partial class Barrel : RigidBody2D
 
 	#endregion
 
-	protected virtual async void AnimateInjuryAsync(int damage, Vector2 normal)
+	protected virtual async System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal)
     {
         GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
 
@@ -26,9 +26,9 @@ public partial class Barrel : RigidBody2D
 		splatter.QueueFree();
     }
 
-	public virtual async void HurtAsync(int damage, Vector2 normal)
+	public virtual async System.Threading.Tasks.Task HurtAsync(int damage, Vector2 normal)
 	{
-		AnimateInjuryAsync(damage, normal);
+		await AnimateInjuryAsync(damage, normal);
 	}
 
 }

@@ -39,14 +39,14 @@ public partial class ExplosiveBarrel : Barrel
 
 	protected virtual void AnimateDeath() => characterAnimator.AnimateDeath();
 
-	public override async void HurtAsync(int damage, Vector2 normal)
+	public override async System.Threading.Tasks.Task HurtAsync(int damage, Vector2 normal)
 	{
 		if (Health <= 0)
 		{
 			return;
 		}
 
-		base.HurtAsync(damage, normal);
+		await base.HurtAsync(damage, normal);
 
 		Health = Math.Max(0, Health - damage);
 
@@ -64,7 +64,7 @@ public partial class ExplosiveBarrel : Barrel
 		}
 	}
 
-	private void Explode()
+	private async void Explode()
 	{
 		PhysicsShapeQueryParameters2D queryParams = new ();
 		queryParams.Transform = GlobalTransform;
@@ -78,14 +78,14 @@ public partial class ExplosiveBarrel : Barrel
 			{
 				Vector2 directionToCharacter = character.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				character.HurtAsync(Damage, directionToCharacter.Normalized());
+				await character.HurtAsync(Damage, directionToCharacter.Normalized());
 				character.Velocity += ExplosionIntensity * directionToCharacter / directionToCharacter.LengthSquared();
 			}
 			else if (collision["collider"].Obj is Barrel barrel)
 			{
 				Vector2 directionToBarrel = barrel.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				barrel.HurtAsync(Damage, directionToBarrel.Normalized());
+				await barrel.HurtAsync(Damage, directionToBarrel.Normalized());
 				barrel.ApplyImpulse(ExplosionIntensity * directionToBarrel / directionToBarrel.LengthSquared());
 			}
 		}

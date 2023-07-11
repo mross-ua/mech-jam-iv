@@ -13,13 +13,13 @@ public partial class Spikes : Area2D
 
 	public override void _Ready()
 	{
-		BodyEntered += (body) =>
+		BodyEntered += async (body) =>
 		{
 			if (body is Player player)
 			{
 				collidingBodies.Add(player.GetRid(), player);
 
-				player.HurtAsync(Damage, Vector2.Zero);
+				await player.HurtAsync(Damage, Vector2.Zero);
 			}
 		};
 		BodyExited += (body) =>

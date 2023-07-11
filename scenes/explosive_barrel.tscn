@@ -93,7 +93,7 @@ animations = [{
 size = Vector2(16, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_keovr"]
-radius = 47.0106
+radius = 50.0
 
 [node name="ExplosiveBarrel" type="RigidBody2D"]
 collision_layer = 8

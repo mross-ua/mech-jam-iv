@@ -18,7 +18,6 @@ public partial class ExplosiveBarrel : Barrel
 	#region Node references
 
 	private CharacterAnimator characterAnimator;
-
 	private Area2D explosionAreaOfEffect;
 	private CollisionShape2D collisionShape2D;
 

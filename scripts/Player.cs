@@ -28,6 +28,7 @@ public partial class Player : CharacterBase
 	#region Resources
 
 	private PackedScene grenadeResource = ResourceLoader.Load<PackedScene>("res://scenes/grenade.tscn");
+	private PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/blood_splatter.tscn");
 
 	#endregion
 
@@ -132,7 +133,7 @@ public partial class Player : CharacterBase
 
 	protected async override void AnimateInjuryAsync(int damage, Vector2 normal)
     {
-        GpuParticles2D splatter = bloodSplatter.Instantiate<GpuParticles2D>();
+        GpuParticles2D splatter = bloodSplatterResource.Instantiate<GpuParticles2D>();
 
 		AddChild(splatter);
 

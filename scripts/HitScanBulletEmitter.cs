@@ -39,6 +39,7 @@ public partial class HitScanBulletEmitter : Node2D
 	{
 		//return GetViewport().GetMousePosition();
 		//return GetGlobalMousePosition();
+		//TODO why does this work?
 		return camera2D.GetGlobalMousePosition() - GlobalTransform.Origin;
 	}
 
@@ -61,7 +62,6 @@ public partial class HitScanBulletEmitter : Node2D
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
 			From = GlobalTransform.Origin,
-			//TODO why does this work?
 			To = mousePos.Normalized() * HitScanDistance,
 			Exclude = _bodiesToExclude,
 			CollideWithBodies = true,

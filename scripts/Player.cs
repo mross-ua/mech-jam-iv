@@ -133,7 +133,7 @@ public partial class Player : CharacterBase
 
 		splatter.Emitting = true;
 
-		this.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }
 
 	public void ActivateShield()

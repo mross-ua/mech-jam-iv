@@ -22,7 +22,7 @@ public partial class Barrel : RigidBody2D
 
 		splatter.Emitting = true;
 
-		this.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }
 
 	public virtual void Hurt(int damage, Vector2 normal)

@@ -48,6 +48,7 @@
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
 			"title": "Done",
 			"tasks": [
+				"7171987d-0355-4db3-be06-05746adb5967",
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
 				"7e206230-1945-43db-9228-ad0085d786ee",
@@ -66,7 +67,6 @@
 			"uuid": "ea59d79b-f8bf-487b-82fd-1ae4113af119",
 			"title": "Gameplay Ideas",
 			"tasks": [
-				"b5487c7d-88f5-43cd-b06b-9545a2928f88",
 				"0b57bc7b-4a34-4ac6-a04a-32cf84658353",
 				"38820a96-6835-4276-b34b-2538875d9eeb",
 				"11b3a022-755c-40d6-af8a-a1164177b9b2",
@@ -74,15 +74,14 @@
 				"74fb86a6-2527-47c8-8624-c0c9442ec0a6",
 				"f8dda55a-578b-4880-9b17-775cabd85440",
 				"b75301a4-84a6-4399-b9b9-37b317dc5b8b",
-				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92"
+				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
+				"913b6e47-37db-4af6-9d50-2a01f7bbb28f"
 			]
 		},
 		{
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
-			"tasks": [
-				"7171987d-0355-4db3-be06-05746adb5967"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
@@ -329,6 +328,10 @@
 				{
 					"details": "Add ammo",
 					"done": false
+				},
+				{
+					"details": "Add grenades",
+					"done": false
 				}
 			]
 		},
@@ -531,15 +534,10 @@
 		},
 		{
 			"uuid": "7171987d-0355-4db3-be06-05746adb5967",
-			"title": "Add ammo and firing rate",
+			"title": "Add firing rate",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
-			"steps": [
-				{
-					"details": "Add reload mechanism",
-					"done": false
-				}
-			]
+			"steps": []
 		},
 		{
 			"uuid": "940a4908-25af-461e-a939-a8d1ed90a95c",
@@ -638,13 +636,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "b5487c7d-88f5-43cd-b06b-9545a2928f88",
-			"title": "Allow grenades to be picked up",
-			"description": "",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
-			"steps": []
-		},
-		{
 			"uuid": "9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 			"title": "Dead enemies/explosives continue to collide",
 			"description": "",
@@ -675,6 +666,13 @@
 			"title": "Turn on multi-threading?",
 			"description": "",
 			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": []
+		},
+		{
+			"uuid": "913b6e47-37db-4af6-9d50-2a01f7bbb28f",
+			"title": "Add ammo and reload mechanism?",
+			"description": "",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
 		}
 	],

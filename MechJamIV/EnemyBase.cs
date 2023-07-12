@@ -24,8 +24,8 @@ namespace MechJamIV {
             {
                 if (node is Hitbox hitbox)
                 {
-                    hitbox.Hit += async (damage, normal) => await HurtAsync(damage, normal);
-                    hitbox.Colliding += async (body) =>
+                    hitbox.Hit += (damage, normal) => Hurt(damage, normal);
+                    hitbox.Colliding += (body) =>
                     {
                         if (Health <= 0)
                         {
@@ -34,27 +34,25 @@ namespace MechJamIV {
 
                         if (body is Player player)
                         {
-                            await player.HurtAsync(hitbox.Damage, Vector2.Zero);
+                            player.Hurt(hitbox.Damage, Vector2.Zero);
                         }
                     };
                 }
             }
         }
 
-        public override async System.Threading.Tasks.Task HurtAsync(int damage, Vector2 normal)
+        public override void Hurt(int damage, Vector2 normal)
         {
             if (Health <= 0)
             {
                 return;
             }
 
-            await base.HurtAsync(damage, normal);
+            base.Hurt(damage, normal);
 
             if (Health <= 0)
             {
-                await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
-
-			    QueueFree();
+                this.TimedFree(5.0f, processInPhysics:true);
             }
         }
 

@@ -13,12 +13,11 @@ public partial class Player : CharacterBase
 	[Export]
 	public float ThrowStrength { get; set; } = 500.0f;
 
-	private SceneTreeTimer immunityTimer = null;
-
 	#region Node references
 
 	public Marker2D RobotMarker { get; set; }
 
+	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
 	private HitScanBulletEmitter hitScanBulletEmitter;
 	//TODO remove! this is temporary!
@@ -38,10 +37,12 @@ public partial class Player : CharacterBase
 		base._Ready();
 
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
+
+		immunityTimer = GetNode<Timer>("ImmunityTimer");
+		immunityTimer.Timeout += () => DeactivateShield();
+
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
-
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
-
 		camera2D = GetNode<Camera2D>("Camera2D");
     }
 
@@ -101,38 +102,30 @@ public partial class Player : CharacterBase
 
 				grenade.ApplyImpulse(ThrowStrength * GetRelativeMousePosition().Normalized());
 
-				grenade.PullPinAsync();
-
 				break;
 		}
     }
 
-	public override async System.Threading.Tasks.Task HurtAsync(int damage, Vector2 normal)
+	public override void Hurt(int damage, Vector2 normal)
 	{
-		if (immunityTimer != null)
+		if (immunityTimer.TimeLeft > 0)
 		{
 			return;
 		}
 
-		await base.HurtAsync(damage, normal);
+		base.Hurt(damage, normal);
 
 		if (Health <= 0)
 		{
 			return;
 		}
 
-		immunityTimer = GetTree().CreateTimer(2.0f);
-
 		ActivateShield();
 
-		await ToSignal(immunityTimer, SceneTreeTimer.SignalName.Timeout);
-
-		DeactivateShield();
-
-		immunityTimer = null;
+		immunityTimer.Start();
 	}
 
-	protected async override System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal)
+	protected override void AnimateInjury(int damage, Vector2 normal)
     {
         GpuParticles2D splatter = bloodSplatterResource.Instantiate<GpuParticles2D>();
 
@@ -140,9 +133,7 @@ public partial class Player : CharacterBase
 
 		splatter.Emitting = true;
 
-		await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
-
-		splatter.QueueFree();
+		this.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }
 
 	public void ActivateShield()

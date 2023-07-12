@@ -24,7 +24,7 @@ public partial class EnemyTroid : EnemyBase
         throw new NotImplementedException();
     }
 
-	protected async override System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal)
+	protected override void AnimateInjury(int damage, Vector2 normal)
     {
         GpuParticles2D splatter = acidSplatter.Instantiate<GpuParticles2D>();
 
@@ -32,9 +32,7 @@ public partial class EnemyTroid : EnemyBase
 
 		splatter.Emitting = true;
 
-		await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
-
-		splatter.QueueFree();
+		this.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }
 
 }

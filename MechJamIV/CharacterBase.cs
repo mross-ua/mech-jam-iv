@@ -7,9 +7,9 @@ namespace MechJamIV {
 	{
 
         [Signal]
-        public delegate void HealEventHandler(int hp);
+        public delegate void InjuredEventHandler(int damage);
         [Signal]
-        public delegate void HurtEventHandler(int damage);
+        public delegate void HealedEventHandler(int amount);
 
         [Export]
         public int Health { get; set; } = 100;
@@ -91,11 +91,11 @@ namespace MechJamIV {
 
         protected void AnimateMovement(Vector2 direction, double delta) => characterAnimator.AnimateMovement(direction, delta);
 
-        protected abstract System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal);
+        protected abstract void AnimateInjury(int damage, Vector2 normal);
 
         protected void AnimateDeath() => characterAnimator.AnimateDeath();
 
-        public virtual async System.Threading.Tasks.Task HurtAsync(int damage, Vector2 normal)
+        public virtual void Hurt(int damage, Vector2 normal)
         {
             if (Health <= 0)
             {
@@ -104,22 +104,22 @@ namespace MechJamIV {
 
             Health = Math.Max(0, Health - damage);
 
-            EmitSignal(SignalName.Hurt, damage);
+            EmitSignal(SignalName.Injured, damage);
 
-            await AnimateInjuryAsync(damage, normal);
+            AnimateInjury(damage, normal);
 
             if (Health <= 0)
             {
                 AnimateDeath();
 
                 //TODO the game is reacting poorly when we free the player
-                //await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
+                //await ToSignal(GetTree().CreateTimer(5.0f, processInPhysics:true), SceneTreeTimer.SignalName.Timeout);
 
 			    //QueueFree();
             }
         }
 
-		public virtual async System.Threading.Tasks.Task HealAsync(int amount)
+		public virtual void Heal(int amount)
 		{
             if (Health <= 0)
             {
@@ -129,7 +129,7 @@ namespace MechJamIV {
             //TODO we need to know initial/max health
             Health = Math.Min(100, Health + amount);
 
-            EmitSignal(SignalName.Heal, amount);
+            EmitSignal(SignalName.Healed, amount);
 		}
 
 	}

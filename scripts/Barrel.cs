@@ -1,11 +1,12 @@
 using Godot;
 using System;
+using MechJamIV;
 
 public partial class Barrel : RigidBody2D
 {
 
 	[Signal]
-	public delegate void HurtEventHandler(int damage);
+	public delegate void InjuredEventHandler(int damage);
 
 	#region Resources
 
@@ -13,7 +14,7 @@ public partial class Barrel : RigidBody2D
 
 	#endregion
 
-	protected virtual async System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal)
+	protected virtual void AnimateInjury(int damage, Vector2 normal)
     {
         GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
 
@@ -21,14 +22,12 @@ public partial class Barrel : RigidBody2D
 
 		splatter.Emitting = true;
 
-		await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
-
-		splatter.QueueFree();
+		this.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }
 
-	public virtual async System.Threading.Tasks.Task HurtAsync(int damage, Vector2 normal)
+	public virtual void Hurt(int damage, Vector2 normal)
 	{
-		await AnimateInjuryAsync(damage, normal);
+		AnimateInjury(damage, normal);
 	}
 
 }

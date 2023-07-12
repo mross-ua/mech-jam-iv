@@ -30,7 +30,7 @@ public partial class Robot : CharacterBase
 		//TODO
 	}
 
-	protected async override System.Threading.Tasks.Task AnimateInjuryAsync(int damage, Vector2 normal)
+	protected override void AnimateInjury(int damage, Vector2 normal)
 	{
 		//TODO
 	}

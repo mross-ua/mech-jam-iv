@@ -13,13 +13,13 @@ public partial class Spikes : Area2D
 
 	public override void _Ready()
 	{
-		BodyEntered += async (body) =>
+		BodyEntered += (body) =>
 		{
 			if (body is Player player)
 			{
 				collidingBodies.Add(player.GetRid(), player);
 
-				await player.HurtAsync(Damage, Vector2.Zero);
+				player.Hurt(Damage, Vector2.Zero);
 			}
 		};
 		BodyExited += (body) =>
@@ -37,7 +37,7 @@ public partial class Spikes : Area2D
 		{
 			foreach (KeyValuePair<Rid, Player> kvp in collidingBodies)
 			{
-				kvp.Value.HurtAsync(Damage, Vector2.Zero);
+				kvp.Value.Hurt(Damage, Vector2.Zero);
 			}
 		}
 	}

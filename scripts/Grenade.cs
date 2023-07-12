@@ -9,11 +9,18 @@ public partial class Grenade : ExplosiveBarrel
 	[Export]
 	public override int Health { get; set; } = 1;
 
-	public async System.Threading.Tasks.Task PullPinAsync()
-	{
-		await ToSignal(GetTree().CreateTimer(3.0f), SceneTreeTimer.SignalName.Timeout);
+	#region Node references
 
-		await HurtAsync(Health, Vector2.Zero);
-	}
+	private Timer explosionTimer;
+
+	#endregion
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+		explosionTimer = GetNode<Timer>("ExplosionTimer");
+		explosionTimer.Timeout += () => Hurt(Health, Vector2.Zero);
+    }
 
 }

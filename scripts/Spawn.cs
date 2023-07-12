@@ -44,8 +44,4 @@ public partial class Spawn : Node2D
 		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
 	}
 
-	public override void _Process(double delta)
-	{
-	}
-
 }

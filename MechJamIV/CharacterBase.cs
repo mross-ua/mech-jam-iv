@@ -50,15 +50,15 @@ namespace MechJamIV {
 
 		protected abstract AttackType? IsAttacking();
 
-        public override void _Process(double delta)
-        {
-            QueueRedraw();
-        }
+        // public override void _Process(double delta)
+        // {
+        //     QueueRedraw();
+        // }
 
-        public override void _Draw()
-        {
-            DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
-        }
+        // public override void _Draw()
+        // {
+        //     DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
+        // }
 
 		public override void _PhysicsProcess(double delta)
 		{

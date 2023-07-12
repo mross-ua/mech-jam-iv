@@ -78,12 +78,12 @@ public partial class Player : CharacterBase
 		return camera2D.GetGlobalMousePosition() - GlobalTransform.Origin;
 	}
 
-    public override void _Draw()
-    {
-        base._Draw();
+    // public override void _Draw()
+    // {
+    //     base._Draw();
 
-		DrawLine(Vector2.Zero, GetRelativeMousePosition(), Colors.Green, 1.0f);
-    }
+	// 	DrawLine(Vector2.Zero, GetRelativeMousePosition(), Colors.Green, 1.0f);
+    // }
 
     protected override void ProcessAttack(double delta, AttackType attackType)
     {

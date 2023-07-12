@@ -49,11 +49,6 @@ public partial class World : Node2D
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 	}
 
-	public override void _Process(double delta)
-	{
-
-	}
-
     public override void _PhysicsProcess(double delta)
     {
         if (Input.IsActionPressed("quit"))

@@ -23,9 +23,7 @@ public partial class Robot : CharacterBase
 
     protected override bool IsJumping() => false;
 
-	protected override AttackType? IsAttacking() => null;
-
-    protected override void ProcessAttack(double delta, AttackType attackType)
+    protected override void ProcessAttack(double delta)
 	{
 		//TODO
 	}

@@ -17,11 +17,9 @@ public partial class EnemyTroid : EnemyBase
 
     protected override bool IsJumping() => false;
 
-	protected override AttackType? IsAttacking() => null;
-
-    protected override void ProcessAttack(double delta, AttackType attackType)
+    protected override void ProcessAttack(double delta)
     {
-        throw new NotImplementedException();
+        //TODO
     }
 
 	protected override void AnimateInjury(int damage, Vector2 normal)

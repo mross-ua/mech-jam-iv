@@ -19,6 +19,7 @@ public partial class Player : CharacterBase
 
 	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
+	private Timer attackTimer;
 	private HitScanBulletEmitter hitScanBulletEmitter;
 	//TODO remove! this is temporary!
 	private Camera2D camera2D;
@@ -42,6 +43,9 @@ public partial class Player : CharacterBase
 		immunityTimer.Timeout += () => DeactivateShield();
 
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
+
+		attackTimer = GetNode<Timer>("AttackTimer");
+
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
 		camera2D = GetNode<Camera2D>("Camera2D");
     }
@@ -49,26 +53,6 @@ public partial class Player : CharacterBase
 	protected override Vector2 GetMovementDirection() => Input.GetVector("move_left", "move_right", "move_up", "move_down");
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
-
-	protected override AttackType? IsAttacking()
-	{
-		// NOTE: We check for grenades first so player can hold down main fire button without interruption.
-
-		if (Input.IsActionJustPressed("throw_grenade"))
-		{
-			return AttackType.Explosive;
-		}
-		else if (Input.IsActionJustPressed("fire"))
-		{
-			return AttackType.Gunfire;
-		}
-		else if (Input.IsActionPressed("fire"))
-		{
-			return AttackType.SustainedGunfire;
-		}
-
-		return null;
-	}
 
 	private Vector2 GetRelativeMousePosition()
 	{
@@ -85,25 +69,35 @@ public partial class Player : CharacterBase
 	// 	DrawLine(Vector2.Zero, GetRelativeMousePosition(), Colors.Green, 1.0f);
     // }
 
-    protected override void ProcessAttack(double delta, AttackType attackType)
+    protected override void ProcessAttack(double delta)
     {
-		switch (attackType)
+		if (attackTimer.TimeLeft > 0)
 		{
-			case AttackType.Gunfire:
-			case AttackType.SustainedGunfire:
-				hitScanBulletEmitter.Fire(GetRelativeMousePosition());
-
-				break;
-			case AttackType.Explosive:
-				Grenade grenade = grenadeResource.Instantiate<Grenade>();
-				GetParent<World>().AddChild(grenade);
-
-				grenade.GlobalTransform = GlobalTransform;
-
-				grenade.ApplyImpulse(ThrowStrength * GetRelativeMousePosition().Normalized());
-
-				break;
+			return;
 		}
+
+		// NOTE: We check for grenades first so player can hold down main fire button without interruption.
+
+		if (Input.IsActionJustPressed("throw_grenade"))
+		{
+			Grenade grenade = grenadeResource.Instantiate<Grenade>();
+			GetTree().Root.AddChild(grenade);
+
+			grenade.GlobalTransform = GlobalTransform;
+
+			grenade.ApplyImpulse(ThrowStrength * GetRelativeMousePosition().Normalized());
+		}
+		//TODO?
+		// else if (Input.IsActionJustPressed("fire"))
+		// {
+		// 	hitScanBulletEmitter.Fire(GetRelativeMousePosition());
+		// }
+		else if (Input.IsActionPressed("fire"))
+		{
+			hitScanBulletEmitter.Fire(GetRelativeMousePosition());
+		}
+
+		attackTimer.Start();
     }
 
 	public override void Hurt(int damage, Vector2 normal)

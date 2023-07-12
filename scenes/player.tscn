@@ -330,5 +330,10 @@ position = Vector2(0, 7)
 [node name="RobotMarker" type="Marker2D" parent="."]
 position = Vector2(-23, -23)
 
+[node name="AttackTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
 [node name="HitScanBulletEmitter" type="Node2D" parent="."]
 script = ExtResource("5_6pcw2")

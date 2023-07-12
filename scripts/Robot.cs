@@ -5,7 +5,6 @@ using MechJamIV;
 public partial class Robot : CharacterBase
 {
 
-
 	#region Node references
 
 	private Player player;

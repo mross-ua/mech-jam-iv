@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using MechJamIV;
 
 namespace MechJamIV {
 	public abstract partial class CharacterBase : CharacterBody2D
@@ -107,9 +108,7 @@ namespace MechJamIV {
                 AnimateDeath();
 
                 //TODO the game is reacting poorly when we free the player
-                //await ToSignal(GetTree().CreateTimer(5.0f, processInPhysics:true), SceneTreeTimer.SignalName.Timeout);
-
-			    //QueueFree();
+                //this.TimedFree(5.0f, processInPhysics:true);
             }
         }
 

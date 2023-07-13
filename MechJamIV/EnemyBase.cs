@@ -11,6 +11,8 @@ namespace MechJamIV {
         public delegate void PickupDroppedEventHandler(PickupBase pickup);
 
         [Export]
+        public float CriticalHitRate { get; set; } = 0.3f;
+        [Export]
         public float PickupDropRate { get; set; } = 0.5f;
 
         #region Node references
@@ -30,7 +32,17 @@ namespace MechJamIV {
             {
                 if (node is Hitbox hitbox)
                 {
-                    hitbox.Hit += (damage, position, normal) => Hurt(damage, position, normal);
+                    hitbox.Hit += (damage, isWeakSpot, position, normal) =>
+                    {
+                        if (isWeakSpot || RandomHelper.GetSingle() <= CriticalHitRate)
+                        {
+                            Hurt(damage * 2, position, normal);
+                        }
+                        else
+                        {
+                            Hurt(damage, position, normal);
+                        }
+                    };
                     hitbox.Colliding += (body) =>
                     {
                         if (Health <= 0)

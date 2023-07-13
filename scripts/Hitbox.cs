@@ -7,7 +7,7 @@ public partial class Hitbox : Area2D
 {
 
 	[Signal]
-	public delegate void HitEventHandler(int damage, Vector2 position, Vector2 normal);
+	public delegate void HitEventHandler(int damage, bool isWeakSpot, Vector2 position, Vector2 normal);
 	[Obsolete("This is probably not very performant as we don't have any rate limiting on this.")]
 	[Signal]
 	public delegate void CollidingEventHandler(Node2D body);
@@ -16,8 +16,6 @@ public partial class Hitbox : Area2D
 	public int Damage { get; set; } = 10;
 	[Export]
 	public bool IsWeakSpot { get; set; } = false;
-	[Export]
-	public int CriticalDamageMultiplier { get; set; } = 2;
 
 	private Dictionary<Rid, Player> collidingBodies = new ();
 
@@ -54,14 +52,7 @@ public partial class Hitbox : Area2D
 
 	public void Hurt(int damage, Vector2 position, Vector2 normal)
 	{
-		if (IsWeakSpot)
-		{
-			EmitSignal(SignalName.Hit, damage * CriticalDamageMultiplier, position, normal);
-		}
-		else
-		{
-			EmitSignal(SignalName.Hit, damage, position, normal);
-		}
+		EmitSignal(SignalName.Hit, damage, IsWeakSpot, position, normal);
 	}
 
 }

@@ -70,7 +70,6 @@
 			"uuid": "ea59d79b-f8bf-487b-82fd-1ae4113af119",
 			"title": "Gameplay Ideas",
 			"tasks": [
-				"0b57bc7b-4a34-4ac6-a04a-32cf84658353",
 				"38820a96-6835-4276-b34b-2538875d9eeb",
 				"11b3a022-755c-40d6-af8a-a1164177b9b2",
 				"1cfa25d8-84ca-492f-b1c5-40a6a718a15f",
@@ -341,18 +340,6 @@
 			"description": "",
 			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
-		},
-		{
-			"uuid": "0b57bc7b-4a34-4ac6-a04a-32cf84658353",
-			"title": "Critical hits should be random",
-			"description": "",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
-			"steps": [
-				{
-					"details": "Weak spots should increase probability of a critical hit",
-					"done": false
-				}
-			]
 		},
 		{
 			"uuid": "a08753e1-778b-4c43-b1bc-bf8f70a3db7a",

@@ -7,7 +7,7 @@ public partial class Hitbox : Area2D
 {
 
 	[Signal]
-	public delegate void HitEventHandler(int damage, Vector2 direction);
+	public delegate void HitEventHandler(int damage, Vector2 position, Vector2 normal);
 	[Obsolete("This is probably not very performant as we don't have any rate limiting on this.")]
 	[Signal]
 	public delegate void CollidingEventHandler(Node2D body);
@@ -52,15 +52,15 @@ public partial class Hitbox : Area2D
 		}
 	}
 
-	public void Hurt(int damage, Vector2 direction)
+	public void Hurt(int damage, Vector2 position, Vector2 normal)
 	{
 		if (IsWeakSpot)
 		{
-			EmitSignal(SignalName.Hit, damage * CriticalDamageMultiplier, direction);
+			EmitSignal(SignalName.Hit, damage * CriticalDamageMultiplier, position, normal);
 		}
 		else
 		{
-			EmitSignal(SignalName.Hit, damage, direction);
+			EmitSignal(SignalName.Hit, damage, position, normal);
 		}
 	}
 

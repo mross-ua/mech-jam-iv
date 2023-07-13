@@ -22,11 +22,13 @@ public partial class EnemyTroid : EnemyBase
         //TODO
     }
 
-	protected override void AnimateInjury(int damage, Vector2 normal)
+	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {
         GpuParticles2D splatter = acidSplatter.Instantiate<GpuParticles2D>();
 
-		AddChild(splatter);
+		GetTree().Root.AddChild(splatter);
+
+        splatter.GlobalPosition = position;
 
 		splatter.Emitting = true;
 

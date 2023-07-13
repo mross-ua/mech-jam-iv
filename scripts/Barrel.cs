@@ -14,20 +14,22 @@ public partial class Barrel : RigidBody2D
 
 	#endregion
 
-	protected virtual void AnimateInjury(int damage, Vector2 normal)
+	protected virtual void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {
         GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
 
-		AddChild(splatter);
+		GetTree().Root.AddChild(splatter);
+
+		splatter.GlobalPosition = position;
 
 		splatter.Emitting = true;
 
 		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }
 
-	public virtual void Hurt(int damage, Vector2 normal)
+	public virtual void Hurt(int damage, Vector2 position, Vector2 normal)
 	{
-		AnimateInjury(damage, normal);
+		AnimateInjury(damage, position, normal);
 	}
 
 }

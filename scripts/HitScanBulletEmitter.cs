@@ -36,40 +36,41 @@ public partial class HitScanBulletEmitter : Node2D
 			Exclude = _bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,
-			CollisionMask = (uint)(CollisionLayerMask.Environment | CollisionLayerMask.Hitbox)
+			CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Environment | CollisionLayerMask.Hitbox)
 		});
 
 		if (collision.ContainsKey("collider"))
 		{
+			Vector2 position = collision["position"].AsVector2();
 			Vector2 normal = collision["normal"].AsVector2();
 
 			if (collision["collider"].Obj is Hitbox hitbox)
 			{
-				hitbox.Hurt(Damage, normal);
+				hitbox.Hurt(Damage, position, normal);
 			}
 			else if (collision["collider"].Obj is Barrel barrel)
 			{
-				barrel.Hurt(Damage, normal);
+				barrel.Hurt(Damage, position,  normal);
 			}
 			//BUG: Grenades are not currently in the Environment layer,
 			//     so this doesn't work. (See kanban task.)
 			else if (collision["collider"].Obj is Grenade grenade)
 			{
-				grenade.Hurt(Damage, normal);
+				grenade.Hurt(Damage, position,  normal);
 			}
 			else if (collision["collider"].Obj is GrenadePickup grenadePickup)
 			{
-				grenadePickup.Hurt(Damage, normal);
+				grenadePickup.Hurt(Damage, position, normal);
 			}
 			else
 			{
-				// environment hit
+				// world or environment hit
 
 				GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
 
 				GetTree().Root.AddChild(splatter);
 
-				splatter.GlobalPosition = collision["position"].AsVector2();
+				splatter.GlobalPosition = position;
 
 				// if (Mathf.IsZeroApprox(normal.AngleTo(-gravity)))
 				// {

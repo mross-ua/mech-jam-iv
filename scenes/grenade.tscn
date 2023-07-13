@@ -115,7 +115,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="ExplosionAreaOfEffect" type="Area2D" parent="."]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 110
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionAreaOfEffect"]

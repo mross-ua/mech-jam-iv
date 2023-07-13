@@ -24,7 +24,7 @@ namespace MechJamIV {
             {
                 if (node is Hitbox hitbox)
                 {
-                    hitbox.Hit += (damage, normal) => Hurt(damage, normal);
+                    hitbox.Hit += (damage, position, normal) => Hurt(damage, position, normal);
                     hitbox.Colliding += (body) =>
                     {
                         if (Health <= 0)
@@ -34,21 +34,21 @@ namespace MechJamIV {
 
                         if (body is Player player)
                         {
-                            player.Hurt(hitbox.Damage, Vector2.Zero);
+                            player.Hurt(hitbox.Damage, Vector2.Zero, Vector2.Zero);
                         }
                     };
                 }
             }
         }
 
-        public override void Hurt(int damage, Vector2 normal)
+        public override void Hurt(int damage, Vector2 position, Vector2 normal)
         {
             if (Health <= 0)
             {
                 return;
             }
 
-            base.Hurt(damage, normal);
+            base.Hurt(damage, position, normal);
 
             if (Health <= 0)
             {

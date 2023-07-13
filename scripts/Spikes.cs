@@ -19,7 +19,7 @@ public partial class Spikes : Area2D
 			{
 				collidingBodies.Add(player.GetRid(), player);
 
-				player.Hurt(Damage, Vector2.Zero);
+				player.Hurt(Damage, Vector2.Zero, Vector2.Zero);
 			}
 		};
 		BodyExited += (body) =>
@@ -37,7 +37,7 @@ public partial class Spikes : Area2D
 		{
 			foreach (KeyValuePair<Rid, Player> kvp in collidingBodies)
 			{
-				kvp.Value.Hurt(Damage, Vector2.Zero);
+				kvp.Value.Hurt(Damage, Vector2.Zero, Vector2.Zero);
 			}
 		}
 	}

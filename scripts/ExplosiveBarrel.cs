@@ -42,14 +42,14 @@ public partial class ExplosiveBarrel : Barrel
 
 	protected virtual void AnimateDeath() => characterAnimator.AnimateDeath();
 
-	public override void Hurt(int damage, Vector2 normal)
+	public override void Hurt(int damage, Vector2 position, Vector2 normal)
 	{
 		if (Health <= 0)
 		{
 			return;
 		}
 
-		base.Hurt(damage, normal);
+		base.Hurt(damage, position, normal);
 
 		Health = Math.Max(0, Health - damage);
 
@@ -81,14 +81,14 @@ public partial class ExplosiveBarrel : Barrel
 			{
 				Vector2 directionToCharacter = character.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				character.Hurt(Damage, directionToCharacter.Normalized());
+				character.Hurt(Damage, Vector2.Zero, directionToCharacter.Normalized());
 				character.Velocity += ExplosionIntensity * directionToCharacter / directionToCharacter.LengthSquared();
 			}
 			else if (collision["collider"].Obj is Barrel barrel)
 			{
 				Vector2 directionToBarrel = barrel.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				barrel.Hurt(Damage, directionToBarrel.Normalized());
+				barrel.Hurt(Damage, Vector2.Zero, directionToBarrel.Normalized());
 				barrel.ApplyImpulse(ExplosionIntensity * directionToBarrel / directionToBarrel.LengthSquared());
 			}
 		}

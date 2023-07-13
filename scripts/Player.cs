@@ -109,14 +109,14 @@ public partial class Player : CharacterBase
 		}
     }
 
-	public override void Hurt(int damage, Vector2 normal)
+	public override void Hurt(int damage, Vector2 position, Vector2 normal)
 	{
 		if (immunityTimer.TimeLeft > 0)
 		{
 			return;
 		}
 
-		base.Hurt(damage, normal);
+		base.Hurt(damage, position, normal);
 
 		if (Health <= 0)
 		{
@@ -128,11 +128,13 @@ public partial class Player : CharacterBase
 		immunityTimer.Start();
 	}
 
-	protected override void AnimateInjury(int damage, Vector2 normal)
+	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {
         GpuParticles2D splatter = bloodSplatterResource.Instantiate<GpuParticles2D>();
 
-		AddChild(splatter);
+		GetTree().Root.AddChild(splatter);
+
+		splatter.GlobalPosition = position;
 
 		splatter.Emitting = true;
 

@@ -93,18 +93,22 @@ public partial class Player : CharacterBase
 			grenade.Prime();
 
 			GrenadeCount--;
+
+			attackTimer.Start();
 		}
 		//TODO?
 		// else if (Input.IsActionJustPressed("fire"))
 		// {
 		// 	hitScanBulletEmitter.Fire(GetRelativeMousePosition());
+		//
+		//  attackTimer.Start();
 		// }
 		else if (Input.IsActionPressed("fire"))
 		{
 			hitScanBulletEmitter.Fire(GetRelativeMousePosition());
-		}
 
-		attackTimer.Start();
+			attackTimer.Start();
+		}
     }
 
 	public override void Hurt(int damage, Vector2 normal)

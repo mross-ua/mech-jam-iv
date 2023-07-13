@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://n83wwlywvgtu"]
+
+[ext_resource type="Texture2D" uid="uid://caidr8anqioe7" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/powerups-sheet-alpha.png" id="1_nxmk4"]
+[ext_resource type="Script" path="res://scripts/MedkitPickup.cs" id="1_p437x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cyn3"]
+atlas = ExtResource("1_nxmk4")
+region = Rect2(0, 36, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1k2c"]
+atlas = ExtResource("1_nxmk4")
+region = Rect2(18, 36, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oeigw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cyn3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1k2c")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7io8x"]
+
+[node name="MedkitPickup" type="Area2D" groups=["pickup"]]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_p437x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oeigw")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.720833
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7io8x")

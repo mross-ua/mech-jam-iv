@@ -82,14 +82,14 @@
 		{
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
-			"tasks": []
+			"tasks": [
+				"bc336b5d-ae80-4d1f-822b-8cf8655641a2"
+			]
 		},
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
-			"tasks": [
-				"bc336b5d-ae80-4d1f-822b-8cf8655641a2"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
@@ -316,7 +316,7 @@
 			"steps": [
 				{
 					"details": "Add medkit pickup",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add grenades",

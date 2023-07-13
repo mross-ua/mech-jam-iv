@@ -13,7 +13,7 @@ namespace MechJamIV {
         public delegate void HealedEventHandler(int amount);
 
         [Export]
-        public int Health { get; set; } = 100;
+        public int Health { get; protected set; } = 100;
 
 		[Export]
 		public virtual float MoveAcceleration { get; set; } = 50.0f;

@@ -10,6 +10,8 @@ namespace MechJamIV {
         [Signal]
         public delegate void InjuredEventHandler(int damage);
         [Signal]
+	    public delegate void KilledEventHandler();
+        [Signal]
         public delegate void HealedEventHandler(int amount);
 
         [Export]
@@ -106,6 +108,8 @@ namespace MechJamIV {
             if (Health <= 0)
             {
                 AnimateDeath();
+
+                EmitSignal(SignalName.Killed);
 
                 //TODO the game is reacting poorly when we free the player
                 //this.TimedFree(5.0f, processInPhysics:true);

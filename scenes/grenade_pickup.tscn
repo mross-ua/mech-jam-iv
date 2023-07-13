@@ -4,15 +4,15 @@
 [ext_resource type="Script" path="res://scripts/GrenadePickup.cs" id="1_d812d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yccxo"]
-radius = 4.12311
+radius = 5.0
 
 [node name="GrenadePickup" type="Area2D" groups=["pickup"]]
 collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_d812d")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_yccxo")
-
 [node name="Grenade" parent="." instance=ExtResource("1_0b5j4")]
 sleeping = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yccxo")

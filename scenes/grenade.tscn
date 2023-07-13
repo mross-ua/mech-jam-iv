@@ -102,7 +102,7 @@ script = ExtResource("1_k8bcu")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gsn40")
-animation = &"run"
+animation = &"idle"
 autoplay = "idle"
 script = ExtResource("4_twoyx")
 

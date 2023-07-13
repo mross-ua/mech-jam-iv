@@ -99,9 +99,9 @@ namespace MechJamIV {
 
             Health = Math.Max(0, Health - damage);
 
-            EmitSignal(SignalName.Injured, damage);
-
             AnimateInjury(damage, normal);
+
+            EmitSignal(SignalName.Injured, damage);
 
             if (Health <= 0)
             {

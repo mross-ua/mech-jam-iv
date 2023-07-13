@@ -46,9 +46,7 @@ public partial class Player : CharacterBase
 		immunityTimer.Timeout += () => DeactivateShield();
 
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
-
 		attackTimer = GetNode<Timer>("AttackTimer");
-
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
 		camera2D = GetNode<Camera2D>("Camera2D");
     }

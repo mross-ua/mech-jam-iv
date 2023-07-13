@@ -6,7 +6,6 @@ using MechJamIV;
 public partial class Grenade : ExplosiveBarrel
 {
 
-	[Export]
 	public override int Health { get; set; } = 1;
 
 	#region Node references

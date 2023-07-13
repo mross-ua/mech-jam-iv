@@ -16,7 +16,11 @@ public partial class HitScanBulletEmitter : Node2D
 
 	private Vector2 gravity = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
-	//private PackedScene bulletHitEffect = ResourceLoader.Load<PackedScene>("res://assets/effects/bullet_hit_effect.tscn");
+	#region Resources
+
+	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/shrapnel_splatter.tscn");
+
+	#endregion
 
 	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
 	{
@@ -61,11 +65,11 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				// environment hit
 
-				// BulletHitEffect node = bulletHitEffect.Instantiate<BulletHitEffect>();
+				GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
 
-				// GetTree().Root.AddChild(node);
+				GetTree().Root.AddChild(splatter);
 
-				// node.GlobalPosition = collision["position"].AsVector3();
+				splatter.GlobalPosition = collision["position"].AsVector2();
 
 				// if (Mathf.IsZeroApprox(normal.AngleTo(-gravity)))
 				// {
@@ -74,21 +78,15 @@ public partial class HitScanBulletEmitter : Node2D
 				// }
 				// else if (Mathf.IsZeroApprox(normal.AngleTo(gravity)))
 				// {
-				// 	node.Rotate(Vector3.Right, Mathf.Pi);
+				// 	splatter.Rotate(Mathf.Pi);
 
 				// 	//TODO why do we return here? presumably this would cause ceiling shots to not have an effect
 				// 	return;
 				// }
 
-				// Vector3 y = normal;
-				// Vector3 x = y.Cross(-gravity);
-				// Vector3 z = x.Cross(y);
+ 				splatter.Emitting = true;
 
-				// node.Basis = new Basis(x, y, z);
-
-				// //TODO remove node after effect is over
-
-				// node.EmitOnce();
+				splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
 			}
 		}
 	}

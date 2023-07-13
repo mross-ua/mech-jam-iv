@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MechJamIV;
 
 public partial class World : Node2D
 {
@@ -43,6 +44,24 @@ public partial class World : Node2D
 			spawn.SpawnReached += (player) =>
 			{
 				activeSpawn = spawn;
+			};
+		}
+
+		foreach (PickupBase pickup in GetTree().GetNodesInGroup("pickup").OfType<PickupBase>())
+		{
+			pickup.PickedUp += (type) =>
+			{
+				switch ((PickupType)type)
+				{
+					case PickupType.Medkit:
+						player.Heal(50);
+
+						break;
+					case PickupType.Grenade:
+						player.GrenadeCount++;
+
+						break;
+				}
 			};
 		}
 

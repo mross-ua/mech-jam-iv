@@ -31,4 +31,10 @@ namespace MechJamIV {
         SustainedGunfire,
         Explosive
     }
+
+    public enum PickupType : int
+    {
+        Medkit,
+        Grenade
+    }
 }

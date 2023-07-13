@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://nqbfpa8gpdu8"]
+[gd_scene load_steps=18 format=3 uid="uid://nqbfpa8gpdu8"]
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_ei5o8"]
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/player.tscn" id="1_hv76r"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://du3si7fvnoa5m" path="res://scenes/explosive_barrel.tscn" id="9_s7g5v"]
 [ext_resource type="PackedScene" uid="uid://bwc210e86gkpi" path="res://scenes/enemy_troid.tscn" id="10_hrug0"]
 [ext_resource type="PackedScene" uid="uid://co8t223oorgqn" path="res://scenes/spawn.tscn" id="10_mgfxp"]
+[ext_resource type="PackedScene" uid="uid://cydjxvklk03tv" path="res://scenes/grenade_pickup.tscn" id="11_fiyyi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbrpc"]
 bg_color = Color(0.207843, 0.207843, 0.207843, 1)
@@ -115,6 +116,12 @@ position = Vector2(695, 365)
 
 [node name="ExplosiveBarrel" parent="Environment" instance=ExtResource("9_s7g5v")]
 position = Vector2(683, 388)
+
+[node name="GrenadePickup" parent="Environment" instance=ExtResource("11_fiyyi")]
+position = Vector2(507, 396)
+
+[node name="GrenadePickup2" parent="Environment" instance=ExtResource("11_fiyyi")]
+position = Vector2(518, 396)
 
 [node name="Hazards" type="Node" parent="."]
 

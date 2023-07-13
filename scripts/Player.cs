@@ -11,6 +11,9 @@ public partial class Player : CharacterBase
 	public delegate void ImmunityShieldDeactivatedEventHandler();
 
 	[Export]
+	public int GrenadeCount { get; set; } = 4;
+
+	[Export]
 	public float ThrowStrength { get; set; } = 500.0f;
 
 	#region Node references
@@ -78,7 +81,7 @@ public partial class Player : CharacterBase
 
 		// NOTE: We check for grenades first so player can hold down main fire button without interruption.
 
-		if (Input.IsActionJustPressed("throw_grenade"))
+		if (Input.IsActionJustPressed("throw_grenade") && GrenadeCount > 0)
 		{
 			Grenade grenade = grenadeResource.Instantiate<Grenade>();
 			GetTree().Root.AddChild(grenade);
@@ -86,6 +89,10 @@ public partial class Player : CharacterBase
 			grenade.GlobalTransform = GlobalTransform;
 
 			grenade.ApplyImpulse(ThrowStrength * GetRelativeMousePosition().Normalized());
+
+			grenade.Prime();
+
+			GrenadeCount--;
 		}
 		//TODO?
 		// else if (Input.IsActionJustPressed("fire"))

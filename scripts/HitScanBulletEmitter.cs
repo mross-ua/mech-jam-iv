@@ -52,6 +52,10 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				grenade.Hurt(Damage, normal);
 			}
+			else if (collision["collider"].Obj is GrenadePickup grenadePickup)
+			{
+				grenadePickup.Hurt(Damage, normal);
+			}
 			else
 			{
 				// environment hit

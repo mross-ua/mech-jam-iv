@@ -6,6 +6,9 @@ using MechJamIV;
 public partial class ExplosiveBarrel : Barrel
 {
 
+	[Signal]
+	public delegate void KilledEventHandler();
+
 	[Export]
 	public virtual int Health { get; set; } = 10;
 	[Export]
@@ -57,6 +60,8 @@ public partial class ExplosiveBarrel : Barrel
 			AnimateDeath();
 
 			Explode();
+
+			EmitSignal(SignalName.Killed);
 
 			this.TimedFree(5.0f, processInPhysics:true);
 		}

@@ -322,15 +322,7 @@
 					"done": true
 				},
 				{
-					"details": "Add shield boost (temporary overcharge)",
-					"done": false
-				},
-				{
-					"details": "Add ammo",
-					"done": false
-				},
-				{
-					"details": "Add grenades",
+					"details": "Enemies drop pickups",
 					"done": false
 				}
 			]

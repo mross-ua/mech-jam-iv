@@ -51,7 +51,12 @@ public partial class Player : CharacterBase
 		camera2D = GetNode<Camera2D>("Camera2D");
     }
 
-	protected override Vector2 GetMovementDirection() => Input.GetVector("move_left", "move_right", "move_up", "move_down");
+	protected override Vector2 GetMovementDirection()
+	{
+		Vector2 dir = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+
+		return new Vector2(dir.X, 0.0f).Normalized();
+	}
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
 

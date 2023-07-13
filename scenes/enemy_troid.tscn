@@ -119,7 +119,7 @@ radius = 11.0454
 [sub_resource type="CircleShape2D" id="CircleShape2D_eu3kn"]
 radius = 9.0
 
-[node name="EnemyTroid" type="CharacterBody2D"]
+[node name="EnemyTroid" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 64
 motion_mode = 1
 script = ExtResource("1_l108c")

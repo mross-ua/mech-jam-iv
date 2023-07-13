@@ -49,19 +49,16 @@ public partial class World : Node2D
 
 		foreach (PickupBase pickup in GetTree().GetNodesInGroup("pickup").OfType<PickupBase>())
 		{
-			pickup.PickedUp += (type) =>
+			pickup.PickedUp += () => Pickup(pickup);
+		}
+
+		foreach (EnemyBase enemy in GetTree().GetNodesInGroup("enemy").OfType<EnemyBase>())
+		{
+			enemy.PickupDropped += (pickup) =>
 			{
-				switch ((PickupType)type)
-				{
-					case PickupType.Medkit:
-						player.Heal(50);
+				GetTree().Root.AddChild(pickup);
 
-						break;
-					case PickupType.Grenade:
-						player.GrenadeCount++;
-
-						break;
-				}
+				pickup.PickedUp += () => Pickup(pickup);
 			};
 		}
 
@@ -76,8 +73,22 @@ public partial class World : Node2D
 		}
 		else if (Input.IsActionPressed("reset"))
 		{
-			player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 		}
     }
+
+	private void Pickup(PickupBase pickup)
+	{
+		switch (pickup.PickupType)
+		{
+			case PickupType.Medkit:
+				player.Heal(50);
+
+				break;
+			case PickupType.Grenade:
+				player.GrenadeCount++;
+
+				break;
+		}
+	}
 
 }

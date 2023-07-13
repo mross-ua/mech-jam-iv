@@ -59,6 +59,7 @@
 				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
 				"dfffbd50-cb43-4aef-9c5f-16b7f515d9eb",
 				"c904ff3c-dd79-48d0-aa18-f12735de0abf",
+				"bc336b5d-ae80-4d1f-822b-8cf8655641a2",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0"
@@ -82,9 +83,7 @@
 		{
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
-			"tasks": [
-				"bc336b5d-ae80-4d1f-822b-8cf8655641a2"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
@@ -324,7 +323,7 @@
 				},
 				{
 					"details": "Enemies drop pickups",
-					"done": false
+					"done": true
 				}
 			]
 		},

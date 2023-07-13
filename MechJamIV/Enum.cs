@@ -34,7 +34,7 @@ namespace MechJamIV {
 
     public enum PickupType : int
     {
-        Medkit,
-        Grenade
+        Medkit = 0,
+        Grenade = 1
     }
 }

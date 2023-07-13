@@ -7,6 +7,12 @@ namespace MechJamIV {
     public abstract partial class EnemyBase : CharacterBase
     {
 
+        [Signal]
+        public delegate void PickupDroppedEventHandler(PickupBase pickup);
+
+        [Export]
+        public float PickupDropRate { get; set; } = 0.5f;
+
         #region Node references
 
         protected Player Player { get; private set; }
@@ -52,6 +58,15 @@ namespace MechJamIV {
 
             if (Health <= 0)
             {
+                PickupBase pickup = PickupHelper.GenerateRandomPickup(PickupDropRate);
+
+                if (pickup != null)
+                {
+                    pickup.GlobalTransform = GlobalTransform;
+
+                    EmitSignal(SignalName.PickupDropped, pickup);
+                }
+
                 this.TimedFree(5.0f, processInPhysics:true);
             }
         }

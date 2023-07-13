@@ -4,7 +4,7 @@ using MechJamIV;
 
 public partial class MedkitPickup : PickupBase
 {
-	protected override PickupType PickupType => PickupType.Medkit;
+	public override PickupType PickupType { get; protected set;} = PickupType.Medkit;
 
 	#region Node references
 
@@ -16,10 +16,8 @@ public partial class MedkitPickup : PickupBase
 	{
 		base._Ready();
 
-		Random rnd = new Random((int)DateTime.Now.Ticks);
-
 		animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		animatedSprite2D.AnimationLooped += () => animatedSprite2D.Rotate(Mathf.DegToRad(rnd.Next(360)));
+		animatedSprite2D.AnimationLooped += () => animatedSprite2D.Rotate(Mathf.DegToRad(RandomHelper.GetInt(360)));
 	}
 
 }

@@ -230,7 +230,7 @@ position = Vector2(0, -29)
 collision_layer = 64
 script = ExtResource("1_kyk5f")
 
-[node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
+[node name="CharacterAnimator" type="AnimatedSprite2D" parent="." groups=["enemy"]]
 sprite_frames = SubResource("SpriteFrames_f71hv")
 animation = &"idle"
 autoplay = "idle"

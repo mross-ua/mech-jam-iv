@@ -8,15 +8,15 @@ namespace MechJamIV {
 	{
 
         [Signal]
-        public delegate void PickedUpEventHandler(PickupType pickupType);
+        public delegate void PickedUpEventHandler();
 
-        protected abstract PickupType PickupType { get; }
+        public abstract PickupType PickupType { get; protected set; }
 
         public override void _Ready()
         {
             BodyEntered += (body) =>
             {
-                EmitSignal(SignalName.PickedUp, (int)PickupType);
+                EmitSignal(SignalName.PickedUp);
 
                 this.QueueFree();
             };

@@ -5,7 +5,7 @@ using MechJamIV;
 public partial class GrenadePickup : PickupBase
 {
 
-    protected override PickupType PickupType => PickupType.Grenade;
+	public override PickupType PickupType { get; protected set;} = PickupType.Grenade;
 
 	#region Node references
 

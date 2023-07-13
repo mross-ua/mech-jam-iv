@@ -25,13 +25,6 @@ namespace MechJamIV {
         Enemy = 64
     }
 
-    public enum AttackType
-    {
-        Gunfire,
-        SustainedGunfire,
-        Explosive
-    }
-
     public enum PickupType : int
     {
         Medkit = 0,

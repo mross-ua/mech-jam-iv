@@ -21,7 +21,7 @@ public partial class World : Node2D
 
 	public override void _Ready()
 	{
-		player = GetNode<Player>("Player");
+		player = (Player)GetTree().GetFirstNodeInGroup("player");
 		player.Injured += (damage) => healthBar.Value = player.Health;
 		player.Healed += (amount) => healthBar.Value = player.Health;
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;

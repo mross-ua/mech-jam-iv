@@ -53,6 +53,7 @@
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
 				"7e206230-1945-43db-9228-ad0085d786ee",
+				"ee8c0c50-aa2e-42ef-a4c8-985d39063f86",
 				"a08753e1-778b-4c43-b1bc-bf8f70a3db7a",
 				"5738d7de-d303-4119-bf94-afe9ad149b6e",
 				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4",
@@ -673,6 +674,14 @@
 			"description": "It seems the Godot editor shows overriden properties twice and neither items are taking the default value of the override.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
+		{
+			"uuid": "ee8c0c50-aa2e-42ef-a4c8-985d39063f86",
+			"title": "Platform should restore health",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
 		}
 	],
 	"layout": {

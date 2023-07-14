@@ -51,15 +51,19 @@ namespace MechJamIV {
 
 		protected abstract bool IsJumping();
 
-        // public override void _Process(double delta)
-        // {
-        //     QueueRedraw();
-        // }
+#if DEBUG
 
-        // public override void _Draw()
-        // {
-        //     DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
-        // }
+        public override void _Process(double delta)
+        {
+            QueueRedraw();
+        }
+
+        public override void _Draw()
+        {
+            DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
+        }
+
+#endif
 
 		public override void _PhysicsProcess(double delta)
 		{

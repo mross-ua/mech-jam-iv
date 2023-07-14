@@ -37,6 +37,7 @@
 				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
 				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
+				"f019bee2-f622-4151-aa14-8245ea787d3a",
 				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8"
 			]
 		},
@@ -97,12 +98,8 @@
 			"title": "Other",
 			"tasks": [
 				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
-				"3c665da5-ea9e-458c-9068-0b0ef93e0fc7",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
-				"f019bee2-f622-4151-aa14-8245ea787d3a",
-				"d2cefd83-5059-436b-8b3d-da385b594029",
-				"0b257823-8c70-4621-86f4-cfd78225b416",
-				"4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
+				"3b8a1e6f-2294-4acc-bb2c-e4a76edde156",
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
@@ -134,13 +131,6 @@
 					"done": false
 				}
 			]
-		},
-		{
-			"uuid": "0b257823-8c70-4621-86f4-cfd78225b416",
-			"title": "Fix jump_pad sprite",
-			"description": "There is a 1 pixel bleed on top and bottom",
-			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
-			"steps": []
 		},
 		{
 			"uuid": "806e0924-0ff3-402a-b13e-3ac2254a9976",
@@ -188,22 +178,6 @@
 			"description": "",
 			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
-		},
-		{
-			"uuid": "d2cefd83-5059-436b-8b3d-da385b594029",
-			"title": "Fix player sprite",
-			"description": "",
-			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
-			"steps": [
-				{
-					"details": "Don't play run animation while in the air",
-					"done": false
-				},
-				{
-					"details": "Match animation FPS based on proportion of speed to max speed",
-					"done": false
-				}
-			]
 		},
 		{
 			"uuid": "04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
@@ -269,18 +243,20 @@
 			"steps": []
 		},
 		{
-			"uuid": "4ead3ec9-d6d4-403d-8cac-7d79eab9b6f5",
-			"title": "Immunity particle effect needs improvement",
-			"description": "The particles persist after being made not visible and when set to visible again, the particles from the previous time the effect was enabled appear. In addition, setting the particles to not visible makes them immediately disappear rather than live out their lifetime; the transition is abrupt.",
-			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
-			"steps": []
-		},
-		{
 			"uuid": "e623005c-7655-41f5-93af-a0436331d420",
-			"title": "Add particle effect to robot companion for its movement",
-			"description": "",
+			"title": "Particle effects",
+			"description": "For particle effects which are cycled on/off:\n\nThe particles persist after being made not visible and when set to visible again, the particles from the previous time the effect was enabled appear. In addition, setting the particles to not visible makes them immediately disappear rather than live out their lifetime; the transition is abrupt.\n\nReview FPS course lectures because they discuss a related issue with emitting but not on-screen particles.",
 			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
-			"steps": []
+			"steps": [
+				{
+					"details": "Player shield (see description)",
+					"done": false
+				},
+				{
+					"details": "Robot movement",
+					"done": false
+				}
+			]
 		},
 		{
 			"uuid": "67e7ea18-c0b9-418b-9978-fca800a87fef",
@@ -514,12 +490,16 @@
 		},
 		{
 			"uuid": "f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
-			"title": "Improved damage animations",
+			"title": "Improved animations",
 			"description": "",
 			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": [
 				{
-					"details": "Add red flash",
+					"details": "Player sprite",
+					"done": false
+				},
+				{
+					"details": "Damage (red flash)",
 					"done": false
 				}
 			]
@@ -569,13 +549,6 @@
 		{
 			"uuid": "fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
 			"title": "Add parallax background",
-			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
-			"steps": []
-		},
-		{
-			"uuid": "3c665da5-ea9e-458c-9068-0b0ef93e0fc7",
-			"title": "Improved player animation",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
@@ -665,6 +638,18 @@
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
+		},
+		{
+			"uuid": "3b8a1e6f-2294-4acc-bb2c-e4a76edde156",
+			"title": "Fix sprites",
+			"description": "",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
+			"steps": [
+				{
+					"details": "Jump pad",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

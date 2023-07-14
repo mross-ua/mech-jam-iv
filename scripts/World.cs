@@ -73,6 +73,7 @@ public partial class World : Node2D
 		}
 		else if (Input.IsActionPressed("reset"))
 		{
+			GetTree().ReloadCurrentScene();
 		}
     }
 

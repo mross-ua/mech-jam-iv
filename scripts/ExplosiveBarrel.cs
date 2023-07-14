@@ -12,7 +12,7 @@ public partial class ExplosiveBarrel : Barrel
 	[Export]
 	public virtual int Health { get; set; } = 10;
 	[Export]
-	public int Damage { get; set; } = 25;
+	public int Damage { get; set; } = 80;
 	[Export]
 	public float ExplosionIntensity { get; set; } = 10_000.0f;
 
@@ -77,18 +77,24 @@ public partial class ExplosiveBarrel : Barrel
 
 		foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
 		{
+			// NOTE: We want to scale the damage and push force depending on the entity's
+			//       distance from the explosion.
+
+			// we assume the shape is a circle
+			float radius = collisionShape2D.Shape.GetRect().Size.X / 2;
+
 			if (collision["collider"].Obj is CharacterBase character)
 			{
 				Vector2 directionToCharacter = character.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				character.Hurt(Damage, character.GlobalTransform.Origin, -directionToCharacter.Normalized());
+				character.Hurt(Mathf.RoundToInt(Damage * radius / directionToCharacter.Length()), character.GlobalTransform.Origin, -directionToCharacter.Normalized());
 				character.Velocity += ExplosionIntensity * directionToCharacter / directionToCharacter.LengthSquared();
 			}
 			else if (collision["collider"].Obj is Barrel barrel)
 			{
 				Vector2 directionToBarrel = barrel.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				barrel.Hurt(Damage, barrel.GlobalTransform.Origin, -directionToBarrel.Normalized());
+				barrel.Hurt(Mathf.RoundToInt(Damage * radius / directionToBarrel.Length()), barrel.GlobalTransform.Origin, -directionToBarrel.Normalized());
 				barrel.ApplyImpulse(ExplosionIntensity * directionToBarrel / directionToBarrel.LengthSquared());
 			}
 		}

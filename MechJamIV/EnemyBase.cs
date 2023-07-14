@@ -15,12 +15,13 @@ namespace MechJamIV {
         [Export]
         public float PickupDropRate { get; set; } = 0.5f;
 
+        public EnemyState State { get; protected set; } = EnemyState.Idle;
+
         #region Node references
 
         protected Player Player { get; private set; }
 
         #endregion
-
 
         public override void _Ready()
         {
@@ -58,6 +59,29 @@ namespace MechJamIV {
                 }
             }
         }
+
+        protected sealed override Vector2 GetMovementDirection()
+        {
+            switch (State)
+            {
+                case EnemyState.Idle:
+                    return GetMovementDirection_Idle();
+
+                case EnemyState.Chasing:
+                    return GetMovementDirection_Chasing();
+
+                case EnemyState.Attacking:
+                    return GetMovementDirection_Attacking();
+            }
+
+            return Vector2.Zero;
+        }
+
+        protected abstract Vector2 GetMovementDirection_Idle();
+
+        protected abstract Vector2 GetMovementDirection_Chasing();
+
+        protected abstract Vector2 GetMovementDirection_Attacking();
 
         public override void Hurt(int damage, Vector2 position, Vector2 normal)
         {

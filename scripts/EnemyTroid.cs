@@ -5,6 +5,8 @@ using MechJamIV;
 public partial class EnemyTroid : EnemyBase
 {
 
+    public override Vector2 FaceDirection { get; set; } = Vector2.Zero;
+
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
 	#region Resources
@@ -13,7 +15,20 @@ public partial class EnemyTroid : EnemyBase
 
 	#endregion
 
-	protected override Vector2 GetMovementDirection() => GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
+	protected override Vector2 GetMovementDirection_Idle()
+	{
+        return GetMovementDirection_Chasing();
+	}
+
+	protected override Vector2 GetMovementDirection_Chasing()
+	{
+        return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
+	}
+
+	protected override Vector2 GetMovementDirection_Attacking()
+	{
+        return GetMovementDirection_Chasing();
+	}
 
     protected override bool IsJumping() => false;
 

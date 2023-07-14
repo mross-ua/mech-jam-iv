@@ -17,6 +17,8 @@ namespace MechJamIV {
         [Export]
         public int Health { get; protected set; } = 100;
 
+        [Export]
+        public abstract Vector2 FaceDirection { get; set; }
 		[Export]
 		public virtual float MoveAcceleration { get; set; } = 50.0f;
 		[Export]
@@ -51,18 +53,25 @@ namespace MechJamIV {
 
 		protected abstract bool IsJumping();
 
-#if DEBUG
-
         public override void _Process(double delta)
         {
+            if (Health <= 0)
+            {
+                return;
+            }
+
+            AnimateMovement();
+
+#if DEBUG
             QueueRedraw();
+#endif
         }
 
+#if DEBUG
         public override void _Draw()
         {
             DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
         }
-
 #endif
 
 		public override void _PhysicsProcess(double delta)
@@ -72,13 +81,11 @@ namespace MechJamIV {
                 return;
             }
 
+            FaceDirection = GetMovementDirection();
+
             ProcessAttack(delta);
 
-            Vector2 direction = GetMovementDirection();
-
-            AnimateMovement(direction, delta);
-
-			Velocity += MoveAcceleration * direction - Drag * Velocity + (float)delta * Gravity;
+			Velocity += MoveAcceleration * FaceDirection - Drag * Velocity + (float)delta * Gravity;
 
 			MoveAndSlide();
 
@@ -90,7 +97,7 @@ namespace MechJamIV {
 
         protected abstract void ProcessAttack(double delta);
 
-        protected void AnimateMovement(Vector2 direction, double delta) => characterAnimator.AnimateMovement(direction, delta);
+        protected void AnimateMovement() => characterAnimator.AnimateMovement(FaceDirection);
 
         protected abstract void AnimateInjury(int damage, Vector2 position, Vector2 normal);
 

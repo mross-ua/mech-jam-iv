@@ -38,7 +38,8 @@
 				"c681e1f0-9683-477d-9fa7-60dd7eb650dc",
 				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
-				"09728062-4873-4a0b-8827-b0f2c9d45e2a"
+				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
+				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8"
 			]
 		},
 		{
@@ -656,6 +657,13 @@
 			"title": "Dropped grenades are not frozen",
 			"description": "",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
+			"title": "Figure out respawn logic",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		}
 	],

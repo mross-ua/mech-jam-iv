@@ -91,6 +91,8 @@
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
+				"33059468-5ac0-43bf-a1ac-179bdf3b16ea",
+				"baf7e7b9-08eb-4b72-9e8a-c377b6b3f49f"
 			"tasks": []
 		},
 		{
@@ -650,6 +652,33 @@
 					"done": false
 				}
 			]
+		},
+		{
+			"uuid": "33059468-5ac0-43bf-a1ac-179bdf3b16ea",
+			"title": "Create levels",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Level 1",
+					"done": false
+				},
+				{
+					"details": "Level 2",
+					"done": false
+				},
+				{
+					"details": "Boss level",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "baf7e7b9-08eb-4b72-9e8a-c377b6b3f49f",
+			"title": "Add boss fight",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
 		}
 	],
 	"layout": {

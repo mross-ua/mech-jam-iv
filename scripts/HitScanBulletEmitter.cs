@@ -68,7 +68,7 @@ public partial class HitScanBulletEmitter : Node2D
 
 				GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
 
-				GetTree().Root.AddChild(splatter);
+				GetTree().CurrentScene.AddChild(splatter);
 
 				splatter.GlobalPosition = position;
 

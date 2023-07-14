@@ -26,7 +26,7 @@ public partial class EnemyTroid : EnemyBase
     {
         GpuParticles2D splatter = acidSplatter.Instantiate<GpuParticles2D>();
 
-		GetTree().Root.AddChild(splatter);
+		GetTree().CurrentScene.AddChild(splatter);
 
         splatter.GlobalPosition = position;
 

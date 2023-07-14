@@ -87,7 +87,7 @@ public partial class Player : CharacterBase
 		if (Input.IsActionJustPressed("throw_grenade") && GrenadeCount > 0)
 		{
 			Grenade grenade = grenadeResource.Instantiate<Grenade>();
-			GetTree().Root.AddChild(grenade);
+			GetTree().CurrentScene.AddChild(grenade);
 
 			grenade.GlobalTransform = GlobalTransform;
 
@@ -137,7 +137,7 @@ public partial class Player : CharacterBase
     {
         GpuParticles2D splatter = bloodSplatterResource.Instantiate<GpuParticles2D>();
 
-		GetTree().Root.AddChild(splatter);
+		GetTree().CurrentScene.AddChild(splatter);
 
 		splatter.GlobalPosition = position;
 

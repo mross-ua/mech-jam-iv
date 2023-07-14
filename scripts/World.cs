@@ -56,7 +56,7 @@ public partial class World : Node2D
 		{
 			enemy.PickupDropped += (pickup) =>
 			{
-				GetTree().Root.AddChild(pickup);
+				GetTree().CurrentScene.AddChild(pickup);
 
 				pickup.PickedUp += () => Pickup(pickup);
 			};

@@ -29,7 +29,7 @@ public partial class EnemyMech : EnemyBase
     {
 		GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
 
-		GetTree().Root.AddChild(splatter);
+		GetTree().CurrentScene.AddChild(splatter);
 
 		splatter.GlobalPosition = position;
 

@@ -32,11 +32,13 @@
 			"title": "Todo",
 			"tasks": [
 				"1475d785-346f-4dbe-b6b9-9665aef66301",
-				"bda2224d-406c-418a-b6b0-f523d681203d",
 				"5b14b405-f3ad-40ee-b866-d9435c868fb9",
 				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
 				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
-				"23f28138-4558-4c1d-a5de-bfea4505d7eb"
+				"c681e1f0-9683-477d-9fa7-60dd7eb650dc",
+				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
+				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
+				"09728062-4873-4a0b-8827-b0f2c9d45e2a"
 			]
 		},
 		{
@@ -61,6 +63,7 @@
 				"c904ff3c-dd79-48d0-aa18-f12735de0abf",
 				"429a4d67-879f-4d41-8518-567ee61afb8a",
 				"bc336b5d-ae80-4d1f-822b-8cf8655641a2",
+				"bda2224d-406c-418a-b6b0-f523d681203d",
 				"8012f5a7-30ec-4e65-af94-9b5795dfda47",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
@@ -71,14 +74,11 @@
 			"uuid": "ea59d79b-f8bf-487b-82fd-1ae4113af119",
 			"title": "Gameplay Ideas",
 			"tasks": [
+				"6f7b488d-c507-4ba0-9cfb-062dbd2867ec",
 				"38820a96-6835-4276-b34b-2538875d9eeb",
-				"11b3a022-755c-40d6-af8a-a1164177b9b2",
-				"1cfa25d8-84ca-492f-b1c5-40a6a718a15f",
 				"74fb86a6-2527-47c8-8624-c0c9442ec0a6",
 				"f8dda55a-578b-4880-9b17-775cabd85440",
-				"b75301a4-84a6-4399-b9b9-37b317dc5b8b",
-				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
-				"913b6e47-37db-4af6-9d50-2a01f7bbb28f"
+				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92"
 			]
 		},
 		{
@@ -95,9 +95,7 @@
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
 			"title": "Other",
 			"tasks": [
-				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
-				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
-				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
+				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
 				"3c665da5-ea9e-458c-9068-0b0ef93e0fc7",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
 				"f019bee2-f622-4151-aa14-8245ea787d3a",
@@ -107,15 +105,13 @@
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
-				"584da712-8cb9-4299-a2b6-84e1d71e5cc8",
-				"69960687-446b-4e41-9686-b53b43ff652f",
+				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
-				"204a1279-b3f5-4634-b737-c924b635a8cc",
 				"780e9834-6fbc-4523-9449-fd62af2283bd",
 				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
 				"940a4908-25af-461e-a939-a8d1ed90a95c",
+				"204a1279-b3f5-4634-b737-c924b635a8cc",
 				"41e15c4c-55f1-41c6-9794-bd340f357613",
-				"64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
 				"69cb3884-3f49-4dcf-8122-482362823170",
 				"e870e598-a765-4561-a720-9ae84438d486"
 			]
@@ -302,13 +298,6 @@
 			]
 		},
 		{
-			"uuid": "b75301a4-84a6-4399-b9b9-37b317dc5b8b",
-			"title": "Add portals?",
-			"description": "The portals (from Sportal) still don't have an easy way to be rearranged in a scene, so don't waste any time on trying to fix them.",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
-			"steps": []
-		},
-		{
 			"uuid": "bc336b5d-ae80-4d1f-822b-8cf8655641a2",
 			"title": "Add pickups",
 			"description": "",
@@ -369,13 +358,6 @@
 			"uuid": "204a1279-b3f5-4634-b737-c924b635a8cc",
 			"title": "Review mouse position logic in HitScanBulletEmitter.Fire()",
 			"description": "It is a bit hacked together and depends on the presence of a Camera2D node.",
-			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
-			"steps": []
-		},
-		{
-			"uuid": "64a8d8da-d2cf-4033-a590-f7b8e00dc9d6",
-			"title": "Resolve naming conflicts of hit/hurt methods and event handlers",
-			"description": "",
 			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		},
@@ -507,13 +489,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "11b3a022-755c-40d6-af8a-a1164177b9b2",
-			"title": "Add plasma gun",
-			"description": "",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
-			"steps": []
-		},
-		{
 			"uuid": "7171987d-0355-4db3-be06-05746adb5967",
 			"title": "Add firing rate",
 			"description": "",
@@ -549,18 +524,20 @@
 			]
 		},
 		{
-			"uuid": "1cfa25d8-84ca-492f-b1c5-40a6a718a15f",
-			"title": "Allow player to turn on shield",
-			"description": "",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
-			"steps": []
-		},
-		{
 			"uuid": "38820a96-6835-4276-b34b-2538875d9eeb",
-			"title": "Add shield discharge/recharge",
+			"title": "Shield enhancements",
 			"description": "",
 			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
-			"steps": []
+			"steps": [
+				{
+					"details": "Add shield discharge/recharge",
+					"done": false
+				},
+				{
+					"details": "Allow player to turn on shield",
+					"done": false
+				}
+			]
 		},
 		{
 			"uuid": "74fb86a6-2527-47c8-8624-c0c9442ec0a6",
@@ -610,13 +587,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "69960687-446b-4e41-9686-b53b43ff652f",
-			"title": "Timer refactor",
-			"description": "Which is better? Coroutine or event?\n\n    await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);\n\nor (NOTE THAT THIS MAY REQUIRE KEEPING A REFERENCE TO THE TIMER SO IT ISN'T GC'd)\n\n    explosionTimer = GetTree().CreateTimer(3.0f);\n\texplosionTimer.Timeout += () => Explode();",
-			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
-			"steps": []
-		},
-		{
 			"uuid": "9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 			"title": "Dead enemies/explosives continue to collide",
 			"description": "",
@@ -631,29 +601,10 @@
 			"steps": []
 		},
 		{
-			"uuid": "584da712-8cb9-4299-a2b6-84e1d71e5cc8",
-			"title": "Async methods must return Task rather than void",
-			"description": "",
-			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
-			"steps": [
-				{
-					"details": "Fix async/await for overriden methods of base Godot classes",
-					"done": false
-				}
-			]
-		},
-		{
 			"uuid": "e870e598-a765-4561-a720-9ae84438d486",
 			"title": "Turn on multi-threading?",
 			"description": "",
 			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
-			"steps": []
-		},
-		{
-			"uuid": "913b6e47-37db-4af6-9d50-2a01f7bbb28f",
-			"title": "Add ammo and reload mechanism?",
-			"description": "",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
 		},
 		{
@@ -662,6 +613,14 @@
 			"description": "It seems the Godot editor shows overriden properties twice and neither items are taking the default value of the override.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
+		},
+		{
+			"uuid": "ae701850-ff9c-44c5-9c88-7100b376a7c2",
+			"title": "Add realistic collisions between player and rigid bodies",
+			"description": "https://www.youtube.com/watch?v=C-Sn55e5wnk",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
 		{
 			"uuid": "ee8c0c50-aa2e-42ef-a4c8-985d39063f86",
 			"title": "Platform should restore health",
@@ -673,6 +632,29 @@
 			"uuid": "8012f5a7-30ec-4e65-af94-9b5795dfda47",
 			"title": "Particles are appearing at screen origin",
 			"description": "This is due to passing Vector2.Zero as the position.",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "6f7b488d-c507-4ba0-9cfb-062dbd2867ec",
+			"title": "More gunplay",
+			"description": "",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": [
+				{
+					"details": "Add plasma gun",
+					"done": false
+				},
+				{
+					"details": "Add ammo and reload mechanism",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "c681e1f0-9683-477d-9fa7-60dd7eb650dc",
+			"title": "Dropped grenades are not frozen",
+			"description": "",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		}

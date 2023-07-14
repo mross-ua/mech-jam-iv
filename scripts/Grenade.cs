@@ -19,7 +19,7 @@ public partial class Grenade : ExplosiveBarrel
         base._Ready();
 
 		explosionTimer = GetNode<Timer>("ExplosionTimer");
-		explosionTimer.Timeout += () => Hurt(Health, Vector2.Zero, Vector2.Zero);
+		explosionTimer.Timeout += () => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
     }
 
 	public void Prime()

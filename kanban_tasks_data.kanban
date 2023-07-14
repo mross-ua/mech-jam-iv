@@ -61,6 +61,7 @@
 				"dfffbd50-cb43-4aef-9c5f-16b7f515d9eb",
 				"c904ff3c-dd79-48d0-aa18-f12735de0abf",
 				"bc336b5d-ae80-4d1f-822b-8cf8655641a2",
+				"8012f5a7-30ec-4e65-af94-9b5795dfda47",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0"
@@ -669,6 +670,11 @@
 			"steps": []
 		},
 		{
+			"uuid": "8012f5a7-30ec-4e65-af94-9b5795dfda47",
+			"title": "Particles are appearing at screen origin",
+			"description": "This is due to passing Vector2.Zero as the position.",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
 		}
 	],
 	"layout": {

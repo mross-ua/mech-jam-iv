@@ -81,14 +81,14 @@ public partial class ExplosiveBarrel : Barrel
 			{
 				Vector2 directionToCharacter = character.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				character.Hurt(Damage, Vector2.Zero, directionToCharacter.Normalized());
+				character.Hurt(Damage, character.GlobalTransform.Origin, directionToCharacter.Normalized());
 				character.Velocity += ExplosionIntensity * directionToCharacter / directionToCharacter.LengthSquared();
 			}
 			else if (collision["collider"].Obj is Barrel barrel)
 			{
 				Vector2 directionToBarrel = barrel.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				barrel.Hurt(Damage, Vector2.Zero, directionToBarrel.Normalized());
+				barrel.Hurt(Damage, barrel.GlobalTransform.Origin, directionToBarrel.Normalized());
 				barrel.ApplyImpulse(ExplosionIntensity * directionToBarrel / directionToBarrel.LengthSquared());
 			}
 		}

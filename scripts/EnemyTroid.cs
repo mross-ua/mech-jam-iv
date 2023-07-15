@@ -54,7 +54,7 @@ public partial class EnemyTroid : EnemyBase
 
 			lastTimePlayerSeen = DateTime.Now;
 		}
-		else if ((lastTimePlayerSeen - DateTime.Now).Seconds >= chaseDuration)
+		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= chaseDuration)
 		{
 			State = EnemyState.Idle;
 		}

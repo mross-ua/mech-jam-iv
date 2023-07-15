@@ -7,13 +7,18 @@ public partial class Missile : Grenade
 {
 
 	[Export]
-	public float Thrust { get; set; } = 3.0f;
+	public Vector2 FaceDirection { get; set; } = Vector2.Up;
+
 	[Export]
-	public float RotationSpeed { get; set; } = 3.0f;
+	public float ThrustForce { get; set; } = 1_000.0f;
+	[Export]
+	public float TurnSpeed { get; set; } = 3.0f;
 
 	#region Node references
 
 	protected Player Player { get; private set; }
+
+	private GpuParticles2D gpuParticles2D;
 
 	#endregion
 
@@ -23,9 +28,40 @@ public partial class Missile : Grenade
 
 		Player = (Player)GetTree().GetFirstNodeInGroup("player");
 
+		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
+
 #if DEBUG
 		AddRayCastToPlayer();
 #endif
+	}
+
+	public override void _Process(double delta)
+	{
+		if (Health <= 0)
+		{
+			return;
+		}
+
+#if DEBUG
+		QueueRedraw();
+#endif
+	}
+
+	private Vector2 GetMovementDirection(double delta)
+	{
+		Vector2 directionToPlayer = GetDirectionToPlayer();
+
+		float angleDiff = FaceDirection.AngleTo(directionToPlayer);
+		int turnDirection = Mathf.Sign(angleDiff);
+
+		if (Mathf.Abs(angleDiff) < Mathf.DegToRad(TurnSpeed) * delta)
+		{
+			return directionToPlayer;
+		}
+		else
+		{
+			return FaceDirection + new Vector2(0.0f, Mathf.DegToRad(TurnSpeed) * (float)delta * turnDirection);
+		}
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -35,12 +71,21 @@ public partial class Missile : Grenade
 			return;
 		}
 
-		ApplyImpulse(Vector2.Up * 3);
+		FaceDirection = GetMovementDirection(delta);
+
+		ApplyForce(FaceDirection * ThrustForce * (float)delta);
 
 #if DEBUG
 		UpdateRayCastToPlayer();
 #endif
     }
+
+	protected override void AnimateDeath()
+	{
+		base.AnimateDeath();
+
+		gpuParticles2D.Visible = false;
+	}
 
 	protected Vector2 GetDirectionToPlayer()
 	{

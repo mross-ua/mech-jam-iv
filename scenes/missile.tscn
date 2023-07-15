@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxtbt33nlhuer"]
+[gd_scene load_steps=22 format=3 uid="uid://dxtbt33nlhuer"]
 
 [ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://raw_assets/super-dead-gunner-batch-2/enemies2-sheet-alpha.png" id="1_22chs"]
 [ext_resource type="Script" path="res://scripts/Missile.cs" id="1_72hel"]
+[ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/impacts-sheet-colour-3-alpha.png" id="2_k15pn"]
 [ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="2_schm0"]
 
 [sub_resource type="Gradient" id="Gradient_03oxk"]
@@ -33,27 +34,89 @@ damping_max = 100.0
 scale_curve = SubResource("CurveTexture_jk5c3")
 color_ramp = SubResource("GradientTexture1D_1mggb")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjqhm"]
+atlas = ExtResource("2_k15pn")
+region = Rect2(0, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frtt7"]
+atlas = ExtResource("2_k15pn")
+region = Rect2(32, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjtum"]
+atlas = ExtResource("2_k15pn")
+region = Rect2(64, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7alis"]
+atlas = ExtResource("2_k15pn")
+region = Rect2(96, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mimyn"]
+atlas = ExtResource("2_k15pn")
+region = Rect2(128, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_polpe"]
+atlas = ExtResource("2_k15pn")
+region = Rect2(160, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dny7j"]
+atlas = ExtResource("2_k15pn")
+region = Rect2(192, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxti4"]
+atlas = ExtResource("1_22chs")
+region = Rect2(54, 468, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_daq34"]
+atlas = ExtResource("1_22chs")
+region = Rect2(54, 468, 18, 18)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ilwwa"]
 animations = [{
-"frames": [],
-"loop": true,
-"name": &"death",
-"speed": 5.0
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjqhm")
 }, {
-"frames": [],
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frtt7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjtum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7alis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mimyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_polpe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dny7j")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"death",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxti4")
+}],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_daq34")
+}],
 "loop": true,
 "name": &"run",
 "speed": 5.0
 }]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rongx"]
-atlas = ExtResource("1_22chs")
-region = Rect2(54, 468, 18, 18)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_77806"]
 radius = 8.0
@@ -64,7 +127,7 @@ radius = 50.0
 [node name="Missile" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 91
-freeze = true
+gravity_scale = 0.0
 freeze_mode = 1
 script = ExtResource("1_72hel")
 
@@ -75,12 +138,9 @@ process_material = SubResource("ParticleProcessMaterial_p7q0h")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ilwwa")
-animation = &"death"
+animation = &"idle"
 autoplay = "idle"
 script = ExtResource("2_schm0")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_rongx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_77806")
@@ -91,6 +151,8 @@ wait_time = 10.0
 one_shot = true
 
 [node name="ExplosionAreaOfEffect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 110
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionAreaOfEffect"]
 shape = SubResource("CircleShape2D_nrk37")

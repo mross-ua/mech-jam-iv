@@ -128,16 +128,21 @@ namespace MechJamIV {
 
             if (Health <= 0)
             {
-                PickupBase pickup = PickupHelper.GenerateRandomPickup(PickupDropRate);
-
-                if (pickup != null)
-                {
-                    pickup.GlobalTransform = GlobalTransform;
-
-                    EmitSignal(SignalName.PickupDropped, pickup);
-                }
+                DropPickup();
 
                 this.TimedFree(5.0f, processInPhysics:true);
+            }
+        }
+
+        private void DropPickup()
+        {
+            PickupBase pickup = PickupHelper.GenerateRandomPickup(PickupDropRate);
+
+            if (pickup != null)
+            {
+                pickup.GlobalTransform = GlobalTransform;
+
+                EmitSignal(SignalName.PickupDropped, pickup);
             }
         }
 

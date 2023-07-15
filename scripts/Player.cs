@@ -27,7 +27,7 @@ public partial class Player : CharacterBase
 	private Timer attackTimer;
 	private HitScanBulletEmitter hitScanBulletEmitter;
 	//TODO remove! this is temporary!
-	private Camera2D camera2D;
+	private Camera2D playerCamera;
 
 	#endregion
 
@@ -50,7 +50,7 @@ public partial class Player : CharacterBase
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
 		attackTimer = GetNode<Timer>("AttackTimer");
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
-		camera2D = GetNode<Camera2D>("Camera2D");
+		playerCamera = GetNode<Camera2D>("PlayerCamera");
     }
 
 	protected override Vector2 GetMovementDirection()
@@ -67,7 +67,7 @@ public partial class Player : CharacterBase
 		//return GetViewport().GetMousePosition();
 		//return GetGlobalMousePosition();
 		//TODO why does this work?
-		return camera2D.GetGlobalMousePosition() - GlobalTransform.Origin;
+		return playerCamera.GetGlobalMousePosition() - GlobalTransform.Origin;
 	}
 
 #if DEBUG

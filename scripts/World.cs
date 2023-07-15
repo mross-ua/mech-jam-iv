@@ -27,16 +27,16 @@ public partial class World : Node2D
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
 		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
 
-		healthBar = GetNode<ProgressBar>("Player/Camera2D/UI/HealthBar");
+		healthBar = GetNode<ProgressBar>("Player/PlayerCamera/UI/HealthBar");
 		healthBar.Value = player.Health;
-		immunityShield = GetNode<GpuParticles2D>("Player/Camera2D/UI/HealthBar/TextureRect/ImmunityShield");
+		immunityShield = GetNode<GpuParticles2D>("Player/PlayerCamera/UI/HealthBar/TextureRect/ImmunityShield");
 
 		spawns = new List<Spawn>();
 		foreach (Spawn spawn in GetTree().GetNodesInGroup("spawn").OfType<Spawn>())
 		{
 			spawns.Add(spawn);
 
-			if (activeSpawn == null && spawn.IsWorldSpawn)
+			if (activeSpawn == null || spawn.IsWorldSpawn)
 			{
 				activeSpawn = spawn;
 			}

@@ -6,6 +6,11 @@ public partial class EnemyMech : EnemyBase
 {
 
     public override Vector2 FaceDirection { get; set; } = Vector2.Left;
+	public override float MoveAcceleration { get; set; } = 5.0f;
+	public override float MaxMoveSpeed { get; set; } = 30.0f;
+
+	private int chaseDuration = 10;
+	private DateTime lastTimePlayerSeen = DateTime.MinValue;
 
 	#region Resources
 
@@ -20,17 +25,29 @@ public partial class EnemyMech : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Idle()
 	{
+		if (RandomHelper.GetSingle() < 0.01f)
+		{
+			if (FaceDirection.IsEqualApprox(Vector2.Left))
+			{
+				return Vector2.Right;
+			}
+			else
+			{
+				return Vector2.Left;
+			}
+		}
+
 		return Vector2.Zero;
 	}
 
 	protected override Vector2 GetMovementDirection_Chase()
 	{
-		return GetMovementDirection_Idle();
+		return new Vector2(GetDirectionToPlayer().X, 0.0f).Normalized();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
 	{
-		return GetMovementDirection_Idle();
+		return Vector2.Zero;
 	}
 
     protected override bool IsJumping() => false;
@@ -40,17 +57,31 @@ public partial class EnemyMech : EnemyBase
 		if (IsPlayerInFieldOfView() && IsPlayerInLineOfSight())
 		{
 			State = EnemyState.Chase;
+
+			lastTimePlayerSeen = DateTime.Now;
 		}
 	}
 
 	protected override void ProcessAction_Chase()
 	{
-		//TODO
+		if (IsPlayerInLineOfSight())
+		{
+			State = EnemyState.Attacking;
+
+			lastTimePlayerSeen = DateTime.Now;
+		}
+		else if ((lastTimePlayerSeen - DateTime.Now).Seconds >= chaseDuration)
+		{
+			State = EnemyState.Idle;
+		}
 	}
 
 	protected override void ProcessAction_Attacking()
 	{
-		//TODO
+		if (!IsPlayerInLineOfSight())
+		{
+			State = EnemyState.Chase;
+		}
 	}
 
 	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)

@@ -33,11 +33,13 @@
 			"tasks": [
 				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
 				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
+				"28c876ed-cafd-42b3-9812-b43a3a4b3340",
 				"3c892aaa-d849-4b8b-86b5-9df8fb2a41c7",
 				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
 				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
-				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8"
+				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
+				"b5084154-8d48-4e99-aaed-402fce07c8e8"
 			]
 		},
 		{
@@ -688,6 +690,20 @@
 			"title": "Troids can see through walls",
 			"description": "",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "28c876ed-cafd-42b3-9812-b43a3a4b3340",
+			"title": "Mech walks backwards",
+			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "b5084154-8d48-4e99-aaed-402fce07c8e8",
+			"title": "Mech needs to not walk off ledges",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		}
 	],

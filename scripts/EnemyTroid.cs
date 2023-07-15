@@ -9,6 +9,9 @@ public partial class EnemyTroid : EnemyBase
 
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
+	private int chaseDuration = 1;
+	private DateTime lastTimePlayerSeen = DateTime.MinValue;
+
 	#region Resources
 
 	private PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/acid_splatter.tscn");
@@ -22,7 +25,7 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Chase()
 	{
-        return GetDirectionToPlayer();
+		return GetDirectionToPlayer();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -38,18 +41,31 @@ public partial class EnemyTroid : EnemyBase
         if (IsPlayerInLineOfSight())
         {
             State = EnemyState.Chase;
+
+			lastTimePlayerSeen = DateTime.Now;
         }
 	}
 
 	protected override void ProcessAction_Chase()
 	{
-        // NOTE: We currently have collision checks on
-        //       hitboxes so attacks happen automatically.
+		if (IsPlayerInLineOfSight())
+		{
+			State = EnemyState.Attacking;
+
+			lastTimePlayerSeen = DateTime.Now;
+		}
+		else if ((lastTimePlayerSeen - DateTime.Now).Seconds >= chaseDuration)
+		{
+			State = EnemyState.Idle;
+		}
 	}
 
 	protected override void ProcessAction_Attacking()
 	{
-        // see ProcessAction_Chase()
+		// NOTE: We currently have collision checks on
+		//       hitboxes so attacks happen automatically.
+
+		ProcessAction_Chase();
 	}
 
 	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)

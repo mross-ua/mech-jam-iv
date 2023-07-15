@@ -12,8 +12,15 @@ public partial class EnemyMech : EnemyBase
 	private int chaseDuration = 10;
 	private DateTime lastTimePlayerSeen = DateTime.MinValue;
 
+	#region Node references
+
+	private Timer attackTimer;
+
+	#endregion
+
 	#region Resources
 
+	private PackedScene missileResource = ResourceLoader.Load<PackedScene>("res://scenes/missile.tscn");
 	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/shrapnel_splatter.tscn");
 
 	#endregion
@@ -21,6 +28,8 @@ public partial class EnemyMech : EnemyBase
 	public override void _Ready()
 	{
 		base._Ready();
+
+		attackTimer = GetNode<Timer>("AttackTimer");
 	}
 
 	protected override Vector2 GetMovementDirection_Idle()
@@ -82,6 +91,19 @@ public partial class EnemyMech : EnemyBase
 		{
 			State = EnemyState.Chase;
 		}
+		else if (attackTimer.TimeLeft > 0)
+		{
+			return;
+		}
+
+		Missile missile = missileResource.Instantiate<Missile>();
+		GetTree().CurrentScene.AddChild(missile);
+
+		missile.GlobalTransform = GlobalTransform;
+
+		missile.Prime();
+
+		attackTimer.Start();
 	}
 
 	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)

@@ -240,6 +240,11 @@ script = ExtResource("4_pw5xl")
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_u1v5i")
 
+[node name="AttackTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
 [node name="Hitboxes" type="Node2D" parent="."]
 
 [node name="Hitbox" parent="Hitboxes" instance=ExtResource("5_jof1d")]

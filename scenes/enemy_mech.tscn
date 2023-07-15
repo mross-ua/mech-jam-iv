@@ -192,7 +192,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_irmnt")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"run",
 "speed": 5.0
 }, {
 "frames": [{
@@ -215,7 +215,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_aamy2")
 }],
 "loop": true,
-"name": &"walk_fire",
+"name": &"run_fire",
 "speed": 5.0
 }]
 

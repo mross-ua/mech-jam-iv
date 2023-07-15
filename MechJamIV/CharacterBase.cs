@@ -67,13 +67,6 @@ namespace MechJamIV {
 #endif
         }
 
-#if DEBUG
-        public override void _Draw()
-        {
-            DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
-        }
-#endif
-
 		public override void _PhysicsProcess(double delta)
 		{
             if (Health <= 0)

@@ -60,6 +60,10 @@ namespace MechJamIV {
                     };
                 }
             }
+
+#if DEBUG
+            AddRayCastToPlayer();
+#endif
         }
 
         protected sealed override Vector2 GetMovementDirection()
@@ -85,13 +89,6 @@ namespace MechJamIV {
 
         protected abstract Vector2 GetMovementDirection_Attacking();
 
-#if DEBUG
-        public override void _Draw()
-        {
-            DrawDashedLine(Vector2.Zero, Player.GlobalTransform.Origin - GlobalTransform.Origin, Colors.SkyBlue);
-        }
-#endif
-
         protected sealed override void ProcessAction()
         {
             switch (State)
@@ -109,6 +106,10 @@ namespace MechJamIV {
 
                     break;
             }
+
+#if DEBUG
+            UpdateRayCastToPlayer();
+#endif
         }
 
         protected abstract void ProcessAction_Idle();

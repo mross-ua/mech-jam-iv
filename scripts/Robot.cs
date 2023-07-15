@@ -24,7 +24,7 @@ public partial class Robot : CharacterBase
 
     protected override bool IsJumping() => false;
 
-    protected override void ProcessAttack(double delta)
+    protected override void ProcessAction()
 	{
 		//TODO
 	}

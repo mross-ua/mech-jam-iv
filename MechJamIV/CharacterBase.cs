@@ -83,7 +83,7 @@ namespace MechJamIV {
 
             FaceDirection = GetMovementDirection();
 
-            ProcessAttack(delta);
+            ProcessAction();
 
 			Velocity += MoveAcceleration * FaceDirection - Drag * Velocity + (float)delta * Gravity;
 
@@ -95,7 +95,7 @@ namespace MechJamIV {
 			}
 		}
 
-        protected abstract void ProcessAttack(double delta);
+        protected abstract void ProcessAction();
 
         protected void AnimateMovement() => characterAnimator.AnimateMovement(FaceDirection);
 

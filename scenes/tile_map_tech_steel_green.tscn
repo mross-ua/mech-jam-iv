@@ -177,7 +177,7 @@ texture = ExtResource("1_hd0lx")
 
 [sub_resource type="TileSet" id="TileSet_cbgrn"]
 physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 66
+physics_layer_0/collision_mask = 78
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Ground"
 terrain_set_0/terrain_0/color = Color(0.396078, 0.305882, 0.678431, 1)

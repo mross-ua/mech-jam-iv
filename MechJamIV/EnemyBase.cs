@@ -11,6 +11,8 @@ namespace MechJamIV {
         public delegate void PickupDroppedEventHandler(PickupBase pickup);
 
         [Export]
+        public float FieldOfView { get; set; } = 45.0f;
+        [Export]
         public float CriticalHitRate { get; set; } = 0.3f;
         [Export]
         public float PickupDropRate { get; set; } = 0.5f;
@@ -67,8 +69,8 @@ namespace MechJamIV {
                 case EnemyState.Idle:
                     return GetMovementDirection_Idle();
 
-                case EnemyState.Chasing:
-                    return GetMovementDirection_Chasing();
+                case EnemyState.Chase:
+                    return GetMovementDirection_Chase();
 
                 case EnemyState.Attacking:
                     return GetMovementDirection_Attacking();
@@ -79,9 +81,41 @@ namespace MechJamIV {
 
         protected abstract Vector2 GetMovementDirection_Idle();
 
-        protected abstract Vector2 GetMovementDirection_Chasing();
+        protected abstract Vector2 GetMovementDirection_Chase();
 
         protected abstract Vector2 GetMovementDirection_Attacking();
+
+#if DEBUG
+        public override void _Draw()
+        {
+            DrawDashedLine(Vector2.Zero, Player.GlobalTransform.Origin - GlobalTransform.Origin, Colors.SkyBlue);
+        }
+#endif
+
+        protected sealed override void ProcessAction()
+        {
+            switch (State)
+            {
+                case EnemyState.Idle:
+                    ProcessAction_Idle();
+
+                    break;
+                case EnemyState.Chase:
+                    ProcessAction_Chase();
+
+                    break;
+                case EnemyState.Attacking:
+                    ProcessAction_Attacking();
+
+                    break;
+            }
+        }
+
+        protected abstract void ProcessAction_Idle();
+
+        protected abstract void ProcessAction_Chase();
+
+        protected abstract void ProcessAction_Attacking();
 
         public override void Hurt(int damage, Vector2 position, Vector2 normal)
         {
@@ -105,6 +139,31 @@ namespace MechJamIV {
 
                 this.TimedFree(5.0f, processInPhysics:true);
             }
+        }
+
+        protected Vector2 GetDirectionToPlayer()
+        {
+            return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
+        }
+
+        protected bool IsPlayerInFieldOfView()
+        {
+            return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
+        }
+
+        protected bool IsPlayerInLineOfSight()
+        {
+            Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
+            {
+                From = GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
+                To = Player.GlobalTransform.Origin,
+                Exclude = null,
+                CollideWithBodies = true,
+                CollideWithAreas = true,
+                CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
+            });
+
+            return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
         }
 
     }

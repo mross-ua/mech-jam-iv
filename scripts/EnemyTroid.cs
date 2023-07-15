@@ -17,25 +17,40 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Idle()
 	{
-        return GetMovementDirection_Chasing();
+        return Vector2.Zero;
 	}
 
-	protected override Vector2 GetMovementDirection_Chasing()
+	protected override Vector2 GetMovementDirection_Chase()
 	{
-        return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
+        return GetDirectionToPlayer();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
 	{
-        return GetMovementDirection_Chasing();
+        // stay with player
+        return GetMovementDirection_Chase();
 	}
 
     protected override bool IsJumping() => false;
 
-    protected override void ProcessAttack(double delta)
-    {
-        //TODO
-    }
+	protected override void ProcessAction_Idle()
+	{
+        if (IsPlayerInLineOfSight())
+        {
+            State = EnemyState.Chase;
+        }
+	}
+
+	protected override void ProcessAction_Chase()
+	{
+        // NOTE: We currently have collision checks on
+        //       hitboxes so attacks happen automatically.
+	}
+
+	protected override void ProcessAction_Attacking()
+	{
+        // see ProcessAction_Chase()
+	}
 
 	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {

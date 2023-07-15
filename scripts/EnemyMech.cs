@@ -23,7 +23,7 @@ public partial class EnemyMech : EnemyBase
 		return Vector2.Zero;
 	}
 
-	protected override Vector2 GetMovementDirection_Chasing()
+	protected override Vector2 GetMovementDirection_Chase()
 	{
 		return GetMovementDirection_Idle();
 	}
@@ -35,10 +35,23 @@ public partial class EnemyMech : EnemyBase
 
     protected override bool IsJumping() => false;
 
-    protected override void ProcessAttack(double delta)
-    {
-        //TODO
-    }
+	protected override void ProcessAction_Idle()
+	{
+		if (IsPlayerInFieldOfView() && IsPlayerInLineOfSight())
+		{
+			State = EnemyState.Chase;
+		}
+	}
+
+	protected override void ProcessAction_Chase()
+	{
+		//TODO
+	}
+
+	protected override void ProcessAction_Attacking()
+	{
+		//TODO
+	}
 
 	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {

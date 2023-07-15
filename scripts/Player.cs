@@ -79,7 +79,7 @@ public partial class Player : CharacterBase
     }
 #endif
 
-    protected override void ProcessAttack(double delta)
+    protected override void ProcessAction()
     {
 		if (attackTimer.TimeLeft > 0)
 		{

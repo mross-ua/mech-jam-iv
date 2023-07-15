@@ -14,7 +14,8 @@ public partial class HitScanBulletEmitter : Node2D
 
 	public int Damage { get; set; } = 1;
 
-	private Vector2 gravity = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	// (not) used in Fire()
+	//private Vector2 gravity = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	#region Resources
 

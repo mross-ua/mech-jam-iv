@@ -5,7 +5,12 @@ using MechJamIV;
 public partial class EnemyTroid : EnemyBase
 {
 
+    public override Vector2 FaceDirection { get; set; } = Vector2.Zero;
+
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
+
+	private int chaseDuration = 1;
+	private DateTime lastTimePlayerSeen = DateTime.MinValue;
 
 	#region Resources
 
@@ -13,14 +18,55 @@ public partial class EnemyTroid : EnemyBase
 
 	#endregion
 
-	protected override Vector2 GetMovementDirection() => GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
+	protected override Vector2 GetMovementDirection_Idle()
+	{
+        return Vector2.Zero;
+	}
+
+	protected override Vector2 GetMovementDirection_Chase()
+	{
+		return GetDirectionToPlayer();
+	}
+
+	protected override Vector2 GetMovementDirection_Attacking()
+	{
+        // stay with player
+        return GetMovementDirection_Chase();
+	}
 
     protected override bool IsJumping() => false;
 
-    protected override void ProcessAttack(double delta)
-    {
-        //TODO
-    }
+	protected override void ProcessAction_Idle()
+	{
+        if (IsPlayerInLineOfSight())
+        {
+            State = EnemyState.Chase;
+
+			lastTimePlayerSeen = DateTime.Now;
+        }
+	}
+
+	protected override void ProcessAction_Chase()
+	{
+		if (IsPlayerInLineOfSight())
+		{
+			State = EnemyState.Attacking;
+
+			lastTimePlayerSeen = DateTime.Now;
+		}
+		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= chaseDuration)
+		{
+			State = EnemyState.Idle;
+		}
+	}
+
+	protected override void ProcessAction_Attacking()
+	{
+		// NOTE: We currently have collision checks on
+		//       hitboxes so attacks happen automatically.
+
+		ProcessAction_Chase();
+	}
 
 	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {

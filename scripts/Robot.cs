@@ -5,6 +5,8 @@ using MechJamIV;
 public partial class Robot : CharacterBase
 {
 
+    public override Vector2 FaceDirection { get; set; } = Vector2.Zero;
+
 	#region Node references
 
 	private Player player;
@@ -22,7 +24,7 @@ public partial class Robot : CharacterBase
 
     protected override bool IsJumping() => false;
 
-    protected override void ProcessAttack(double delta)
+    protected override void ProcessAction()
 	{
 		//TODO
 	}

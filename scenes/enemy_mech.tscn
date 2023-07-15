@@ -192,7 +192,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_irmnt")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"run",
 "speed": 5.0
 }, {
 "frames": [{
@@ -215,7 +215,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_aamy2")
 }],
 "loop": true,
-"name": &"walk_fire",
+"name": &"run_fire",
 "speed": 5.0
 }]
 
@@ -239,6 +239,11 @@ script = ExtResource("4_pw5xl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_u1v5i")
+
+[node name="AttackTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
 
 [node name="Hitboxes" type="Node2D" parent="."]
 

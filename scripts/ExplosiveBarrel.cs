@@ -67,7 +67,7 @@ public partial class ExplosiveBarrel : Barrel
 		}
 	}
 
-	private void Explode()
+	protected void Explode()
 	{
 		PhysicsShapeQueryParameters2D queryParams = new ();
 		queryParams.Transform = GlobalTransform;

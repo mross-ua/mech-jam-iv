@@ -11,16 +11,19 @@ namespace MechJamIV {
         public delegate void PickupDroppedEventHandler(PickupBase pickup);
 
         [Export]
+        public float FieldOfView { get; set; } = 45.0f;
+        [Export]
         public float CriticalHitRate { get; set; } = 0.3f;
         [Export]
         public float PickupDropRate { get; set; } = 0.5f;
+
+        public EnemyState State { get; protected set; } = EnemyState.Idle;
 
         #region Node references
 
         protected Player Player { get; private set; }
 
         #endregion
-
 
         public override void _Ready()
         {
@@ -57,7 +60,63 @@ namespace MechJamIV {
                     };
                 }
             }
+
+#if DEBUG
+            AddRayCastToPlayer();
+#endif
         }
+
+        protected sealed override Vector2 GetMovementDirection()
+        {
+            switch (State)
+            {
+                case EnemyState.Idle:
+                    return GetMovementDirection_Idle();
+
+                case EnemyState.Chase:
+                    return GetMovementDirection_Chase();
+
+                case EnemyState.Attacking:
+                    return GetMovementDirection_Attacking();
+            }
+
+            return Vector2.Zero;
+        }
+
+        protected abstract Vector2 GetMovementDirection_Idle();
+
+        protected abstract Vector2 GetMovementDirection_Chase();
+
+        protected abstract Vector2 GetMovementDirection_Attacking();
+
+        protected sealed override void ProcessAction()
+        {
+            switch (State)
+            {
+                case EnemyState.Idle:
+                    ProcessAction_Idle();
+
+                    break;
+                case EnemyState.Chase:
+                    ProcessAction_Chase();
+
+                    break;
+                case EnemyState.Attacking:
+                    ProcessAction_Attacking();
+
+                    break;
+            }
+
+#if DEBUG
+            UpdateRayCastToPlayer();
+#endif
+        }
+
+        protected abstract void ProcessAction_Idle();
+
+        protected abstract void ProcessAction_Chase();
+
+        protected abstract void ProcessAction_Attacking();
 
         public override void Hurt(int damage, Vector2 position, Vector2 normal)
         {
@@ -70,17 +129,47 @@ namespace MechJamIV {
 
             if (Health <= 0)
             {
-                PickupBase pickup = PickupHelper.GenerateRandomPickup(PickupDropRate);
-
-                if (pickup != null)
-                {
-                    pickup.GlobalTransform = GlobalTransform;
-
-                    EmitSignal(SignalName.PickupDropped, pickup);
-                }
+                DropPickup();
 
                 this.TimedFree(5.0f, processInPhysics:true);
             }
+        }
+
+        private void DropPickup()
+        {
+            PickupBase pickup = PickupHelper.GenerateRandomPickup(PickupDropRate);
+
+            if (pickup != null)
+            {
+                pickup.GlobalTransform = GlobalTransform;
+
+                EmitSignal(SignalName.PickupDropped, pickup);
+            }
+        }
+
+        protected Vector2 GetDirectionToPlayer()
+        {
+            return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
+        }
+
+        protected bool IsPlayerInFieldOfView()
+        {
+            return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
+        }
+
+        protected bool IsPlayerInLineOfSight()
+        {
+            Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
+            {
+                From = GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
+                To = Player.GlobalTransform.Origin,
+                Exclude = null,
+                CollideWithBodies = true,
+                CollideWithAreas = true,
+                CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
+            });
+
+            return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
         }
 
     }

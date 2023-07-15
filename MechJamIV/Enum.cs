@@ -30,4 +30,11 @@ namespace MechJamIV {
         Medkit = 0,
         Grenade = 1
     }
+
+    public enum EnemyState
+    {
+        Idle,
+        Chase,
+        Attacking
+    }
 }

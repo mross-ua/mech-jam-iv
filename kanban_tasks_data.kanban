@@ -726,7 +726,7 @@
 		{
 			"uuid": "be1049e6-9f87-4115-b483-774a3e6d1f53",
 			"title": "Add Docker build",
-			"description": "",
+			"description": "https://hub.docker.com/r/barichello/godot-ci\n\nhttps://github.com/marketplace/actions/godot-ci",
 			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": [
 				{

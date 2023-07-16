@@ -58,6 +58,7 @@
 				"ee8c0c50-aa2e-42ef-a4c8-985d39063f86",
 				"a08753e1-778b-4c43-b1bc-bf8f70a3db7a",
 				"5738d7de-d303-4119-bf94-afe9ad149b6e",
+				"1475d785-346f-4dbe-b6b9-9665aef66301",
 				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4",
 				"7a19e8a6-bac7-4e52-817e-aa44bb155e8c",
 				"dfffbd50-cb43-4aef-9c5f-16b7f515d9eb",
@@ -88,9 +89,7 @@
 		{
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
-			"tasks": [
-				"1475d785-346f-4dbe-b6b9-9665aef66301"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
@@ -99,13 +98,15 @@
 				"33059468-5ac0-43bf-a1ac-179bdf3b16ea",
 				"baf7e7b9-08eb-4b72-9e8a-c377b6b3f49f",
 				"f019bee2-f622-4151-aa14-8245ea787d3a",
-				"5978a998-7eab-4d0d-a78a-659a62156811"
+				"5978a998-7eab-4d0d-a78a-659a62156811",
+				"c61104e0-1c77-4cd6-bdeb-46e775693006"
 			]
 		},
 		{
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
 			"title": "Other",
 			"tasks": [
+				"be1049e6-9f87-4115-b483-774a3e6d1f53",
 				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
 				"3b8a1e6f-2294-4acc-bb2c-e4a76edde156",
@@ -711,7 +712,7 @@
 		{
 			"uuid": "5978a998-7eab-4d0d-a78a-659a62156811",
 			"title": "On first launch, troids can see player and are put into chase mode",
-			"description": "On first launch of a debug build, troids can see player, as if the level tiles are not loaded yet. This puts them into chase mode. On pressing 'R' to reload, they stay in their idle state, as intended.\n\nNote that when holding the 'R' reload button, enemy raytracers seem to be pointing to the screen origin and not the player avatar, which appears on the world spawn platform. It's possible they are triggering on where they *think* the player is located.",
+			"description": "On first launch of the game, troids can see player, as if the level tiles are not loaded yet. This puts them into chase mode. On pressing 'R' to reload, they stay in their idle state, as intended.\n\nNote that when holding the 'R' reload button, enemy raytracers seem to be pointing to the screen origin and not the player avatar, which appears on the world spawn platform. It's possible they are triggering on where they *think* the player is located. But why do they not go back to idle mode?",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		},
@@ -720,6 +721,29 @@
 			"title": "Move used assets to assets/ folder",
 			"description": "",
 			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": []
+		},
+		{
+			"uuid": "be1049e6-9f87-4115-b483-774a3e6d1f53",
+			"title": "Add Docker build",
+			"description": "",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": [
+				{
+					"details": "A release path that builds binaries",
+					"done": false
+				},
+				{
+					"details": "A web path that publishes to Github Pages",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "c61104e0-1c77-4cd6-bdeb-46e775693006",
+			"title": "Missiles do not follow player",
+			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		}
 	],

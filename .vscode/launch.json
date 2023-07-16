@@ -6,12 +6,23 @@
     // the following to your .zshrc, .bashrc, or .bash_profile file:
     // export GODOT4="/Applications/Godot.app/Contents/MacOS/Godot"
     {
-      "name": "Play",
+      "name": "Play (debug)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
       "program": "${env:GODOT4}",
-      "args": [],
+      // see https://docs.godotengine.org/en/stable/tutorials/editor/command_line_tutorial.html
+      "args": ["--maximized", "--debug"],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Make movie",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${env:GODOT4}",
+      "args": ["--maximized", "--write-movie", "movie.avi"],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false
     }

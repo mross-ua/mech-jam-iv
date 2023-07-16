@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cses4a08f7sqs"]
 
-[ext_resource type="Texture2D" uid="uid://5rgsfkhthdce" path="res://raw_assets/space-merc-redux-platform-shmup-tileset/tiles-tech-steel-green-alpha.png" id="1_hd0lx"]
+[ext_resource type="Texture2D" uid="uid://5rgsfkhthdce" path="res://assets/spritesheets/tiles-tech-steel-green-alpha.png" id="1_38htf"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_7vgoy"]
 tile_data = PackedInt32Array(0, 589824, 0, 65536, 589824, 1, 1, 655360, 0, 65537, 655360, 1)
@@ -10,7 +10,7 @@ tile_data = PackedInt32Array(0, 589824, 2, 65536, 589824, 3, 1, 655360, 2, 65537
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uca4c"]
 resource_name = "steel-green"
-texture = ExtResource("1_hd0lx")
+texture = ExtResource("1_38htf")
 1:7/0 = 0
 1:7/0/terrain_set = 0
 1:7/0/terrain = 0

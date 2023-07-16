@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b2ehmkeavxqof"]
 
-[ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/char-sheet-alpha.png" id="1_oytgi"]
+[ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://assets/spritesheets/char-sheet-alpha.png" id="1_oytgi"]
 [ext_resource type="PackedScene" uid="uid://tatq2gmyab34" path="res://scenes/immunity_shield.tscn" id="2_p78tg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbrpc"]

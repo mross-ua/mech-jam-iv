@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://dxtbt33nlhuer"]
 
-[ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://raw_assets/super-dead-gunner-batch-2/enemies2-sheet-alpha.png" id="1_22chs"]
+[ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://assets/spritesheets/enemies2-sheet-alpha.png" id="1_22chs"]
 [ext_resource type="Script" path="res://scripts/Missile.cs" id="1_72hel"]
-[ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://raw_assets/super-dead-space-gunner-merc-redux-platform-shmup-hero/impacts-sheet-colour-3-alpha.png" id="2_k15pn"]
+[ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://assets/spritesheets/impacts-sheet-colour-3-alpha.png" id="2_k15pn"]
 [ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="2_schm0"]
 
 [sub_resource type="Gradient" id="Gradient_03oxk"]

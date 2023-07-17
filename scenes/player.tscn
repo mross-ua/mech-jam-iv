@@ -337,3 +337,7 @@ one_shot = true
 
 [node name="HitScanBulletEmitter" type="Node2D" parent="."]
 script = ExtResource("5_6pcw2")
+
+[node name="RemoteTransform" type="RemoteTransform2D" parent="."]
+update_rotation = false
+update_scale = false

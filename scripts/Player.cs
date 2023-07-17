@@ -21,6 +21,7 @@ public partial class Player : CharacterBase
 	#region Node references
 
 	public Marker2D RobotMarker { get; set; }
+	public RemoteTransform2D RemoteTransform { get; set; }
 
 	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
@@ -41,6 +42,7 @@ public partial class Player : CharacterBase
 		base._Ready();
 
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
+		RemoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
 
 		immunityTimer = GetNode<Timer>("ImmunityTimer");
 		immunityTimer.Timeout += () => DeactivateShield();

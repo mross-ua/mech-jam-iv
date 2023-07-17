@@ -10,10 +10,7 @@ public partial class World : Node2D
 	#region Node references
 
 	private Player player;
-	private Camera2D playerCamera;
-
-	private ProgressBar healthBar;
-	private GpuParticles2D immunityShield;
+	private PlayerCamera playerCamera;
 
 	private IList<Spawn> spawns;
 	private Spawn activeSpawn;
@@ -22,18 +19,20 @@ public partial class World : Node2D
 
 	public override void _Ready()
 	{
+		InitSpawns();
+		InitPickups();
+		InitEnemies();
+		InitObjectives();
+
 		player = (Player)GetTree().GetFirstNodeInGroup("player");
-		player.Injured += (damage) => healthBar.Value = player.Health;
-		player.Healed += (amount) => healthBar.Value = player.Health;
-		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
-		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
+		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 
-		playerCamera = GetNode<Camera2D>("Player/PlayerCamera");
+		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
+		playerCamera.TrackPlayer(player);
+	}
 
-		healthBar = GetNode<ProgressBar>("Player/PlayerCamera/UI/HealthBar");
-		healthBar.Value = player.Health;
-		immunityShield = GetNode<GpuParticles2D>("Player/PlayerCamera/UI/HealthBar/TextureRect/ImmunityShield");
-
+	private void InitSpawns()
+	{
 		spawns = new List<Spawn>();
 		foreach (Spawn spawn in GetTree().GetNodesInGroup("spawn").OfType<Spawn>())
 		{
@@ -49,12 +48,18 @@ public partial class World : Node2D
 				activeSpawn = spawn;
 			};
 		}
+	}
 
+	private void InitPickups()
+	{
 		foreach (PickupBase pickup in GetTree().GetNodesInGroup("pickup").OfType<PickupBase>())
 		{
 			pickup.PickedUp += () => Pickup(pickup);
 		}
+	}
 
+	private void InitEnemies()
+	{
 		foreach (EnemyBase enemy in GetTree().GetNodesInGroup("enemy").OfType<EnemyBase>())
 		{
 			enemy.PickupDropped += (pickup) =>
@@ -64,8 +69,20 @@ public partial class World : Node2D
 				pickup.PickedUp += () => Pickup(pickup);
 			};
 		}
+	}
 
-		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
+	private void InitObjectives()
+	{
+		foreach (Objective objective in GetTree().GetNodesInGroup("objective").OfType<Objective>())
+		{
+			objective.ObjectiveReached += () =>
+			{
+				//TODO
+				GetTree().ChangeSceneToPacked(NextScene);
+			};
+		}
+	}
+
     public override void _Process(double delta)
     {
 #if DEBUG

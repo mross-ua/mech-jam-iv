@@ -88,7 +88,10 @@ namespace MechJamIV {
 			}
 		}
 
-        protected abstract void ProcessAction();
+        protected virtual void ProcessAction()
+        {
+
+        }
 
         protected void AnimateMovement() => characterAnimator.AnimateMovement(FaceDirection);
 

@@ -26,8 +26,6 @@ public partial class Player : CharacterBase
 	private GpuParticles2D immunityShield;
 	private Timer attackTimer;
 	private HitScanBulletEmitter hitScanBulletEmitter;
-	//TODO remove! this is temporary!
-	private Camera2D playerCamera;
 
 	#endregion
 
@@ -50,7 +48,6 @@ public partial class Player : CharacterBase
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
 		attackTimer = GetNode<Timer>("AttackTimer");
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
-		playerCamera = GetNode<Camera2D>("PlayerCamera");
     }
 
 	protected override Vector2 GetMovementDirection()
@@ -62,61 +59,42 @@ public partial class Player : CharacterBase
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
 
-	private Vector2 GetRelativeMousePosition()
+	public void FireGun(Vector2 globalPos)
 	{
-		//return GetViewport().GetMousePosition();
-		//return GetGlobalMousePosition();
-		//TODO why does this work?
-		return playerCamera.GetGlobalMousePosition() - GlobalTransform.Origin;
-	}
-
-#if DEBUG
-    public override void _Draw()
-    {
-     	base._Draw();
-
-		DrawLine(Vector2.Zero, GetRelativeMousePosition(), Colors.Green, 1.0f);
-    }
-#endif
-
-    protected override void ProcessAction()
-    {
 		if (attackTimer.TimeLeft > 0)
 		{
 			return;
 		}
 
-		// NOTE: We check for grenades first so player can hold down main fire button without interruption.
+		hitScanBulletEmitter.Fire(globalPos - GlobalTransform.Origin);
 
-		if (Input.IsActionJustPressed("throw_grenade") && GrenadeCount > 0)
+		attackTimer.Start();
+	}
+
+	public void ThrowGrenade(Vector2 globalPos)
+	{
+		if (attackTimer.TimeLeft > 0)
 		{
-			Grenade grenade = grenadeResource.Instantiate<Grenade>();
-			GetTree().CurrentScene.AddChild(grenade);
-
-			grenade.GlobalTransform = GlobalTransform;
-
-			grenade.ApplyImpulse(ThrowStrength * GetRelativeMousePosition().Normalized());
-
-			grenade.Prime();
-
-			GrenadeCount--;
-
-			attackTimer.Start();
+			return;
 		}
-		//TODO?
-		// else if (Input.IsActionJustPressed("fire"))
-		// {
-		// 	hitScanBulletEmitter.Fire(GetRelativeMousePosition());
-		//
-		//  attackTimer.Start();
-		// }
-		else if (Input.IsActionPressed("fire"))
+		else if (GrenadeCount <= 0)
 		{
-			hitScanBulletEmitter.Fire(GetRelativeMousePosition());
-
-			attackTimer.Start();
+			return;
 		}
-    }
+
+		Grenade grenade = grenadeResource.Instantiate<Grenade>();
+		GetTree().CurrentScene.AddChild(grenade);
+
+		grenade.GlobalTransform = GlobalTransform;
+
+		grenade.ApplyImpulse(ThrowStrength * (globalPos - GlobalTransform.Origin).Normalized());
+
+		grenade.Prime();
+
+		GrenadeCount--;
+
+		attackTimer.Start();
+	}
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)
 	{

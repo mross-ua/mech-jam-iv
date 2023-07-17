@@ -10,6 +10,7 @@ public partial class World : Node2D
 	#region Node references
 
 	private Player player;
+	private Camera2D playerCamera;
 
 	private ProgressBar healthBar;
 	private GpuParticles2D immunityShield;
@@ -26,6 +27,8 @@ public partial class World : Node2D
 		player.Healed += (amount) => healthBar.Value = player.Health;
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
 		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
+
+		playerCamera = GetNode<Camera2D>("Player/PlayerCamera");
 
 		healthBar = GetNode<ProgressBar>("Player/PlayerCamera/UI/HealthBar");
 		healthBar.Value = player.Health;
@@ -63,7 +66,12 @@ public partial class World : Node2D
 		}
 
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
-	}
+    public override void _Process(double delta)
+    {
+#if DEBUG
+		QueueRedraw();
+#endif
+    }
 
     public override void _PhysicsProcess(double delta)
     {
@@ -74,6 +82,19 @@ public partial class World : Node2D
 		else if (Input.IsActionPressed("reset"))
 		{
 			GetTree().ReloadCurrentScene();
+		}
+		else if (Input.IsActionJustPressed("throw_grenade"))
+		{
+			player.ThrowGrenade(playerCamera.GetGlobalMousePosition());
+		}
+		//TODO?
+		// else if (Input.IsActionJustPressed("fire"))
+		// {
+		// 	player.FireGun(playerCamera.GetGlobalMousePosition());
+		// }
+		else if (Input.IsActionPressed("fire"))
+		{
+			player.FireGun(playerCamera.GetGlobalMousePosition());
 		}
     }
 

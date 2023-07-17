@@ -15,10 +15,14 @@ public partial class World : Node2D
 	private IList<Spawn> spawns;
 	private Spawn activeSpawn;
 
+	private PauseScreen pauseScreen;
+
 	#endregion
 
 	public override void _Ready()
 	{
+		InitPauseScreen();
+
 		InitSpawns();
 		InitPickups();
 		InitEnemies();
@@ -29,6 +33,37 @@ public partial class World : Node2D
 
 		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
 		playerCamera.TrackPlayer(player);
+	}
+
+	private void InitPauseScreen()
+	{
+		pauseScreen = ResourceLoader.Load<PackedScene>("res://scenes/pause_screen.tscn").Instantiate<PauseScreen>();
+
+		pauseScreen.Visible = false;
+
+		pauseScreen.ContinueClicked += () =>
+		{
+			pauseScreen.Visible = false;
+
+			GetTree().Paused = false;
+		};
+		pauseScreen.RestartClicked += () =>
+		{
+			// if (player.Health <= 0)
+			// {
+			GetTree().ReloadCurrentScene();
+			// }
+			// else
+			// {
+			// 	player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
+			// }
+		};
+		pauseScreen.QuitClicked += () =>
+		{
+			GetTree().Quit();
+		};
+
+		AddChild(pauseScreen);
 	}
 
 	private void InitSpawns()
@@ -94,11 +129,9 @@ public partial class World : Node2D
     {
         if (Input.IsActionPressed("quit"))
 		{
-			GetTree().Quit();
-		}
-		else if (Input.IsActionPressed("reset"))
-		{
-			GetTree().ReloadCurrentScene();
+			GetTree().Paused = true;
+
+			pauseScreen.Visible = true;
 		}
 		else if (Input.IsActionJustPressed("throw_grenade"))
 		{

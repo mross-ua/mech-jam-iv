@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cydjxvklk03tv" path="res://scenes/grenade_pickup.tscn" id="8_qqbyb"]
 [ext_resource type="PackedScene" uid="uid://bjdstnq527cta" path="res://scenes/jump_pad.tscn" id="9_5xgty"]
 
-[node name="Node2D" type="Node2D"]
+[node name="World_1" type="Node2D"]
 script = ExtResource("1_jseqq")
 NextScene = ExtResource("2_xmuft")
 

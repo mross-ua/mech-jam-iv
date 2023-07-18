@@ -35,16 +35,15 @@
 				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
 				"28c876ed-cafd-42b3-9812-b43a3a4b3340",
 				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
-				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
-				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
-				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
-				"b5084154-8d48-4e99-aaed-402fce07c8e8"
+				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167"
 			]
 		},
 		{
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"09728062-4873-4a0b-8827-b0f2c9d45e2a"
+			]
 		},
 		{
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
@@ -89,16 +88,16 @@
 		{
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
-			"tasks": []
+			"tasks": [
+				"f019bee2-f622-4151-aa14-8245ea787d3a",
+				"33059468-5ac0-43bf-a1ac-179bdf3b16ea"
+			]
 		},
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
 			"tasks": [
-				"33059468-5ac0-43bf-a1ac-179bdf3b16ea",
 				"baf7e7b9-08eb-4b72-9e8a-c377b6b3f49f",
-				"f019bee2-f622-4151-aa14-8245ea787d3a",
-				"5978a998-7eab-4d0d-a78a-659a62156811",
 				"c61104e0-1c77-4cd6-bdeb-46e775693006"
 			]
 		},
@@ -113,6 +112,8 @@
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
+				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
+				"b5084154-8d48-4e99-aaed-402fce07c8e8",
 				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
 				"780e9834-6fbc-4523-9449-fd62af2283bd",
@@ -156,7 +157,7 @@
 		{
 			"uuid": "09728062-4873-4a0b-8827-b0f2c9d45e2a",
 			"title": "Add credits scene",
-			"description": "Don't forget artist attribution!\n\nWe are using these resources so far:\n\n* https://opengameart.org/content/super-dead-space-gunner-merc-redux-platform-shmup-hero\n* https://opengameart.org/content/space-merc-redux-platform-shmup-tileset\n\nPossible alternative art:\n\n* https://opengameart.org/content/mecha-platformer-pixelart",
+			"description": "Don't forget artist attribution!\n\nSee releases for latest attributions:\n\n* See https://github.com/krazkidd/mech-jam-iv/releases/tag/v0.0.1 for assets used so far\n\nWe are also using these resources:\n\n* https://ansimuz.itch.io/sideview-sci-fi\n* https://deep-fold.itch.io/pixel-planet-generator\n\n=========================================\nAlso, I think we need to credit JRob774, based on a comment here: https://opengameart.org/content/space-merc-redux-platform-shmup-tileset\n=========================================\n\nPossible alternative art:\n\n* https://opengameart.org/content/mecha-platformer-pixelart",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": [
 				{
@@ -699,13 +700,6 @@
 			"title": "Mech needs to not walk off ledges",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
-			"steps": []
-		},
-		{
-			"uuid": "5978a998-7eab-4d0d-a78a-659a62156811",
-			"title": "On first launch, troids can see player and are put into chase mode",
-			"description": "On first launch of the game, troids can see player, as if the level tiles are not loaded yet. This puts them into chase mode. On pressing 'R' to reload, they stay in their idle state, as intended.\n\nNote that when holding the 'R' reload button, enemy raytracers seem to be pointing to the screen origin and not the player avatar, which appears on the world spawn platform. It's possible they are triggering on where they *think* the player is located. But why do they not go back to idle mode?",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		},
 		{

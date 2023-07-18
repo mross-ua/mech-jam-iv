@@ -26,7 +26,7 @@ License: TBD
 
 ## Development
 
-### Godot Dditor Recommended Extensions:
+### Godot Editor Recommended Extensions:
 
 - [Kanban Tasks - Todo Manager 2](https://godotengine.org/asset-library/asset/1474)
   - TODO

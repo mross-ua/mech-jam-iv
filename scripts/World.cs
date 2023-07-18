@@ -41,9 +41,7 @@ public partial class World : Node2D
 	private void InitPauseScreen()
 	{
 		pauseScreen = ResourceLoader.Load<PackedScene>("res://scenes/pause_screen.tscn").Instantiate<PauseScreen>();
-
 		pauseScreen.Visible = false;
-
 		pauseScreen.ContinueClicked += () =>
 		{
 			pauseScreen.Visible = false;

@@ -10,9 +10,9 @@ public partial class Missile : Grenade
 	public Vector2 FaceDirection { get; set; } = Vector2.Up;
 
 	[Export]
-	public float ThrustForce { get; set; } = 1_000.0f;
+	public float ThrustForce { get; set; } = 5_000.0f;
 	[Export]
-	public float TurnSpeed { get; set; } = 3.0f;
+	public float TurnSpeed { get; set; } = 3_000f;
 
 	#region Node references
 
@@ -30,6 +30,8 @@ public partial class Missile : Grenade
 
 		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
 
+		BodyEntered += (body) => Explode();
+
 #if DEBUG
 		AddRayCastToPlayer();
 #endif
@@ -42,6 +44,8 @@ public partial class Missile : Grenade
 			return;
 		}
 
+		AnimateMovement();
+
 #if DEBUG
 		QueueRedraw();
 #endif
@@ -51,16 +55,18 @@ public partial class Missile : Grenade
 	{
 		Vector2 directionToPlayer = GetDirectionToPlayer();
 
-		float angleDiff = FaceDirection.AngleTo(directionToPlayer);
+		float angleDiff = Mathf.RadToDeg(FaceDirection.AngleTo(directionToPlayer));
 		int turnDirection = Mathf.Sign(angleDiff);
 
-		if (Mathf.Abs(angleDiff) < Mathf.DegToRad(TurnSpeed) * delta)
+		float rotation = TurnSpeed * (float)delta;
+
+		if (Mathf.Abs(angleDiff) < rotation)
 		{
 			return directionToPlayer;
 		}
 		else
 		{
-			return FaceDirection + new Vector2(0.0f, Mathf.DegToRad(TurnSpeed) * (float)delta * turnDirection);
+			return FaceDirection.Rotated(Mathf.DegToRad(rotation) * turnDirection);
 		}
 	}
 
@@ -79,6 +85,15 @@ public partial class Missile : Grenade
 		UpdateRayCastToPlayer();
 #endif
     }
+
+	protected void AnimateMovement()
+	{
+		// NOTE: Rotating the graphics is a hack because we are using
+		//       FaceDirection rather than a built-in property.
+
+		CharacterAnimator.Rotation = Vector2.Up.AngleTo(FaceDirection);
+		gpuParticles2D.Rotation = Vector2.Up.AngleTo(FaceDirection);
+	}
 
 	protected override void AnimateDeath()
 	{

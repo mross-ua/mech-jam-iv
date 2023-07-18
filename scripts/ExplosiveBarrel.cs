@@ -20,7 +20,8 @@ public partial class ExplosiveBarrel : Barrel
 
 	#region Node references
 
-	private CharacterAnimator characterAnimator;
+	protected CharacterAnimator CharacterAnimator;
+
 	private Area2D explosionAreaOfEffect;
 	private CollisionShape2D collisionShape2D;
 
@@ -30,7 +31,7 @@ public partial class ExplosiveBarrel : Barrel
     {
 		bodiesToExclude = new Godot.Collections.Array<Rid>(GetRid().Yield());
 
-		characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+		CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 		explosionAreaOfEffect = GetNode<Area2D>("ExplosionAreaOfEffect");
 		collisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
     }
@@ -40,7 +41,7 @@ public partial class ExplosiveBarrel : Barrel
 		bodiesToExclude = new Godot.Collections.Array<Rid>(rids);
 	}
 
-	protected virtual void AnimateDeath() => characterAnimator.AnimateDeath();
+	protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)
 	{

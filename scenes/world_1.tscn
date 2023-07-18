@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ceaus77akj0pv"]
+[gd_scene load_steps=16 format=3 uid="uid://ceaus77akj0pv"]
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_jseqq"]
 [ext_resource type="PackedScene" uid="uid://cses4a08f7sqs" path="res://scenes/tile_map_tech_steel_green.tscn" id="2_42oaq"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/player.tscn" id="3_b3co7"]
 [ext_resource type="PackedScene" uid="uid://b2ehmkeavxqof" path="res://scenes/player_camera.tscn" id="4_cke32"]
 [ext_resource type="PackedScene" uid="uid://dtsnbv8umgt5h" path="res://scenes/robot.tscn" id="5_42a1v"]
-[ext_resource type="Script" path="res://scripts/PlayerCamera.cs" id="5_pval7"]
 [ext_resource type="PackedScene" uid="uid://dyh1s8bk7j5t2" path="res://scenes/enemy_mech.tscn" id="6_nywqf"]
 [ext_resource type="PackedScene" uid="uid://co8t223oorgqn" path="res://scenes/spawn.tscn" id="6_plsmv"]
 [ext_resource type="PackedScene" uid="uid://n83wwlywvgtu" path="res://scenes/medkit_pickup.tscn" id="7_cairk"]
@@ -32,8 +31,6 @@ layer_0/tile_data = PackedInt32Array(2031680, 131072, 10, 2031679, 131072, 10, 2
 position = Vector2(239, 372)
 
 [node name="PlayerCamera" parent="." instance=ExtResource("4_cke32")]
-position = Vector2(239, 372)
-script = ExtResource("5_pval7")
 
 [node name="Robot" parent="." instance=ExtResource("5_42a1v")]
 position = Vector2(216, 349)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2ehmkeavxqof"]
+[gd_scene load_steps=7 format=3 uid="uid://b2ehmkeavxqof"]
 
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://assets/spritesheets/char-sheet-alpha.png" id="1_oytgi"]
+[ext_resource type="Script" path="res://scripts/PlayerCamera.cs" id="1_uyyex"]
 [ext_resource type="PackedScene" uid="uid://tatq2gmyab34" path="res://scenes/immunity_shield.tscn" id="2_p78tg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbrpc"]
@@ -32,6 +33,7 @@ atlas = ExtResource("1_oytgi")
 region = Rect2(230, 0, 46, 46)
 
 [node name="PlayerCamera" type="Camera2D"]
+script = ExtResource("1_uyyex")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

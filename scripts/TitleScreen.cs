@@ -10,7 +10,7 @@ public partial class TitleScreen : PauseScreen
     {
         base._Ready();
 
-		    PauseGame();
+        PauseGame();
     }
 
     public override void RestartScene()

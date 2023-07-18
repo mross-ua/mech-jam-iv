@@ -98,7 +98,8 @@
 			"title": "Expedite",
 			"tasks": [
 				"baf7e7b9-08eb-4b72-9e8a-c377b6b3f49f",
-				"c61104e0-1c77-4cd6-bdeb-46e775693006"
+				"c61104e0-1c77-4cd6-bdeb-46e775693006",
+				"e4d5a3ee-8e07-43ed-82fc-deef70190d67"
 			]
 		},
 		{
@@ -729,6 +730,13 @@
 			"uuid": "c61104e0-1c77-4cd6-bdeb-46e775693006",
 			"title": "Missiles do not follow player",
 			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "e4d5a3ee-8e07-43ed-82fc-deef70190d67",
+			"title": "Credits screen causes circular dependency graph",
+			"description": "Godot doesn't like having a circular dependency graph when it comes to PackedScene exports",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		}

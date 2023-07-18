@@ -1,8 +1,7 @@
-[gd_scene load_steps=55 format=3 uid="uid://bul8r3r8yejqt"]
+[gd_scene load_steps=54 format=3 uid="uid://bul8r3r8yejqt"]
 
 [ext_resource type="Script" path="res://scripts/TitleScreen.cs" id="1_8nffn"]
 [ext_resource type="Texture2D" uid="uid://dd16kqi8py3r0" path="res://assets/spritesheets/2508822703.png" id="1_d4aqq"]
-[ext_resource type="PackedScene" uid="uid://ceaus77akj0pv" path="res://scenes/world_1.tscn" id="2_3cm65"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5vf6m"]
 atlas = ExtResource("1_d4aqq")
@@ -365,7 +364,6 @@ animations = [{
 [node name="TitleScreen" type="CanvasLayer"]
 process_mode = 2
 script = ExtResource("1_8nffn")
-NextScene = ExtResource("2_3cm65")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(576, 156)

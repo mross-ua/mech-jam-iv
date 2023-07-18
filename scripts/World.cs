@@ -42,30 +42,6 @@ public partial class World : Node2D
 	{
 		pauseScreen = ResourceLoader.Load<PackedScene>("res://scenes/pause_screen.tscn").Instantiate<PauseScreen>();
 		pauseScreen.Visible = false;
-		pauseScreen.ContinueClicked += () =>
-		{
-			pauseScreen.Visible = false;
-
-			GetTree().Paused = false;
-		};
-		pauseScreen.RestartClicked += () =>
-		{
-			// if (player.Health <= 0)
-			// {
-			GetTree().ReloadCurrentScene();
-
-			GetTree().Paused = false;
-			// }
-			// else
-			// {
-			// 	player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
-			// }
-		};
-		pauseScreen.QuitClicked += () =>
-		{
-			GetTree().Quit();
-		};
-
 		AddChild(pauseScreen);
 	}
 
@@ -115,7 +91,6 @@ public partial class World : Node2D
 		{
 			objective.ObjectiveReached += () =>
 			{
-				//TODO
 				GetTree().ChangeSceneToPacked(NextScene);
 			};
 		}
@@ -132,9 +107,7 @@ public partial class World : Node2D
     {
         if (Input.IsActionPressed("quit"))
 		{
-			GetTree().Paused = true;
-
-			pauseScreen.Visible = true;
+			pauseScreen.PauseGame();
 		}
 		else if (Input.IsActionJustPressed("throw_grenade"))
 		{

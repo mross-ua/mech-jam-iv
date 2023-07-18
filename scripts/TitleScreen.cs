@@ -4,25 +4,20 @@ using System;
 public partial class TitleScreen : PauseScreen
 {
 
-	[Export]
-	public PackedScene NextScene { get; set; } = null;
+    protected string GameStartSceneFilename { get; set; } = "scenes/world_1.tscn";
 
-	public override void _Ready()
-	{
-		GetTree().Paused = true;
+    public override void _Ready()
+    {
+        base._Ready();
 
-		base._Ready();
+		    PauseGame();
+    }
 
-		RestartClicked += () =>
-		{
-			GetTree().ChangeSceneToPacked(NextScene);
+    public override void RestartScene()
+    {
+        GetTree().ChangeSceneToFile(GameStartSceneFilename);
 
-			GetTree().Paused = false;
-		};
-		QuitClicked += () =>
-		{
-			GetTree().Quit();
-		};
-	}
+        UnpauseGame();
+    }
 
 }

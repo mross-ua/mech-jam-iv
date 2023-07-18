@@ -4,34 +4,46 @@ using System;
 public partial class PauseScreen : CanvasLayer
 {
 
-	[Signal]
-	public delegate void ContinueClickedEventHandler();
-	[Signal]
-	public delegate void RestartClickedEventHandler();
-	[Signal]
-	public delegate void QuitClickedEventHandler();
-
-	#region Node references
-
-	private Button continueButton;
-	private Button restartButton;
-	private Button quitButton;
-
-	#endregion
-
 	public override void _Ready()
 	{
-		continueButton = GetNode<Button>("VBoxContainer/ContinueButton");
-		if (continueButton != null)
+		//TODO this class shouldnt be the base; refactor this
+		if (HasNode("VBoxContainer/ContinueButton"))
 		{
-			continueButton.Pressed += () => EmitSignal(SignalName.ContinueClicked);
+			Button continueButton = GetNode<Button>("VBoxContainer/ContinueButton");
+			continueButton.Pressed += () => UnpauseGame();
 		}
 
-		restartButton = GetNode<Button>("VBoxContainer/RestartButton");
-		restartButton.Pressed += () => EmitSignal(SignalName.RestartClicked);
+		Button restartButton = GetNode<Button>("VBoxContainer/RestartButton");
+		restartButton.Pressed += () => RestartScene();
 
-		quitButton = GetNode<Button>("VBoxContainer/QuitButton");
-		quitButton.Pressed += () => EmitSignal(SignalName.QuitClicked);
+		Button quitButton = GetNode<Button>("VBoxContainer/QuitButton");
+		quitButton.Pressed += () => QuitGame();
+	}
+
+	public void PauseGame()
+	{
+		GetTree().Paused = true;
+
+		Visible = true;
+	}
+
+	public void UnpauseGame()
+	{
+		Visible = false;
+
+		GetTree().Paused = false;
+	}
+
+	public void QuitGame()
+	{
+		GetTree().Quit();
+	}
+
+	public virtual void RestartScene()
+	{
+		GetTree().ReloadCurrentScene();
+
+		UnpauseGame();
 	}
 
 }

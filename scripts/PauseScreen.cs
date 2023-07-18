@@ -22,7 +22,10 @@ public partial class PauseScreen : CanvasLayer
 	public override void _Ready()
 	{
 		continueButton = GetNode<Button>("VBoxContainer/ContinueButton");
-		continueButton.Pressed += () => EmitSignal(SignalName.ContinueClicked);
+		if (continueButton != null)
+		{
+			continueButton.Pressed += () => EmitSignal(SignalName.ContinueClicked);
+		}
 
 		restartButton = GetNode<Button>("VBoxContainer/RestartButton");
 		restartButton.Pressed += () => EmitSignal(SignalName.RestartClicked);

@@ -7,6 +7,9 @@ using MechJamIV;
 public partial class World : Node2D
 {
 
+	[Export]
+	public PackedScene NextScene { get; set; } = null;
+
 	#region Node references
 
 	private Player player;
@@ -52,6 +55,8 @@ public partial class World : Node2D
 			// if (player.Health <= 0)
 			// {
 			GetTree().ReloadCurrentScene();
+
+			GetTree().Paused = false;
 			// }
 			// else
 			// {

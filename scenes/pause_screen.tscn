@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7u0w5qpcxohb"]
+[gd_scene load_steps=3 format=3 uid="uid://c7u0w5qpcxohb"]
 
 [ext_resource type="Script" path="res://scripts/PauseScreen.cs" id="1_er4pt"]
+[ext_resource type="PackedScene" uid="uid://bgh7iu7ibpoxu" path="res://scenes/user_input_explainer.tscn" id="2_u1iu1"]
 
 [node name="PauseScreen" type="CanvasLayer"]
 process_mode = 2
@@ -30,3 +31,5 @@ text = "RESTART"
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "QUIT"
+
+[node name="UserInputExplainer" parent="." instance=ExtResource("2_u1iu1")]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgh7iu7ibpoxu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7oi0m"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.682353)
+
+[node name="UserInputExplainer" type="PanelContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -166.0
+offset_right = 240.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7oi0m")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "ESC"
+
+[node name="Label2" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Pause Game"
+
+[node name="Label3" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "WASD"
+
+[node name="Label4" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Move"
+
+[node name="Label5" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "SPACE"
+
+[node name="Label6" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Jump"
+
+[node name="Label7" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Left Mouse"
+
+[node name="Label8" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Fire Gun"
+
+[node name="Label9" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Right Mouse"
+
+[node name="Label10" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Throw Grenade"

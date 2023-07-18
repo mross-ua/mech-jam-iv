@@ -63,7 +63,11 @@ public partial class Player : CharacterBase
 
 	public void FireGun(Vector2 globalPos)
 	{
-		if (attackTimer.TimeLeft > 0)
+		if (Health <= 0)
+		{
+			return;
+		}
+		else if (attackTimer.TimeLeft > 0)
 		{
 			return;
 		}
@@ -75,7 +79,11 @@ public partial class Player : CharacterBase
 
 	public void ThrowGrenade(Vector2 globalPos)
 	{
-		if (attackTimer.TimeLeft > 0)
+		if (Health <= 0)
+		{
+			return;
+		}
+		else if (attackTimer.TimeLeft > 0)
 		{
 			return;
 		}

@@ -4,7 +4,8 @@ using System;
 public partial class TitleScreen : PauseScreen
 {
 
-    protected string GameStartSceneFilename { get; set; } = "scenes/world_1.tscn";
+    [Export(PropertyHint.File, "*.tscn,")]
+    public string GameStartSceneFilename { get; set; }
 
     public override void _Ready()
     {

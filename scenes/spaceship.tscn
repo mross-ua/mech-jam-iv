@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://c30u2um8erh61"]
+[gd_scene load_steps=13 format=3 uid="uid://c30u2um8erh61"]
 
 [ext_resource type="Script" path="res://scripts/Objective.cs" id="1_cnd7k"]
 [ext_resource type="Texture2D" uid="uid://jtvul1lc641r" path="res://assets/spritesheets/ship-unit-with-thrusts.png" id="1_phrf3"]
-[ext_resource type="AudioStream" uid="uid://dsqptxeean57c" path="res://assets/sfx/jetengiineroar.wav" id="2_ep5lv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ka4q0"]
 atlas = ExtResource("1_phrf3")
@@ -90,6 +89,3 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6.5, 7)
 shape = SubResource("RectangleShape2D_ele3d")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_ep5lv")

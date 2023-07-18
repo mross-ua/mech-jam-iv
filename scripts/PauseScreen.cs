@@ -7,16 +7,16 @@ public partial class PauseScreen : CanvasLayer
 	public override void _Ready()
 	{
 		//TODO this class shouldnt be the base; refactor this
-		if (HasNode("VBoxContainer/ContinueButton"))
+		if (HasNode("Menu/ContinueButton"))
 		{
-			Button continueButton = GetNode<Button>("VBoxContainer/ContinueButton");
+			Button continueButton = GetNode<Button>("Menu/ContinueButton");
 			continueButton.Pressed += () => UnpauseGame();
 		}
 
-		Button restartButton = GetNode<Button>("VBoxContainer/RestartButton");
+		Button restartButton = GetNode<Button>("Menu/RestartButton");
 		restartButton.Pressed += () => RestartScene();
 
-		Button quitButton = GetNode<Button>("VBoxContainer/QuitButton");
+		Button quitButton = GetNode<Button>("Menu/QuitButton");
 		quitButton.Pressed += () => QuitGame();
 	}
 

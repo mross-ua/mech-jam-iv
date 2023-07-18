@@ -34,7 +34,6 @@
 				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
 				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
 				"28c876ed-cafd-42b3-9812-b43a3a4b3340",
-				"3c892aaa-d849-4b8b-86b5-9df8fb2a41c7",
 				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
 				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
@@ -72,7 +71,8 @@
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0",
 				"5b14b405-f3ad-40ee-b866-d9435c868fb9",
-				"403a280d-81d2-4aab-8b33-32cf3f72f321"
+				"403a280d-81d2-4aab-8b33-32cf3f72f321",
+				"204a1279-b3f5-4634-b737-c924b635a8cc"
 			]
 		},
 		{
@@ -118,7 +118,6 @@
 				"780e9834-6fbc-4523-9449-fd62af2283bd",
 				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
 				"940a4908-25af-461e-a939-a8d1ed90a95c",
-				"204a1279-b3f5-4634-b737-c924b635a8cc",
 				"41e15c4c-55f1-41c6-9794-bd340f357613",
 				"69cb3884-3f49-4dcf-8122-482362823170",
 				"e870e598-a765-4561-a720-9ae84438d486"
@@ -686,13 +685,6 @@
 			"title": "Add boss fight",
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
-			"steps": []
-		},
-		{
-			"uuid": "3c892aaa-d849-4b8b-86b5-9df8fb2a41c7",
-			"title": "Troids can see through walls",
-			"description": "",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		},
 		{

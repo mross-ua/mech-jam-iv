@@ -26,7 +26,7 @@ License: TBD
 
 ## Development
 
-### Godot Dditor Recommended Extensions:
+### Godot Editor Recommended Extensions:
 
 - [Kanban Tasks - Todo Manager 2](https://godotengine.org/asset-library/asset/1474)
   - TODO
@@ -47,3 +47,22 @@ License: TBD
 2. Press 'Build' in the Godot editor at least once to populate dependencies.
 3. Install the recommended extensions (see `.vscode/extensions.json`).
 4. In the Run and Debug view, launch **Play**.
+
+### Other
+
+#### Pixel Planet Generator
+
+https://deep-fold.itch.io/pixel-planet-generator
+
+Planet Type: Terran Dry
+Seed: 2508822703
+
+Colors:
+
+```Text
+#ff8933
+#e64539
+#ad2f45
+#52333f
+#3d2936
+```

@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="MechJam IV"
-run/main_scene="res://scenes/world_1.tscn"
+run/main_scene="res://scenes/title_screen.tscn"
 config/features=PackedStringArray("4.1", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/mode=2
+window/size/initial_position_type=3
 window/stretch/mode="canvas_items"
 
 [dotnet]

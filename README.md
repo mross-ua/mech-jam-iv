@@ -10,6 +10,35 @@ Project hosted at: https://github.com/krazkidd/mech-jam-iv
 
 License: TBD
 
+## Attributions:
+
+Special thanks to my spouse for supporting my efforts in this game jam!
+
+Thanks to Ziuz for the story concept!
+
+And thanks very much to the following artists for making their work freely available under open licenses:
+
+- [Emcee Flesher](https://opengameart.org/users/emcee-flesher)
+
+  - [Super Dead Space Gunner Merc Redux: Platform Shmup Hero](https://opengameart.org/content/super-dead-space-gunner-merc-redux-platform-shmup-hero)
+  - [Super Dead Gunner: Batch 2](https://opengameart.org/content/super-dead-gunner-batch-2)
+  - [Space Merc Redux: Platform Shmup tileset](https://opengameart.org/content/space-merc-redux-platform-shmup-tileset)
+
+- [surt](https://opengameart.org/users/surt)
+
+  - [Space Merc](https://opengameart.org/content/space-merc)
+
+- [clonethirteen](https://itch.io/profile/clonethirteen)
+
+  - [The "GIGA-PACK" Sounds](https://clonethirteen.itch.io/giga-pack)
+
+- [Deep-Fold](https://itch.io/profile/deep-fold)
+
+  - [Pixel Planet Generator](https://deep-fold.itch.io/pixel-planet-generator)
+
+- [ansimuz](https://itch.io/profile/ansimuz)
+  - [Sideview Sci-Fi - Patreon Collection](https://ansimuz.itch.io/sideview-sci-fi)
+
 ## Features:
 
 - Platform shooter?

@@ -48,6 +48,7 @@
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
 			"title": "Done",
 			"tasks": [
+				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
 				"7171987d-0355-4db3-be06-05746adb5967",
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
@@ -90,7 +91,7 @@
 			"title": "Expedite",
 			"tasks": [
 				"f019bee2-f622-4151-aa14-8245ea787d3a",
-				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
+
 				"33059468-5ac0-43bf-a1ac-179bdf3b16ea"
 			]
 		},
@@ -161,23 +162,23 @@
 			"steps": [
 				{
 					"details": "Add my credit",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Check .tscn files to confirm which assets are being used",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add artist credits",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add special thanks",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add credits/attributions to README",
-					"done": false
+					"done": true
 				}
 			]
 		},

@@ -90,6 +90,8 @@ public partial class EnemyMech : EnemyBase
 		if (!IsPlayerInLineOfSight())
 		{
 			State = EnemyState.Chase;
+
+			return;
 		}
 		else if (attackTimer.TimeLeft > 0)
 		{

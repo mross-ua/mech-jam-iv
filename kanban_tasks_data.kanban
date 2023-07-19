@@ -734,7 +734,7 @@
 		{
 			"uuid": "e4d5a3ee-8e07-43ed-82fc-deef70190d67",
 			"title": "Credits screen causes circular dependency graph",
-			"description": "Godot doesn't like having a circular dependency graph when it comes to PackedScene exports",
+			"description": "Godot doesn't like having a circular dependency graph when it comes to PackedScene exports\n\nThis is a known issue:\nhttps://github.com/godotengine/godot/issues/24146",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		}

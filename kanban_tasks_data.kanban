@@ -90,8 +90,6 @@
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
 			"tasks": [
-				"f019bee2-f622-4151-aa14-8245ea787d3a",
-
 				"33059468-5ac0-43bf-a1ac-179bdf3b16ea"
 			]
 		},
@@ -107,6 +105,7 @@
 				"e4d5a3ee-8e07-43ed-82fc-deef70190d67",
 				"be1049e6-9f87-4115-b483-774a3e6d1f53",
 				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
+				"f019bee2-f622-4151-aa14-8245ea787d3a",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
 				"3b8a1e6f-2294-4acc-bb2c-e4a76edde156",
 				"e623005c-7655-41f5-93af-a0436331d420",

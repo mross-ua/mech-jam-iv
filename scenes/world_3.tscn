@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/World.cs" id="1_yydu4"]
 [ext_resource type="PackedScene" uid="uid://cih14kvkdr7ww" path="res://scenes/credits_screen.tscn" id="2_vixww"]
-[ext_resource type="AudioStream" uid="uid://duaqyoak17prq" path="res://assets/music/taking_flight.wav" id="3_i312t"]
+[ext_resource type="AudioStream" uid="uid://c4lwyylyyjv8u" path="res://assets/music/brainworm.mp3" id="3_gihio"]
 [ext_resource type="PackedScene" uid="uid://cses4a08f7sqs" path="res://scenes/tile_map_tech_steel_green.tscn" id="4_prapl"]
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/player.tscn" id="5_u0qgm"]
 [ext_resource type="PackedScene" uid="uid://b2ehmkeavxqof" path="res://scenes/player_camera.tscn" id="6_bukbo"]
@@ -21,7 +21,7 @@ script = ExtResource("1_yydu4")
 NextScene = ExtResource("2_vixww")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_i312t")
+stream = ExtResource("3_gihio")
 autoplay = true
 
 [node name="TileMapTechSteelGreen" parent="." instance=ExtResource("4_prapl")]

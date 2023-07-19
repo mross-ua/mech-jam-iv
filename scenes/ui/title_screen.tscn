@@ -366,7 +366,7 @@ animations = [{
 [node name="TitleScreen" type="CanvasLayer"]
 process_mode = 2
 script = ExtResource("1_8nffn")
-GameStartSceneFilename = "res://scenes/world_1.tscn"
+GameStartSceneFilename = "res://scenes/levels/world_1.tscn"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(576, 156)

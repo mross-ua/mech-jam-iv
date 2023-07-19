@@ -32,8 +32,8 @@ public partial class Player : CharacterBase
 
 	#region Resources
 
-	private PackedScene grenadeResource = ResourceLoader.Load<PackedScene>("res://scenes/grenade.tscn");
-	private PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/blood_splatter.tscn");
+	private PackedScene grenadeResource = ResourceLoader.Load<PackedScene>("res://scenes/weapons/grenade.tscn");
+	private PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/effects/blood_splatter.tscn");
 
 	#endregion
 

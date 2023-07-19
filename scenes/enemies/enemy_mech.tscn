@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/EnemyMech.cs" id="1_kyk5f"]
 [ext_resource type="Texture2D" uid="uid://bscr5no8hdlm8" path="res://assets/spritesheets/jrob774-explosion_2-sheet-alpha.png" id="2_g4aft"]
 [ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_pw5xl"]
-[ext_resource type="PackedScene" uid="uid://blpij04jleg8e" path="res://scenes/hitbox.tscn" id="5_jof1d"]
+[ext_resource type="PackedScene" uid="uid://blpij04jleg8e" path="res://scenes/enemies/hitbox.tscn" id="5_jof1d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwasa"]
 atlas = ExtResource("2_g4aft")

@@ -48,7 +48,9 @@ public partial class ExplosiveBarrel : Barrel
 	{
 		CharacterAnimator.AnimateDeath();
 
-		collisionShape2D.Disabled = true;
+		// PropertyName.Disabled doesn't seem to exist
+		//collisionShape2D.SetDeferred(PropertyName.Disabled, true);
+		collisionShape2D.SetDeferred("disabled", true);
 	}
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)

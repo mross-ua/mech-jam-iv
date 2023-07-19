@@ -8,9 +8,9 @@ namespace MechJamIV {
 
         #region Resources
 
-    	private static PackedScene medkitPickup = ResourceLoader.Load<PackedScene>("res://scenes/medkit_pickup.tscn");
+    	private static PackedScene medkitPickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/medkit_pickup.tscn");
 
-    	private static PackedScene grenadePickup = ResourceLoader.Load<PackedScene>("res://scenes/grenade_pickup.tscn");
+    	private static PackedScene grenadePickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/grenade_pickup.tscn");
 
         #endregion
 

@@ -40,7 +40,7 @@ public partial class World : Node2D
 
 	private void InitPauseScreen()
 	{
-		pauseScreen = ResourceLoader.Load<PackedScene>("res://scenes/pause_screen.tscn").Instantiate<PauseScreen>();
+		pauseScreen = ResourceLoader.Load<PackedScene>("res://scenes/ui/pause_screen.tscn").Instantiate<PauseScreen>();
 		pauseScreen.Visible = false;
 		AddChild(pauseScreen);
 	}

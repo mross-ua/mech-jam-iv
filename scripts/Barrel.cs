@@ -10,7 +10,7 @@ public partial class Barrel : RigidBody2D
 
 	#region Resources
 
-	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/shrapnel_splatter.tscn");
+	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
 	#endregion
 

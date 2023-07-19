@@ -36,6 +36,8 @@ namespace MechJamIV {
 
         public override void _Draw()
         {
+            base._Draw();
+
             //DrawDashedLine(Vector2.Zero, Player.GlobalTransform.Origin - GlobalTransform.Origin, Colors.SkyBlue);
             DrawDashedLine(rayCast.Position, rayCast.GetCollisionPoint() - GlobalTransform.Origin, Colors.SkyBlue);
         }

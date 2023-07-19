@@ -11,9 +11,7 @@ public partial class World : Node2D
 
     public override void _Draw()
     {
-        base._Draw();
-
-		DrawLine(player.GlobalTransform.Origin, playerCamera.GetGlobalMousePosition(), Colors.Green, 1.0f);
+		DrawLine(player.HitScanBulletEmitter.GlobalTransform.Origin, playerCamera.GetGlobalMousePosition(), Colors.Green, 1.0f);
     }
 
 }

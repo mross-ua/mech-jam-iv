@@ -111,16 +111,18 @@ public partial class World : Node2D
 		}
 		else if (Input.IsActionJustPressed("throw_grenade"))
 		{
-			player.ThrowGrenade(playerCamera.GetGlobalMousePosition());
+			player.ThrowGrenade(player.HitScanBulletEmitter.GlobalTransform.Origin.DirectionTo(playerCamera.GetGlobalMousePosition()));
 		}
 		//TODO?
 		// else if (Input.IsActionJustPressed("fire"))
 		// {
-		// 	player.FireGun(playerCamera.GetGlobalMousePosition());
+		// 	player.FireGun(player.HitScanBulletEmitter.GlobalTransform.Origin.DirectionTo(playerCamera.GetGlobalMousePosition()));
 		// }
 		else if (Input.IsActionPressed("fire"))
 		{
-			player.FireGun(playerCamera.GetGlobalMousePosition());
+
+
+			player.FireGun(player.HitScanBulletEmitter.GlobalTransform.Origin.DirectionTo(playerCamera.GetGlobalMousePosition()));
 		}
     }
 

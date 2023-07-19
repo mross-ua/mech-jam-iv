@@ -22,8 +22,9 @@ public partial class ExplosiveBarrel : Barrel
 
 	protected CharacterAnimator CharacterAnimator;
 
-	private Area2D explosionAreaOfEffect;
 	private CollisionShape2D collisionShape2D;
+	private Area2D explosionAreaOfEffect;
+	private CollisionShape2D explosionCollisionShape2D;
 
     #endregion
 
@@ -32,8 +33,10 @@ public partial class ExplosiveBarrel : Barrel
 		bodiesToExclude = new Godot.Collections.Array<Rid>(GetRid().Yield());
 
 		CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+
 		explosionAreaOfEffect = GetNode<Area2D>("ExplosionAreaOfEffect");
-		collisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
+		explosionCollisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
     }
 
 	public void SetBodiesToExclude(IEnumerable<Rid> rids)
@@ -41,7 +44,12 @@ public partial class ExplosiveBarrel : Barrel
 		bodiesToExclude = new Godot.Collections.Array<Rid>(rids);
 	}
 
-	protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
+	protected virtual void AnimateDeath()
+	{
+		CharacterAnimator.AnimateDeath();
+
+		collisionShape2D.Disabled = true;
+	}
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)
 	{
@@ -72,7 +80,7 @@ public partial class ExplosiveBarrel : Barrel
 	{
 		PhysicsShapeQueryParameters2D queryParams = new ();
 		queryParams.Transform = GlobalTransform;
-		queryParams.Shape = collisionShape2D.Shape;
+		queryParams.Shape = explosionCollisionShape2D.Shape;
 		queryParams.CollisionMask = explosionAreaOfEffect.CollisionMask;
 		queryParams.Exclude = bodiesToExclude;
 
@@ -82,7 +90,7 @@ public partial class ExplosiveBarrel : Barrel
 			//       distance from the explosion.
 
 			// we assume the shape is a circle
-			float radius = collisionShape2D.Shape.GetRect().Size.X / 2;
+			float radius = explosionCollisionShape2D.Shape.GetRect().Size.X / 2;
 
 			if (collision["collider"].Obj is CharacterBase character)
 			{

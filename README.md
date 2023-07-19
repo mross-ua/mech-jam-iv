@@ -47,7 +47,7 @@ And thanks very much to the following artists for making their work freely avail
 
 ## Requires:
 
-- Godot 4.1 C# engine
+- Godot 4.1.1 C# engine
 
 ## Prerequisites:
 
@@ -72,18 +72,17 @@ And thanks very much to the following artists for making their work freely avail
 ### Debugging (VS Code):
 
 1. Set the GODOT4 environment variable to the path of the Godot 4 runtime executable.
-   (e.g. /opt/godot/Godot_v4.1-stable_mono_linux.x86_64)
+   (e.g. /opt/godot/Godot_v4.1.1-stable_mono_linux.x86_64)
 2. Press 'Build' in the Godot editor at least once to populate dependencies.
 3. Install the recommended extensions (see `.vscode/extensions.json`).
 4. In the Run and Debug view, launch **Play**.
 
 ### Other
 
-#### Pixel Planet Generator
-
-https://deep-fold.itch.io/pixel-planet-generator
+#### [Pixel Planet Generator](https://deep-fold.itch.io/pixel-planet-generator)
 
 Planet Type: Terran Dry
+
 Seed: 2508822703
 
 Colors:

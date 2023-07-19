@@ -20,8 +20,8 @@ public partial class Player : CharacterBase
 
 	#region Node references
 
-	public Marker2D RobotMarker { get; set; }
-	public RemoteTransform2D RemoteTransform { get; set; }
+	public Marker2D RobotMarker { get; private set; }
+	public RemoteTransform2D RemoteTransform { get; private set; }
 	public HitScanBulletEmitter HitScanBulletEmitter { get; private set; }
 
 	private Timer immunityTimer;

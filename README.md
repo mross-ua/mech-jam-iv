@@ -1,4 +1,4 @@
-# MechJam IV
+# CyberSteel Rapture
 
 This is my entry for the MechJam IV game jam [hosted on itch.io](https://itch.io/jam/mechjam4)!
 

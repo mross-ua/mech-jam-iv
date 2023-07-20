@@ -71,8 +71,10 @@ And thanks very much to the following artists for making their work freely avail
 
 ### Debugging (VS Code):
 
-1. Set the GODOT4 environment variable to the path of the Godot 4 runtime executable.
-   (e.g. /opt/godot/Godot_v4.1.1-stable_mono_linux.x86_64)
+1. Set the GODOT4 environment variable to the path of the Godot 4 runtime executable (e.g. /opt/godot/Godot_v4.1.1-stable_mono_linux.x86_64).
+
+   For more information about this environment variable, see [here](https://github.com/godotengine/godot-csharp-vscode/issues/43#issuecomment-1258321229).
+
 2. Press 'Build' in the Godot editor at least once to populate dependencies.
 3. Install the recommended extensions (see `.vscode/extensions.json`).
 4. In the Run and Debug view, launch **Play**.

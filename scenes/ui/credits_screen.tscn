@@ -46,6 +46,7 @@ layout_mode = 2
 text = "QUIT"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -142,6 +143,7 @@ layout_mode = 2
 text = "clonethirteen"
 
 [node name="PanelContainer2" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

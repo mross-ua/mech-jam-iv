@@ -30,7 +30,7 @@ public partial class Missile : Grenade
 
 		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
 
-		BodyEntered += (body) => Explode();
+		BodyEntered += (body) => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
 
 #if DEBUG
 		AddRayCastToPlayer();

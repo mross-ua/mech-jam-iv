@@ -18,7 +18,7 @@ namespace MechJamIV {
             {
                 EmitSignal(SignalName.PickedUp);
 
-                this.QueueFree();
+                QueueFree();
             };
         }
 

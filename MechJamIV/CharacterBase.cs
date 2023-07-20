@@ -33,6 +33,8 @@ namespace MechJamIV {
 
         private CharacterAnimator characterAnimator;
 
+	    private CollisionShape2D collisionShape2D;
+
         #endregion
 
 		public override void _Ready()
@@ -47,6 +49,7 @@ namespace MechJamIV {
             }
 
             characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+		    collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 		}
 
 		protected abstract Vector2 GetMovementDirection();
@@ -115,6 +118,8 @@ namespace MechJamIV {
             if (Health <= 0)
             {
                 AnimateDeath();
+
+			    collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
                 EmitSignal(SignalName.Killed);
 

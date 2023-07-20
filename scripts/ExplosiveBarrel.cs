@@ -44,14 +44,7 @@ public partial class ExplosiveBarrel : Barrel
 		bodiesToExclude = new Godot.Collections.Array<Rid>(rids);
 	}
 
-	protected virtual void AnimateDeath()
-	{
-		CharacterAnimator.AnimateDeath();
-
-		// PropertyName.Disabled doesn't seem to exist
-		//collisionShape2D.SetDeferred(PropertyName.Disabled, true);
-		collisionShape2D.SetDeferred("disabled", true);
-	}
+	protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)
 	{
@@ -71,6 +64,8 @@ public partial class ExplosiveBarrel : Barrel
 			AnimateDeath();
 
 			Explode();
+
+			collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
 			EmitSignal(SignalName.Killed);
 

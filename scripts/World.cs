@@ -42,7 +42,8 @@ public partial class World : Node2D
 	{
 		pauseScreen = ResourceLoader.Load<PackedScene>("res://scenes/ui/pause_screen.tscn").Instantiate<PauseScreen>();
 		pauseScreen.Visible = false;
-		AddChild(pauseScreen);
+
+		this.AddChildDeferred(pauseScreen);
 	}
 
 	private void InitSpawns()
@@ -78,9 +79,9 @@ public partial class World : Node2D
 		{
 			enemy.PickupDropped += (pickup) =>
 			{
-				GetTree().CurrentScene.AddChild(pickup);
-
 				pickup.PickedUp += () => Pickup(pickup);
+
+				GetTree().CurrentScene.AddChildDeferred(pickup);
 			};
 		}
 	}

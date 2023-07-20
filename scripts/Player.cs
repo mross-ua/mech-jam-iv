@@ -77,7 +77,7 @@ public partial class Player : CharacterBase
 		attackTimer.Start();
 	}
 
-	public void ThrowGrenade(Vector2 direction)
+	public async void ThrowGrenade(Vector2 direction)
 	{
 		if (Health <= 0)
 		{
@@ -92,18 +92,18 @@ public partial class Player : CharacterBase
 			return;
 		}
 
-		Grenade grenade = grenadeResource.Instantiate<Grenade>();
-		GetTree().CurrentScene.AddChild(grenade);
-
-		grenade.GlobalTransform = GlobalTransform;
-
-		grenade.ApplyImpulse(ThrowStrength * direction);
-
-		grenade.Prime();
+		attackTimer.Start();
 
 		GrenadeCount--;
 
-		attackTimer.Start();
+		Grenade grenade = grenadeResource.Instantiate<Grenade>();
+		grenade.GlobalTransform = GlobalTransform;
+
+		await GetTree().CurrentScene.AddChildDeferred(grenade);
+
+		grenade.Prime();
+
+		grenade.ApplyImpulse(ThrowStrength * direction);
 	}
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)
@@ -125,15 +125,13 @@ public partial class Player : CharacterBase
 		immunityTimer.Start();
 	}
 
-	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)
+	protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {
         GpuParticles2D splatter = bloodSplatterResource.Instantiate<GpuParticles2D>();
-
-		GetTree().CurrentScene.AddChild(splatter);
-
 		splatter.GlobalPosition = position;
-
 		splatter.Emitting = true;
+
+		await GetTree().CurrentScene.AddChildDeferred(splatter);
 
 		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }

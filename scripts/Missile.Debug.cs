@@ -14,7 +14,7 @@ public partial class Missile : Grenade
 
     #endregion
 
-    private void AddRayCastToPlayer()
+    private async void AddRayCastToPlayer()
     {
         rayCast = new RayCast2D();
 
@@ -23,9 +23,9 @@ public partial class Missile : Grenade
         rayCast.CollideWithBodies = true;
         rayCast.CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player);
 
-        UpdateRayCastToPlayer();
+        await this.AddChildDeferred(rayCast);
 
-        AddChild(rayCast);
+        UpdateRayCastToPlayer();
     }
 
     private void UpdateRayCastToPlayer()

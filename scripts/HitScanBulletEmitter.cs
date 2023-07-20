@@ -28,7 +28,7 @@ public partial class HitScanBulletEmitter : Node2D
 		_bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
 	}
 
-	public void Fire(Vector2 direction)
+	public async void Fire(Vector2 direction)
 	{
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
@@ -68,25 +68,10 @@ public partial class HitScanBulletEmitter : Node2D
 				// world or environment hit
 
 				GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
-
-				GetTree().CurrentScene.AddChild(splatter);
-
 				splatter.GlobalPosition = position;
-
-				// if (Mathf.IsZeroApprox(normal.AngleTo(-gravity)))
-				// {
-				// 	//TODO why do we return here? this causes ground shots to not have the effect
-				// 	return;
-				// }
-				// else if (Mathf.IsZeroApprox(normal.AngleTo(gravity)))
-				// {
-				// 	splatter.Rotate(Mathf.Pi);
-
-				// 	//TODO why do we return here? presumably this would cause ceiling shots to not have an effect
-				// 	return;
-				// }
-
  				splatter.Emitting = true;
+
+				await GetTree().CurrentScene.AddChildDeferred(splatter);
 
 				splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
 			}

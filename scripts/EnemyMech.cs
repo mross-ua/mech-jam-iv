@@ -85,7 +85,7 @@ public partial class EnemyMech : EnemyBase
 		}
 	}
 
-	protected override void ProcessAction_Attacking()
+	protected override async void ProcessAction_Attacking()
 	{
 		if (!IsPlayerInLineOfSight())
 		{
@@ -98,25 +98,23 @@ public partial class EnemyMech : EnemyBase
 			return;
 		}
 
-		Missile missile = missileResource.Instantiate<Missile>();
-		GetTree().CurrentScene.AddChild(missile);
+		attackTimer.Start();
 
+		Missile missile = missileResource.Instantiate<Missile>();
 		missile.GlobalTransform = GlobalTransform;
 
-		missile.Prime();
+		await GetTree().CurrentScene.AddChildDeferred(missile);
 
-		attackTimer.Start();
+		missile.Prime();
 	}
 
-	protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)
+	protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {
 		GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
-
-		GetTree().CurrentScene.AddChild(splatter);
-
 		splatter.GlobalPosition = position;
-
 		splatter.Emitting = true;
+
+		await GetTree().CurrentScene.AddChildDeferred(splatter);
 
 		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }

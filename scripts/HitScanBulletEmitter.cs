@@ -28,12 +28,12 @@ public partial class HitScanBulletEmitter : Node2D
 		_bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
 	}
 
-	public async void Fire(Vector2 direction)
+	public async void Fire(Vector2 globalPos)
 	{
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
 			From = GlobalTransform.Origin,
-			To = direction * HitScanDistance,
+			To = globalPos + (globalPos - GlobalTransform.Origin).Normalized() * HitScanDistance,
 			Exclude = _bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,

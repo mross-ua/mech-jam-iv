@@ -20,11 +20,11 @@ public partial class Player : CharacterBase
 
 	public Marker2D RobotMarker { get; private set; }
 	public RemoteTransform2D RemoteTransform { get; private set; }
-	public HitScanBulletEmitter HitScanBulletEmitter { get; private set; }
 
 	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
 	private Timer attackTimer;
+	private HitScanBulletEmitter hitScanBulletEmitter;
 
 	#endregion
 
@@ -47,7 +47,7 @@ public partial class Player : CharacterBase
 
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
 		attackTimer = GetNode<Timer>("AttackTimer");
-		HitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
+		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
     }
 
 	protected override Vector2 GetMovementDirection()
@@ -59,7 +59,7 @@ public partial class Player : CharacterBase
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
 
-	public void FireGun(Vector2 direction)
+	public void FireGun(Vector2 globalPos)
 	{
 		if (Health <= 0)
 		{
@@ -70,12 +70,12 @@ public partial class Player : CharacterBase
 			return;
 		}
 
-		HitScanBulletEmitter.Fire(direction);
+		hitScanBulletEmitter.Fire(globalPos);
 
 		attackTimer.Start();
 	}
 
-	public async void ThrowGrenade(Vector2 direction)
+	public async void ThrowGrenade(Vector2 globalPos)
 	{
 		if (Health <= 0)
 		{
@@ -95,13 +95,13 @@ public partial class Player : CharacterBase
 		GrenadeCount--;
 
 		Grenade grenade = grenadeResource.Instantiate<Grenade>();
-		grenade.GlobalTransform = GlobalTransform;
+		grenade.GlobalTransform = hitScanBulletEmitter.GlobalTransform;
 
 		await GetTree().CurrentScene.AddChildDeferred(grenade);
 
 		grenade.Prime();
 
-		grenade.ApplyImpulse(ThrowStrength * direction);
+		grenade.ApplyImpulse((globalPos - hitScanBulletEmitter.GlobalTransform.Origin).Normalized() * ThrowStrength);
 	}
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)

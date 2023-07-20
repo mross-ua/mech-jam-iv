@@ -31,9 +31,7 @@
 			"uuid": "2672f96a-9194-47de-b5a1-7961b242be5a",
 			"title": "Todo",
 			"tasks": [
-				"baf7e7b9-08eb-4b72-9e8a-c377b6b3f49f",
 				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
-				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
 				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167"
 			]
 		},
@@ -105,6 +103,7 @@
 				"e4d5a3ee-8e07-43ed-82fc-deef70190d67",
 				"be1049e6-9f87-4115-b483-774a3e6d1f53",
 				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
+				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
 				"f019bee2-f622-4151-aa14-8245ea787d3a",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
 				"3b8a1e6f-2294-4acc-bb2c-e4a76edde156",
@@ -559,7 +558,7 @@
 			"uuid": "fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
 			"title": "Add parallax background",
 			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": []
 		},
 		{
@@ -675,13 +674,6 @@
 					"done": true
 				}
 			]
-		},
-		{
-			"uuid": "baf7e7b9-08eb-4b72-9e8a-c377b6b3f49f",
-			"title": "Add boss fight",
-			"description": "",
-			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
-			"steps": []
 		},
 		{
 			"uuid": "28c876ed-cafd-42b3-9812-b43a3a4b3340",

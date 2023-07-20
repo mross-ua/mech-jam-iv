@@ -65,9 +65,9 @@ public partial class ExplosiveBarrel : Barrel
 
 			Explode();
 
-			collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-
 			EmitSignal(SignalName.Killed);
+
+			collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
 			this.TimedFree(5.0f, processInPhysics:true);
 		}

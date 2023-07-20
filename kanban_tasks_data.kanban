@@ -67,6 +67,7 @@
 				"c681e1f0-9683-477d-9fa7-60dd7eb650dc",
 				"bda2224d-406c-418a-b6b0-f523d681203d",
 				"8012f5a7-30ec-4e65-af94-9b5795dfda47",
+				"33059468-5ac0-43bf-a1ac-179bdf3b16ea",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0",
@@ -79,6 +80,7 @@
 			"uuid": "ea59d79b-f8bf-487b-82fd-1ae4113af119",
 			"title": "Gameplay Ideas",
 			"tasks": [
+				"788e1907-29f8-492b-a1d9-5c6a339bdb7c",
 				"6f7b488d-c507-4ba0-9cfb-062dbd2867ec",
 				"38820a96-6835-4276-b34b-2538875d9eeb",
 				"74fb86a6-2527-47c8-8624-c0c9442ec0a6",
@@ -89,9 +91,7 @@
 		{
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
-			"tasks": [
-				"33059468-5ac0-43bf-a1ac-179bdf3b16ea"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
@@ -673,10 +673,6 @@
 				{
 					"details": "Level 2",
 					"done": true
-				},
-				{
-					"details": "Boss level",
-					"done": false
 				}
 			]
 		},
@@ -736,6 +732,13 @@
 			"title": "Credits screen causes circular dependency graph",
 			"description": "Godot doesn't like having a circular dependency graph when it comes to PackedScene exports\n\nThis is a known issue:\nhttps://github.com/godotengine/godot/issues/24146",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "788e1907-29f8-492b-a1d9-5c6a339bdb7c",
+			"title": "Add boss level",
+			"description": "",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
 		}
 	],

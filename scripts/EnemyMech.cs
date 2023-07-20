@@ -46,7 +46,7 @@ public partial class EnemyMech : EnemyBase
 			}
 		}
 
-		return Vector2.Zero;
+		return FaceDirection;
 	}
 
 	protected override Vector2 GetMovementDirection_Chase()
@@ -56,7 +56,7 @@ public partial class EnemyMech : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Attacking()
 	{
-		return Vector2.Zero;
+		return GetMovementDirection_Chase();
 	}
 
     protected override bool IsJumping() => false;

@@ -10,8 +10,6 @@ public partial class Player : CharacterBase
 	[Signal]
 	public delegate void ImmunityShieldDeactivatedEventHandler();
 
-    public override Vector2 FaceDirection { get; set; } = Vector2.Right;
-
 	[Export]
 	public int GrenadeCount { get; set; } = 4;
 

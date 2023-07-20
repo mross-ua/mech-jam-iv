@@ -18,7 +18,7 @@ namespace MechJamIV {
         public int Health { get; protected set; } = 100;
 
         [Export]
-        public abstract Vector2 FaceDirection { get; set; }
+        public virtual Vector2 FaceDirection { get; set; } = Vector2.Zero;
 		[Export]
 		public virtual float MoveAcceleration { get; set; } = 50.0f;
 		[Export]

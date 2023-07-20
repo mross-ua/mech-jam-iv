@@ -4,6 +4,9 @@ using System;
 public partial class CharacterAnimator : AnimatedSprite2D
 {
 
+	[Export]
+	public Vector2 SpriteFaceDirection { get; set; } = Vector2.Zero;
+
 	public void AnimateMovement(Vector2 direction)
 	{
 		if (Mathf.IsZeroApprox(direction.X))
@@ -14,7 +17,7 @@ public partial class CharacterAnimator : AnimatedSprite2D
 		{
 			Play("run");
 
-			FlipH = direction.X < 0.0f;
+			FlipH = !SpriteFaceDirection.IsEqualApprox(direction);
 		}
 	}
 

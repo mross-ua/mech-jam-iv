@@ -235,6 +235,7 @@ sprite_frames = SubResource("SpriteFrames_f71hv")
 animation = &"idle"
 autoplay = "idle"
 script = ExtResource("4_pw5xl")
+SpriteFaceDirection = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

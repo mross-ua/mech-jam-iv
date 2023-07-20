@@ -5,8 +5,6 @@ using MechJamIV;
 public partial class Robot : CharacterBase
 {
 
-    public override Vector2 FaceDirection { get; set; } = Vector2.Zero;
-
 	#region Node references
 
 	private Player player;

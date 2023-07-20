@@ -5,8 +5,6 @@ using MechJamIV;
 public partial class EnemyTroid : EnemyBase
 {
 
-    public override Vector2 FaceDirection { get; set; } = Vector2.Zero;
-
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
 	private int chaseDuration = 1;

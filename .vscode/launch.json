@@ -6,7 +6,7 @@
     // the following to your .zshrc, .bashrc, or .bash_profile file:
     // export GODOT4="/Applications/Godot.app/Contents/MacOS/Godot"
     {
-      "name": "Play (debug)",
+      "name": "🕹 Debug Game",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
@@ -16,15 +16,45 @@
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false
     },
+    // Debug the scene that matches the name of the currently open *.cs file
+    // (if there's a scene with the same name in the same directory).
     {
-      "name": "Make movie",
+      "name": "🎭 Debug Current Scene",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
       "program": "${env:GODOT4}",
-      "args": ["--maximized", "--write-movie", "movie.avi"],
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.tscn"],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false
     }
+    // {
+    //   "name": "🧪 Debug Tests",
+    //   "type": "coreclr",
+    //   "request": "launch",
+    //   "preLaunchTask": "build",
+    //   "program": "${env:GODOT4}",
+    //   "args": [
+    //     // These command line flags are used by GoDotTest to run tests.
+    //     "--run-tests",
+    //     "--quit-on-finish"
+    //   ],
+    //   "cwd": "${workspaceFolder}",
+    //   "stopAtEntry": false
+    // },
+    // {
+    //   "name": "🔬 Debug Current Test",
+    //   "type": "coreclr",
+    //   "request": "launch",
+    //   "preLaunchTask": "build",
+    //   "program": "${env:GODOT4}",
+    //   "args": [
+    //     // These command line flags are used by GoDotTest to run tests.
+    //     "--run-tests=${fileBasenameNoExtension}",
+    //     "--quit-on-finish"
+    //   ],
+    //   "cwd": "${workspaceFolder}",
+    //   "stopAtEntry": false
+    // },
   ]
 }

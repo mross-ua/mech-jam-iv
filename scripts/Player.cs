@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using MechJamIV;
 
 public partial class Player : CharacterBase
@@ -15,6 +16,8 @@ public partial class Player : CharacterBase
 
 	[Export]
 	public float ThrowStrength { get; set; } = 500.0f;
+
+	private Queue<Tuple<Vector2, Vector2>> bullets = new Queue<Tuple<Vector2, Vector2>>();
 
 	#region Node references
 
@@ -59,7 +62,17 @@ public partial class Player : CharacterBase
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
 
-	public void FireGun(Vector2 globalPos)
+    public override void _Draw()
+    {
+        base._Draw();
+
+		while (bullets.TryDequeue(out Tuple<Vector2, Vector2> rayPath))
+		{
+			DrawLine(ToLocal(rayPath.Item1), ToLocal(rayPath.Item2), Colors.LightYellow, 1.0f);
+		}
+    }
+
+	public async void FireGun(Vector2 globalPos)
 	{
 		if (Health <= 0)
 		{
@@ -70,9 +83,9 @@ public partial class Player : CharacterBase
 			return;
 		}
 
-		hitScanBulletEmitter.Fire(globalPos);
-
 		attackTimer.Start();
+
+		bullets.Enqueue(await hitScanBulletEmitter.Fire(globalPos));
 	}
 
 	public async void ThrowGrenade(Vector2 globalPos)

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using MechJamIV;
 
 public partial class HitScanBulletEmitter : Node2D
@@ -28,12 +29,15 @@ public partial class HitScanBulletEmitter : Node2D
 		_bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
 	}
 
-	public async void Fire(Vector2 globalPos)
+	public async Task<Tuple<Vector2, Vector2>> Fire(Vector2 globalPos)
 	{
+		Vector2 from = GlobalTransform.Origin;
+		Vector2 to = globalPos + (globalPos - GlobalTransform.Origin).Normalized() * HitScanDistance;
+
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
-			From = GlobalTransform.Origin,
-			To = globalPos + (globalPos - GlobalTransform.Origin).Normalized() * HitScanDistance,
+			From = from,
+			To = to,
 			Exclude = _bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,
@@ -75,7 +79,11 @@ public partial class HitScanBulletEmitter : Node2D
 
 				splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
 			}
+
+			return new Tuple<Vector2, Vector2>(from, position);
 		}
+
+		return new Tuple<Vector2, Vector2>(from, to);
 	}
 
 }

@@ -31,7 +31,7 @@ public partial class PlayerCamera : Camera2D
 		healthBar.Value = player.Health;
 
 		player.Injured += (damage) => healthBar.Value = player.Health;
-		player.Healed += (amount) => healthBar.Value = player.Health;
+		player.Healed += (health) => healthBar.Value = player.Health;
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
 		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
 

@@ -5,17 +5,8 @@ using MechJamIV;
 
 namespace MechJamIV {
 	public abstract partial class CharacterBase : CharacterBody2D
+        ,IDestructible
 	{
-
-        [Signal]
-        public delegate void InjuredEventHandler(int damage);
-        [Signal]
-	    public delegate void KilledEventHandler();
-        [Signal]
-        public delegate void HealedEventHandler(int amount);
-
-        [Export]
-        public int Health { get; protected set; } = 100;
 
         [Export]
         public Vector2 FaceDirection { get; set; } = Vector2.Zero;
@@ -102,7 +93,19 @@ namespace MechJamIV {
 
         protected void AnimateDeath() => characterAnimator.AnimateDeath();
 
-        public virtual void Hurt(int damage, Vector2 position, Vector2 normal)
+        #region IDestructible
+
+        [Signal]
+        public delegate void InjuredEventHandler(int damage);
+        [Signal]
+	    public delegate void KilledEventHandler();
+        [Signal]
+        public delegate void HealedEventHandler(int health);
+
+        [Export]
+        public int Health { get; set; } = 100;
+
+        public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
         {
             if (Health <= 0)
             {
@@ -111,7 +114,7 @@ namespace MechJamIV {
 
             Health = Math.Max(0, Health - damage);
 
-            AnimateInjury(damage, position, normal);
+            AnimateInjury(damage, globalPos, normal);
 
             EmitSignal(SignalName.Injured, damage);
 
@@ -128,7 +131,7 @@ namespace MechJamIV {
             }
         }
 
-		public virtual void Heal(int amount)
+		public virtual void Heal(int health)
 		{
             if (Health <= 0)
             {
@@ -136,10 +139,12 @@ namespace MechJamIV {
             }
 
             //TODO we need to know initial/max health
-            Health = Math.Min(100, Health + amount);
+            Health = Math.Min(100, Health + health);
 
-            EmitSignal(SignalName.Healed, amount);
+            EmitSignal(SignalName.Healed, health);
 		}
+
+        #endregion
 
 	}
 }

@@ -118,23 +118,6 @@ namespace MechJamIV {
 
         protected abstract void ProcessAction_Attacking();
 
-        public override void Hurt(int damage, Vector2 position, Vector2 normal)
-        {
-            if (Health <= 0)
-            {
-                return;
-            }
-
-            base.Hurt(damage, position, normal);
-
-            if (Health <= 0)
-            {
-                DropPickup();
-
-                this.TimedFree(5.0f, processInPhysics:true);
-            }
-        }
-
         private void DropPickup()
         {
             PickupBase pickup = PickupHelper.GenerateRandomPickup(PickupDropRate);
@@ -171,6 +154,27 @@ namespace MechJamIV {
 
             return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
         }
+
+        #region IDestructible
+
+        public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+        {
+            if (Health <= 0)
+            {
+                return;
+            }
+
+            base.Hurt(damage, globalPos, normal);
+
+            if (Health <= 0)
+            {
+                DropPickup();
+
+                this.TimedFree(5.0f, processInPhysics:true);
+            }
+        }
+
+        #endregion
 
     }
 }

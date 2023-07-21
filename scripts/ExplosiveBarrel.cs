@@ -4,14 +4,10 @@ using System.Collections.Generic;
 using MechJamIV;
 
 public partial class ExplosiveBarrel : Barrel
-	, IDetonatable
+	,IDestructible
+	,IDetonatable
 {
 
-	[Signal]
-	public delegate void KilledEventHandler();
-
-	[Export]
-	public int Health { get; set; } = 10;
 	[Export]
 	public int Damage { get; set; } = 80;
 	[Export]
@@ -47,14 +43,28 @@ public partial class ExplosiveBarrel : Barrel
 
 	protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
 
-	public override void Hurt(int damage, Vector2 position, Vector2 normal)
+	#region IDestructible
+
+	[Signal]
+	public delegate void InjuredEventHandler(int damage);
+
+	[Signal]
+	public delegate void KilledEventHandler();
+
+	[Signal]
+	public delegate void HealedEventHandler(int health);
+
+	[Export]
+	public int Health { get; set; } = 10;
+
+	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
 		if (Health <= 0)
 		{
 			return;
 		}
 
-		base.Hurt(damage, position, normal);
+		base.Hurt(damage, globalPos, normal);
 
 		Health = Math.Max(0, Health - damage);
 
@@ -73,6 +83,13 @@ public partial class ExplosiveBarrel : Barrel
 			this.TimedFree(5.0f, processInPhysics:true);
 		}
 	}
+
+	public void Heal(int health)
+	{
+		// do nothing
+	}
+
+	#endregion
 
 	#region IDetonatable
 

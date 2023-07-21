@@ -32,10 +32,14 @@ public partial class Robot : CharacterBase
 		//TODO
 	}
 
-    public override void Hurt(int damage, Vector2 position, Vector2 normal)
+	#region IDestructible
+
+    public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
     {
 		// ignore damage
-        //base.Hurt(damage, position, normal);
+        //base.Hurt(damage, globalPos, normal);
     }
+
+	#endregion
 
 }

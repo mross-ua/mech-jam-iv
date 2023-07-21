@@ -62,25 +62,6 @@ public partial class Player : CharacterBase
 		WeaponManager.Fire(mode, globalPos);
 	}
 
-	public override void Hurt(int damage, Vector2 position, Vector2 normal)
-	{
-		if (immunityTimer.TimeLeft > 0)
-		{
-			return;
-		}
-
-		base.Hurt(damage, position, normal);
-
-		if (Health <= 0)
-		{
-			return;
-		}
-
-		ActivateShield();
-
-		immunityTimer.Start();
-	}
-
 	protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {
         GpuParticles2D splatter = bloodSplatterResource.Instantiate<GpuParticles2D>();
@@ -105,5 +86,28 @@ public partial class Player : CharacterBase
 
 		EmitSignal(SignalName.ImmunityShieldDeactivated);
 	}
+
+	#region IDestructible
+
+	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+	{
+		if (immunityTimer.TimeLeft > 0)
+		{
+			return;
+		}
+
+		base.Hurt(damage, globalPos, normal);
+
+		if (Health <= 0)
+		{
+			return;
+		}
+
+		ActivateShield();
+
+		immunityTimer.Start();
+	}
+
+	#endregion
 
 }

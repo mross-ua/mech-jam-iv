@@ -5,9 +5,6 @@ using MechJamIV;
 public partial class Barrel : ProjectileBase
 {
 
-	[Signal]
-	public delegate void InjuredEventHandler(int damage);
-
 	#region Resources
 
 	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
@@ -25,9 +22,13 @@ public partial class Barrel : ProjectileBase
 		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
     }
 
-	public virtual void Hurt(int damage, Vector2 position, Vector2 normal)
+	#region IDestructible
+
+	public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
-		AnimateInjury(damage, position, normal);
+		AnimateInjury(damage, globalPos, normal);
 	}
+
+	#endregion
 
 }

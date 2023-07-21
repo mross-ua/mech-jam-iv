@@ -27,9 +27,13 @@ public partial class GrenadePickup : PickupBase
 		grenade.Killed += () => this.TimedFree(5.0f, processInPhysics: true);
 	}
 
-	public void Hurt(int damage, Vector2 position, Vector2 normal)
+	#region IDestructible
+
+	public void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
-		grenade.Hurt(damage, position, normal);
+		grenade.Hurt(damage, globalPos, normal);
 	}
+
+	#endregion
 
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MechJamIV;
 
 namespace MechJamIV {
-	public interface IDetonatable
+	public interface IDetonable
 	{
 
         //[Signal]

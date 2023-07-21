@@ -28,7 +28,7 @@ public partial class ProjectileEmitter : Node2D
 
 		projectile.ApplyImpulse((globalPos - GlobalTransform.Origin).Normalized() * ImpulseStrength);
 
-		if (projectile is IDetonatable d)
+		if (projectile is IDetonable d)
 		{
 			d.PrimeFuse();
 		}

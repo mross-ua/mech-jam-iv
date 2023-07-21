@@ -6,7 +6,7 @@ using MechJamIV;
 
 public partial class ExplosiveBarrel : Barrel
 	,IDestructible
-	,IDetonatable
+	,IDetonable
 {
 
 	[Export]

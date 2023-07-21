@@ -16,8 +16,8 @@ public partial class EnemyMech : EnemyBase
 
 	#region Resources
 
-	private PackedScene missileResource = ResourceLoader.Load<PackedScene>("res://scenes/weapons/missile.tscn");
-	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
+	private static readonly PackedScene missileResource = ResourceLoader.Load<PackedScene>("res://scenes/weapons/missile.tscn");
+	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
 	#endregion
 

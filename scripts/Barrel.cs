@@ -7,7 +7,7 @@ public partial class Barrel : ProjectileBase
 
 	#region Resources
 
-	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
+	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
 	#endregion
 

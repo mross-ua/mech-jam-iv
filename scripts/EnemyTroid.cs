@@ -12,7 +12,7 @@ public partial class EnemyTroid : EnemyBase
 
 	#region Resources
 
-	private PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
+	private static readonly PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
 
 	#endregion
 

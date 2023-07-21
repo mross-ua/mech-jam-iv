@@ -24,7 +24,7 @@ public partial class Player : CharacterBase
 
 	#region Resources
 
-	private PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/effects/blood_splatter.tscn");
+	private static readonly PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/effects/blood_splatter.tscn");
 
 	#endregion
 

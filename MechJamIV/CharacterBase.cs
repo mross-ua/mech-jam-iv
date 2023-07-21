@@ -18,13 +18,13 @@ namespace MechJamIV {
         public int Health { get; protected set; } = 100;
 
         [Export]
-        public virtual Vector2 FaceDirection { get; set; } = Vector2.Zero;
+        public Vector2 FaceDirection { get; set; } = Vector2.Zero;
 		[Export]
-		public virtual float MoveAcceleration { get; set; } = 50.0f;
+		public float MoveAcceleration { get; set; } = 1.0f;
 		[Export]
-		public virtual float MaxMoveSpeed { get; set; } = 300.0f;
+		public float MaxMoveSpeed { get; set; } = 10.0f;
         [Export]
-        public float JumpVelocity { get; set; } = -400.0f;
+        public float JumpVelocity { get; set; } = -10.0f;
 
 	    protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 		protected virtual Vector2 Drag { get; set; } = Vector2.Zero;

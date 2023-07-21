@@ -5,10 +5,6 @@ using MechJamIV;
 public partial class EnemyMech : EnemyBase
 {
 
-    public override Vector2 FaceDirection { get; set; } = Vector2.Left;
-	public override float MoveAcceleration { get; set; } = 5.0f;
-	public override float MaxMoveSpeed { get; set; } = 30.0f;
-
 	private int chaseDuration = 10;
 	private DateTime lastTimePlayerSeen = DateTime.MinValue;
 

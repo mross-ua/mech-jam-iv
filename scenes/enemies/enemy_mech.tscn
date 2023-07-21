@@ -229,6 +229,9 @@ radius = 10.0499
 position = Vector2(0, -29)
 collision_layer = 64
 script = ExtResource("1_kyk5f")
+FaceDirection = Vector2(-1, 0)
+MoveAcceleration = 5.0
+MaxMoveSpeed = 30.0
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="." groups=["enemy"]]
 sprite_frames = SubResource("SpriteFrames_f71hv")

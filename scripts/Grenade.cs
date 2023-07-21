@@ -7,8 +7,6 @@ public partial class Grenade : ExplosiveBarrel,
 	IProjectile
 {
 
-	public override int Health { get; set; } = 1;
-
 	#region Node references
 
 	private Timer fuseTimer;

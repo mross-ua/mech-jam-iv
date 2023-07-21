@@ -10,7 +10,7 @@ public partial class ExplosiveBarrel : Barrel
 	public delegate void KilledEventHandler();
 
 	[Export]
-	public virtual int Health { get; set; } = 10;
+	public int Health { get; set; } = 10;
 	[Export]
 	public int Damage { get; set; } = 80;
 	[Export]

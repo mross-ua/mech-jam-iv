@@ -99,12 +99,6 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				barrel.Hurt(Damage, position,  normal);
 			}
-			//BUG: Grenades are not currently in the Environment layer,
-			//     so this doesn't work. (See kanban task.)
-			else if (collision["collider"].Obj is Grenade grenade)
-			{
-				grenade.Hurt(Damage, position,  normal);
-			}
 			else if (collision["collider"].Obj is GrenadePickup grenadePickup)
 			{
 				grenadePickup.Hurt(Damage, position, normal);

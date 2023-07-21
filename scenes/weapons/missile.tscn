@@ -132,6 +132,7 @@ max_contacts_reported = 1
 contact_monitor = true
 lock_rotation = true
 script = ExtResource("1_72hel")
+Health = 1
 FuseDelay = 10.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]

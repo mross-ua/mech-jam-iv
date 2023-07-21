@@ -2,7 +2,7 @@ using Godot;
 using System;
 using MechJamIV;
 
-public partial class Barrel : RigidBody2D
+public partial class Barrel : ProjectileBase
 {
 
 	[Signal]

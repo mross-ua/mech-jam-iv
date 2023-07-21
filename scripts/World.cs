@@ -133,7 +133,7 @@ public partial class World : Node2D
 
 				break;
 			case PickupType.Grenade:
-				player.WeaponManager.GrenadeCount++;
+				player.WeaponManager.PickupAmmo(PickupType.Grenade);
 
 				break;
 		}

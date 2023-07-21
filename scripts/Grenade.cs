@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using MechJamIV;
 
-public partial class Grenade : ExplosiveBarrel
+public partial class Grenade : ExplosiveBarrel,
+	IProjectile
 {
 
 	public override int Health { get; set; } = 1;
@@ -22,7 +23,7 @@ public partial class Grenade : ExplosiveBarrel
 		explosionTimer.Timeout += () => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
     }
 
-	public void Prime()
+	public override void Prime()
 	{
 		explosionTimer.Start();
 	}

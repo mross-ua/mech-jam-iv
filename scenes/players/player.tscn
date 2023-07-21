@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bt7vafft2mqcp"]
+[gd_scene load_steps=50 format=3 uid="uid://bt7vafft2mqcp"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_bcjvt"]
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://assets/spritesheets/char-sheet-alpha.png" id="1_fkqgm"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://tatq2gmyab34" path="res://scenes/effects/immunity_shield.tscn" id="4_y0w7f"]
 [ext_resource type="Script" path="res://scripts/HitScanBulletEmitter.cs" id="5_6pcw2"]
 [ext_resource type="Script" path="res://scripts/WeaponManager.cs" id="6_gos4y"]
+[ext_resource type="Script" path="res://scripts/ProjectileEmitter.cs" id="8_u5h80"]
+[ext_resource type="PackedScene" uid="uid://bg2lrlwoo7stu" path="res://scenes/weapons/grenade.tscn" id="9_ird66"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jogux"]
 atlas = ExtResource("1_fkqgm")
@@ -346,3 +348,8 @@ script = ExtResource("5_6pcw2")
 process_callback = 0
 wait_time = 0.2
 one_shot = true
+
+[node name="ProjectileEmitter" type="Node2D" parent="WeaponManager"]
+script = ExtResource("8_u5h80")
+ProjectileBaseItem = ExtResource("9_ird66")
+Ammo = 4

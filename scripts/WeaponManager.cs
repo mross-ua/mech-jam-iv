@@ -5,26 +5,17 @@ using MechJamIV;
 public partial class WeaponManager : Node2D
 {
 
-	[Export]
-	public int GrenadeCount { get; set; } = 4;
-	[Export]
-	public float ThrowStrength { get; set; } = 500.0f;
-
 	#region Node references
 
 	private HitScanBulletEmitter hitScanBulletEmitter;
+	private ProjectileEmitter projectileEmitter;
 
 	#endregion
-
-	#region Resources
-
-	private PackedScene grenadeResource = ResourceLoader.Load<PackedScene>("res://scenes/weapons/grenade.tscn");
-
-    #endregion
 
     public override void _Ready()
     {
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
+		projectileEmitter = GetNode<ProjectileEmitter>("ProjectileEmitter");
     }
 
 	public void Fire(FireMode mode, Vector2 globalPos)
@@ -40,29 +31,18 @@ public partial class WeaponManager : Node2D
 
 				break;
 			case FireMode.Secondary:
-				ThrowGrenade(globalPos);
+				projectileEmitter.Fire(globalPos);
 
 				break;
 		}
 	}
 
-	private async void ThrowGrenade(Vector2 globalPos)
+	public void PickupAmmo(PickupType pickupType)
 	{
-		if (GrenadeCount <= 0)
+		if (pickupType == PickupType.Grenade)
 		{
-			return;
+			projectileEmitter.Ammo++;
 		}
-
-		GrenadeCount--;
-
-		Grenade grenade = grenadeResource.Instantiate<Grenade>();
-		grenade.GlobalTransform = hitScanBulletEmitter.GlobalTransform;
-
-		await GetTree().CurrentScene.AddChildDeferred(grenade);
-
-		grenade.Prime();
-
-		grenade.ApplyImpulse((globalPos - hitScanBulletEmitter.GlobalTransform.Origin).Normalized() * ThrowStrength);
 	}
 
 }

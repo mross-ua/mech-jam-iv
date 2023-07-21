@@ -93,7 +93,7 @@ namespace MechJamIV {
 
         protected void AnimateDeath() => characterAnimator.AnimateDeath();
 
-        #region ICollidable/IDestructible
+        #region IDestructible/ICollidable
 
         [Signal]
         public delegate void InjuredEventHandler(int damage);

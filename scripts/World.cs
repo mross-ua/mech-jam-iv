@@ -24,8 +24,6 @@ public partial class World : Node2D
 
 	public override void _Ready()
 	{
-		InitPauseScreen();
-
 		InitSpawns();
 		InitPickups();
 		InitEnemies();
@@ -36,14 +34,8 @@ public partial class World : Node2D
 
 		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
 		playerCamera.TrackPlayer(player);
-	}
 
-	private void InitPauseScreen()
-	{
-		pauseScreen = ResourceLoader.Load<PackedScene>("res://scenes/ui/pause_screen.tscn").Instantiate<PauseScreen>();
-		pauseScreen.Visible = false;
-
-		this.AddChildDeferred(pauseScreen);
+		pauseScreen = GetNode<PauseScreen>("PauseScreen");
 	}
 
 	private void InitSpawns()

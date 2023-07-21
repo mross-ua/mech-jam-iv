@@ -13,12 +13,6 @@ public partial class GrenadePickup : PickupBase
 
 	#endregion
 
-	#region Resources
-
-	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
-
-	#endregion
-
 	public override void _Ready()
 	{
 		base._Ready();

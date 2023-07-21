@@ -64,7 +64,7 @@ public partial class HitScanBulletEmitter : Node2D
 		bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
 	}
 
-	public async void Fire(Vector2 globalPos)
+	public void Fire(Vector2 globalPos)
 	{
 		if (attackTimer.TimeLeft > 0)
 		{
@@ -113,13 +113,7 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				// world or environment hit
 
-				GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
-				splatter.GlobalPosition = position;
- 				splatter.Emitting = true;
-
-				await GetTree().CurrentScene.AddChildDeferred(splatter);
-
-				splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+        		this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), globalPos);
 			}
 
 			bulletsToDraw.Enqueue(new Tuple<Vector2, Vector2>(from, position));

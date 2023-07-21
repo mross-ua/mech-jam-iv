@@ -104,15 +104,9 @@ public partial class EnemyMech : EnemyBase
 		missile.PrimeFuse();
 	}
 
-	protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
+	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-		GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
-		splatter.GlobalPosition = position;
-		splatter.Emitting = true;
-
-		await GetTree().CurrentScene.AddChildDeferred(splatter);
-
-		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+        this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 }

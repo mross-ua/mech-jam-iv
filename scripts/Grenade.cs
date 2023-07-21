@@ -11,7 +11,7 @@ public partial class Grenade : ExplosiveBarrel,
 
 	#region Node references
 
-	private Timer explosionTimer;
+	private Timer fuseTimer;
 
 	#endregion
 
@@ -19,13 +19,13 @@ public partial class Grenade : ExplosiveBarrel,
     {
         base._Ready();
 
-		explosionTimer = GetNode<Timer>("ExplosionTimer");
-		explosionTimer.Timeout += () => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+		fuseTimer = GetNode<Timer>("FuseTimer");
+		fuseTimer.Timeout += () => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
     }
 
 	public override void Prime()
 	{
-		explosionTimer.Start();
+		fuseTimer.Start();
 	}
 
 }

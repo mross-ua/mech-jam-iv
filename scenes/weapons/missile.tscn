@@ -147,7 +147,7 @@ script = ExtResource("2_schm0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_77806")
 
-[node name="ExplosionTimer" type="Timer" parent="."]
+[node name="FuseTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 10.0
 one_shot = true

@@ -3,27 +3,9 @@ using System;
 using System.Collections.Generic;
 using MechJamIV;
 
-public partial class Grenade : ExplosiveBarrel,
-	IProjectile
+public partial class Grenade : ExplosiveBarrel
 {
 
-	#region Node references
-
-	private Timer fuseTimer;
-
-	#endregion
-
-    public override void _Ready()
-    {
-        base._Ready();
-
-		fuseTimer = GetNode<Timer>("FuseTimer");
-		fuseTimer.Timeout += () => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
-    }
-
-	public override void Prime()
-	{
-		fuseTimer.Start();
-	}
+	//TODO we can get rid of this class
 
 }

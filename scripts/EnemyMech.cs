@@ -101,7 +101,7 @@ public partial class EnemyMech : EnemyBase
 
 		await GetTree().CurrentScene.AddChildDeferred(missile);
 
-		missile.Prime();
+		missile.PrimeFuse();
 	}
 
 	protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)

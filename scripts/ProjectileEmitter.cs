@@ -26,9 +26,12 @@ public partial class ProjectileEmitter : Node2D
 
 		await GetTree().CurrentScene.AddChildDeferred(projectile);
 
-		projectile.Prime();
-
 		projectile.ApplyImpulse((globalPos - GlobalTransform.Origin).Normalized() * ImpulseStrength);
+
+		if (projectile is IDetonatable d)
+		{
+			d.PrimeFuse();
+		}
 	}
 
 }

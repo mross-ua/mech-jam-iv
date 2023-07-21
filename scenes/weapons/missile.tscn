@@ -132,6 +132,7 @@ max_contacts_reported = 1
 contact_monitor = true
 lock_rotation = true
 script = ExtResource("1_72hel")
+FuseDelay = 10.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(0, 4)
@@ -146,11 +147,6 @@ script = ExtResource("2_schm0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_77806")
-
-[node name="FuseTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 10.0
-one_shot = true
 
 [node name="ExplosionAreaOfEffect" type="Area2D" parent="."]
 collision_layer = 0

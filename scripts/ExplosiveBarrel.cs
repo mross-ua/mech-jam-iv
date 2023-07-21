@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MechJamIV;
 
 public partial class ExplosiveBarrel : Barrel
+	, IDetonatable
 {
 
 	[Signal]
@@ -63,7 +64,7 @@ public partial class ExplosiveBarrel : Barrel
 		{
 			AnimateDeath();
 
-			Explode();
+			Detonate();
 
 			EmitSignal(SignalName.Killed);
 
@@ -73,7 +74,42 @@ public partial class ExplosiveBarrel : Barrel
 		}
 	}
 
-	protected void Explode()
+	#region IDetonatable
+
+	[Signal]
+	public delegate void DetonatedEventHandler();
+
+	[Export]
+	public float FuseDelay { get; set; } = 4.0f;
+
+	private bool isFusePrimed = false;
+
+	public async void PrimeFuse()
+	{
+		if (Health <= 0)
+		{
+			return;
+		}
+		else if (isFusePrimed)
+		{
+			return;
+		}
+
+		isFusePrimed = true;
+
+		await ToSignal(GetTree().CreateTimer(FuseDelay, processInPhysics:true), SceneTreeTimer.SignalName.Timeout);
+
+		if (Health <= 0)
+		{
+			return;
+		}
+
+        EmitSignal(SignalName.Detonated);
+
+		Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+	}
+
+	private void Detonate()
 	{
 		PhysicsShapeQueryParameters2D queryParams = new ();
 		queryParams.Transform = GlobalTransform;
@@ -105,5 +141,7 @@ public partial class ExplosiveBarrel : Barrel
 			}
 		}
 	}
+
+	#endregion
 
 }

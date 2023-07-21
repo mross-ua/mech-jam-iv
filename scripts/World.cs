@@ -110,18 +110,17 @@ public partial class World : Node2D
 		{
 			pauseScreen.PauseGame();
 		}
-		else if (Input.IsActionJustPressed("throw_grenade"))
+		else if (Input.IsActionJustPressed("fire_secondary"))
 		{
-			player.ThrowGrenade(GetGlobalMousePosition());
+			player.Fire(FireMode.Secondary, GetGlobalMousePosition());
 		}
-		//TODO?
-		// else if (Input.IsActionJustPressed("fire"))
-		// {
-		// 	player.FireGun(GetGlobalMousePosition());
-		// }
-		else if (Input.IsActionPressed("fire"))
+		else if (Input.IsActionJustPressed("fire_primary"))
 		{
-			player.FireGun(GetGlobalMousePosition());
+			player.Fire(FireMode.Primary, GetGlobalMousePosition());
+		}
+		else if (Input.IsActionPressed("fire_primary"))
+		{
+			player.Fire(FireMode.Primary, GetGlobalMousePosition());
 		}
     }
 
@@ -134,7 +133,7 @@ public partial class World : Node2D
 
 				break;
 			case PickupType.Grenade:
-				player.GrenadeCount++;
+				player.WeaponManager.GrenadeCount++;
 
 				break;
 		}

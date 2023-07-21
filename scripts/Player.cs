@@ -11,29 +11,19 @@ public partial class Player : CharacterBase
 	[Signal]
 	public delegate void ImmunityShieldDeactivatedEventHandler();
 
-	[Export]
-	public int GrenadeCount { get; set; } = 4;
-
-	[Export]
-	public float ThrowStrength { get; set; } = 500.0f;
-
-	private Queue<Tuple<Vector2, Vector2>> bullets = new Queue<Tuple<Vector2, Vector2>>();
-
 	#region Node references
 
 	public Marker2D RobotMarker { get; private set; }
 	public RemoteTransform2D RemoteTransform { get; private set; }
+	public WeaponManager WeaponManager { get; private set; }
 
 	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
-	private Timer attackTimer;
-	private HitScanBulletEmitter hitScanBulletEmitter;
 
 	#endregion
 
 	#region Resources
 
-	private PackedScene grenadeResource = ResourceLoader.Load<PackedScene>("res://scenes/weapons/grenade.tscn");
 	private PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/effects/blood_splatter.tscn");
 
 	#endregion
@@ -49,8 +39,8 @@ public partial class Player : CharacterBase
 		immunityTimer.Timeout += () => DeactivateShield();
 
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
-		attackTimer = GetNode<Timer>("AttackTimer");
-		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
+
+		WeaponManager = GetNode<WeaponManager>("WeaponManager");
     }
 
 	protected override Vector2 GetMovementDirection()
@@ -62,59 +52,14 @@ public partial class Player : CharacterBase
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
 
-    public override void _Draw()
-    {
-        base._Draw();
-
-		while (bullets.TryDequeue(out Tuple<Vector2, Vector2> rayPath))
-		{
-			DrawLine(ToLocal(rayPath.Item1), ToLocal(rayPath.Item2), Colors.LightYellow, 1.0f);
-		}
-    }
-
-	public async void FireGun(Vector2 globalPos)
+	public void Fire(FireMode mode, Vector2 globalPos)
 	{
 		if (Health <= 0)
 		{
 			return;
 		}
-		else if (attackTimer.TimeLeft > 0)
-		{
-			return;
-		}
 
-		attackTimer.Start();
-
-		bullets.Enqueue(await hitScanBulletEmitter.Fire(globalPos));
-	}
-
-	public async void ThrowGrenade(Vector2 globalPos)
-	{
-		if (Health <= 0)
-		{
-			return;
-		}
-		else if (attackTimer.TimeLeft > 0)
-		{
-			return;
-		}
-		else if (GrenadeCount <= 0)
-		{
-			return;
-		}
-
-		attackTimer.Start();
-
-		GrenadeCount--;
-
-		Grenade grenade = grenadeResource.Instantiate<Grenade>();
-		grenade.GlobalTransform = hitScanBulletEmitter.GlobalTransform;
-
-		await GetTree().CurrentScene.AddChildDeferred(grenade);
-
-		grenade.Prime();
-
-		grenade.ApplyImpulse((globalPos - hitScanBulletEmitter.GlobalTransform.Origin).Normalized() * ThrowStrength);
+		WeaponManager.Fire(mode, globalPos);
 	}
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)

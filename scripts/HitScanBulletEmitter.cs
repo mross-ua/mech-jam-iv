@@ -9,28 +9,70 @@ public partial class HitScanBulletEmitter : Node2D
 {
 
 	[Export]
-	public float HitScanDistance { get; set; } = 10000.0f;
-
-	private Godot.Collections.Array<Rid> _bodiesToExclude = new ();
-
+	public float HitScanDistance { get; set; } = 10_000.0f;
+	[Export]
 	public int Damage { get; set; } = 1;
+	[Export(PropertyHint.ColorNoAlpha)]
+	public Color TracerColor { get; set; } = Colors.LightYellow;
 
-	// (not) used in Fire()
-	//private Vector2 gravity = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	private Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new Queue<Tuple<Vector2, Vector2>>();
+
+	private Godot.Collections.Array<Rid> bodiesToExclude = null;
+
+	private bool isNeedsRedraw = false;
+
+	#region Node references
+
+	private Timer attackTimer;
+
+	#endregion
 
 	#region Resources
 
 	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
-	#endregion
+    #endregion
+
+    public override void _Ready()
+    {
+		attackTimer = GetNode<Timer>("AttackTimer");
+    }
+
+    public override void _Process(double delta)
+    {
+        if (isNeedsRedraw)
+		{
+			QueueRedraw();
+		}
+    }
+
+    public override void _Draw()
+    {
+		isNeedsRedraw = false;
+
+		while (bulletsToDraw.TryDequeue(out Tuple<Vector2, Vector2> rayPath))
+		{
+			DrawLine(ToLocal(rayPath.Item1), ToLocal(rayPath.Item2), TracerColor, 1.0f);
+
+			// we need to draw at least one more frame to *clear* anything drawn this frame
+			isNeedsRedraw = true;
+		}
+	}
 
 	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
 	{
-		_bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
+		bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
 	}
 
-	public async Task<Tuple<Vector2, Vector2>> Fire(Vector2 globalPos)
+	public async void Fire(Vector2 globalPos)
 	{
+		if (attackTimer.TimeLeft > 0)
+		{
+			return;
+		}
+
+		attackTimer.Start();
+
 		Vector2 from = GlobalTransform.Origin;
 		Vector2 to = globalPos + (globalPos - GlobalTransform.Origin).Normalized() * HitScanDistance;
 
@@ -38,7 +80,7 @@ public partial class HitScanBulletEmitter : Node2D
 		{
 			From = from,
 			To = to,
-			Exclude = _bodiesToExclude,
+			Exclude = bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,
 			CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Environment | CollisionLayerMask.Hitbox)
@@ -80,10 +122,14 @@ public partial class HitScanBulletEmitter : Node2D
 				splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
 			}
 
-			return new Tuple<Vector2, Vector2>(from, position);
+			bulletsToDraw.Enqueue(new Tuple<Vector2, Vector2>(from, position));
+		}
+		else
+		{
+			bulletsToDraw.Enqueue(new Tuple<Vector2, Vector2>(from, to));
 		}
 
-		return new Tuple<Vector2, Vector2>(from, to);
+		isNeedsRedraw = true;
 	}
 
 }

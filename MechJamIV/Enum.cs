@@ -37,4 +37,11 @@ namespace MechJamIV {
         Chase,
         Attacking
     }
+
+    public enum FireMode
+    {
+        Primary,
+        PrimarySustained,
+        Secondary
+    }
 }

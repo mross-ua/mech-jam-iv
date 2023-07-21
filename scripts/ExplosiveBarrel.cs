@@ -47,9 +47,6 @@ public partial class ExplosiveBarrel : Barrel
 	#region IDestructible
 
 	[Signal]
-	public delegate void InjuredEventHandler(int damage);
-
-	[Signal]
 	public delegate void KilledEventHandler();
 
 	[Signal]

@@ -155,7 +155,7 @@ namespace MechJamIV {
             return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
         }
 
-        #region IDestructible
+        #region ICollidable
 
         public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
         {

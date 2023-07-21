@@ -3,6 +3,7 @@ using System;
 using MechJamIV;
 
 public partial class GrenadePickup : PickupBase
+	,ICollidable
 {
 
 	public override PickupType PickupType { get; protected set;} = PickupType.Grenade;
@@ -18,10 +19,14 @@ public partial class GrenadePickup : PickupBase
 		base._Ready();
 
 		grenade = GetNode<Grenade>("Grenade");
+		grenade.Injured += (damage) => EmitSignal(SignalName.Injured, damage);
 		grenade.Killed += () => this.TimedFree(5.0f, processInPhysics: true);
 	}
 
-	#region IDestructible
+	#region ICollidable
+
+	[Signal]
+	public delegate void InjuredEventHandler(int damage);
 
 	public void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{

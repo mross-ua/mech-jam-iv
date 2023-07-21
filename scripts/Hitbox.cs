@@ -50,7 +50,7 @@ public partial class Hitbox : Area2D
 		}
 	}
 
-	#region IDestructible
+	#region ICollidable
 
 	public void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{

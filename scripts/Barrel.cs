@@ -16,9 +16,9 @@ public partial class Barrel : ProjectileBase
         this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), globalPos);
     }
 
-	#region IDestructible
+	#region ICollidable
 
-	public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
 		AnimateInjury(damage, globalPos, normal);
 	}

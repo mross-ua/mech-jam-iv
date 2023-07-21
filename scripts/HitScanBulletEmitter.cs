@@ -95,13 +95,9 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				hitbox.Hurt(Damage, position, normal);
 			}
-			else if (collision["collider"].Obj is Barrel barrel)
+			else if (collision["collider"].Obj is ICollidable c)
 			{
-				barrel.Hurt(Damage, position,  normal);
-			}
-			else if (collision["collider"].Obj is GrenadePickup grenadePickup)
-			{
-				grenadePickup.Hurt(Damage, position, normal);
+				c.Hurt(Damage, position,  normal);
 			}
 			else
 			{

@@ -4,21 +4,17 @@ using System.Collections.Generic;
 using MechJamIV;
 
 public partial class Player : CharacterBase
+	,IPlayable
 {
-
-	[Signal]
-	public delegate void ImmunityShieldActivatedEventHandler();
-	[Signal]
-	public delegate void ImmunityShieldDeactivatedEventHandler();
 
 	#region Node references
 
 	public Marker2D RobotMarker { get; private set; }
-	public RemoteTransform2D RemoteTransform { get; private set; }
 	public WeaponManager WeaponManager { get; private set; }
 
 	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
+	private RemoteTransform2D remoteTransform { get; set; }
 
 	#endregion
 
@@ -33,12 +29,13 @@ public partial class Player : CharacterBase
 		base._Ready();
 
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
-		RemoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
 
 		immunityTimer = GetNode<Timer>("ImmunityTimer");
 		immunityTimer.Timeout += () => DeactivateShield();
 
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
+
+		remoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
 
 		WeaponManager = GetNode<WeaponManager>("WeaponManager");
     }
@@ -100,6 +97,20 @@ public partial class Player : CharacterBase
 		ActivateShield();
 
 		immunityTimer.Start();
+	}
+
+	#endregion
+
+	#region IPlayable
+
+	[Signal]
+	public delegate void ImmunityShieldActivatedEventHandler();
+	[Signal]
+	public delegate void ImmunityShieldDeactivatedEventHandler();
+
+	public void SetRemoteTarget(PlayerCamera cam)
+	{
+		remoteTransform.RemotePath = cam.GetPath();
 	}
 
 	#endregion

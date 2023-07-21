@@ -1,7 +1,9 @@
 using Godot;
 using System;
+using MechJamIV;
 
 public partial class PlayerCamera : Camera2D
+	,ITracker
 {
 
 	#region Node references
@@ -19,23 +21,27 @@ public partial class PlayerCamera : Camera2D
 		immunityShield = GetNode<GpuParticles2D>("UI/HealthBar/TextureRect/ImmunityShield");
 	}
 
-	public void TrackPlayer(Player player)
+	#region ITracker
+
+	public void TrackPlayer(Player p)
 	{
-		if (this.player != null)
+		if (player != null)
 		{
 			throw new NotSupportedException("A player instance is already being tracked.");
 		}
 
-		this.player = player;
+		player = p;
 
 		healthBar.Value = player.Health;
 
 		player.Injured += (damage) => healthBar.Value = player.Health;
 		player.Healed += (health) => healthBar.Value = player.Health;
+
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
 		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
 
-		player.RemoteTransform.RemotePath = GetPath();
+		player.SetRemoteTarget(this);
 	}
 
+	#endregion
 }

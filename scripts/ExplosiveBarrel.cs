@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MechJamIV;
 
 public partial class ExplosiveBarrel : Barrel
@@ -9,7 +10,7 @@ public partial class ExplosiveBarrel : Barrel
 {
 
 	[Export]
-	public int Damage { get; set; } = 80;
+	public int ExplosionDamage { get; set; } = 80;
 	[Export]
 	public float ExplosionIntensity { get; set; } = 10_000.0f;
 
@@ -36,9 +37,9 @@ public partial class ExplosiveBarrel : Barrel
 		explosionCollisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
     }
 
-	public void SetBodiesToExclude(IEnumerable<Rid> rids)
+	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
 	{
-		bodiesToExclude = new Godot.Collections.Array<Rid>(rids);
+		bodiesToExclude = new Godot.Collections.Array<Rid>(GetRid().Yield().Concat(resourceIds));
 	}
 
 	protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
@@ -146,14 +147,14 @@ public partial class ExplosiveBarrel : Barrel
 			{
 				Vector2 directionToCharacter = character.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				character.Hurt(Mathf.RoundToInt(Damage * radius / directionToCharacter.Length()), character.GlobalTransform.Origin, -directionToCharacter.Normalized());
+				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / directionToCharacter.Length()), character.GlobalTransform.Origin, -directionToCharacter.Normalized());
 				character.Velocity += ExplosionIntensity * directionToCharacter / directionToCharacter.LengthSquared();
 			}
 			else if (collision["collider"].Obj is Barrel barrel)
 			{
 				Vector2 directionToBarrel = barrel.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				barrel.Hurt(Mathf.RoundToInt(Damage * radius / directionToBarrel.Length()), barrel.GlobalTransform.Origin, -directionToBarrel.Normalized());
+				barrel.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / directionToBarrel.Length()), barrel.GlobalTransform.Origin, -directionToBarrel.Normalized());
 				barrel.ApplyImpulse(ExplosionIntensity * directionToBarrel / directionToBarrel.LengthSquared());
 			}
 		}

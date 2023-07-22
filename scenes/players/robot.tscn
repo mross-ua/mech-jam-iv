@@ -84,7 +84,7 @@ collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_ga06e")
 MoveAcceleration = 50.0
-MaxMoveSpeed = 400.0
+MaxMoveSpeed = 300.0
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4dncl")

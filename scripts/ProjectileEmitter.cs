@@ -5,6 +5,8 @@ using MechJamIV;
 public partial class ProjectileEmitter : Node2D
 {
 
+	[Export(PropertyHint.Layers2DPhysics)]
+	public uint LineOfSightMask { get; set; }
 	[Export]
 	public PackedScene ProjectileBaseItem { get; set; }
 	[Export]

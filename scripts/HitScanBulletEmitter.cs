@@ -8,6 +8,8 @@ using MechJamIV;
 public partial class HitScanBulletEmitter : Node2D
 {
 
+	[Export(PropertyHint.Layers2DPhysics)]
+	public uint LineOfSightMask { get; set; }
 	[Export]
 	public float HitScanDistance { get; set; } = 10_000.0f;
 	[Export]
@@ -83,7 +85,7 @@ public partial class HitScanBulletEmitter : Node2D
 			Exclude = bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,
-			CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Environment | CollisionLayerMask.Hitbox)
+			CollisionMask = LineOfSightMask
 		});
 
 		if (collision.ContainsKey("collider"))

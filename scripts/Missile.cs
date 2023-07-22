@@ -107,17 +107,21 @@ public partial class Missile : Grenade
 
 	#region ITracker
 
-	public CollisionLayerMask LineOfSightMask { get => CollisionLayerMask.World | CollisionLayerMask.Player; }
+	public CollisionLayerMask LineOfSightMask { get; private set; }
 
 	public CharacterBase Target { get; private set; }
 
-	public void Track(CharacterBase c)
+	public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)
 	{
 		Target = c;
+		LineOfSightMask = lineOfSightMask;
 
-		Target.Killed += () => Untrack(c);
-		// just in case we miss the Killed signal
-		Target.TreeExiting += () => Untrack(c);
+		if (c != null)
+		{
+			Target.Killed += () => Untrack(c);
+			// just in case we miss the Killed signal
+			Target.TreeExiting += () => Untrack(c);
+		}
 	}
 
 	private void Untrack(CharacterBase c)

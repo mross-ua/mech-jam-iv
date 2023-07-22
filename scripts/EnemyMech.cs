@@ -119,7 +119,8 @@ public partial class EnemyMech : EnemyBase
 		await GetTree().CurrentScene.AddChildDeferred(missile);
 
 		missile.PrimeFuse();
-		missile.Track(Target);
+
+		missile.Track(Target, LineOfSightMask);
 	}
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)

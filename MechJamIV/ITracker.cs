@@ -15,7 +15,7 @@ namespace MechJamIV {
 
 		public CharacterBase Target { get; }
 
-		public void Track(CharacterBase target);
+		public void Track(CharacterBase target, CollisionLayerMask lineOfSightMask);
 
 	}
 }

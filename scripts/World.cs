@@ -26,22 +26,24 @@ public partial class World : Node2D
 
 	public override void _Ready()
 	{
+		player = (Player)GetTree().GetFirstNodeInGroup("player");
+
+		robot = (Robot)GetTree().GetFirstNodeInGroup("robot");
+
+		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
+		pauseScreen = GetNode<PauseScreen>("PauseScreen");
+
 		InitSpawns();
 		InitPickups();
 		InitEnemies();
 		InitObjectives();
 
-		player = (Player)GetTree().GetFirstNodeInGroup("player");
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 
-		robot = (Robot)GetTree().GetFirstNodeInGroup("robot");
 		robot.GlobalTransform = player.RobotMarker.GlobalTransform;
-		robot.Track(player);
+		robot.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);
 
-		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
 		playerCamera.Track(player);
-
-		pauseScreen = GetNode<PauseScreen>("PauseScreen");
 	}
 
 	private void InitSpawns()
@@ -82,7 +84,7 @@ public partial class World : Node2D
 				GetTree().CurrentScene.AddChildDeferred(pickup);
 			};
 
-			enemy.Track((Player)GetTree().GetFirstNodeInGroup("player"));
+			enemy.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);
 		}
 	}
 

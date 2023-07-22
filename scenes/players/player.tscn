@@ -346,6 +346,7 @@ script = ExtResource("6_gos4y")
 
 [node name="HitScanBulletEmitter" type="Node2D" parent="WeaponManager"]
 script = ExtResource("5_6pcw2")
+LineOfSightMask = 41
 
 [node name="AttackTimer" type="Timer" parent="WeaponManager/HitScanBulletEmitter"]
 process_callback = 0
@@ -354,5 +355,6 @@ one_shot = true
 
 [node name="ProjectileEmitter" type="Node2D" parent="WeaponManager"]
 script = ExtResource("8_u5h80")
+LineOfSightMask = 73
 ProjectileBaseItem = ExtResource("9_ird66")
 Ammo = 4

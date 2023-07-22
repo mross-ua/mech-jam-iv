@@ -14,7 +14,7 @@ public partial class ProjectileEmitter : Node2D
 	[Export]
 	public float ImpulseStrength { get; set; } = 500.0f;
 
-	public async void Fire(Vector2 globalPos)
+	public async void Fire(Vector2 globalPos, CharacterBase target)
 	{
 		if (Ammo <= 0)
 		{
@@ -33,6 +33,11 @@ public partial class ProjectileEmitter : Node2D
 		if (projectile is IDetonable d)
 		{
 			d.PrimeFuse();
+		}
+
+		if (projectile is ITracker t)
+		{
+			t.Track(target, (CollisionLayerMask)LineOfSightMask);
 		}
 	}
 

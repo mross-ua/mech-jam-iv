@@ -14,24 +14,25 @@ public partial class WeaponManager : Node2D
 
     public override void _Ready()
     {
-		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
-		projectileEmitter = GetNode<ProjectileEmitter>("ProjectileEmitter");
+		hitScanBulletEmitter = GetNodeOrNull<HitScanBulletEmitter>("HitScanBulletEmitter");
+		projectileEmitter = GetNodeOrNull<ProjectileEmitter>("ProjectileEmitter");
     }
 
-	public void Fire(FireMode mode, Vector2 globalPos)
+	public void Fire(FireMode mode, Vector2 globalPos, CharacterBase target = null)
 	{
 		switch (mode)
 		{
 			case FireMode.Primary:
-				hitScanBulletEmitter.Fire(globalPos);
+				hitScanBulletEmitter?.Fire(globalPos);
 
 				break;
 			case FireMode.PrimarySustained:
-				hitScanBulletEmitter.Fire(globalPos);
+				hitScanBulletEmitter?.Fire(globalPos);
 
 				break;
 			case FireMode.Secondary:
-				projectileEmitter.Fire(globalPos);
+
+				projectileEmitter?.Fire(globalPos, target);
 
 				break;
 		}
@@ -39,9 +40,12 @@ public partial class WeaponManager : Node2D
 
 	public void PickupAmmo(PickupType pickupType)
 	{
-		if (pickupType == PickupType.Grenade)
+		if (projectileEmitter != null)
 		{
-			projectileEmitter.Ammo++;
+			if (pickupType == PickupType.Grenade)
+			{
+				projectileEmitter.Ammo++;
+			}
 		}
 	}
 

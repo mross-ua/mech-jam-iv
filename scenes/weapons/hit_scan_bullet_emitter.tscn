@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt6lo73in6sdi"]
+
+[ext_resource type="Script" path="res://scripts/HitScanBulletEmitter.cs" id="1_ljwkw"]
+
+[node name="HitScanBulletEmitter" type="Node2D"]
+script = ExtResource("1_ljwkw")
+LineOfSightDistance = 1000.0
+
+[node name="AttackTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.2
+one_shot = true

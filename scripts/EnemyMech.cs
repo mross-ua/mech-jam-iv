@@ -11,12 +11,12 @@ public partial class EnemyMech : EnemyBase
 	#region Node references
 
 	private Timer attackTimer;
+	private WeaponManager weaponManager;
 
 	#endregion
 
 	#region Resources
 
-	private static readonly PackedScene missileResource = ResourceLoader.Load<PackedScene>("res://scenes/weapons/missile.tscn");
 	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
 	#endregion
@@ -26,6 +26,7 @@ public partial class EnemyMech : EnemyBase
 		base._Ready();
 
 		attackTimer = GetNode<Timer>("AttackTimer");
+		weaponManager = GetNode<WeaponManager>("WeaponManager");
 	}
 
 	protected override Vector2 GetMovementDirection_Idle()
@@ -94,7 +95,7 @@ public partial class EnemyMech : EnemyBase
 		}
 	}
 
-	protected override async void ProcessAction_Attacking()
+	protected override void ProcessAction_Attacking()
 	{
 		if (Target == null)
 		{
@@ -113,14 +114,7 @@ public partial class EnemyMech : EnemyBase
 
 		attackTimer.Start();
 
-		Missile missile = missileResource.Instantiate<Missile>();
-		missile.GlobalTransform = GlobalTransform;
-
-		await GetTree().CurrentScene.AddChildDeferred(missile);
-
-		missile.PrimeFuse();
-
-		missile.Track(Target, LineOfSightMask);
+		weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), Target);
 	}
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)

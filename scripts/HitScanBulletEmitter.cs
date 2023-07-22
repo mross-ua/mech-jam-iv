@@ -76,7 +76,7 @@ public partial class HitScanBulletEmitter : Node2D
 		attackTimer.Start();
 
 		Vector2 from = GlobalTransform.Origin;
-		Vector2 to = globalPos + (globalPos - GlobalTransform.Origin).Normalized() * LineOfSightDistance;
+		Vector2 to = GlobalTransform.Origin + (globalPos - GlobalTransform.Origin).Normalized() * LineOfSightDistance;
 
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{

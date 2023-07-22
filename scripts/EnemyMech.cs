@@ -52,7 +52,7 @@ public partial class EnemyMech : EnemyBase
 			return Vector2.Zero;
 		}
 
-		return new Vector2(GetDirectionToTarget().X, 0.0f).Normalized();
+		return new Vector2(this.GetDirectionToTarget().X, 0.0f).Normalized();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -68,7 +68,7 @@ public partial class EnemyMech : EnemyBase
 		{
 			return;
 		}
-		else if (IsTargetInFieldOfView() && IsTargetInLineOfSight())
+		else if (this.IsTargetInFieldOfView(FaceDirection, FieldOfView) && this.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Chase;
 
@@ -82,7 +82,7 @@ public partial class EnemyMech : EnemyBase
 		{
 			State = EnemyState.Idle;
 		}
-		else if (IsTargetInLineOfSight())
+		else if (this.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Attacking;
 
@@ -100,7 +100,7 @@ public partial class EnemyMech : EnemyBase
 		{
 			State = EnemyState.Idle;
 		}
-		else if (!IsTargetInLineOfSight())
+		else if (!this.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Chase;
 

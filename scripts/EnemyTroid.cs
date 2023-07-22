@@ -28,7 +28,7 @@ public partial class EnemyTroid : EnemyBase
 			return Vector2.Zero;
 		}
 
-		return GetDirectionToTarget();
+		return this.GetDirectionToTarget();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -45,7 +45,7 @@ public partial class EnemyTroid : EnemyBase
 		{
 			return;
 		}
-        else if (IsTargetInLineOfSight())
+        else if (this.IsTargetInLineOfSight())
         {
             State = EnemyState.Chase;
 
@@ -59,7 +59,7 @@ public partial class EnemyTroid : EnemyBase
 		{
 			State = EnemyState.Idle;
 		}
-		else if (IsTargetInLineOfSight())
+		else if (this.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Attacking;
 

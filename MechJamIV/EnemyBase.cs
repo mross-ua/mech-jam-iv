@@ -124,35 +124,6 @@ namespace MechJamIV {
             }
         }
 
-        protected Vector2 GetDirectionToTarget()
-        {
-            Debug.Assert(Target != null, "A target is not currently being tracked.");
-
-            return GlobalTransform.Origin.DirectionTo(Target.GlobalTransform.Origin);
-        }
-
-        protected bool IsTargetInFieldOfView()
-        {
-            return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToTarget())) < FieldOfView;
-        }
-
-        protected bool IsTargetInLineOfSight()
-        {
-            Debug.Assert(Target != null, "A target is not currently being tracked.");
-
-            Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
-            {
-                From = GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
-                To = Target.GlobalTransform.Origin,
-                Exclude = null,
-                CollideWithBodies = true,
-                CollideWithAreas = true,
-                CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
-            });
-
-            return collision.ContainsKey("collider") && collision["collider"].Obj == Target;
-        }
-
         #region ICollidable
 
         public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
@@ -173,6 +144,8 @@ namespace MechJamIV {
         #endregion
 
         #region ITracker
+
+        public CollisionLayerMask LineOfSightMask { get => CollisionLayerMask.World | CollisionLayerMask.Player; }
 
         public CharacterBase Target { get; private set; }
 

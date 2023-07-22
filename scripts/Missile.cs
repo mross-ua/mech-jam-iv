@@ -56,7 +56,7 @@ public partial class Missile : Grenade
 			return FaceDirection;
 		}
 
-		Vector2 directionToPlayer = GetDirectionToTarget();
+		Vector2 directionToPlayer = this.GetDirectionToTarget();
 
 		float angleDiff = Mathf.RadToDeg(FaceDirection.AngleTo(directionToPlayer));
 		int turnDirection = Mathf.Sign(angleDiff);
@@ -105,37 +105,9 @@ public partial class Missile : Grenade
 		gpuParticles2D.Visible = false;
 	}
 
-	protected Vector2 GetDirectionToTarget()
-	{
-		Debug.Assert(Target != null, "A target is not currently being tracked.");
-
-		return GlobalTransform.Origin.DirectionTo(Target.GlobalTransform.Origin);
-	}
-
-	// protected bool IsTargetInFieldOfView()
-	// {
-	// 	return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToTarget())) < FieldOfView;
-	// }
-
-	protected bool IsTargetInLineOfSight()
-	{
-		Debug.Assert(Target != null, "A target is not currently being tracked.");
-
-		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
-		{
-			//TODO do we need to use Y basis rather than Vector2.Up?
-			From = GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
-			To = Target.GlobalTransform.Origin,
-			Exclude = null,
-			CollideWithBodies = true,
-			CollideWithAreas = true,
-			CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
-		});
-
-		return collision.ContainsKey("collider") && collision["collider"].Obj == Target;
-	}
-
 	#region ITracker
+
+	public CollisionLayerMask LineOfSightMask { get => CollisionLayerMask.World | CollisionLayerMask.Player; }
 
 	public CharacterBase Target { get; private set; }
 

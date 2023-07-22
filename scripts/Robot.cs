@@ -45,6 +45,8 @@ public partial class Robot : CharacterBase
 
 	#region ITracker
 
+	public CollisionLayerMask LineOfSightMask { get => CollisionLayerMask.World | CollisionLayerMask.Player; }
+
 	public CharacterBase Target { get; private set; }
 
 	public void Track(CharacterBase c)

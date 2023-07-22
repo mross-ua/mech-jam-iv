@@ -23,7 +23,12 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Chase()
 	{
-		return GetDirectionToPlayer();
+		if (Target == null)
+		{
+			return Vector2.Zero;
+		}
+
+		return GetDirectionToTarget();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -36,7 +41,11 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override void ProcessAction_Idle()
 	{
-        if (IsPlayerInLineOfSight())
+		if (Target == null)
+		{
+			return;
+		}
+        else if (IsTargetInLineOfSight())
         {
             State = EnemyState.Chase;
 
@@ -46,7 +55,11 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override void ProcessAction_Chase()
 	{
-		if (IsPlayerInLineOfSight())
+		if (Target == null)
+		{
+			State = EnemyState.Idle;
+		}
+		else if (IsTargetInLineOfSight())
 		{
 			State = EnemyState.Attacking;
 

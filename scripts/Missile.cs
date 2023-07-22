@@ -1,9 +1,11 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using MechJamIV;
 
 public partial class Missile : Grenade
+	,ITracker
 {
 
 	[Export]
@@ -16,8 +18,6 @@ public partial class Missile : Grenade
 
 	#region Node references
 
-	protected Player Player { get; private set; }
-
 	private GpuParticles2D gpuParticles2D;
 
 	#endregion
@@ -26,14 +26,12 @@ public partial class Missile : Grenade
 	{
 		base._Ready();
 
-		Player = (Player)GetTree().GetFirstNodeInGroup("player");
-
 		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
 
 		BodyEntered += (body) => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
 
 #if DEBUG
-		AddRayCastToPlayer();
+		AddRayCast();
 #endif
 	}
 
@@ -53,7 +51,12 @@ public partial class Missile : Grenade
 
 	private Vector2 GetMovementDirection(double delta)
 	{
-		Vector2 directionToPlayer = GetDirectionToPlayer();
+		if (Target == null)
+		{
+			return FaceDirection;
+		}
+
+		Vector2 directionToPlayer = GetDirectionToTarget();
 
 		float angleDiff = Mathf.RadToDeg(FaceDirection.AngleTo(directionToPlayer));
 		int turnDirection = Mathf.Sign(angleDiff);
@@ -82,7 +85,7 @@ public partial class Missile : Grenade
 		ApplyForce(FaceDirection * ThrustForce * (float)delta);
 
 #if DEBUG
-		UpdateRayCastToPlayer();
+		UpdateRayCastToTarget();
 #endif
     }
 
@@ -102,30 +105,58 @@ public partial class Missile : Grenade
 		gpuParticles2D.Visible = false;
 	}
 
-	protected Vector2 GetDirectionToPlayer()
+	protected Vector2 GetDirectionToTarget()
 	{
-		return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
+		Debug.Assert(Target != null, "A target is not currently being tracked.");
+
+		return GlobalTransform.Origin.DirectionTo(Target.GlobalTransform.Origin);
 	}
 
-	// protected bool IsPlayerInFieldOfView()
+	// protected bool IsTargetInFieldOfView()
 	// {
-	// 	return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
+	// 	return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToTarget())) < FieldOfView;
 	// }
 
-	protected bool IsPlayerInLineOfSight()
+	protected bool IsTargetInLineOfSight()
 	{
+		Debug.Assert(Target != null, "A target is not currently being tracked.");
+
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
 			//TODO do we need to use Y basis rather than Vector2.Up?
 			From = GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
-			To = Player.GlobalTransform.Origin,
+			To = Target.GlobalTransform.Origin,
 			Exclude = null,
 			CollideWithBodies = true,
 			CollideWithAreas = true,
 			CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
 		});
 
-		return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
+		return collision.ContainsKey("collider") && collision["collider"].Obj == Target;
 	}
+
+	#region ITracker
+
+	public CharacterBase Target { get; private set; }
+
+	public void Track(CharacterBase c)
+	{
+		Target = c;
+
+		Target.Killed += () => Untrack(c);
+		// just in case we miss the Killed signal
+		Target.TreeExiting += () => Untrack(c);
+	}
+
+	private void Untrack(CharacterBase c)
+	{
+		// make sure we are still tracking the object that fired this event
+		if (Target == c)
+		{
+			Target = null;
+		}
+	}
+
+	#endregion
 
 }

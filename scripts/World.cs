@@ -33,7 +33,7 @@ public partial class World : Node2D
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 
 		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
-		playerCamera.TrackPlayer(player);
+		playerCamera.Track(player);
 
 		pauseScreen = GetNode<PauseScreen>("PauseScreen");
 	}
@@ -75,6 +75,8 @@ public partial class World : Node2D
 
 				GetTree().CurrentScene.AddChildDeferred(pickup);
 			};
+
+			enemy.Track((Player)GetTree().GetFirstNodeInGroup("player"));
 		}
 	}
 

@@ -7,7 +7,12 @@ namespace MechJamIV {
 	public interface ITracker
 	{
 
-		public void TrackPlayer(Player p);
+		// from Node2D
+        public Transform2D GlobalTransform { get; }
+
+		public CharacterBase Target { get; }
+
+		public void Track(CharacterBase target);
 
 	}
 }

@@ -3,22 +3,28 @@ using System;
 using MechJamIV;
 
 public partial class Robot : CharacterBase
+	,ITracker
 {
-
-	#region Node references
-
-	private Player player;
-
-	#endregion
 
     public override void _Ready()
     {
 		base._Ready();
 
-		player = (Player)GetTree().GetFirstNodeInGroup("player");
+		CallDeferred(MethodName.Track, (Player)GetTree().GetFirstNodeInGroup("player"));
     }
 
-	protected override Vector2 GetMovementDirection() => GlobalTransform.Origin.DirectionTo(player.RobotMarker.GlobalTransform.Origin);
+	protected override Vector2 GetMovementDirection()
+	{
+		if (Target == null)
+		{
+			return Vector2.Zero;
+		}
+
+		//TODO there's a hard cast here--need to refactor...something.
+		//     we don't need to rely on the marker--the robot will eventually
+		//     have other logic or user input
+		return GlobalTransform.Origin.DirectionTo(((Player)Target).RobotMarker.GlobalTransform.Origin);
+	}
 
     protected override bool IsJumping() => false;
 
@@ -39,6 +45,30 @@ public partial class Robot : CharacterBase
 		// ignore damage
         //base.Hurt(damage, globalPos, normal);
     }
+
+	#endregion
+
+	#region ITracker
+
+	public CharacterBase Target { get; private set; }
+
+	public void Track(CharacterBase c)
+	{
+		Target = c;
+
+		Target.Killed += () => Untrack(c);
+		// just in case we miss the Killed signal
+		Target.TreeExiting += () => Untrack(c);
+	}
+
+	private void Untrack(CharacterBase c)
+	{
+		// make sure we are still tracking the object that fired this event
+		if (Target == c)
+		{
+			Target = null;
+		}
+	}
 
 	#endregion
 

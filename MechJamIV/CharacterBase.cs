@@ -126,8 +126,7 @@ namespace MechJamIV {
 
 			    collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-                //TODO the game is reacting poorly when we free the player
-                //this.TimedFree(5.0f, processInPhysics:true);
+                this.TimedFree(5.0f, processInPhysics:true);
             }
         }
 

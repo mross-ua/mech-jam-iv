@@ -3,10 +3,12 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MechJamIV {
     public abstract partial class EnemyBase : CharacterBase
+        ,ITracker
     {
 
         #region Node references
@@ -15,7 +17,7 @@ namespace MechJamIV {
 
         #endregion
 
-        private async void AddRayCastToPlayer()
+        private async void AddRayCast()
         {
             rayCast = new RayCast2D();
             rayCast.Position = Vector2.Up; // offset so we don't collide with ground
@@ -24,13 +26,19 @@ namespace MechJamIV {
             rayCast.CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player);
 
             await this.AddChildDeferred(rayCast);
-
-            UpdateRayCastToPlayer();
         }
 
-        private void UpdateRayCastToPlayer()
+        private void UpdateRayCastToTarget()
         {
-            rayCast.TargetPosition = GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin) * 1000.0f;
+            if (Target == null)
+            {
+                // this might help to hide the raycast the next time it is drawn
+                rayCast.TargetPosition = Vector2.Zero;
+            }
+            else
+            {
+                rayCast.TargetPosition = GlobalTransform.Origin.DirectionTo(Target.GlobalTransform.Origin) * 1_000.0f;
+            }
         }
 
         public override void _Draw()

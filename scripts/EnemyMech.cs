@@ -47,7 +47,12 @@ public partial class EnemyMech : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Chase()
 	{
-		return new Vector2(GetDirectionToPlayer().X, 0.0f).Normalized();
+		if (Target == null)
+		{
+			return Vector2.Zero;
+		}
+
+		return new Vector2(GetDirectionToTarget().X, 0.0f).Normalized();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -59,7 +64,11 @@ public partial class EnemyMech : EnemyBase
 
 	protected override void ProcessAction_Idle()
 	{
-		if (IsPlayerInFieldOfView() && IsPlayerInLineOfSight())
+		if (Target == null)
+		{
+			return;
+		}
+		else if (IsTargetInFieldOfView() && IsTargetInLineOfSight())
 		{
 			State = EnemyState.Chase;
 
@@ -69,7 +78,11 @@ public partial class EnemyMech : EnemyBase
 
 	protected override void ProcessAction_Chase()
 	{
-		if (IsPlayerInLineOfSight())
+		if (Target == null)
+		{
+			State = EnemyState.Idle;
+		}
+		else if (IsTargetInLineOfSight())
 		{
 			State = EnemyState.Attacking;
 
@@ -83,7 +96,11 @@ public partial class EnemyMech : EnemyBase
 
 	protected override async void ProcessAction_Attacking()
 	{
-		if (!IsPlayerInLineOfSight())
+		if (Target == null)
+		{
+			State = EnemyState.Idle;
+		}
+		else if (!IsTargetInLineOfSight())
 		{
 			State = EnemyState.Chase;
 

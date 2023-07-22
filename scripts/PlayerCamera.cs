@@ -3,11 +3,9 @@ using System;
 using MechJamIV;
 
 public partial class PlayerCamera : Camera2D
-	,ITracker
 {
 
 	#region Node references
-
 	private Player player;
 
 	private ProgressBar healthBar;
@@ -21,13 +19,15 @@ public partial class PlayerCamera : Camera2D
 		immunityShield = GetNode<GpuParticles2D>("UI/HealthBar/TextureRect/ImmunityShield");
 	}
 
-	#region ITracker
-
-	public void TrackPlayer(Player p)
+	public void Track(Player p)
 	{
 		if (player != null)
 		{
-			throw new NotSupportedException("A player instance is already being tracked.");
+			// NOTE: We throw an exception so we don't have to figure
+			//       out if we need to unregister event handlers from
+			//       a previously tracked target.
+
+			throw new NotSupportedException("A target is already being tracked.");
 		}
 
 		player = p;
@@ -43,5 +43,4 @@ public partial class PlayerCamera : Camera2D
 		player.SetRemoteTarget(this);
 	}
 
-	#endregion
 }

@@ -1,10 +1,12 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MechJamIV {
     public abstract partial class EnemyBase : CharacterBase
+        ,ITracker
     {
 
         [Signal]
@@ -19,17 +21,9 @@ namespace MechJamIV {
 
         public EnemyState State { get; protected set; } = EnemyState.Idle;
 
-        #region Node references
-
-        protected Player Player { get; private set; }
-
-        #endregion
-
         public override void _Ready()
         {
             base._Ready();
-
-            Player = (Player)GetTree().GetFirstNodeInGroup("player");
 
             foreach (Node2D node in GetNode<Node2D>("Hitboxes").GetChildren())
             {
@@ -62,7 +56,7 @@ namespace MechJamIV {
             }
 
 #if DEBUG
-            AddRayCastToPlayer();
+            AddRayCast();
 #endif
         }
 
@@ -108,7 +102,7 @@ namespace MechJamIV {
             }
 
 #if DEBUG
-            UpdateRayCastToPlayer();
+            UpdateRayCastToTarget();
 #endif
         }
 
@@ -130,29 +124,33 @@ namespace MechJamIV {
             }
         }
 
-        protected Vector2 GetDirectionToPlayer()
+        protected Vector2 GetDirectionToTarget()
         {
-            return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
+            Debug.Assert(Target != null, "A target is not currently being tracked.");
+
+            return GlobalTransform.Origin.DirectionTo(Target.GlobalTransform.Origin);
         }
 
-        protected bool IsPlayerInFieldOfView()
+        protected bool IsTargetInFieldOfView()
         {
-            return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
+            return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToTarget())) < FieldOfView;
         }
 
-        protected bool IsPlayerInLineOfSight()
+        protected bool IsTargetInLineOfSight()
         {
+            Debug.Assert(Target != null, "A target is not currently being tracked.");
+
             Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
             {
                 From = GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
-                To = Player.GlobalTransform.Origin,
+                To = Target.GlobalTransform.Origin,
                 Exclude = null,
                 CollideWithBodies = true,
                 CollideWithAreas = true,
                 CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
             });
 
-            return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
+            return collision.ContainsKey("collider") && collision["collider"].Obj == Target;
         }
 
         #region ICollidable
@@ -169,8 +167,30 @@ namespace MechJamIV {
             if (Health <= 0)
             {
                 DropPickup();
+            }
+        }
 
-                this.TimedFree(5.0f, processInPhysics:true);
+        #endregion
+
+        #region ITracker
+
+        public CharacterBase Target { get; private set; }
+
+        public void Track(CharacterBase c)
+        {
+            Target = c;
+
+            Target.Killed += () => Untrack(c);
+            // just in case we miss the Killed signal
+            Target.TreeExiting += () => Untrack(c);
+        }
+
+        private void Untrack(CharacterBase c)
+        {
+            // make sure we are still tracking the object that fired this event
+            if (Target == c)
+            {
+                Target = null;
             }
         }
 

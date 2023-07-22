@@ -11,11 +11,11 @@ public partial class HitScanBulletEmitter : Node2D
 	[Export(PropertyHint.Layers2DPhysics)]
 	public uint LineOfSightMask { get; set; }
 	[Export]
-	public float HitScanDistance { get; set; } = 10_000.0f;
+	public float LineOfSightDistance { get; set; } = 10_000.0f;
 	[Export]
 	public int Damage { get; set; } = 1;
 	[Export(PropertyHint.ColorNoAlpha)]
-	public Color TracerColor { get; set; } = Colors.LightYellow;
+	public Color TracerColor { get; set; } = Colors.White;
 
 	private Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new Queue<Tuple<Vector2, Vector2>>();
 
@@ -76,7 +76,7 @@ public partial class HitScanBulletEmitter : Node2D
 		attackTimer.Start();
 
 		Vector2 from = GlobalTransform.Origin;
-		Vector2 to = globalPos + (globalPos - GlobalTransform.Origin).Normalized() * HitScanDistance;
+		Vector2 to = globalPos + (globalPos - GlobalTransform.Origin).Normalized() * LineOfSightDistance;
 
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{

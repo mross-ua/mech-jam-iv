@@ -347,6 +347,7 @@ script = ExtResource("6_gos4y")
 [node name="HitScanBulletEmitter" type="Node2D" parent="WeaponManager"]
 script = ExtResource("5_6pcw2")
 LineOfSightMask = 41
+TracerColor = Color(1, 1, 0.7, 1)
 
 [node name="AttackTimer" type="Timer" parent="WeaponManager/HitScanBulletEmitter"]
 process_callback = 0

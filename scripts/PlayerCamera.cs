@@ -6,6 +6,7 @@ public partial class PlayerCamera : Camera2D
 {
 
 	#region Node references
+
 	private Player player;
 
 	private ProgressBar healthBar;

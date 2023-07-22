@@ -6,6 +6,8 @@ public partial class Robot : CharacterBase
 	,ITracker
 {
 
+    protected override Vector2 Gravity { get; set; } = Vector2.Zero;
+
     public override void _Ready()
     {
 		base._Ready();

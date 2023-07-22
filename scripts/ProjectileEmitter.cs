@@ -10,9 +10,9 @@ public partial class ProjectileEmitter : Node2D
 	[Export]
 	public PackedScene ProjectileBaseItem { get; set; }
 	[Export]
-	public int Ammo { get; set; } = 0;
+	public int Ammo { get; set; }
 	[Export]
-	public float ImpulseStrength { get; set; } = 500.0f;
+	public float ImpulseStrength { get; set; }
 
 	public async void Fire(Vector2 globalPos, CharacterBase target)
 	{

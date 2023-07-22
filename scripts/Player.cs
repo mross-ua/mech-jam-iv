@@ -10,11 +10,11 @@ public partial class Player : CharacterBase
 	#region Node references
 
 	public Marker2D RobotMarker { get; private set; }
-	public WeaponManager WeaponManager { get; private set; }
 
 	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
-	private RemoteTransform2D remoteTransform { get; set; }
+	private RemoteTransform2D remoteTransform;
+	private WeaponManager weaponManager;
 
 	#endregion
 
@@ -37,7 +37,7 @@ public partial class Player : CharacterBase
 
 		remoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
 
-		WeaponManager = GetNode<WeaponManager>("WeaponManager");
+		weaponManager = GetNode<WeaponManager>("WeaponManager");
     }
 
 	protected override Vector2 GetMovementDirection()
@@ -68,7 +68,7 @@ public partial class Player : CharacterBase
 
 				break;
 			case PickupType.Grenade:
-				WeaponManager.PickupAmmo(PickupType.Grenade);
+				weaponManager.PickupAmmo(PickupType.Grenade);
 
 				break;
 		}

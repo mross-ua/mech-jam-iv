@@ -11,11 +11,11 @@ public partial class HitScanBulletEmitter : Node2D
 	[Export(PropertyHint.Layers2DPhysics)]
 	public uint LineOfSightMask { get; set; }
 	[Export]
-	public float LineOfSightDistance { get; set; } = 10_000.0f;
+	public float LineOfSightDistance { get; set; }
 	[Export]
-	public int Damage { get; set; } = 1;
+	public int Damage { get; set; }
 	[Export(PropertyHint.ColorNoAlpha)]
-	public Color TracerColor { get; set; } = Colors.White;
+	public Color TracerColor { get; set; }
 
 	private Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new Queue<Tuple<Vector2, Vector2>>();
 

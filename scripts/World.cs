@@ -13,6 +13,8 @@ public partial class World : Node2D
 	#region Node references
 
 	private Player player;
+	private Robot robot;
+
 	private PlayerCamera playerCamera;
 
 	private IList<Spawn> spawns;
@@ -31,6 +33,10 @@ public partial class World : Node2D
 
 		player = (Player)GetTree().GetFirstNodeInGroup("player");
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
+
+		robot = (Robot)GetTree().GetFirstNodeInGroup("robot");
+		robot.GlobalTransform = player.RobotMarker.GlobalTransform;
+		robot.Track(player);
 
 		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
 		playerCamera.Track(player);

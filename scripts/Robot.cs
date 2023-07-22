@@ -8,13 +8,6 @@ public partial class Robot : CharacterBase
 
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
-    public override void _Ready()
-    {
-		base._Ready();
-
-		CallDeferred(MethodName.Track, (Player)GetTree().GetFirstNodeInGroup("player"));
-    }
-
 	protected override Vector2 GetMovementDirection()
 	{
 		if (Target == null)

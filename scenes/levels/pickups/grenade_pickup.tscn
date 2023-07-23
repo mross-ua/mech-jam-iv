@@ -7,12 +7,17 @@
 radius = 5.0
 
 [node name="GrenadePickup" type="Area2D" groups=["pickup"]]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_d812d")
 
 [node name="Grenade" parent="." instance=ExtResource("1_0b5j4")]
-freeze = true
+top_level = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Grenade"]
+remote_path = NodePath("../../CollisionShape2D")
+update_rotation = false
+update_scale = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yccxo")

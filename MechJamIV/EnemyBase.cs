@@ -21,6 +21,12 @@ namespace MechJamIV {
 
         public EnemyState State { get; protected set; } = EnemyState.Idle;
 
+        #region Node references
+
+	    private IList<Hitbox> hitboxes = new List<Hitbox>();
+
+        #endregion
+
         public override void _Ready()
         {
             base._Ready();
@@ -29,6 +35,8 @@ namespace MechJamIV {
             {
                 if (node is Hitbox hitbox)
                 {
+                    hitboxes.Add(hitbox);
+
                     hitbox.Hit += (damage, isWeakSpot, position, normal) =>
                     {
                         if (isWeakSpot || RandomHelper.GetSingle() <= CriticalHitRate)
@@ -138,6 +146,13 @@ namespace MechJamIV {
             if (Health <= 0)
             {
                 DropPickup();
+
+                foreach (Hitbox hitbox in hitboxes)
+                {
+                    hitbox.QueueFree();
+                }
+
+                hitboxes.Clear();
             }
         }
 

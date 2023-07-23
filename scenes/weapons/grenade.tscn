@@ -96,8 +96,8 @@ radius = 4.12311
 radius = 50.0
 
 [node name="Grenade" type="RigidBody2D"]
-collision_layer = 0
-collision_mask = 89
+collision_layer = 256
+collision_mask = 337
 script = ExtResource("1_k8bcu")
 Health = 1
 FuseDelay = 3.0
@@ -113,7 +113,7 @@ shape = SubResource("CircleShape2D_b3mic")
 
 [node name="ExplosionAreaOfEffect" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 110
+collision_mask = 322
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionAreaOfEffect"]
 shape = SubResource("CircleShape2D_bo8vd")

@@ -91,6 +91,7 @@ reset={
 2d_physics/layer_6="hitbox"
 2d_physics/layer_7="enemy"
 2d_physics/layer_8="objective"
+2d_physics/layer_9="projectile"
 
 [rendering]
 

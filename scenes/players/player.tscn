@@ -344,12 +344,12 @@ update_scale = false
 [node name="WeaponManager" parent="." instance=ExtResource("6_3wjrj")]
 
 [node name="HitScanBulletEmitter" parent="WeaponManager" instance=ExtResource("7_f12p3")]
-LineOfSightMask = 41
+LineOfSightMask = 289
 LineOfSightDistance = 10000.0
 TracerColor = Color(1, 1, 0.7, 1)
 
 [node name="ProjectileEmitter" parent="WeaponManager" instance=ExtResource("8_4d3xc")]
-LineOfSightMask = 73
+LineOfSightMask = 321
 ProjectileBaseItem = ExtResource("9_ird66")
 Ammo = 4
 ImpulseStrength = 500.0

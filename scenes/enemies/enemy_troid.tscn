@@ -123,9 +123,9 @@ radius = 9.0
 collision_layer = 64
 motion_mode = 1
 script = ExtResource("1_l108c")
-Health = 5
 MoveAcceleration = 15.0
 MaxMoveSpeed = 60.0
+Health = 5
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_osp1x")

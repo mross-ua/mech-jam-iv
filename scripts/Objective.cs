@@ -4,9 +4,9 @@ public partial class Objective : Area2D
 	[Signal]
 	public delegate void ObjectiveReachedEventHandler();
 
-	public override void _Ready()
+    public override void _Ready()
 	{
-		BodyEntered += (body) => EmitSignal(SignalName.ObjectiveReached);
-	}
+        BodyEntered += (body) => EmitSignal(SignalName.ObjectiveReached);
+    }
 
 }

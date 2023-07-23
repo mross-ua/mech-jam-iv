@@ -45,9 +45,7 @@ public partial class Hitbox : Area2D
 		}
 	}
 
-	public void Hurt(int damage, Vector2 position, Vector2 normal)
-	{
+    public void Hurt(int damage, Vector2 position, Vector2 normal) => 
 		EmitSignal(SignalName.Hit, damage, IsWeakSpot, position, normal);
-	}
 
 }

@@ -17,9 +17,6 @@ public partial class Grenade : ExplosiveBarrel
 		explosionTimer.Timeout += () => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
     }
 
-	public void Prime()
-	{
-		explosionTimer.Start();
-	}
+    public void Prime() => explosionTimer.Start();
 
 }

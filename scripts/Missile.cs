@@ -99,17 +99,15 @@ public partial class Missile : Grenade
 		gpuParticles2D.Visible = false;
 	}
 
-	protected Vector2 GetDirectionToPlayer()
-	{
-		return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
-	}
+    protected Vector2 GetDirectionToPlayer() => 
+		GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
 
-	// protected bool IsPlayerInFieldOfView()
-	// {
-	// 	return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
-	// }
+    // protected bool IsPlayerInFieldOfView()
+    // {
+    // 	return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
+    // }
 
-	protected bool IsPlayerInLineOfSight()
+    protected bool IsPlayerInLineOfSight()
 	{
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{

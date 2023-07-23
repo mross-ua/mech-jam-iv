@@ -47,15 +47,11 @@ public partial class EnemyMech : EnemyBase
 		return FaceDirection;
 	}
 
-	protected override Vector2 GetMovementDirection_Chase()
-	{
-		return new Vector2(GetDirectionToPlayer().X, 0.0f).Normalized();
-	}
+    protected override Vector2 GetMovementDirection_Chase() => 
+		new Vector2(GetDirectionToPlayer().X, 0.0f).Normalized();
 
-	protected override Vector2 GetMovementDirection_Attacking()
-	{
-		return GetMovementDirection_Chase();
-	}
+    protected override Vector2 GetMovementDirection_Attacking() => 
+		GetMovementDirection_Chase();
 
     protected override bool IsJumping() => false;
 

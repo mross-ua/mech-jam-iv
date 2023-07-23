@@ -143,15 +143,11 @@ public abstract partial class EnemyBase : CharacterBase
         }
     }
 
-    protected Vector2 GetDirectionToPlayer()
-    {
-        return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
-    }
+    protected Vector2 GetDirectionToPlayer() => 
+        GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
 
-    protected bool IsPlayerInFieldOfView()
-    {
-        return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
-    }
+    protected bool IsPlayerInFieldOfView() => 
+        Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
 
     protected bool IsPlayerInLineOfSight()
     {

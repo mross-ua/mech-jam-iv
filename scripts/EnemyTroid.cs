@@ -12,23 +12,15 @@ public partial class EnemyTroid : EnemyBase
 
 	private PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
 
-	#endregion
+    #endregion
 
-	protected override Vector2 GetMovementDirection_Idle()
-	{
-        return Vector2.Zero;
-	}
+    protected override Vector2 GetMovementDirection_Idle() => Vector2.Zero;
 
-	protected override Vector2 GetMovementDirection_Chase()
-	{
-		return GetDirectionToPlayer();
-	}
+    protected override Vector2 GetMovementDirection_Chase() => GetDirectionToPlayer();
 
-	protected override Vector2 GetMovementDirection_Attacking()
-	{
+    protected override Vector2 GetMovementDirection_Attacking() =>
         // stay with player
-        return GetMovementDirection_Chase();
-	}
+        GetMovementDirection_Chase();
 
     protected override bool IsJumping() => false;
 
@@ -56,15 +48,13 @@ public partial class EnemyTroid : EnemyBase
 		}
 	}
 
-	protected override void ProcessAction_Attacking()
-	{
-		// NOTE: We currently have collision checks on
-		//       hitboxes so attacks happen automatically.
+    protected override void ProcessAction_Attacking() =>
+        // NOTE: We currently have collision checks on
+        //       hitboxes so attacks happen automatically.
 
-		ProcessAction_Chase();
-	}
+        ProcessAction_Chase();
 
-	protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
+    protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
     {
         GpuParticles2D splatter = acidSplatter.Instantiate<GpuParticles2D>();
         splatter.GlobalPosition = position;

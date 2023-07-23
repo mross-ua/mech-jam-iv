@@ -25,10 +25,8 @@ public abstract partial class EnemyBase : CharacterBase
         UpdateRayCastToPlayer();
     }
 
-    private void UpdateRayCastToPlayer()
-    {
+    private void UpdateRayCastToPlayer() => 
         rayCast.TargetPosition = GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin) * 1000.0f;
-    }
 
     public override void _Draw()
     {

@@ -98,12 +98,11 @@ public partial class World : Node2D
 		}
 	}
 
-    public override void _Process(double delta)
-    {
+    public override void _Process(double delta) =>
 #if DEBUG
-		QueueRedraw();
+        QueueRedraw();
 #endif
-    }
+
 
     public override void _PhysicsProcess(double delta)
     {

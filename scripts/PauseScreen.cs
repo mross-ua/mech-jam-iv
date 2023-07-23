@@ -31,12 +31,9 @@ public partial class PauseScreen : CanvasLayer
 		GetTree().Paused = false;
 	}
 
-	public void QuitGame()
-	{
-		GetTree().Quit();
-	}
+    public void QuitGame() => GetTree().Quit();
 
-	public virtual void RestartScene()
+    public virtual void RestartScene()
 	{
 		GetTree().ReloadCurrentScene();
 

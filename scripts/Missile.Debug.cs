@@ -25,16 +25,12 @@ public partial class Missile : Grenade
         UpdateRayCastToPlayer();
     }
 
-    private void UpdateRayCastToPlayer()
-    {
+    private void UpdateRayCastToPlayer() => 
         rayCast.TargetPosition = GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin) * 1000.0f;
-    }
 
-    public override void _Draw()
-    {
+    public override void _Draw() =>
         //DrawDashedLine(Vector2.Zero, Player.GlobalTransform.Origin - GlobalTransform.Origin, Colors.SkyBlue);
         DrawDashedLine(rayCast.Position, rayCast.GetCollisionPoint() - GlobalTransform.Origin, Colors.SkyBlue);
-    }
 
 }
 

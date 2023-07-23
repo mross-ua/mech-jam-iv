@@ -36,12 +36,10 @@ public partial class ExplosiveBarrel : Barrel
 		explosionCollisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
     }
 
-	public void SetBodiesToExclude(IEnumerable<Rid> rids)
-	{
+    public void SetBodiesToExclude(IEnumerable<Rid> rids) => 
 		bodiesToExclude = new Godot.Collections.Array<Rid>(rids);
-	}
 
-	protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
+    protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
 
 	public override void Hurt(int damage, Vector2 position, Vector2 normal)
 	{

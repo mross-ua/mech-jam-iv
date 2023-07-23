@@ -17,14 +17,12 @@ public partial class HitScanBulletEmitter : Node2D
 
 	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
-	#endregion
+    #endregion
 
-	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
-	{
+    public void SetBodiesToExclude(IEnumerable<Rid> resourceIds) => 
 		_bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
-	}
 
-	public async void Fire(Vector2 globalPos)
+    public async void Fire(Vector2 globalPos)
 	{
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{

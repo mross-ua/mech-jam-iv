@@ -18,9 +18,6 @@ public partial class CharacterAnimator : AnimatedSprite2D
 		}
 	}
 
-	public void AnimateDeath()
-	{
-		Play("death");
-	}
+    public void AnimateDeath() => Play("death");
 
 }

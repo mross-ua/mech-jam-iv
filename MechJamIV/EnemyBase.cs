@@ -62,22 +62,14 @@ public abstract partial class EnemyBase : CharacterBase
 #endif
     }
 
-    protected sealed override Vector2 GetMovementDirection()
-    {
-        switch (State)
+    protected sealed override Vector2 GetMovementDirection() =>
+        State switch
         {
-            case EnemyState.Idle:
-                return GetMovementDirection_Idle();
-
-            case EnemyState.Chase:
-                return GetMovementDirection_Chase();
-
-            case EnemyState.Attacking:
-                return GetMovementDirection_Attacking();
-        }
-
-        return Vector2.Zero;
-    }
+            EnemyState.Idle => GetMovementDirection_Idle(),
+            EnemyState.Chase => GetMovementDirection_Chase(),
+            EnemyState.Attacking => GetMovementDirection_Attacking(),
+            _ => Vector2.Zero,
+        };
 
     protected abstract Vector2 GetMovementDirection_Idle();
 

@@ -14,31 +14,26 @@ public partial class HitScanBulletEmitter : Node2D
 	public float LineOfSightDistance { get; set; }
 	[Export]
 	public int Damage { get; set; }
+	[Export]
+	public int RoundsPerSecond { get; set; }
 	[Export(PropertyHint.ColorNoAlpha)]
 	public Color TracerColor { get; set; }
+	[Export]
+	public float TracerWidth { get; set; }
 
 	private Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new Queue<Tuple<Vector2, Vector2>>();
 
 	private Godot.Collections.Array<Rid> bodiesToExclude = null;
 
+	private bool isCoolingDown = false;
+
 	private bool isNeedsRedraw = false;
-
-	#region Node references
-
-	private Timer attackTimer;
-
-	#endregion
 
 	#region Resources
 
 	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
     #endregion
-
-    public override void _Ready()
-    {
-		attackTimer = GetNode<Timer>("AttackTimer");
-    }
 
     public override void _Process(double delta)
     {
@@ -54,7 +49,7 @@ public partial class HitScanBulletEmitter : Node2D
 
 		while (bulletsToDraw.TryDequeue(out Tuple<Vector2, Vector2> rayPath))
 		{
-			DrawLine(ToLocal(rayPath.Item1), ToLocal(rayPath.Item2), TracerColor, 1.0f);
+			DrawLine(ToLocal(rayPath.Item1), ToLocal(rayPath.Item2), TracerColor, TracerWidth);
 
 			// we need to draw at least one more frame to *clear* anything drawn this frame
 			isNeedsRedraw = true;
@@ -66,14 +61,14 @@ public partial class HitScanBulletEmitter : Node2D
 		bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
 	}
 
-	public void Fire(Vector2 globalPos)
+	public async void Fire(Vector2 globalPos)
 	{
-		if (attackTimer.TimeLeft > 0)
+		if (isCoolingDown)
 		{
 			return;
 		}
 
-		attackTimer.Start();
+		isCoolingDown = true;
 
 		Vector2 from = GlobalTransform.Origin;
 		Vector2 to = GlobalTransform.Origin + (globalPos - GlobalTransform.Origin).Normalized() * LineOfSightDistance;
@@ -116,6 +111,10 @@ public partial class HitScanBulletEmitter : Node2D
 		}
 
 		isNeedsRedraw = true;
+
+		await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond), SceneTreeTimer.SignalName.Timeout);
+
+		isCoolingDown = false;
 	}
 
 }

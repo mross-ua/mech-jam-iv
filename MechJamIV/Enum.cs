@@ -10,7 +10,9 @@ namespace MechJamIV {
         Environment,
         Hazard,
         Hitbox,
-        Enemy
+        Enemy,
+        Objective,
+        Projectile
     }
 
     [Flags]
@@ -22,7 +24,9 @@ namespace MechJamIV {
         Environment = 8,
         Hazard = 16,
         Hitbox = 32,
-        Enemy = 64
+        Enemy = 64,
+        Objective = 128,
+        Projectile = 256
     }
 
     public enum PickupType : long

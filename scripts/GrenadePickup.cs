@@ -17,6 +17,10 @@ public partial class GrenadePickup : PickupBase
 	{
 		base._Ready();
 
+		// NOTE: In order to get the RemoteTransform2D to work, I had to
+		//       set Grenade.TopLevel = true. Therefore, we have to set
+		//       the initial position.
+
 		grenade = GetNode<Grenade>("Grenade");
 		grenade.GlobalTransform = GlobalTransform;
 		grenade.Killed += () => QueueFree();

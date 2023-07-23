@@ -3,6 +3,9 @@
 addons/
 exports/
 
+# Mono specific ignores
+.vs/
+
 # exclude third-party files
 assets/
 raw_assets/

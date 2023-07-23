@@ -100,7 +100,7 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				// world or environment hit
 
-        		this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), globalPos);
+        		this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), position);
 			}
 
 			bulletsToDraw.Enqueue(new Tuple<Vector2, Vector2>(from, position));

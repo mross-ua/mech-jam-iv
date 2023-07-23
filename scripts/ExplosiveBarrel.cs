@@ -70,13 +70,14 @@ public partial class ExplosiveBarrel : Barrel
 
 	protected void Explode()
 	{
-		PhysicsShapeQueryParameters2D queryParams = new ();
-		queryParams.Transform = GlobalTransform;
-		queryParams.Shape = explosionCollisionShape2D.Shape;
-		queryParams.CollisionMask = explosionAreaOfEffect.CollisionMask;
-		queryParams.Exclude = bodiesToExclude;
+        PhysicsShapeQueryParameters2D queryParams = new() {
+            Transform = GlobalTransform,
+            Shape = explosionCollisionShape2D.Shape,
+            CollisionMask = explosionAreaOfEffect.CollisionMask,
+            Exclude = bodiesToExclude
+        };
 
-		foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
+        foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
 		{
 			// NOTE: We want to scale the damage and push force depending on the entity's
 			//       distance from the explosion.

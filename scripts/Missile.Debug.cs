@@ -13,12 +13,12 @@ public partial class Missile : Grenade
 
     private async void AddRayCastToPlayer()
     {
-        rayCast = new RayCast2D();
-
-        rayCast.Position = Vector2.Up; // offset so we don't collide with ground
-        rayCast.CollideWithAreas = true;
-        rayCast.CollideWithBodies = true;
-        rayCast.CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player);
+        rayCast = new RayCast2D {
+            Position = Vector2.Up, // offset so we don't collide with ground
+            CollideWithAreas = true,
+            CollideWithBodies = true,
+            CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
+        };
 
         await this.AddChildDeferred(rayCast);
 

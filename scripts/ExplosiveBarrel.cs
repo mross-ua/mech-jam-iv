@@ -76,6 +76,9 @@ public partial class ExplosiveBarrel : Barrel
 
 			EmitSignal(SignalName.Killed);
 
+			// NOTE: We disable the collision shape and wait to
+			//       free so the death animation can fully play.
+
 			collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
 			this.TimedFree(5.0f, processInPhysics:true);

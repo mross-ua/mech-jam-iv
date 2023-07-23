@@ -19,7 +19,7 @@ namespace MechJamIV {
 
         private async void AddRayCast()
         {
-            rayCast = new RayCast2D();
+            rayCast = new ();
             rayCast.Position = Vector2.Up; // offset so we don't collide with ground
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = true;

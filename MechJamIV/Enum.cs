@@ -1,7 +1,5 @@
-using Godot;
-using System;
-
-namespace MechJamIV {
+namespace MechJamIV
+{
     public enum CollisionLayer
     {
         World,

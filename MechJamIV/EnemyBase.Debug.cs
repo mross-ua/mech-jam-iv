@@ -1,11 +1,8 @@
 #if DEBUG
 
-using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public abstract partial class EnemyBase : CharacterBase
     {
 

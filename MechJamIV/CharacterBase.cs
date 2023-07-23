@@ -1,10 +1,6 @@
-using Godot;
-using System;
-using System.Collections.Generic;
-using MechJamIV;
-
-namespace MechJamIV {
-	public abstract partial class CharacterBase : CharacterBody2D
+namespace MechJamIV
+{
+    public abstract partial class CharacterBase : CharacterBody2D
 	{
 
         [Signal]

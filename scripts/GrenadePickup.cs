@@ -1,5 +1,3 @@
-using Godot;
-using System;
 using MechJamIV;
 
 public partial class GrenadePickup : PickupBase

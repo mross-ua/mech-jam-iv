@@ -31,13 +31,17 @@
 			"uuid": "2672f96a-9194-47de-b5a1-7961b242be5a",
 			"title": "Todo",
 			"tasks": [
+				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
+				"b245ccc8-0a0a-4c21-84fa-530fcf0b237e",
 				"e74d796e-6e39-4098-8aa3-978a3f4d9334"
 			]
 		},
 		{
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"0053ca14-5347-4029-bb7e-1a220b554cc7"
+			]
 		},
 		{
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
@@ -95,7 +99,9 @@
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
-			"tasks": []
+			"tasks": [
+				"6f67aea8-9b43-4469-9675-28ea36e84573"
+			]
 		},
 		{
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
@@ -111,7 +117,6 @@
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
-				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
 				"b5084154-8d48-4e99-aaed-402fce07c8e8",
 				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
@@ -747,6 +752,47 @@
 			"uuid": "e74d796e-6e39-4098-8aa3-978a3f4d9334",
 			"title": "Explosions are affected by physics in inconsistent ways",
 			"description": "When something explodes, it can sometimes fall (due to gravity) or continue on its path (like it has momentum). This behavior may be vaguely physically correct but was not intended and started occurring after disabling collision shapes.",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "b245ccc8-0a0a-4c21-84fa-530fcf0b237e",
+			"title": "Identify when player has fallen off the board",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "0053ca14-5347-4029-bb7e-1a220b554cc7",
+			"title": "Add weapon manager",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Allow player to use missiles",
+					"done": false
+				},
+				{
+					"details": "Add missile pickups",
+					"done": false
+				},
+				{
+					"details": "Give mech an instance of WeaponManager",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "25cc8ebb-6386-4630-a613-eff7f006a402",
+			"title": "Generalize pickups",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "6f67aea8-9b43-4469-9675-28ea36e84573",
+			"title": "Projectiles are masked to not collide with player or enemy",
+			"description": "Grenades and missiles should collide with all character types.\n\nIn order to support this (i.e. turn on the proper collision layers), we need to be able to exclude collisions with the parent character. The projectile emitter needs to pass in the ID of the parent as a collision exclusion at time of creation.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		}

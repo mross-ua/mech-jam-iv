@@ -9,6 +9,8 @@ namespace MechJamIV {
 
 		// from Node2D
 		public World2D GetWorld2D();
+
+		// from Node2D
         public Transform2D GlobalTransform { get; }
 
 		public CollisionLayerMask LineOfSightMask { get; }

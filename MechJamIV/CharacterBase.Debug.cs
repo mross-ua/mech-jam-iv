@@ -1,17 +1,16 @@
 #if DEBUG
 
 
-namespace MechJamIV
+namespace MechJamIV;
+
+public abstract partial class CharacterBase
 {
-    public abstract partial class CharacterBase
+
+    public override void _Draw()
     {
-
-        public override void _Draw()
-        {
-            DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
-        }
-
+        DrawLine(Vector2.Zero, GetMovementDirection() * 25, Colors.Red);
     }
+
 }
 
 #endif

@@ -1,22 +1,21 @@
-namespace MechJamIV
-{
-    public abstract partial class PickupBase : Area2D
+namespace MechJamIV;
+
+public abstract partial class PickupBase : Area2D
 	{
 
-        [Signal]
-        public delegate void PickedUpEventHandler();
+    [Signal]
+    public delegate void PickedUpEventHandler();
 
-        public abstract PickupType PickupType { get; protected set; }
+    public abstract PickupType PickupType { get; protected set; }
 
-        public override void _Ready()
+    public override void _Ready()
+    {
+        BodyEntered += (body) =>
         {
-            BodyEntered += (body) =>
-            {
-                EmitSignal(SignalName.PickedUp);
+            EmitSignal(SignalName.PickedUp);
 
-                QueueFree();
-            };
-        }
+            QueueFree();
+        };
+    }
 
 	}
-}

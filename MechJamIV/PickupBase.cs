@@ -1,8 +1,7 @@
 namespace MechJamIV;
 
 public abstract partial class PickupBase : Area2D
-	{
-
+{
     [Signal]
     public delegate void PickedUpEventHandler();
 
@@ -14,5 +13,4 @@ public abstract partial class PickupBase : Area2D
 
         QueueFree();
     };
-
 }

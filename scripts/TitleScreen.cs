@@ -1,6 +1,5 @@
 public partial class TitleScreen : PauseScreen
 {
-
     [Export(PropertyHint.File, "*.tscn,")]
     public string GameStartSceneFilename { get; set; }
 
@@ -17,5 +16,4 @@ public partial class TitleScreen : PauseScreen
 
         UnpauseGame();
     }
-
 }

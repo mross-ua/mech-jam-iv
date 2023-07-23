@@ -1,51 +1,51 @@
 public partial class Hitbox : Area2D
 {
+    [Signal]
+    public delegate void HitEventHandler(int damage, bool isWeakSpot, Vector2 position, Vector2 normal);
 
-	[Signal]
-	public delegate void HitEventHandler(int damage, bool isWeakSpot, Vector2 position, Vector2 normal);
-	[Obsolete("This is probably not very performant as we don't have any rate limiting on this.")]
-	[Signal]
-	public delegate void CollidingEventHandler(Node2D body);
+    [Obsolete("This is probably not very performant as we don't have any rate limiting on this.")]
+    [Signal]
+    public delegate void CollidingEventHandler(Node2D body);
 
-	[Export]
-	public int Damage { get; set; } = 10;
-	[Export]
-	public bool IsWeakSpot { get; set; } = false;
+    [Export]
+    public int Damage { get; set; } = 10;
 
-	private Dictionary<Rid, Player> collidingBodies = new ();
+    [Export]
+    public bool IsWeakSpot { get; set; } = false;
 
-	public override void _Ready()
-	{
-		BodyEntered += (body) =>
-		{
-			if (body is Player player)
-			{
-				collidingBodies.Add(player.GetRid(), player);
+    private Dictionary<Rid, Player> collidingBodies = new();
 
-				EmitSignal(SignalName.Colliding, player);
-			}
-		};
-		BodyExited += (body) =>
-		{
-			if (body is Player player)
-			{
-				collidingBodies.Remove(player.GetRid());
-			}
-		};
-	}
+    public override void _Ready()
+    {
+        BodyEntered += (body) =>
+        {
+            if (body is Player player)
+            {
+                collidingBodies.Add(player.GetRid(), player);
 
-	public override void _PhysicsProcess(double delta)
-	{
-		if (collidingBodies.Any())
-		{
-			foreach (KeyValuePair<Rid, Player> kvp in collidingBodies)
-			{
-				EmitSignal(SignalName.Colliding, kvp.Value);
-			}
-		}
-	}
+                EmitSignal(SignalName.Colliding, player);
+            }
+        };
+        BodyExited += (body) =>
+        {
+            if (body is Player player)
+            {
+                collidingBodies.Remove(player.GetRid());
+            }
+        };
+    }
 
-    public void Hurt(int damage, Vector2 position, Vector2 normal) => 
-		EmitSignal(SignalName.Hit, damage, IsWeakSpot, position, normal);
+    public override void _PhysicsProcess(double delta)
+    {
+        if (collidingBodies.Any())
+        {
+            foreach (KeyValuePair<Rid, Player> kvp in collidingBodies)
+            {
+                EmitSignal(SignalName.Colliding, kvp.Value);
+            }
+        }
+    }
 
+    public void Hurt(int damage, Vector2 position, Vector2 normal) =>
+        EmitSignal(SignalName.Hit, damage, IsWeakSpot, position, normal);
 }

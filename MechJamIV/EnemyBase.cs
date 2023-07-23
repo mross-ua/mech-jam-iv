@@ -2,14 +2,15 @@ namespace MechJamIV;
 
 public abstract partial class EnemyBase : CharacterBase
 {
-
     [Signal]
     public delegate void PickupDroppedEventHandler(PickupBase pickup);
 
     [Export]
     public float FieldOfView { get; set; } = 45.0f;
+
     [Export]
     public float CriticalHitRate { get; set; } = 0.3f;
+
     [Export]
     public float PickupDropRate { get; set; } = 0.5f;
 
@@ -19,7 +20,7 @@ public abstract partial class EnemyBase : CharacterBase
 
     protected Player Player { get; private set; }
 
-    #endregion
+    #endregion Node references
 
     public override void _Ready()
     {
@@ -62,7 +63,7 @@ public abstract partial class EnemyBase : CharacterBase
 #endif
     }
 
-    protected sealed override Vector2 GetMovementDirection() =>
+    protected override sealed Vector2 GetMovementDirection() =>
         State switch
         {
             EnemyState.Idle => GetMovementDirection_Idle(),
@@ -77,7 +78,7 @@ public abstract partial class EnemyBase : CharacterBase
 
     protected abstract Vector2 GetMovementDirection_Attacking();
 
-    protected sealed override void ProcessAction()
+    protected override sealed void ProcessAction()
     {
         switch (State)
         {
@@ -85,10 +86,12 @@ public abstract partial class EnemyBase : CharacterBase
                 ProcessAction_Idle();
 
                 break;
+
             case EnemyState.Chase:
                 ProcessAction_Chase();
 
                 break;
+
             case EnemyState.Attacking:
                 ProcessAction_Attacking();
 
@@ -119,7 +122,7 @@ public abstract partial class EnemyBase : CharacterBase
         {
             DropPickup();
 
-            this.TimedFree(5.0f, processInPhysics:true);
+            this.TimedFree(5.0f, processInPhysics: true);
         }
     }
 
@@ -135,10 +138,10 @@ public abstract partial class EnemyBase : CharacterBase
         }
     }
 
-    protected Vector2 GetDirectionToPlayer() => 
+    protected Vector2 GetDirectionToPlayer() =>
         GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
 
-    protected bool IsPlayerInFieldOfView() => 
+    protected bool IsPlayerInFieldOfView() =>
         Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
 
     protected bool IsPlayerInLineOfSight()
@@ -155,5 +158,4 @@ public abstract partial class EnemyBase : CharacterBase
 
         return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
     }
-
 }

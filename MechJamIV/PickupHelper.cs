@@ -2,14 +2,13 @@ namespace MechJamIV;
 
 public static class PickupHelper
 {
-
     #region Resources
 
-	private static PackedScene medkitPickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/medkit_pickup.tscn");
+    private static PackedScene medkitPickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/medkit_pickup.tscn");
 
-	private static PackedScene grenadePickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/grenade_pickup.tscn");
+    private static PackedScene grenadePickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/grenade_pickup.tscn");
 
-    #endregion
+    #endregion Resources
 
     public static PickupBase GenerateRandomPickup(float probability)
     {
@@ -27,5 +26,4 @@ public static class PickupHelper
 
         return null;
     }
-
 }

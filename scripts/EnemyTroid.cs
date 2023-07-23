@@ -2,17 +2,16 @@ using MechJamIV;
 
 public partial class EnemyTroid : EnemyBase
 {
-
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
-	private int chaseDuration = 1;
-	private DateTime lastTimePlayerSeen = DateTime.MinValue;
+    private int chaseDuration = 1;
+    private DateTime lastTimePlayerSeen = DateTime.MinValue;
 
-	#region Resources
+    #region Resources
 
-	private PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
+    private PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
 
-    #endregion
+    #endregion Resources
 
     protected override Vector2 GetMovementDirection_Idle() => Vector2.Zero;
 
@@ -24,29 +23,29 @@ public partial class EnemyTroid : EnemyBase
 
     protected override bool IsJumping() => false;
 
-	protected override void ProcessAction_Idle()
-	{
+    protected override void ProcessAction_Idle()
+    {
         if (IsPlayerInLineOfSight())
         {
             State = EnemyState.Chase;
 
-			lastTimePlayerSeen = DateTime.Now;
+            lastTimePlayerSeen = DateTime.Now;
         }
-	}
+    }
 
-	protected override void ProcessAction_Chase()
-	{
-		if (IsPlayerInLineOfSight())
-		{
-			State = EnemyState.Attacking;
+    protected override void ProcessAction_Chase()
+    {
+        if (IsPlayerInLineOfSight())
+        {
+            State = EnemyState.Attacking;
 
-			lastTimePlayerSeen = DateTime.Now;
-		}
-		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= chaseDuration)
-		{
-			State = EnemyState.Idle;
-		}
-	}
+            lastTimePlayerSeen = DateTime.Now;
+        }
+        else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= chaseDuration)
+        {
+            State = EnemyState.Idle;
+        }
+    }
 
     protected override void ProcessAction_Attacking() =>
         // NOTE: We currently have collision checks on
@@ -58,11 +57,10 @@ public partial class EnemyTroid : EnemyBase
     {
         GpuParticles2D splatter = acidSplatter.Instantiate<GpuParticles2D>();
         splatter.GlobalPosition = position;
-		splatter.Emitting = true;
+        splatter.Emitting = true;
 
-		await GetTree().CurrentScene.AddChildDeferred(splatter);
+        await GetTree().CurrentScene.AddChildDeferred(splatter);
 
-		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+        splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics: true);
     }
-
 }

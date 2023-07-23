@@ -1,74 +1,72 @@
 public partial class Spawn : Node2D
 {
+    [Signal]
+    public delegate void SpawnReachedEventHandler(Player player);
 
-	[Signal]
-	public delegate void SpawnReachedEventHandler(Player player);
+    [Export]
+    public bool IsWorldSpawn { get; set; } = false;
 
-	[Export]
-	public bool IsWorldSpawn { get; set; } = false;
+    private Dictionary<Rid, Player> collidingBodies = new();
 
-	private Dictionary<Rid, Player> collidingBodies = new ();
+    #region Node references
 
-	#region Node references
+    public Marker2D SpawnPointMarker { get; set; }
 
-	public Marker2D SpawnPointMarker { get; set; }
+    private Timer healthGenTimer;
+    private Area2D area2D;
+    private CollisionShape2D collisionShape2D;
+    private GpuParticles2D gpuParticles2D;
 
-	private Timer healthGenTimer;
-	private Area2D area2D;
-	private CollisionShape2D collisionShape2D;
-	private GpuParticles2D gpuParticles2D;
+    #endregion Node references
 
-	#endregion
+    public override void _Ready()
+    {
+        SpawnPointMarker = GetNode<Marker2D>("SpawnPoint");
 
-	public override void _Ready()
-	{
-		SpawnPointMarker = GetNode<Marker2D>("SpawnPoint");
+        healthGenTimer = GetNode<Timer>("HealthGenTimer");
+        healthGenTimer.Timeout += () => Generate();
 
-		healthGenTimer = GetNode<Timer>("HealthGenTimer");
-		healthGenTimer.Timeout += () => Generate();
+        area2D = GetNode<Area2D>("Area2D");
+        area2D.BodyEntered += (body) =>
+        {
+            if (body is Player player)
+            {
+                collidingBodies.Add(player.GetRid(), player);
 
-		area2D = GetNode<Area2D>("Area2D");
-		area2D.BodyEntered += (body) =>
-		{
-			if (body is Player player)
-			{
-				collidingBodies.Add(player.GetRid(), player);
+                gpuParticles2D.Visible = true;
 
-				gpuParticles2D.Visible = true;
+                if (healthGenTimer.IsStopped())
+                {
+                    healthGenTimer.Start();
+                }
 
-				if (healthGenTimer.IsStopped())
-				{
-					healthGenTimer.Start();
-				}
+                EmitSignal(SignalName.SpawnReached, player);
+            }
+        };
+        area2D.BodyExited += (body) =>
+        {
+            if (body is Player player)
+            {
+                collidingBodies.Remove(player.GetRid());
 
-				EmitSignal(SignalName.SpawnReached, player);
-			}
-		};
-		area2D.BodyExited += (body) =>
-		{
-			if (body is Player player)
-			{
-				collidingBodies.Remove(player.GetRid());
+                if (!collidingBodies.Any())
+                {
+                    gpuParticles2D.Visible = false;
 
-				if (!collidingBodies.Any())
-				{
-					gpuParticles2D.Visible = false;
+                    healthGenTimer.Stop();
+                }
+            }
+        };
 
-					healthGenTimer.Stop();
-				}
-			}
-		};
+        collisionShape2D = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
+        gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
+    }
 
-		collisionShape2D = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
-		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
-	}
-
-	private void Generate()
-	{
-		foreach (KeyValuePair<Rid, Player> kvp in collidingBodies)
-		{
-			kvp.Value.Heal(10);
-		}
-	}
-
+    private void Generate()
+    {
+        foreach (KeyValuePair<Rid, Player> kvp in collidingBodies)
+        {
+            kvp.Value.Heal(10);
+        }
+    }
 }

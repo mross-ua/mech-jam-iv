@@ -1,38 +1,36 @@
 public partial class PlayerCamera : Camera2D
 {
+    #region Node references
 
-	#region Node references
+    private Player player;
 
-	private Player player;
+    private ProgressBar healthBar;
+    private GpuParticles2D immunityShield;
 
-	private ProgressBar healthBar;
-	private GpuParticles2D immunityShield;
+    #endregion Node references
 
-	#endregion
+    public override void _Ready()
+    {
+        healthBar = GetNode<ProgressBar>("UI/HealthBar");
+        immunityShield = GetNode<GpuParticles2D>("UI/HealthBar/TextureRect/ImmunityShield");
+    }
 
-	public override void _Ready()
-	{
-		healthBar = GetNode<ProgressBar>("UI/HealthBar");
-		immunityShield = GetNode<GpuParticles2D>("UI/HealthBar/TextureRect/ImmunityShield");
-	}
+    public void TrackPlayer(Player player)
+    {
+        if (this.player != null)
+        {
+            throw new NotSupportedException("A player instance is already being tracked.");
+        }
 
-	public void TrackPlayer(Player player)
-	{
-		if (this.player != null)
-		{
-			throw new NotSupportedException("A player instance is already being tracked.");
-		}
+        this.player = player;
 
-		this.player = player;
+        healthBar.Value = player.Health;
 
-		healthBar.Value = player.Health;
+        player.Injured += (damage) => healthBar.Value = player.Health;
+        player.Healed += (amount) => healthBar.Value = player.Health;
+        player.ImmunityShieldActivated += () => immunityShield.Visible = true;
+        player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
 
-		player.Injured += (damage) => healthBar.Value = player.Health;
-		player.Healed += (amount) => healthBar.Value = player.Health;
-		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
-		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
-
-		player.RemoteTransform.RemotePath = GetPath();
-	}
-
+        player.RemoteTransform.RemotePath = GetPath();
+    }
 }

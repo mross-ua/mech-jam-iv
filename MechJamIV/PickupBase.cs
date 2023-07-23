@@ -10,7 +10,8 @@ namespace MechJamIV {
         [Signal]
         public delegate void PickedUpEventHandler();
 
-        public abstract PickupType PickupType { get; protected set; }
+        [Export(PropertyHint.Enum)]
+        public PickupType PickupType { get; set; }
 
         public override void _Ready()
         {

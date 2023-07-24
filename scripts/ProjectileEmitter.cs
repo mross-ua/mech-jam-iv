@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using MechJamIV;
 
 public partial class ProjectileEmitter : Node2D
@@ -14,6 +15,13 @@ public partial class ProjectileEmitter : Node2D
 	[Export]
 	public float ImpulseStrength { get; set; }
 
+	private IList<PhysicsBody2D> bodiesToExclude = null;
+
+	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+	{
+		bodiesToExclude = new List<PhysicsBody2D>(bodies);
+	}
+
 	public async void Fire(Vector2 globalPos, CharacterBase target)
 	{
 		if (Ammo <= 0)
@@ -25,6 +33,8 @@ public partial class ProjectileEmitter : Node2D
 
 		ProjectileBase projectile = ProjectileBaseItem.Instantiate<ProjectileBase>();
 		projectile.GlobalTransform = GlobalTransform;
+
+		projectile.SetBodiesToExclude(bodiesToExclude);
 
 		await GetTree().CurrentScene.AddChildDeferred(projectile);
 

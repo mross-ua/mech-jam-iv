@@ -38,6 +38,7 @@ public partial class Player : CharacterBase
 		remoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
 
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
+		weaponManager.SetBodiesToExclude(this.Yield());
     }
 
 	protected override Vector2 GetMovementDirection()

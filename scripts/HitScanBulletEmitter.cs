@@ -56,9 +56,9 @@ public partial class HitScanBulletEmitter : Node2D
 		}
 	}
 
-	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
+	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
 	{
-		bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
+		bodiesToExclude = new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid()));
 	}
 
 	public async void Fire(Vector2 globalPos)

@@ -14,8 +14,6 @@ public partial class ExplosiveBarrel : Barrel
 	[Export]
 	public float ExplosionIntensity { get; set; } = 10_000.0f;
 
-	private Godot.Collections.Array<Rid> bodiesToExclude;
-
 	#region Node references
 
 	protected CharacterAnimator CharacterAnimator;
@@ -28,7 +26,7 @@ public partial class ExplosiveBarrel : Barrel
 
     public override void _Ready()
     {
-		bodiesToExclude = new Godot.Collections.Array<Rid>(GetRid().Yield());
+		base._Ready();
 
 		CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
@@ -36,11 +34,6 @@ public partial class ExplosiveBarrel : Barrel
 		explosionAreaOfEffect = GetNode<Area2D>("ExplosionAreaOfEffect");
 		explosionCollisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
     }
-
-	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
-	{
-		bodiesToExclude = new Godot.Collections.Array<Rid>(GetRid().Yield().Concat(resourceIds));
-	}
 
 	protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
 
@@ -129,33 +122,27 @@ public partial class ExplosiveBarrel : Barrel
 
 	private void Detonate()
 	{
-		PhysicsShapeQueryParameters2D queryParams = new ();
-		queryParams.Transform = GlobalTransform;
-		queryParams.Shape = explosionCollisionShape2D.Shape;
-		queryParams.CollisionMask = explosionAreaOfEffect.CollisionMask;
-		queryParams.Exclude = bodiesToExclude;
+		// we assume the shape is a circle
+		float radius = explosionCollisionShape2D.Shape.GetRect().Size.X / 2;
 
-		foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
+		foreach (Node2D node in explosionAreaOfEffect.GetOverlappingBodies())
 		{
-			// NOTE: We want to scale the damage and push force depending on the entity's
-			//       distance from the explosion.
+			// NOTE: We scale the damage and push force depending on
+			//       the node's distance from the explosion.
 
-			// we assume the shape is a circle
-			float radius = explosionCollisionShape2D.Shape.GetRect().Size.X / 2;
-
-			if (collision["collider"].Obj is CharacterBase character)
+			if (node is CharacterBase character)
 			{
-				Vector2 directionToCharacter = character.GlobalTransform.Origin - GlobalTransform.Origin;
+				Vector2 dir = character.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / directionToCharacter.Length()), character.GlobalTransform.Origin, -directionToCharacter.Normalized());
-				character.Velocity += ExplosionIntensity * directionToCharacter / directionToCharacter.LengthSquared();
+				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalTransform.Origin, -dir.Normalized());
+				character.Velocity += ExplosionIntensity * dir / dir.LengthSquared();
 			}
-			else if (collision["collider"].Obj is Barrel barrel)
+			else if (node is ProjectileBase projectile)
 			{
-				Vector2 directionToBarrel = barrel.GlobalTransform.Origin - GlobalTransform.Origin;
+				Vector2 dir = projectile.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				barrel.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / directionToBarrel.Length()), barrel.GlobalTransform.Origin, -directionToBarrel.Normalized());
-				barrel.ApplyImpulse(ExplosionIntensity * directionToBarrel / directionToBarrel.LengthSquared());
+				projectile.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), projectile.GlobalTransform.Origin, -dir.Normalized());
+				projectile.ApplyImpulse(ExplosionIntensity * dir / dir.LengthSquared());
 			}
 		}
 	}

@@ -1,10 +1,22 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using MechJamIV;
 
 public abstract partial class ProjectileBase : RigidBody2D
     ,ICollidable
 {
+
+	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+	{
+		//TODO remove previously excluded bodies?
+
+		foreach (PhysicsBody2D body in bodies)
+		{
+			AddCollisionExceptionWith(body);
+		}
+	}
 
 	#region ICollidable
 

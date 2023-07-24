@@ -27,6 +27,7 @@ public partial class EnemyMech : EnemyBase
 
 		attackTimer = GetNode<Timer>("AttackTimer");
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
+		weaponManager.SetBodiesToExclude(this.Yield());
 	}
 
 	protected override Vector2 GetMovementDirection_Idle()

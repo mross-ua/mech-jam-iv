@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using MechJamIV;
 
 public partial class WeaponManager : Node2D
@@ -17,6 +18,12 @@ public partial class WeaponManager : Node2D
 		hitScanBulletEmitter = GetNodeOrNull<HitScanBulletEmitter>("HitScanBulletEmitter");
 		projectileEmitter = GetNodeOrNull<ProjectileEmitter>("ProjectileEmitter");
     }
+
+	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+	{
+		hitScanBulletEmitter?.SetBodiesToExclude(bodies);
+		projectileEmitter?.SetBodiesToExclude(bodies);
+	}
 
 	public void Fire(FireMode mode, Vector2 globalPos, CharacterBase target = null)
 	{

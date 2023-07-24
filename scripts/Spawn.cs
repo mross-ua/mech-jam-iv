@@ -13,8 +13,6 @@ public partial class Spawn : Node2D
 	[Export]
 	public bool IsWorldSpawn { get; set; } = false;
 
-	private Dictionary<Rid, Player> collidingBodies = new ();
-
 	#region Node references
 
 	public Marker2D SpawnPointMarker { get; set; }
@@ -38,8 +36,6 @@ public partial class Spawn : Node2D
 		{
 			if (body is Player player)
 			{
-				collidingBodies.Add(player.GetRid(), player);
-
 				gpuParticles2D.Visible = true;
 
 				if (healthGenTimer.IsStopped())
@@ -54,9 +50,7 @@ public partial class Spawn : Node2D
 		{
 			if (body is Player player)
 			{
-				collidingBodies.Remove(player.GetRid());
-
-				if (!collidingBodies.Any())
+				if (!area2D.GetOverlappingBodies().OfType<Player>().Any())
 				{
 					gpuParticles2D.Visible = false;
 
@@ -71,9 +65,12 @@ public partial class Spawn : Node2D
 
 	private void Generate()
 	{
-		foreach (KeyValuePair<Rid, Player> kvp in collidingBodies)
+		foreach (Node2D body in area2D.GetOverlappingBodies())
 		{
-			kvp.Value.Heal(10);
+			if (body is Player player)
+			{
+				player.Heal(10);
+			}
 		}
 	}
 

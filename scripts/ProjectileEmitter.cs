@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using MechJamIV;
 
 public partial class ProjectileEmitter : Node2D
+	,IWeapon
 {
+
+	private int ammo = 0;
 
 	[Export(PropertyHint.Layers2DPhysics)]
 	public uint LineOfSightMask { get; set; }
@@ -13,7 +16,22 @@ public partial class ProjectileEmitter : Node2D
 	[Export]
 	public float RoundsPerSecond { get; set; }
 	[Export]
-	public int Ammo { get; set; }
+	public int Ammo
+	{
+		get
+		{
+			return ammo;
+		}
+		set
+		{
+			if (ammo != value)
+			{
+				ammo = value;
+
+				EmitSignal(SignalName.Fired, ammo);
+			}
+		}
+	}
 	[Export]
 	public float ImpulseStrength { get; set; }
 
@@ -60,12 +78,21 @@ public partial class ProjectileEmitter : Node2D
 			t.Track(target, (CollisionLayerMask)LineOfSightMask);
 		}
 
+		EmitSignal(SignalName.Fired, ammo);
+
 		if (!Mathf.IsZeroApprox(RoundsPerSecond))
 		{
-			await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond, false, true), SceneTreeTimer.SignalName.Timeout);
+			await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond), SceneTreeTimer.SignalName.Timeout);
 		}
 
 		isCoolingDown = false;
 	}
+
+	#region IWeapon
+
+	[Signal]
+	public delegate void FiredEventHandler(int ammoRemaining);
+
+	#endregion
 
 }

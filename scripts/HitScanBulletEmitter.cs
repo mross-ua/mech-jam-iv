@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MechJamIV;
 
 public partial class HitScanBulletEmitter : Node2D
+	,IWeapon
 {
 
 	[Export(PropertyHint.Layers2DPhysics)]
@@ -112,6 +113,8 @@ public partial class HitScanBulletEmitter : Node2D
 
 		isNeedsRedraw = true;
 
+		EmitSignal(SignalName.Fired, -1);
+
 		if (!Mathf.IsZeroApprox(RoundsPerSecond))
 		{
 			await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond, false, true), SceneTreeTimer.SignalName.Timeout);
@@ -119,5 +122,12 @@ public partial class HitScanBulletEmitter : Node2D
 
 		isCoolingDown = false;
 	}
+
+	#region IWeapon
+
+	[Signal]
+	public delegate void FiredEventHandler(int ammoRemaining);
+
+	#endregion
 
 }

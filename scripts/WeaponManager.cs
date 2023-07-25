@@ -6,6 +6,9 @@ using MechJamIV;
 public partial class WeaponManager : Node2D
 {
 
+	[Signal]
+	public delegate void WeaponFiredEventHandler(FireMode fireMode, int ammoRemaining);
+
 	#region Node references
 
 	private HitScanBulletEmitter hitScanBulletEmitter;
@@ -17,6 +20,16 @@ public partial class WeaponManager : Node2D
     {
 		hitScanBulletEmitter = GetNodeOrNull<HitScanBulletEmitter>("HitScanBulletEmitter");
 		projectileEmitter = GetNodeOrNull<ProjectileEmitter>("ProjectileEmitter");
+
+		if (hitScanBulletEmitter != null)
+		{
+			hitScanBulletEmitter.Fired += (ammoRemaining) => EmitSignal(SignalName.WeaponFired, (long)FireMode.Primary, ammoRemaining);
+		}
+
+		if (projectileEmitter != null)
+		{
+			projectileEmitter.Fired += (ammoRemaining) => EmitSignal(SignalName.WeaponFired, (long)FireMode.Secondary, ammoRemaining);
+		}
     }
 
 	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
@@ -46,12 +59,15 @@ public partial class WeaponManager : Node2D
 
 	public void PickupAmmo(PickupType pickupType)
 	{
-		if (projectileEmitter != null)
+		switch (pickupType)
 		{
-			if (pickupType == PickupType.Grenade)
-			{
-				projectileEmitter.Ammo++;
-			}
+			case PickupType.Grenade:
+				if (projectileEmitter != null)
+				{
+					projectileEmitter.Ammo++;
+				}
+
+				break;
 		}
 	}
 

@@ -248,11 +248,6 @@ SpriteFaceDirection = Vector2(-1, 0)
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_u1v5i")
 
-[node name="AttackTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 5.0
-one_shot = true
-
 [node name="Hitboxes" type="Node2D" parent="."]
 
 [node name="Hitbox" parent="Hitboxes" instance=ExtResource("5_jof1d")]
@@ -267,12 +262,13 @@ shape = SubResource("CircleShape2D_d8ur5")
 LineOfSightMask = 259
 LineOfSightDistance = 100.0
 Damage = 10
-RoundsPerSecond = 1
+RoundsPerSecond = 1.0
 TracerColor = Color(1, 0.396078, 0.298039, 1)
 TracerWidth = 3.0
 
 [node name="ProjectileEmitter" parent="WeaponManager" instance=ExtResource("8_jvf8o")]
 LineOfSightMask = 259
 ProjectileBaseItem = ExtResource("9_y2cnm")
+RoundsPerSecond = 0.2
 Ammo = 100
 ImpulseStrength = 150.0

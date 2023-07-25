@@ -10,7 +10,6 @@ public partial class EnemyMech : EnemyBase
 
 	#region Node references
 
-	private Timer attackTimer;
 	private WeaponManager weaponManager;
 
 	#endregion
@@ -24,8 +23,6 @@ public partial class EnemyMech : EnemyBase
 	public override void _Ready()
 	{
 		base._Ready();
-
-		attackTimer = GetNode<Timer>("AttackTimer");
 
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
 		weaponManager.SetBodiesToExclude(this.Yield());
@@ -109,12 +106,6 @@ public partial class EnemyMech : EnemyBase
 
 			return;
 		}
-		else if (attackTimer.TimeLeft > 0)
-		{
-			return;
-		}
-
-		attackTimer.Start();
 
 		weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), Target);
 	}

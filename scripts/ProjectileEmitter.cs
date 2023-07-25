@@ -11,9 +11,13 @@ public partial class ProjectileEmitter : Node2D
 	[Export]
 	public PackedScene ProjectileBaseItem { get; set; }
 	[Export]
+	public float RoundsPerSecond { get; set; }
+	[Export]
 	public int Ammo { get; set; }
 	[Export]
 	public float ImpulseStrength { get; set; }
+
+	private bool isCoolingDown = false;
 
 	private IList<PhysicsBody2D> bodiesToExclude = null;
 
@@ -24,10 +28,16 @@ public partial class ProjectileEmitter : Node2D
 
 	public async void Fire(Vector2 globalPos, CharacterBase target)
 	{
-		if (Ammo <= 0)
+		if (isCoolingDown)
 		{
 			return;
 		}
+		else if (Ammo <= 0)
+		{
+			return;
+		}
+
+		isCoolingDown = true;
 
 		Ammo--;
 
@@ -49,6 +59,13 @@ public partial class ProjectileEmitter : Node2D
 		{
 			t.Track(target, (CollisionLayerMask)LineOfSightMask);
 		}
+
+		if (!Mathf.IsZeroApprox(RoundsPerSecond))
+		{
+			await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond), SceneTreeTimer.SignalName.Timeout);
+		}
+
+		isCoolingDown = false;
 	}
 
 }

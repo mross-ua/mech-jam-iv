@@ -15,7 +15,7 @@ public partial class HitScanBulletEmitter : Node2D
 	[Export]
 	public int Damage { get; set; }
 	[Export]
-	public int RoundsPerSecond { get; set; }
+	public float RoundsPerSecond { get; set; }
 	[Export(PropertyHint.ColorNoAlpha)]
 	public Color TracerColor { get; set; }
 	[Export]
@@ -112,7 +112,10 @@ public partial class HitScanBulletEmitter : Node2D
 
 		isNeedsRedraw = true;
 
-		await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond), SceneTreeTimer.SignalName.Timeout);
+		if (!Mathf.IsZeroApprox(RoundsPerSecond))
+		{
+			await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond), SceneTreeTimer.SignalName.Timeout);
+		}
 
 		isCoolingDown = false;
 	}

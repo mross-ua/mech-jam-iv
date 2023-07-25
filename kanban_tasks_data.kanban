@@ -72,6 +72,7 @@
 				"8012f5a7-30ec-4e65-af94-9b5795dfda47",
 				"33059468-5ac0-43bf-a1ac-179bdf3b16ea",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
+				"a926493d-020e-4b97-b127-80e77aba729d",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0",
 				"5b14b405-f3ad-40ee-b866-d9435c868fb9",
@@ -804,6 +805,13 @@
 					"done": false
 				}
 			]
+		},
+		{
+			"uuid": "a926493d-020e-4b97-b127-80e77aba729d",
+			"title": "Fix missile rotation",
+			"description": "We hacked the missile to rotate its sprite and face direction, but we can just use the built-in rotation, of course.",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": []
 		}
 	],
 	"layout": {

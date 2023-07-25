@@ -130,7 +130,6 @@ collision_mask = 339
 gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
-lock_rotation = true
 script = ExtResource("1_72hel")
 Health = 1
 FuseDelay = 10.0
@@ -145,6 +144,7 @@ sprite_frames = SubResource("SpriteFrames_ilwwa")
 animation = &"idle"
 autoplay = "idle"
 script = ExtResource("2_schm0")
+SpriteFaceDirection = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_77806")

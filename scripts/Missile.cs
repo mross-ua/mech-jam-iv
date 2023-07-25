@@ -9,9 +9,6 @@ public partial class Missile : Grenade
 {
 
 	[Export]
-	public Vector2 FaceDirection { get; set; } = Vector2.Up;
-
-	[Export]
 	public float ThrustForce { get; set; } = 5_000.0f;
 	[Export]
 	public float TurnSpeed { get; set; } = 3_000f;
@@ -19,6 +16,7 @@ public partial class Missile : Grenade
 	#region Node references
 
 	private GpuParticles2D gpuParticles2D;
+	private CharacterAnimator characterAnimator;
 
 	#endregion
 
@@ -27,6 +25,7 @@ public partial class Missile : Grenade
 		base._Ready();
 
 		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
+		characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 
 		BodyEntered += (body) => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
 
@@ -42,35 +41,9 @@ public partial class Missile : Grenade
 			return;
 		}
 
-		AnimateMovement();
-
 #if DEBUG
 		QueueRedraw();
 #endif
-	}
-
-	private Vector2 GetMovementDirection(double delta)
-	{
-		if (Target == null)
-		{
-			return FaceDirection;
-		}
-
-		Vector2 directionToPlayer = this.GetDirectionToTarget();
-
-		float angleDiff = Mathf.RadToDeg(FaceDirection.AngleTo(directionToPlayer));
-		int turnDirection = Mathf.Sign(angleDiff);
-
-		float rotation = TurnSpeed * (float)delta;
-
-		if (Mathf.Abs(angleDiff) < rotation)
-		{
-			return directionToPlayer;
-		}
-		else
-		{
-			return FaceDirection.Rotated(Mathf.DegToRad(rotation) * turnDirection);
-		}
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -80,23 +53,31 @@ public partial class Missile : Grenade
 			return;
 		}
 
-		FaceDirection = GetMovementDirection(delta);
+		if (Target != null)
+		{
+			Vector2 directionToTarget = this.GetDirectionToTarget();
 
-		ApplyForce(FaceDirection * ThrustForce * (float)delta);
+			float angleDiff = Mathf.RadToDeg(characterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
+			int turnDirection = Mathf.Sign(angleDiff);
+
+			float rotation = TurnSpeed * (float)delta;
+
+			if (Mathf.Abs(angleDiff) < rotation)
+			{
+				Rotate(Mathf.DegToRad(angleDiff));
+			}
+			else
+			{
+				Rotate(Mathf.DegToRad(rotation) * turnDirection);
+			}
+		}
+
+		ApplyForce(characterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
 
 #if DEBUG
 		UpdateRayCastToTarget();
 #endif
     }
-
-	protected void AnimateMovement()
-	{
-		// NOTE: Rotating the graphics is a hack because we are using
-		//       FaceDirection rather than a built-in property.
-
-		CharacterAnimator.Rotation = Vector2.Up.AngleTo(FaceDirection);
-		gpuParticles2D.Rotation = Vector2.Up.AngleTo(FaceDirection);
-	}
 
 	protected override void AnimateDeath()
 	{

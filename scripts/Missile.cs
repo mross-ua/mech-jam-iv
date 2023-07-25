@@ -102,7 +102,7 @@ public partial class Missile : Grenade
 	{
 		base.AnimateDeath();
 
-		gpuParticles2D.Visible = false;
+		gpuParticles2D.Emitting = false;
 	}
 
 	#region ITracker

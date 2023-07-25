@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MechJamIV;
 
 public partial class Player : CharacterBase
@@ -57,7 +58,11 @@ public partial class Player : CharacterBase
 			return;
 		}
 
-		WeaponManager.Fire(mode, globalPos);
+		//TODO let's have missiles scan for the nearest target (long-term solution is to let user select a target)
+
+		//CharacterBase c = GetTree().GetNodesInGroup("enemy").OfType<EnemyBase>().Where(e => e.Health > 0).FirstOrDefault();
+		//weaponManager.Fire(mode, globalPos, c);
+		weaponManager.Fire(mode, globalPos);
 	}
 
 	public void Pickup(PickupBase pickup)

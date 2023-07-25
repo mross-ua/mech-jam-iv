@@ -37,6 +37,7 @@ public partial class World : Node2D
 		InitPickups();
 		InitEnemies();
 		InitObjectives();
+		InitDeathZones();
 
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 
@@ -95,6 +96,20 @@ public partial class World : Node2D
 			objective.ObjectiveReached += () =>
 			{
 				GetTree().ChangeSceneToPacked(NextScene);
+			};
+		}
+	}
+
+	private void InitDeathZones()
+	{
+		foreach (Area2D deathzone in GetTree().GetNodesInGroup("deathzone").OfType<Area2D>())
+		{
+			deathzone.BodyEntered += (body) =>
+			{
+				if (body is Player player)
+				{
+					player.Hurt(player.Health, player.GlobalTransform.Origin, Vector2.Zero);
+				}
 			};
 		}
 	}

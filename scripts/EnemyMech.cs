@@ -26,6 +26,7 @@ public partial class EnemyMech : EnemyBase
 		base._Ready();
 
 		attackTimer = GetNode<Timer>("AttackTimer");
+
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
 		weaponManager.SetBodiesToExclude(this.Yield());
 	}

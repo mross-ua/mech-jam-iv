@@ -94,14 +94,14 @@
 		{
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
-			"tasks": []
+			"tasks": [
+				"6f67aea8-9b43-4469-9675-28ea36e84573"
+			]
 		},
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
-			"tasks": [
-				"6f67aea8-9b43-4469-9675-28ea36e84573"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
@@ -792,9 +792,18 @@
 		{
 			"uuid": "6f67aea8-9b43-4469-9675-28ea36e84573",
 			"title": "Projectiles are masked to not collide with player or enemy",
-			"description": "Grenades and missiles should collide with all character types.\n\nIn order to support this (i.e. turn on the proper collision layers), we need to be able to exclude collisions with the parent character. The projectile emitter needs to pass in the ID of the parent as a collision exclusion at time of creation.",
+			"description": "Grenades and missiles should collide with all character types.\n\nIn order to support this (i.e. turn on the proper collision layers), we need to be able to exclude collisions with the parent character. The projectile emitter needs to pass in the ID of the parent as a collision exclusion at time of creation.\n\n===\n\nSee stash 'change-enemy-masks'.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
-			"steps": []
+			"steps": [
+				{
+					"details": "Add means to exclude certain collidable objects",
+					"done": true
+				},
+				{
+					"details": "Update layers so projectiles collide with enemies",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

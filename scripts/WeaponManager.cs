@@ -38,7 +38,6 @@ public partial class WeaponManager : Node2D
 
 				break;
 			case FireMode.Secondary:
-
 				projectileEmitter?.Fire(globalPos, target);
 
 				break;

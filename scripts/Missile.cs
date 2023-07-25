@@ -83,6 +83,7 @@ public partial class Missile : Grenade
 	{
 		base.AnimateDeath();
 
+		// allow emitted particles to decay
 		gpuParticles2D.Emitting = false;
 	}
 

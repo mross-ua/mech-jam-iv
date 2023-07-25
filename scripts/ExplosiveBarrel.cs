@@ -78,7 +78,7 @@ public partial class ExplosiveBarrel : Barrel
 			SetDeferred(PropertyName.Freeze, true);
 			collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-			this.TimedFree(5.0f, processInPhysics:true);
+			this.TimedFree(5.0f, false, true);
 		}
 	}
 
@@ -112,7 +112,7 @@ public partial class ExplosiveBarrel : Barrel
 
 		isFusePrimed = true;
 
-		await ToSignal(GetTree().CreateTimer(FuseDelay, processInPhysics:true), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(FuseDelay, false, true), SceneTreeTimer.SignalName.Timeout);
 
 		if (Health <= 0)
 		{

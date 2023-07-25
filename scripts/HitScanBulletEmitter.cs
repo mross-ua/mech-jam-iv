@@ -114,7 +114,7 @@ public partial class HitScanBulletEmitter : Node2D
 
 		if (!Mathf.IsZeroApprox(RoundsPerSecond))
 		{
-			await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond), SceneTreeTimer.SignalName.Timeout);
+			await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond, false, true), SceneTreeTimer.SignalName.Timeout);
 		}
 
 		isCoolingDown = false;

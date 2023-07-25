@@ -15,7 +15,7 @@ namespace MechJamIV {
 
             await node.GetTree().CurrentScene.AddChildDeferred(particles);
 
-            particles.TimedFree(particles.Lifetime + particles.Lifetime * particles.Randomness, processInPhysics:true);
+            particles.TimedFree(particles.Lifetime + particles.Lifetime * particles.Randomness, false, true);
         }
 
     }

@@ -108,7 +108,7 @@ public partial class World : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionPressed("quit"))
+        if (Input.IsActionJustPressed("quit"))
 		{
 			pauseScreen.PauseGame();
 		}

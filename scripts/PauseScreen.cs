@@ -4,12 +4,19 @@ using System;
 public partial class PauseScreen : CanvasLayer
 {
 
+	#region Node references
+
+	private Button continueButton;
+
+	#endregion
+
 	public override void _Ready()
 	{
-		//TODO this class shouldnt be the base; refactor this
-		if (HasNode("Menu/ContinueButton"))
+		//TODO this class shouldnt be the base (if continue button is optional); refactor this
+
+		continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
+		if (continueButton != null)
 		{
-			Button continueButton = GetNode<Button>("Menu/ContinueButton");
 			continueButton.Pressed += () => UnpauseGame();
 		}
 
@@ -19,6 +26,16 @@ public partial class PauseScreen : CanvasLayer
 		Button quitButton = GetNode<Button>("Menu/QuitButton");
 		quitButton.Pressed += () => QuitGame();
 	}
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("quit") && continueButton != null)
+		{
+			CallDeferred(MethodName.UnpauseGame);
+
+			GetViewport().SetInputAsHandled();
+		}
+    }
 
 	public void PauseGame()
 	{

@@ -125,7 +125,7 @@ public partial class ExplosiveBarrel : Barrel
 		// we assume the shape is a circle
 		float radius = explosionCollisionShape2D.Shape.GetRect().Size.X / 2;
 
-		foreach (Node2D node in explosionAreaOfEffect.GetOverlappingBodies())
+		foreach (Node2D node in explosionAreaOfEffect.GetOverlappingBodies().Where(n => n != this))
 		{
 			// NOTE: We scale the damage and push force depending on
 			//       the node's distance from the explosion.

@@ -7,35 +7,35 @@ public partial class WeaponManager : Node2D
 {
 
 	[Signal]
-	public delegate void WeaponFiredEventHandler(FireMode fireMode, int ammoRemaining);
+	public delegate void WeaponFiredEventHandler(FireMode fireMode, WeaponBase weapon);
 
 	#region Node references
 
-	private HitScanBulletEmitter hitScanBulletEmitter;
-	private ProjectileEmitter projectileEmitter;
+	public WeaponBase PrimaryWeapon { get; private set; }
+	public WeaponBase SecondaryWeapon { get; private set; }
 
 	#endregion
 
     public override void _Ready()
     {
-		hitScanBulletEmitter = GetNodeOrNull<HitScanBulletEmitter>("HitScanBulletEmitter");
-		projectileEmitter = GetNodeOrNull<ProjectileEmitter>("ProjectileEmitter");
+		PrimaryWeapon = GetNodeOrNull<WeaponBase>("HitScanBulletEmitter");
+		SecondaryWeapon = GetNodeOrNull<WeaponBase>("ProjectileEmitter");
 
-		if (hitScanBulletEmitter != null)
+		if (PrimaryWeapon != null)
 		{
-			hitScanBulletEmitter.Fired += (ammoRemaining) => EmitSignal(SignalName.WeaponFired, (long)FireMode.Primary, ammoRemaining);
+			PrimaryWeapon.Fired += () => EmitSignal(SignalName.WeaponFired, (long)FireMode.Primary, PrimaryWeapon);
 		}
 
-		if (projectileEmitter != null)
+		if (SecondaryWeapon != null)
 		{
-			projectileEmitter.Fired += (ammoRemaining) => EmitSignal(SignalName.WeaponFired, (long)FireMode.Secondary, ammoRemaining);
+			SecondaryWeapon.Fired += () => EmitSignal(SignalName.WeaponFired, (long)FireMode.Secondary, SecondaryWeapon);
 		}
     }
 
 	public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 	{
-		hitScanBulletEmitter?.SetBodiesToExclude(bodies);
-		projectileEmitter?.SetBodiesToExclude(bodies);
+		PrimaryWeapon?.SetBodiesToExclude(bodies);
+		SecondaryWeapon?.SetBodiesToExclude(bodies);
 	}
 
 	public void Fire(FireMode mode, Vector2 globalPos, CharacterBase target = null)
@@ -43,15 +43,12 @@ public partial class WeaponManager : Node2D
 		switch (mode)
 		{
 			case FireMode.Primary:
-				hitScanBulletEmitter?.Fire(globalPos);
-
-				break;
 			case FireMode.PrimarySustained:
-				hitScanBulletEmitter?.Fire(globalPos);
+				PrimaryWeapon?.Fire(globalPos, target);
 
 				break;
 			case FireMode.Secondary:
-				projectileEmitter?.Fire(globalPos, target);
+				SecondaryWeapon?.Fire(globalPos, target);
 
 				break;
 		}
@@ -62,9 +59,9 @@ public partial class WeaponManager : Node2D
 		switch (pickupType)
 		{
 			case PickupType.Grenade:
-				if (projectileEmitter != null)
+				if (SecondaryWeapon != null)
 				{
-					projectileEmitter.Ammo++;
+					SecondaryWeapon.Ammo++;
 				}
 
 				break;

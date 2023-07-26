@@ -39,47 +39,40 @@ public partial class PlayerCamera : Camera2D
 
 		player = p;
 
-		healthBar.Value = player.Health;
-		primaryAmmoLabel.Text = "N/A";
-		secondaryAmmoLabel.Text = "N/A";
-
-		player.Injured += (damage) => healthBar.Value = player.Health;
-		player.Healed += (health) => healthBar.Value = player.Health;
+		player.Injured += (damage) => UpdateUI();
+		player.Healed += (health) => UpdateUI();
 
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
 		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
 
-		player.WeaponManager.WeaponFired += (fireMode, ammoRemaining) =>
-		{
-			switch (fireMode)
-			{
-				case FireMode.Primary:
-				case FireMode.PrimarySustained:
-					if (ammoRemaining == -1)
-					{
-						primaryAmmoLabel.Text = "∞";
-					}
-					else
-					{
-						primaryAmmoLabel.Text = ammoRemaining.ToString();
-					}
-
-					break;
-				case FireMode.Secondary:
-					if (ammoRemaining == -1)
-					{
-						secondaryAmmoLabel.Text = "∞";
-					}
-					else
-					{
-						secondaryAmmoLabel.Text = ammoRemaining.ToString();
-					}
-
-					break;
-			}
-		};
+		player.WeaponManager.WeaponFired += (fireMode, weapon) => UpdateUI();
 
 		player.SetRemoteTarget(this);
+
+		UpdateUI();
+	}
+
+	private void UpdateUI()
+	{
+		healthBar.Value = player.Health;
+
+		if (player.WeaponManager.PrimaryWeapon.Ammo < 0)
+		{
+			primaryAmmoLabel.Text = "∞";
+		}
+		else
+		{
+			primaryAmmoLabel.Text = player.WeaponManager.PrimaryWeapon.Ammo.ToString();
+		}
+
+		if (player.WeaponManager.SecondaryWeapon.Ammo < 0)
+		{
+			secondaryAmmoLabel.Text = "∞";
+		}
+		else
+		{
+			secondaryAmmoLabel.Text = player.WeaponManager.SecondaryWeapon.Ammo.ToString();
+		}
 	}
 
 }

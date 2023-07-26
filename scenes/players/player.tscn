@@ -1,11 +1,14 @@
-[gd_scene load_steps=47 format=3 uid="uid://bt7vafft2mqcp"]
+[gd_scene load_steps=50 format=3 uid="uid://bt7vafft2mqcp"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_bcjvt"]
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://assets/spritesheets/char-sheet-alpha.png" id="1_fkqgm"]
 [ext_resource type="Texture2D" uid="uid://cmh45ek0vt4j4" path="res://assets/spritesheets/diewhirl-sheet-alpha.png" id="3_lkoxu"]
 [ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_wlw4n"]
 [ext_resource type="PackedScene" uid="uid://tatq2gmyab34" path="res://scenes/effects/immunity_shield.tscn" id="4_y0w7f"]
-[ext_resource type="Script" path="res://scripts/HitScanBulletEmitter.cs" id="5_6pcw2"]
+[ext_resource type="PackedScene" uid="uid://c0h0eogjo2jqf" path="res://scenes/weapons/weapon_manager.tscn" id="6_3wjrj"]
+[ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="7_f12p3"]
+[ext_resource type="PackedScene" uid="uid://dt2hpb3k3ussg" path="res://scenes/weapons/projectile_emitter.tscn" id="8_4d3xc"]
+[ext_resource type="PackedScene" uid="uid://bg2lrlwoo7stu" path="res://scenes/weapons/grenade.tscn" id="9_ird66"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jogux"]
 atlas = ExtResource("1_fkqgm")
@@ -305,8 +308,11 @@ size = Vector2(18, 33)
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 position = Vector2(0, -23)
 collision_layer = 2
-collision_mask = 25
+collision_mask = 153
 script = ExtResource("1_bcjvt")
+MoveAcceleration = 50.0
+MaxMoveSpeed = 300.0
+JumpVelocity = -400.0
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xxkfi")
@@ -331,14 +337,21 @@ position = Vector2(0, 7)
 [node name="RobotMarker" type="Marker2D" parent="."]
 position = Vector2(-23, -23)
 
-[node name="AttackTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 0.2
-one_shot = true
-
-[node name="HitScanBulletEmitter" type="Node2D" parent="."]
-script = ExtResource("5_6pcw2")
-
 [node name="RemoteTransform" type="RemoteTransform2D" parent="."]
 update_rotation = false
 update_scale = false
+
+[node name="WeaponManager" parent="." instance=ExtResource("6_3wjrj")]
+
+[node name="HitScanBulletEmitter" parent="WeaponManager" instance=ExtResource("7_f12p3")]
+TracerColor = Color(1, 1, 0.7, 1)
+RoundsPerSecond = 5.0
+Ammo = -1
+LineOfSightMask = 289
+LineOfSightDistance = 10000.0
+
+[node name="ProjectileEmitter" parent="WeaponManager" instance=ExtResource("8_4d3xc")]
+ProjectileBaseItem = ExtResource("9_ird66")
+ImpulseStrength = 500.0
+Ammo = 4
+LineOfSightMask = 321

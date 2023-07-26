@@ -12,7 +12,7 @@ public partial class EnemyTroid : EnemyBase
 
 	#region Resources
 
-	private PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
+	private static readonly PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
 
 	#endregion
 
@@ -23,7 +23,12 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Chase()
 	{
-		return GetDirectionToPlayer();
+		if (Target == null)
+		{
+			return Vector2.Zero;
+		}
+
+		return this.GetDirectionToTarget();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -36,7 +41,11 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override void ProcessAction_Idle()
 	{
-        if (IsPlayerInLineOfSight())
+		if (Target == null)
+		{
+			return;
+		}
+        else if (this.IsTargetInLineOfSight())
         {
             State = EnemyState.Chase;
 
@@ -46,7 +55,11 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override void ProcessAction_Chase()
 	{
-		if (IsPlayerInLineOfSight())
+		if (Target == null)
+		{
+			State = EnemyState.Idle;
+		}
+		else if (this.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Attacking;
 
@@ -66,15 +79,9 @@ public partial class EnemyTroid : EnemyBase
 		ProcessAction_Chase();
 	}
 
-	protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
+	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        GpuParticles2D splatter = acidSplatter.Instantiate<GpuParticles2D>();
-        splatter.GlobalPosition = position;
-		splatter.Emitting = true;
-
-		await GetTree().CurrentScene.AddChildDeferred(splatter);
-
-		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+        this.EmitParticlesOnce(acidSplatter.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 }

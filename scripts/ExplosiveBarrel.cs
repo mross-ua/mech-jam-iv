@@ -1,22 +1,19 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MechJamIV;
 
 public partial class ExplosiveBarrel : Barrel
+	,IDestructible
+	,IDetonable
 {
 
-	[Signal]
-	public delegate void KilledEventHandler();
+	[Export]
+	public int ExplosionDamage { get; set; } = 80;
 
-	[Export]
-	public virtual int Health { get; set; } = 10;
-	[Export]
-	public int Damage { get; set; } = 80;
 	[Export]
 	public float ExplosionIntensity { get; set; } = 10_000.0f;
-
-	private Godot.Collections.Array<Rid> bodiesToExclude;
 
 	#region Node references
 
@@ -30,7 +27,7 @@ public partial class ExplosiveBarrel : Barrel
 
     public override void _Ready()
     {
-		bodiesToExclude = new Godot.Collections.Array<Rid>(GetRid().Yield());
+		base._Ready();
 
 		CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
@@ -39,21 +36,27 @@ public partial class ExplosiveBarrel : Barrel
 		explosionCollisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
     }
 
-	public void SetBodiesToExclude(IEnumerable<Rid> rids)
-	{
-		bodiesToExclude = new Godot.Collections.Array<Rid>(rids);
-	}
-
 	protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
 
-	public override void Hurt(int damage, Vector2 position, Vector2 normal)
+	#region IDestructible
+
+	[Signal]
+	public delegate void KilledEventHandler();
+
+	[Signal]
+	public delegate void HealedEventHandler(int health);
+
+	[Export]
+	public int Health { get; set; } = 10;
+
+	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
 		if (Health <= 0)
 		{
 			return;
 		}
 
-		base.Hurt(damage, position, normal);
+		base.Hurt(damage, globalPos, normal);
 
 		Health = Math.Max(0, Health - damage);
 
@@ -63,47 +66,92 @@ public partial class ExplosiveBarrel : Barrel
 		{
 			AnimateDeath();
 
-			Explode();
+			Detonate();
 
 			EmitSignal(SignalName.Killed);
 
+			// NOTE: We disable the collision shape and wait to
+			//       free so the death animation can fully play.
+			//       In order to support that, we have to freeze
+			//       the projectile or else the death animation
+			//       will continue moving/falling and it looks bad.
+
+			SetDeferred(PropertyName.Freeze, true);
 			collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-			this.TimedFree(5.0f, processInPhysics:true);
+			this.TimedFree(5.0f, false, true);
 		}
 	}
 
-	protected void Explode()
+	public void Heal(int health)
 	{
-		PhysicsShapeQueryParameters2D queryParams = new ();
-		queryParams.Transform = GlobalTransform;
-		queryParams.Shape = explosionCollisionShape2D.Shape;
-		queryParams.CollisionMask = explosionAreaOfEffect.CollisionMask;
-		queryParams.Exclude = bodiesToExclude;
+		// do nothing
+	}
 
-		foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
+	#endregion
+
+	#region IDetonatable
+
+	[Signal]
+	public delegate void DetonatedEventHandler();
+
+	[Export]
+	public float FuseDelay { get; set; } = 4.0f;
+
+	private bool isFusePrimed = false;
+
+	public async void PrimeFuse()
+	{
+		if (Health <= 0)
 		{
-			// NOTE: We want to scale the damage and push force depending on the entity's
-			//       distance from the explosion.
+			return;
+		}
+		else if (isFusePrimed)
+		{
+			return;
+		}
 
-			// we assume the shape is a circle
-			float radius = explosionCollisionShape2D.Shape.GetRect().Size.X / 2;
+		isFusePrimed = true;
 
-			if (collision["collider"].Obj is CharacterBase character)
+		await ToSignal(GetTree().CreateTimer(FuseDelay, false, true), SceneTreeTimer.SignalName.Timeout);
+
+		if (Health <= 0)
+		{
+			return;
+		}
+
+        EmitSignal(SignalName.Detonated);
+
+		Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+	}
+
+	private void Detonate()
+	{
+		// we assume the shape is a circle
+		float radius = explosionCollisionShape2D.Shape.GetRect().Size.X / 2;
+
+		foreach (Node2D node in explosionAreaOfEffect.GetOverlappingBodies().Where(n => n != this))
+		{
+			// NOTE: We scale the damage and push force depending on
+			//       the node's distance from the explosion.
+
+			if (node is CharacterBase character)
 			{
-				Vector2 directionToCharacter = character.GlobalTransform.Origin - GlobalTransform.Origin;
+				Vector2 dir = character.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				character.Hurt(Mathf.RoundToInt(Damage * radius / directionToCharacter.Length()), character.GlobalTransform.Origin, -directionToCharacter.Normalized());
-				character.Velocity += ExplosionIntensity * directionToCharacter / directionToCharacter.LengthSquared();
+				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalTransform.Origin, -dir.Normalized());
+				character.Velocity += ExplosionIntensity * dir / dir.LengthSquared();
 			}
-			else if (collision["collider"].Obj is Barrel barrel)
+			else if (node is ProjectileBase projectile)
 			{
-				Vector2 directionToBarrel = barrel.GlobalTransform.Origin - GlobalTransform.Origin;
+				Vector2 dir = projectile.GlobalTransform.Origin - GlobalTransform.Origin;
 
-				barrel.Hurt(Mathf.RoundToInt(Damage * radius / directionToBarrel.Length()), barrel.GlobalTransform.Origin, -directionToBarrel.Normalized());
-				barrel.ApplyImpulse(ExplosionIntensity * directionToBarrel / directionToBarrel.LengthSquared());
+				projectile.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), projectile.GlobalTransform.Origin, -dir.Normalized());
+				projectile.ApplyImpulse(ExplosionIntensity * dir / dir.LengthSquared());
 			}
 		}
 	}
+
+	#endregion
 
 }

@@ -3,10 +3,12 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MechJamIV {
     public abstract partial class EnemyBase : CharacterBase
+        ,ITracker
     {
 
         #region Node references
@@ -15,30 +17,39 @@ namespace MechJamIV {
 
         #endregion
 
-        private async void AddRayCastToPlayer()
+        private async void AddRayCast()
         {
-            rayCast = new RayCast2D();
-            rayCast.Position = Vector2.Up; // offset so we don't collide with ground
+            rayCast = new ();
+
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = true;
-            rayCast.CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player);
 
             await this.AddChildDeferred(rayCast);
-
-            UpdateRayCastToPlayer();
         }
 
-        private void UpdateRayCastToPlayer()
+        private void UpdateRayCastToTarget()
         {
-            rayCast.TargetPosition = GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin) * 1000.0f;
+            if (Target == null)
+            {
+                // this might help to hide the raycast the next time it is drawn
+                rayCast.TargetPosition = Vector2.Zero;
+                rayCast.CollisionMask = 0;
+            }
+            else
+            {
+                rayCast.TargetPosition = this.GetDirectionToTarget() * LineOfSightDistance;
+                rayCast.CollisionMask = (uint)LineOfSightMask;
+            }
         }
 
         public override void _Draw()
         {
             base._Draw();
 
-            //DrawDashedLine(Vector2.Zero, Player.GlobalTransform.Origin - GlobalTransform.Origin, Colors.SkyBlue);
-            DrawDashedLine(rayCast.Position, rayCast.GetCollisionPoint() - GlobalTransform.Origin, Colors.SkyBlue);
+            if (rayCast.IsColliding())
+            {
+                DrawDashedLine(rayCast.Position, ToLocal(rayCast.GetCollisionPoint()), Colors.SkyBlue);
+            }
         }
 
     }

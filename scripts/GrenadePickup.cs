@@ -5,17 +5,9 @@ using MechJamIV;
 public partial class GrenadePickup : PickupBase
 {
 
-	public override PickupType PickupType { get; protected set;} = PickupType.Grenade;
-
 	#region Node references
 
 	private Grenade grenade;
-
-	#endregion
-
-	#region Resources
-
-	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
 	#endregion
 
@@ -23,13 +15,13 @@ public partial class GrenadePickup : PickupBase
 	{
 		base._Ready();
 
-		grenade = GetNode<Grenade>("Grenade");
-		grenade.Killed += () => this.TimedFree(5.0f, processInPhysics: true);
-	}
+		// NOTE: In order to get the RemoteTransform2D to work, I had to
+		//       set Grenade.TopLevel = true. Therefore, we have to set
+		//       the initial position.
 
-	public void Hurt(int damage, Vector2 position, Vector2 normal)
-	{
-		grenade.Hurt(damage, position, normal);
+		grenade = GetNode<Grenade>("Grenade");
+		grenade.GlobalTransform = GlobalTransform;
+		grenade.Killed += () => QueueFree();
 	}
 
 }

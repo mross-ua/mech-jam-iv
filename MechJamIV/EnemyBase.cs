@@ -1,10 +1,12 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MechJamIV {
     public abstract partial class EnemyBase : CharacterBase
+        ,ITracker
     {
 
         [Signal]
@@ -12,8 +14,10 @@ namespace MechJamIV {
 
         [Export]
         public float FieldOfView { get; set; } = 45.0f;
+
         [Export]
         public float CriticalHitRate { get; set; } = 0.3f;
+
         [Export]
         public float PickupDropRate { get; set; } = 0.5f;
 
@@ -21,7 +25,7 @@ namespace MechJamIV {
 
         #region Node references
 
-        protected Player Player { get; private set; }
+	    private IList<Hitbox> hitboxes = new List<Hitbox>();
 
         #endregion
 
@@ -29,12 +33,12 @@ namespace MechJamIV {
         {
             base._Ready();
 
-            Player = (Player)GetTree().GetFirstNodeInGroup("player");
-
             foreach (Node2D node in GetNode<Node2D>("Hitboxes").GetChildren())
             {
                 if (node is Hitbox hitbox)
                 {
+                    hitboxes.Add(hitbox);
+
                     hitbox.Hit += (damage, isWeakSpot, position, normal) =>
                     {
                         if (isWeakSpot || RandomHelper.GetSingle() <= CriticalHitRate)
@@ -62,7 +66,7 @@ namespace MechJamIV {
             }
 
 #if DEBUG
-            AddRayCastToPlayer();
+            AddRayCast();
 #endif
         }
 
@@ -108,7 +112,7 @@ namespace MechJamIV {
             }
 
 #if DEBUG
-            UpdateRayCastToPlayer();
+            UpdateRayCastToTarget();
 #endif
         }
 
@@ -117,23 +121,6 @@ namespace MechJamIV {
         protected abstract void ProcessAction_Chase();
 
         protected abstract void ProcessAction_Attacking();
-
-        public override void Hurt(int damage, Vector2 position, Vector2 normal)
-        {
-            if (Health <= 0)
-            {
-                return;
-            }
-
-            base.Hurt(damage, position, normal);
-
-            if (Health <= 0)
-            {
-                DropPickup();
-
-                this.TimedFree(5.0f, processInPhysics:true);
-            }
-        }
 
         private void DropPickup()
         {
@@ -147,30 +134,63 @@ namespace MechJamIV {
             }
         }
 
-        protected Vector2 GetDirectionToPlayer()
-        {
-            return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
-        }
+        #region ICollidable
 
-        protected bool IsPlayerInFieldOfView()
+        public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
         {
-            return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
-        }
-
-        protected bool IsPlayerInLineOfSight()
-        {
-            Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
+            if (Health <= 0)
             {
-                From = GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
-                To = Player.GlobalTransform.Origin,
-                Exclude = null,
-                CollideWithBodies = true,
-                CollideWithAreas = true,
-                CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
-            });
+                return;
+            }
 
-            return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
+            base.Hurt(damage, globalPos, normal);
+
+            if (Health <= 0)
+            {
+                DropPickup();
+
+                foreach (Hitbox hitbox in hitboxes)
+                {
+                    hitbox.QueueFree();
+                }
+
+                hitboxes.Clear();
+            }
         }
+
+        #endregion
+
+        #region ITracker
+
+        public CollisionLayerMask LineOfSightMask { get; private set; }
+
+        public float LineOfSightDistance { get; private set; } = 10_000.0f;
+
+        public CharacterBase Target { get; private set; }
+
+        public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)
+        {
+            Target = c;
+            LineOfSightMask = lineOfSightMask;
+
+            if (c != null)
+            {
+                Target.Killed += () => Untrack(c);
+                // just in case we miss the Killed signal
+                Target.TreeExiting += () => Untrack(c);
+            }
+        }
+
+        private void Untrack(CharacterBase c)
+        {
+            // make sure we are still tracking the object that fired this event
+            if (Target == c)
+            {
+                Target = null;
+            }
+        }
+
+        #endregion
 
     }
 }

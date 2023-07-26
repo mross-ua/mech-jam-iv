@@ -2,32 +2,27 @@ using Godot;
 using System;
 using MechJamIV;
 
-public partial class Barrel : RigidBody2D
+public partial class Barrel : ProjectileBase
 {
-
-	[Signal]
-	public delegate void InjuredEventHandler(int damage);
 
 	#region Resources
 
-	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
+	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
 	#endregion
 
-	protected virtual async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
+	protected virtual void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
-		splatter.GlobalPosition = position;
-		splatter.Emitting = true;
-
-		await GetTree().CurrentScene.AddChildDeferred(splatter);
-
-		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+        this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), globalPos);
     }
 
-	public virtual void Hurt(int damage, Vector2 position, Vector2 normal)
+	#region ICollidable
+
+	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
-		AnimateInjury(damage, position, normal);
+		AnimateInjury(damage, globalPos, normal);
 	}
+
+	#endregion
 
 }

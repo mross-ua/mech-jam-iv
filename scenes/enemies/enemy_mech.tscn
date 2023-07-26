@@ -1,10 +1,14 @@
-[gd_scene load_steps=35 format=3 uid="uid://dyh1s8bk7j5t2"]
+[gd_scene load_steps=39 format=3 uid="uid://dyh1s8bk7j5t2"]
 
 [ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://assets/spritesheets/enemies2-sheet-alpha.png" id="1_e23bj"]
 [ext_resource type="Script" path="res://scripts/EnemyMech.cs" id="1_kyk5f"]
 [ext_resource type="Texture2D" uid="uid://bscr5no8hdlm8" path="res://assets/spritesheets/jrob774-explosion_2-sheet-alpha.png" id="2_g4aft"]
 [ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_pw5xl"]
 [ext_resource type="PackedScene" uid="uid://blpij04jleg8e" path="res://scenes/enemies/hitbox.tscn" id="5_jof1d"]
+[ext_resource type="PackedScene" uid="uid://c0h0eogjo2jqf" path="res://scenes/weapons/weapon_manager.tscn" id="6_ut1s5"]
+[ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="7_ii8ie"]
+[ext_resource type="PackedScene" uid="uid://dt2hpb3k3ussg" path="res://scenes/weapons/projectile_emitter.tscn" id="8_jvf8o"]
+[ext_resource type="PackedScene" uid="uid://dxtbt33nlhuer" path="res://scenes/weapons/missile.tscn" id="9_y2cnm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwasa"]
 atlas = ExtResource("2_g4aft")
@@ -225,10 +229,13 @@ size = Vector2(37, 52)
 [sub_resource type="CircleShape2D" id="CircleShape2D_d8ur5"]
 radius = 10.0499
 
-[node name="EnemyMech" type="CharacterBody2D"]
+[node name="EnemyMech" type="CharacterBody2D" groups=["enemy"]]
 position = Vector2(0, -29)
 collision_layer = 64
 script = ExtResource("1_kyk5f")
+FaceDirection = Vector2(-1, 0)
+MoveAcceleration = 5.0
+MaxMoveSpeed = 30.0
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="." groups=["enemy"]]
 sprite_frames = SubResource("SpriteFrames_f71hv")
@@ -241,11 +248,6 @@ SpriteFaceDirection = Vector2(-1, 0)
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_u1v5i")
 
-[node name="AttackTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 5.0
-one_shot = true
-
 [node name="Hitboxes" type="Node2D" parent="."]
 
 [node name="Hitbox" parent="Hitboxes" instance=ExtResource("5_jof1d")]
@@ -253,3 +255,19 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hitbox"]
 position = Vector2(-10, -15)
 shape = SubResource("CircleShape2D_d8ur5")
+
+[node name="WeaponManager" parent="." instance=ExtResource("6_ut1s5")]
+
+[node name="HitScanBulletEmitter" parent="WeaponManager" instance=ExtResource("7_ii8ie")]
+Damage = 10
+TracerColor = Color(1, 0.396078, 0.298039, 1)
+TracerWidth = 3.0
+LineOfSightMask = 323
+LineOfSightDistance = 100.0
+
+[node name="ProjectileEmitter" parent="WeaponManager" instance=ExtResource("8_jvf8o")]
+ProjectileBaseItem = ExtResource("9_y2cnm")
+ImpulseStrength = 150.0
+RoundsPerSecond = 0.2
+Ammo = 100
+LineOfSightMask = 323

@@ -1,37 +1,27 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using MechJamIV;
 
 public partial class Player : CharacterBase
+	,IPlayable
 {
-
-	[Signal]
-	public delegate void ImmunityShieldActivatedEventHandler();
-	[Signal]
-	public delegate void ImmunityShieldDeactivatedEventHandler();
-
-	[Export]
-	public int GrenadeCount { get; set; } = 4;
-
-	[Export]
-	public float ThrowStrength { get; set; } = 500.0f;
 
 	#region Node references
 
 	public Marker2D RobotMarker { get; private set; }
-	public RemoteTransform2D RemoteTransform { get; private set; }
+	public WeaponManager WeaponManager { get; private set; }
 
 	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
-	private Timer attackTimer;
-	private HitScanBulletEmitter hitScanBulletEmitter;
+	private RemoteTransform2D remoteTransform;
 
 	#endregion
 
 	#region Resources
 
-	private PackedScene grenadeResource = ResourceLoader.Load<PackedScene>("res://scenes/weapons/grenade.tscn");
-	private PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/effects/blood_splatter.tscn");
+	private static readonly PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/effects/blood_splatter.tscn");
 
 	#endregion
 
@@ -40,14 +30,16 @@ public partial class Player : CharacterBase
 		base._Ready();
 
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
-		RemoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
 
 		immunityTimer = GetNode<Timer>("ImmunityTimer");
 		immunityTimer.Timeout += () => DeactivateShield();
 
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
-		attackTimer = GetNode<Timer>("AttackTimer");
-		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
+
+		remoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
+
+		WeaponManager = GetNode<WeaponManager>("WeaponManager");
+		WeaponManager.SetBodiesToExclude(this.Yield());
     }
 
 	protected override Vector2 GetMovementDirection()
@@ -59,79 +51,38 @@ public partial class Player : CharacterBase
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
 
-	public void FireGun(Vector2 globalPos)
+	public void Fire(FireMode mode, Vector2 globalPos)
 	{
 		if (Health <= 0)
 		{
 			return;
 		}
-		else if (attackTimer.TimeLeft > 0)
-		{
-			return;
-		}
 
-		hitScanBulletEmitter.Fire(globalPos);
+		//TODO let's have missiles scan for the nearest target (long-term solution is to let user select a target)
 
-		attackTimer.Start();
+		//CharacterBase c = GetTree().GetNodesInGroup("enemy").OfType<EnemyBase>().Where(e => e.Health > 0).FirstOrDefault();
+		//WeaponManager.Fire(mode, globalPos, c);
+		WeaponManager.Fire(mode, globalPos);
 	}
 
-	public async void ThrowGrenade(Vector2 globalPos)
+	public void Pickup(PickupBase pickup)
 	{
-		if (Health <= 0)
+		switch (pickup.PickupType)
 		{
-			return;
+			case PickupType.Medkit:
+				Heal(50);
+
+				break;
+			case PickupType.Grenade:
+				WeaponManager.PickupAmmo(PickupType.Grenade);
+
+				break;
 		}
-		else if (attackTimer.TimeLeft > 0)
-		{
-			return;
-		}
-		else if (GrenadeCount <= 0)
-		{
-			return;
-		}
-
-		attackTimer.Start();
-
-		GrenadeCount--;
-
-		Grenade grenade = grenadeResource.Instantiate<Grenade>();
-		grenade.GlobalTransform = hitScanBulletEmitter.GlobalTransform;
-
-		await GetTree().CurrentScene.AddChildDeferred(grenade);
-
-		grenade.Prime();
-
-		grenade.ApplyImpulse((globalPos - hitScanBulletEmitter.GlobalTransform.Origin).Normalized() * ThrowStrength);
 	}
 
-	public override void Hurt(int damage, Vector2 position, Vector2 normal)
-	{
-		if (immunityTimer.TimeLeft > 0)
-		{
-			return;
-		}
-
-		base.Hurt(damage, position, normal);
-
-		if (Health <= 0)
-		{
-			return;
-		}
-
-		ActivateShield();
-
-		immunityTimer.Start();
-	}
-
-	protected override async void AnimateInjury(int damage, Vector2 position, Vector2 normal)
+	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        GpuParticles2D splatter = bloodSplatterResource.Instantiate<GpuParticles2D>();
-		splatter.GlobalPosition = position;
-		splatter.Emitting = true;
-
-		await GetTree().CurrentScene.AddChildDeferred(splatter);
-
-		splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+        this.EmitParticlesOnce(bloodSplatterResource.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 	public void ActivateShield()
@@ -147,5 +98,42 @@ public partial class Player : CharacterBase
 
 		EmitSignal(SignalName.ImmunityShieldDeactivated);
 	}
+
+	#region ICollidable
+
+	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+	{
+		if (immunityTimer.TimeLeft > 0)
+		{
+			return;
+		}
+
+		base.Hurt(damage, globalPos, normal);
+
+		if (Health <= 0)
+		{
+			return;
+		}
+
+		ActivateShield();
+
+		immunityTimer.Start();
+	}
+
+	#endregion
+
+	#region IPlayable
+
+	[Signal]
+	public delegate void ImmunityShieldActivatedEventHandler();
+	[Signal]
+	public delegate void ImmunityShieldDeactivatedEventHandler();
+
+	public void SetRemoteTarget(PlayerCamera cam)
+	{
+		remoteTransform.RemotePath = cam.GetPath();
+	}
+
+	#endregion
 
 }

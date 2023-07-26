@@ -13,6 +13,8 @@ public partial class World : Node2D
 	#region Node references
 
 	private Player player;
+	private Robot robot;
+
 	private PlayerCamera playerCamera;
 
 	private IList<Spawn> spawns;
@@ -24,26 +26,25 @@ public partial class World : Node2D
 
 	public override void _Ready()
 	{
-		InitPauseScreen();
+		player = (Player)GetTree().GetFirstNodeInGroup("player");
+
+		robot = (Robot)GetTree().GetFirstNodeInGroup("robot");
+
+		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
+		pauseScreen = GetNode<PauseScreen>("PauseScreen");
 
 		InitSpawns();
 		InitPickups();
 		InitEnemies();
 		InitObjectives();
+		InitDeathZones();
 
-		player = (Player)GetTree().GetFirstNodeInGroup("player");
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 
-		playerCamera = GetNode<PlayerCamera>("PlayerCamera");
-		playerCamera.TrackPlayer(player);
-	}
+		robot.GlobalTransform = player.RobotMarker.GlobalTransform;
+		robot.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);
 
-	private void InitPauseScreen()
-	{
-		pauseScreen = ResourceLoader.Load<PackedScene>("res://scenes/ui/pause_screen.tscn").Instantiate<PauseScreen>();
-		pauseScreen.Visible = false;
-
-		this.AddChildDeferred(pauseScreen);
+		playerCamera.Track(player);
 	}
 
 	private void InitSpawns()
@@ -69,7 +70,7 @@ public partial class World : Node2D
 	{
 		foreach (PickupBase pickup in GetTree().GetNodesInGroup("pickup").OfType<PickupBase>())
 		{
-			pickup.PickedUp += () => Pickup(pickup);
+			pickup.PickedUp += () => player.Pickup(pickup);
 		}
 	}
 
@@ -79,10 +80,12 @@ public partial class World : Node2D
 		{
 			enemy.PickupDropped += (pickup) =>
 			{
-				pickup.PickedUp += () => Pickup(pickup);
+				pickup.PickedUp += () => player.Pickup(pickup);
 
 				GetTree().CurrentScene.AddChildDeferred(pickup);
 			};
+
+			enemy.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);
 		}
 	}
 
@@ -97,6 +100,20 @@ public partial class World : Node2D
 		}
 	}
 
+	private void InitDeathZones()
+	{
+		foreach (Area2D deathzone in GetTree().GetNodesInGroup("deathzone").OfType<Area2D>())
+		{
+			deathzone.BodyEntered += (body) =>
+			{
+				if (body is Player player)
+				{
+					player.Hurt(player.Health, player.GlobalTransform.Origin, Vector2.Zero);
+				}
+			};
+		}
+	}
+
     public override void _Process(double delta)
     {
 #if DEBUG
@@ -106,38 +123,22 @@ public partial class World : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionPressed("quit"))
+        if (Input.IsActionJustPressed("quit"))
 		{
 			pauseScreen.PauseGame();
 		}
-		else if (Input.IsActionJustPressed("throw_grenade"))
+		else if (Input.IsActionJustPressed("fire_secondary"))
 		{
-			player.ThrowGrenade(GetGlobalMousePosition());
+			player.Fire(FireMode.Secondary, GetGlobalMousePosition());
 		}
-		//TODO?
-		// else if (Input.IsActionJustPressed("fire"))
-		// {
-		// 	player.FireGun(GetGlobalMousePosition());
-		// }
-		else if (Input.IsActionPressed("fire"))
+		else if (Input.IsActionJustPressed("fire_primary"))
 		{
-			player.FireGun(GetGlobalMousePosition());
+			player.Fire(FireMode.Primary, GetGlobalMousePosition());
+		}
+		else if (Input.IsActionPressed("fire_primary"))
+		{
+			player.Fire(FireMode.Primary, GetGlobalMousePosition());
 		}
     }
-
-	private void Pickup(PickupBase pickup)
-	{
-		switch (pickup.PickupType)
-		{
-			case PickupType.Medkit:
-				player.Heal(50);
-
-				break;
-			case PickupType.Grenade:
-				player.GrenadeCount++;
-
-				break;
-		}
-	}
 
 }

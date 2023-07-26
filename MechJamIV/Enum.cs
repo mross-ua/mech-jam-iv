@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 namespace MechJamIV {
-    public enum CollisionLayer
+    public enum CollisionLayer : long
     {
         World,
         Player,
@@ -10,7 +10,9 @@ namespace MechJamIV {
         Environment,
         Hazard,
         Hitbox,
-        Enemy
+        Enemy,
+        Objective,
+        Projectile
     }
 
     [Flags]
@@ -22,7 +24,9 @@ namespace MechJamIV {
         Environment = 8,
         Hazard = 16,
         Hitbox = 32,
-        Enemy = 64
+        Enemy = 64,
+        Objective = 128,
+        Projectile = 256
     }
 
     public enum PickupType : long
@@ -31,10 +35,17 @@ namespace MechJamIV {
         Grenade = 1
     }
 
-    public enum EnemyState
+    public enum EnemyState : long
     {
         Idle,
         Chase,
         Attacking
+    }
+
+    public enum FireMode : long
+    {
+        Primary,
+        PrimarySustained,
+        Secondary
     }
 }

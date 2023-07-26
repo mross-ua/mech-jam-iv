@@ -2,42 +2,72 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using MechJamIV;
 
-public partial class HitScanBulletEmitter : Node2D
+public partial class HitScanBulletEmitter : WeaponBase
 {
 
 	[Export]
-	public float HitScanDistance { get; set; } = 10000.0f;
+	public int Damage { get; set; }
 
-	private Godot.Collections.Array<Rid> _bodiesToExclude = new ();
+	[Export(PropertyHint.ColorNoAlpha)]
+	public Color TracerColor { get; set; }
 
-	public int Damage { get; set; } = 1;
+	[Export]
+	public float TracerWidth { get; set; }
 
-	// (not) used in Fire()
-	//private Vector2 gravity = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	private Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new Queue<Tuple<Vector2, Vector2>>();
+
+	private Godot.Collections.Array<Rid> bodiesToExclude = null;
+
+	private bool isNeedsRedraw = false;
 
 	#region Resources
 
-	private PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
+	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
-	#endregion
+    #endregion
 
-	public void SetBodiesToExclude(IEnumerable<Rid> resourceIds)
-	{
-		_bodiesToExclude = new Godot.Collections.Array<Rid>(resourceIds);
+    public override void _Process(double delta)
+    {
+        if (isNeedsRedraw)
+		{
+			QueueRedraw();
+		}
+    }
+
+    public override void _Draw()
+    {
+		isNeedsRedraw = false;
+
+		while (bulletsToDraw.TryDequeue(out Tuple<Vector2, Vector2> rayPath))
+		{
+			DrawLine(ToLocal(rayPath.Item1), ToLocal(rayPath.Item2), TracerColor, TracerWidth);
+
+			// we need to draw at least one more frame to *clear* anything drawn this frame
+			isNeedsRedraw = true;
+		}
 	}
 
-	public async void Fire(Vector2 globalPos)
+	public override void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 	{
+		bodiesToExclude = new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid()));
+	}
+
+	protected override void _Fire(Vector2 globalPos, CharacterBase target = null)
+	{
+		Vector2 from = GlobalTransform.Origin;
+		Vector2 to = from + from.DirectionTo(globalPos) * LineOfSightDistance;
+
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
 		{
-			From = GlobalTransform.Origin,
-			To = globalPos + (globalPos - GlobalTransform.Origin).Normalized() * HitScanDistance,
-			Exclude = _bodiesToExclude,
+			From = from,
+			To = to,
+			Exclude = bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,
-			CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Environment | CollisionLayerMask.Hitbox)
+			CollisionMask = LineOfSightMask
 		});
 
 		if (collision.ContainsKey("collider"))
@@ -49,33 +79,25 @@ public partial class HitScanBulletEmitter : Node2D
 			{
 				hitbox.Hurt(Damage, position, normal);
 			}
-			else if (collision["collider"].Obj is Barrel barrel)
+			else if (collision["collider"].Obj is ICollidable c)
 			{
-				barrel.Hurt(Damage, position,  normal);
-			}
-			//BUG: Grenades are not currently in the Environment layer,
-			//     so this doesn't work. (See kanban task.)
-			else if (collision["collider"].Obj is Grenade grenade)
-			{
-				grenade.Hurt(Damage, position,  normal);
-			}
-			else if (collision["collider"].Obj is GrenadePickup grenadePickup)
-			{
-				grenadePickup.Hurt(Damage, position, normal);
+				c.Hurt(Damage, position,  normal);
 			}
 			else
 			{
 				// world or environment hit
 
-				GpuParticles2D splatter = shrapnelSplatter.Instantiate<GpuParticles2D>();
-				splatter.GlobalPosition = position;
- 				splatter.Emitting = true;
-
-				await GetTree().CurrentScene.AddChildDeferred(splatter);
-
-				splatter.TimedFree(splatter.Lifetime + splatter.Lifetime * splatter.Randomness, processInPhysics:true);
+        		this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), position);
 			}
+
+			bulletsToDraw.Enqueue(new Tuple<Vector2, Vector2>(from, position));
 		}
+		else
+		{
+			bulletsToDraw.Enqueue(new Tuple<Vector2, Vector2>(from, to));
+		}
+
+		isNeedsRedraw = true;
 	}
 
 }

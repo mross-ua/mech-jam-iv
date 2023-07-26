@@ -1,24 +1,23 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using MechJamIV;
 
 public partial class Missile : Grenade
+	,ITracker
 {
 
 	[Export]
-	public Vector2 FaceDirection { get; set; } = Vector2.Up;
-
-	[Export]
 	public float ThrustForce { get; set; } = 5_000.0f;
+
 	[Export]
 	public float TurnSpeed { get; set; } = 3_000f;
 
 	#region Node references
 
-	protected Player Player { get; private set; }
-
 	private GpuParticles2D gpuParticles2D;
+	private CharacterAnimator characterAnimator;
 
 	#endregion
 
@@ -26,14 +25,13 @@ public partial class Missile : Grenade
 	{
 		base._Ready();
 
-		Player = (Player)GetTree().GetFirstNodeInGroup("player");
-
 		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
+		characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 
 		BodyEntered += (body) => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
 
 #if DEBUG
-		AddRayCastToPlayer();
+		AddRayCast();
 #endif
 	}
 
@@ -44,30 +42,9 @@ public partial class Missile : Grenade
 			return;
 		}
 
-		AnimateMovement();
-
 #if DEBUG
 		QueueRedraw();
 #endif
-	}
-
-	private Vector2 GetMovementDirection(double delta)
-	{
-		Vector2 directionToPlayer = GetDirectionToPlayer();
-
-		float angleDiff = Mathf.RadToDeg(FaceDirection.AngleTo(directionToPlayer));
-		int turnDirection = Mathf.Sign(angleDiff);
-
-		float rotation = TurnSpeed * (float)delta;
-
-		if (Mathf.Abs(angleDiff) < rotation)
-		{
-			return directionToPlayer;
-		}
-		else
-		{
-			return FaceDirection.Rotated(Mathf.DegToRad(rotation) * turnDirection);
-		}
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -77,55 +54,70 @@ public partial class Missile : Grenade
 			return;
 		}
 
-		FaceDirection = GetMovementDirection(delta);
+		if (Target != null)
+		{
+			Vector2 directionToTarget = this.GetDirectionToTarget();
 
-		ApplyForce(FaceDirection * ThrustForce * (float)delta);
+			float angleDiff = Mathf.RadToDeg(characterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
+			int turnDirection = Mathf.Sign(angleDiff);
+
+			float rotation = TurnSpeed * (float)delta;
+
+			if (Mathf.Abs(angleDiff) < rotation)
+			{
+				Rotate(Mathf.DegToRad(angleDiff));
+			}
+			else
+			{
+				Rotate(Mathf.DegToRad(rotation) * turnDirection);
+			}
+		}
+
+		ApplyForce(characterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
 
 #if DEBUG
-		UpdateRayCastToPlayer();
+		UpdateRayCastToTarget();
 #endif
     }
-
-	protected void AnimateMovement()
-	{
-		// NOTE: Rotating the graphics is a hack because we are using
-		//       FaceDirection rather than a built-in property.
-
-		CharacterAnimator.Rotation = Vector2.Up.AngleTo(FaceDirection);
-		gpuParticles2D.Rotation = Vector2.Up.AngleTo(FaceDirection);
-	}
 
 	protected override void AnimateDeath()
 	{
 		base.AnimateDeath();
 
-		gpuParticles2D.Visible = false;
+		// allow emitted particles to decay
+		gpuParticles2D.Emitting = false;
 	}
 
-	protected Vector2 GetDirectionToPlayer()
-	{
-		return GlobalTransform.Origin.DirectionTo(Player.GlobalTransform.Origin);
-	}
+	#region ITracker
 
-	// protected bool IsPlayerInFieldOfView()
-	// {
-	// 	return Mathf.RadToDeg(FaceDirection.AngleTo(GetDirectionToPlayer())) < FieldOfView;
-	// }
+	public CollisionLayerMask LineOfSightMask { get; private set; }
 
-	protected bool IsPlayerInLineOfSight()
+	public float LineOfSightDistance { get; private set; } = 10_000.0f;
+
+	public CharacterBase Target { get; private set; }
+
+	public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)
 	{
-		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
+		Target = c;
+		LineOfSightMask = lineOfSightMask;
+
+		if (c != null)
 		{
-			//TODO do we need to use Y basis rather than Vector2.Up?
-			From = GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
-			To = Player.GlobalTransform.Origin,
-			Exclude = null,
-			CollideWithBodies = true,
-			CollideWithAreas = true,
-			CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player)
-		});
-
-		return collision.ContainsKey("collider") && collision["collider"].Obj == Player;
+			Target.Killed += () => Untrack(c);
+			// just in case we miss the Killed signal
+			Target.TreeExiting += () => Untrack(c);
+		}
 	}
+
+	private void Untrack(CharacterBase c)
+	{
+		// make sure we are still tracking the object that fired this event
+		if (Target == c)
+		{
+			Target = null;
+		}
+	}
+
+	#endregion
 
 }

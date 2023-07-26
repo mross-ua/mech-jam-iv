@@ -125,13 +125,14 @@ radius = 8.0
 radius = 50.0
 
 [node name="Missile" type="RigidBody2D"]
-collision_layer = 8
-collision_mask = 27
+collision_layer = 256
+collision_mask = 339
 gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
-lock_rotation = true
 script = ExtResource("1_72hel")
+Health = 1
+FuseDelay = 10.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(0, 4)
@@ -143,18 +144,14 @@ sprite_frames = SubResource("SpriteFrames_ilwwa")
 animation = &"idle"
 autoplay = "idle"
 script = ExtResource("2_schm0")
+SpriteFaceDirection = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_77806")
 
-[node name="ExplosionTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 10.0
-one_shot = true
-
 [node name="ExplosionAreaOfEffect" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 110
+collision_mask = 322
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionAreaOfEffect"]
 shape = SubResource("CircleShape2D_nrk37")

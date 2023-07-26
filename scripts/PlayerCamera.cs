@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using MechJamIV;
 
 public partial class PlayerCamera : Camera2D
 {
@@ -8,34 +9,70 @@ public partial class PlayerCamera : Camera2D
 
 	private Player player;
 
-	private ProgressBar healthBar;
 	private GpuParticles2D immunityShield;
+	private ProgressBar healthBar;
+
+	private Label primaryAmmoLabel;
+	private Label secondaryAmmoLabel;
 
 	#endregion
 
 	public override void _Ready()
 	{
-		healthBar = GetNode<ProgressBar>("UI/HealthBar");
-		immunityShield = GetNode<GpuParticles2D>("UI/HealthBar/TextureRect/ImmunityShield");
+		immunityShield = GetNode<GpuParticles2D>("UI/Control/TextureRect/ImmunityShield");
+		healthBar = GetNode<ProgressBar>("UI/Control/HealthBar");
+
+		primaryAmmoLabel = GetNode<Label>("UI/Control2/PrimaryAmmoLabel");
+		secondaryAmmoLabel = GetNode<Label>("UI/Control3/SecondaryAmmoLabel");
 	}
 
-	public void TrackPlayer(Player player)
+	public void Track(Player p)
 	{
-		if (this.player != null)
+		if (player != null)
 		{
-			throw new NotSupportedException("A player instance is already being tracked.");
+			// NOTE: We throw an exception so we don't have to figure
+			//       out if we need to unregister event handlers from
+			//       a previously tracked target.
+
+			throw new NotSupportedException("A target is already being tracked.");
 		}
 
-		this.player = player;
+		player = p;
 
-		healthBar.Value = player.Health;
+		player.Injured += (damage) => UpdateUI();
+		player.Healed += (health) => UpdateUI();
 
-		player.Injured += (damage) => healthBar.Value = player.Health;
-		player.Healed += (amount) => healthBar.Value = player.Health;
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
 		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
 
-		player.RemoteTransform.RemotePath = GetPath();
+		player.WeaponManager.WeaponFired += (fireMode, weapon) => UpdateUI();
+
+		player.SetRemoteTarget(this);
+
+		UpdateUI();
+	}
+
+	private void UpdateUI()
+	{
+		healthBar.Value = player.Health;
+
+		if (player.WeaponManager.PrimaryWeapon.Ammo < 0)
+		{
+			primaryAmmoLabel.Text = "∞";
+		}
+		else
+		{
+			primaryAmmoLabel.Text = player.WeaponManager.PrimaryWeapon.Ammo.ToString();
+		}
+
+		if (player.WeaponManager.SecondaryWeapon.Ammo < 0)
+		{
+			secondaryAmmoLabel.Text = "∞";
+		}
+		else
+		{
+			secondaryAmmoLabel.Text = player.WeaponManager.SecondaryWeapon.Ammo.ToString();
+		}
 	}
 
 }

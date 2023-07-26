@@ -79,10 +79,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_751yh"]
 radius = 8.0
 
-[node name="Robot" type="CharacterBody2D"]
+[node name="Robot" type="CharacterBody2D" groups=["robot"]]
 collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_ga06e")
+MoveAcceleration = 50.0
+MaxMoveSpeed = 300.0
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4dncl")

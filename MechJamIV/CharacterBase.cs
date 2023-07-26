@@ -5,26 +5,20 @@ using MechJamIV;
 
 namespace MechJamIV {
 	public abstract partial class CharacterBase : CharacterBody2D
+        ,IDestructible
 	{
 
-        [Signal]
-        public delegate void InjuredEventHandler(int damage);
-        [Signal]
-	    public delegate void KilledEventHandler();
-        [Signal]
-        public delegate void HealedEventHandler(int amount);
+        [Export]
+        public Vector2 FaceDirection { get; set; } = Vector2.Zero;
+
+		[Export]
+		public float MoveAcceleration { get; set; } = 1.0f;
+
+		[Export]
+		public float MaxMoveSpeed { get; set; } = 10.0f;
 
         [Export]
-        public int Health { get; protected set; } = 100;
-
-        [Export]
-        public virtual Vector2 FaceDirection { get; set; } = Vector2.Zero;
-		[Export]
-		public virtual float MoveAcceleration { get; set; } = 50.0f;
-		[Export]
-		public virtual float MaxMoveSpeed { get; set; } = 300.0f;
-        [Export]
-        public float JumpVelocity { get; set; } = -400.0f;
+        public float JumpVelocity { get; set; } = -10.0f;
 
 	    protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 		protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
@@ -102,7 +96,19 @@ namespace MechJamIV {
 
         protected void AnimateDeath() => characterAnimator.AnimateDeath();
 
-        public virtual void Hurt(int damage, Vector2 position, Vector2 normal)
+        #region IDestructible/ICollidable
+
+        [Signal]
+        public delegate void InjuredEventHandler(int damage);
+        [Signal]
+	    public delegate void KilledEventHandler();
+        [Signal]
+        public delegate void HealedEventHandler(int health);
+
+        [Export]
+        public int Health { get; set; } = 100;
+
+        public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
         {
             if (Health <= 0)
             {
@@ -111,7 +117,7 @@ namespace MechJamIV {
 
             Health = Math.Max(0, Health - damage);
 
-            AnimateInjury(damage, position, normal);
+            AnimateInjury(damage, globalPos, normal);
 
             EmitSignal(SignalName.Injured, damage);
 
@@ -121,14 +127,16 @@ namespace MechJamIV {
 
                 EmitSignal(SignalName.Killed);
 
+                // NOTE: We disable the collision shape and wait to
+			    //       free so the death animation can fully play.
+
 			    collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-                //TODO the game is reacting poorly when we free the player
-                //this.TimedFree(5.0f, processInPhysics:true);
+                this.TimedFree(5.0f, false, true);
             }
         }
 
-		public virtual void Heal(int amount)
+		public virtual void Heal(int health)
 		{
             if (Health <= 0)
             {
@@ -136,10 +144,12 @@ namespace MechJamIV {
             }
 
             //TODO we need to know initial/max health
-            Health = Math.Min(100, Health + amount);
+            Health = Math.Min(100, Health + health);
 
-            EmitSignal(SignalName.Healed, amount);
+            EmitSignal(SignalName.Healed, health);
 		}
+
+        #endregion
 
 	}
 }

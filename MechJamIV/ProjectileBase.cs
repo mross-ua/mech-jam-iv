@@ -4,27 +4,29 @@ using System.Collections.Generic;
 using System.Linq;
 using MechJamIV;
 
-public abstract partial class ProjectileBase : RigidBody2D
-    ,ICollidable
-{
-
-	public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
+namespace MechJamIV {
+	public abstract partial class ProjectileBase : RigidBody2D
+		,ICollidable
 	{
-		//TODO remove previously excluded bodies?
 
-		foreach (CollisionObject2D body in bodies)
+		public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 		{
-			AddCollisionExceptionWith(body);
+			//TODO remove previously excluded bodies?
+
+			foreach (CollisionObject2D body in bodies)
+			{
+				AddCollisionExceptionWith(body);
+			}
 		}
+
+		#region ICollidable
+
+		[Signal]
+		public delegate void InjuredEventHandler(int damage);
+
+		public abstract void Hurt(int damage, Vector2 globalPos, Vector2 normal);
+
+		#endregion
+
 	}
-
-	#region ICollidable
-
-    [Signal]
-    public delegate void InjuredEventHandler(int damage);
-
-	public abstract void Hurt(int damage, Vector2 globalPos, Vector2 normal);
-
-	#endregion
-
 }

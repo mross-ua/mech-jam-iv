@@ -13,6 +13,7 @@ public partial class Hitbox : Area2D
 
 	[Export]
 	public int Damage { get; set; } = 10;
+
 	[Export]
 	public bool IsWeakSpot { get; set; } = false;
 

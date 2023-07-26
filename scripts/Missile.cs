@@ -10,6 +10,7 @@ public partial class Missile : Grenade
 
 	[Export]
 	public float ThrustForce { get; set; } = 5_000.0f;
+
 	[Export]
 	public float TurnSpeed { get; set; } = 3_000f;
 

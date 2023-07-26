@@ -10,10 +10,13 @@ namespace MechJamIV {
 
         [Export]
         public Vector2 FaceDirection { get; set; } = Vector2.Zero;
+
 		[Export]
 		public float MoveAcceleration { get; set; } = 1.0f;
+
 		[Export]
 		public float MaxMoveSpeed { get; set; } = 10.0f;
+
         [Export]
         public float JumpVelocity { get; set; } = -10.0f;
 

@@ -11,6 +11,7 @@ public partial class ExplosiveBarrel : Barrel
 
 	[Export]
 	public int ExplosionDamage { get; set; } = 80;
+
 	[Export]
 	public float ExplosionIntensity { get; set; } = 10_000.0f;
 

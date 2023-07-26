@@ -14,8 +14,10 @@ namespace MechJamIV {
 
         [Export]
         public float FieldOfView { get; set; } = 45.0f;
+
         [Export]
         public float CriticalHitRate { get; set; } = 0.3f;
+
         [Export]
         public float PickupDropRate { get; set; } = 0.5f;
 

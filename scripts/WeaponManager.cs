@@ -32,7 +32,7 @@ public partial class WeaponManager : Node2D
 		}
     }
 
-	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+	public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 	{
 		hitScanBulletEmitter?.SetBodiesToExclude(bodies);
 		projectileEmitter?.SetBodiesToExclude(bodies);

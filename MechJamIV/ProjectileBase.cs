@@ -8,11 +8,11 @@ public abstract partial class ProjectileBase : RigidBody2D
     ,ICollidable
 {
 
-	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+	public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 	{
 		//TODO remove previously excluded bodies?
 
-		foreach (PhysicsBody2D body in bodies)
+		foreach (CollisionObject2D body in bodies)
 		{
 			AddCollisionExceptionWith(body);
 		}

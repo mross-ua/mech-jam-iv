@@ -40,6 +40,8 @@ public partial class PlayerCamera : Camera2D
 		player = p;
 
 		healthBar.Value = player.Health;
+		primaryAmmoLabel.Text = "N/A";
+		secondaryAmmoLabel.Text = "N/A";
 
 		player.Injured += (damage) => healthBar.Value = player.Health;
 		player.Healed += (health) => healthBar.Value = player.Health;

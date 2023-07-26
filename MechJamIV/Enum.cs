@@ -42,7 +42,7 @@ namespace MechJamIV {
         Attacking
     }
 
-    public enum FireMode
+    public enum FireMode : long
     {
         Primary,
         PrimarySustained,

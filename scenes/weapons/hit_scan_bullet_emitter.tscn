@@ -6,6 +6,6 @@
 script = ExtResource("1_ljwkw")
 LineOfSightDistance = 1000.0
 Damage = 1
-RoundsPerSecond = 30
+RoundsPerSecond = 1.0
 TracerColor = Color(1, 1, 1, 1)
 TracerWidth = 1.0

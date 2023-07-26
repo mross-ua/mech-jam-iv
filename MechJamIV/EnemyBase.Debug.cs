@@ -20,10 +20,9 @@ namespace MechJamIV {
         private async void AddRayCast()
         {
             rayCast = new ();
-            rayCast.Position = Vector2.Up; // offset so we don't collide with ground
+
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = true;
-            rayCast.CollisionMask = (uint)(CollisionLayerMask.World | CollisionLayerMask.Player);
 
             await this.AddChildDeferred(rayCast);
         }
@@ -34,10 +33,12 @@ namespace MechJamIV {
             {
                 // this might help to hide the raycast the next time it is drawn
                 rayCast.TargetPosition = Vector2.Zero;
+                rayCast.CollisionMask = 0;
             }
             else
             {
-                rayCast.TargetPosition = GlobalTransform.Origin.DirectionTo(Target.GlobalTransform.Origin) * 1_000.0f;
+                rayCast.TargetPosition = this.GetDirectionToTarget() * LineOfSightDistance;
+                rayCast.CollisionMask = (uint)LineOfSightMask;
             }
         }
 
@@ -45,8 +46,10 @@ namespace MechJamIV {
         {
             base._Draw();
 
-            //DrawDashedLine(Vector2.Zero, Player.GlobalTransform.Origin - GlobalTransform.Origin, Colors.SkyBlue);
-            DrawDashedLine(rayCast.Position, rayCast.GetCollisionPoint() - GlobalTransform.Origin, Colors.SkyBlue);
+            if (rayCast.IsColliding())
+            {
+                DrawDashedLine(rayCast.Position, ToLocal(rayCast.GetCollisionPoint()), Colors.SkyBlue);
+            }
         }
 
     }

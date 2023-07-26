@@ -92,6 +92,8 @@ public partial class Missile : Grenade
 
 	public CollisionLayerMask LineOfSightMask { get; private set; }
 
+	public float LineOfSightDistance { get; private set; } = 10_000.0f;
+
 	public CharacterBase Target { get; private set; }
 
 	public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)

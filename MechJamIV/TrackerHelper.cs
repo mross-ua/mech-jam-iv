@@ -24,10 +24,13 @@ namespace MechJamIV {
         {
             Debug.Assert(tracker.Target != null, "A target is not currently being tracked.");
 
+            Vector2 from = tracker.GlobalTransform.Origin;
+            Vector2 to = from + GetDirectionToTarget(tracker) * tracker.LineOfSightDistance;
+
             Godot.Collections.Dictionary collision = tracker.GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
             {
-                From = tracker.GlobalTransform.Origin + Vector2.Up, // offset so we don't collide with ground
-                To = tracker.Target.GlobalTransform.Origin,
+                From = from,
+                To = to,
                 Exclude = null,
                 CollideWithBodies = true,
                 CollideWithAreas = true,

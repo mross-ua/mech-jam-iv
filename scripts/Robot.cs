@@ -47,6 +47,9 @@ public partial class Robot : CharacterBase
 
 	public CollisionLayerMask LineOfSightMask { get; private set; }
 
+	[Obsolete("Not being used.")]
+	public float LineOfSightDistance { get; private set; } = 10_000.0f;
+
 	public CharacterBase Target { get; private set; }
 
 	public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)

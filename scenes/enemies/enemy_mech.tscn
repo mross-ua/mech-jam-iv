@@ -259,16 +259,15 @@ shape = SubResource("CircleShape2D_d8ur5")
 [node name="WeaponManager" parent="." instance=ExtResource("6_ut1s5")]
 
 [node name="HitScanBulletEmitter" parent="WeaponManager" instance=ExtResource("7_ii8ie")]
-LineOfSightMask = 323
-LineOfSightDistance = 100.0
 Damage = 10
-RoundsPerSecond = 1.0
 TracerColor = Color(1, 0.396078, 0.298039, 1)
 TracerWidth = 3.0
+LineOfSightMask = 323
+LineOfSightDistance = 100.0
 
 [node name="ProjectileEmitter" parent="WeaponManager" instance=ExtResource("8_jvf8o")]
-LineOfSightMask = 323
 ProjectileBaseItem = ExtResource("9_y2cnm")
+ImpulseStrength = 150.0
 RoundsPerSecond = 0.2
 Ammo = 100
-ImpulseStrength = 150.0
+LineOfSightMask = 323

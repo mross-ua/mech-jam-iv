@@ -40,6 +40,7 @@ public partial class World : Node2D
 		InitDeathZones();
 
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
+		player.Killed += () => pauseScreen.PauseGame();
 
 		robot.GlobalTransform = player.RobotMarker.GlobalTransform;
 		robot.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);

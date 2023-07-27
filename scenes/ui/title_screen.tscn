@@ -1,6 +1,6 @@
 [gd_scene load_steps=56 format=3 uid="uid://bul8r3r8yejqt"]
 
-[ext_resource type="Script" path="res://scripts/TitleScreen.cs" id="1_8nffn"]
+[ext_resource type="Script" path="res://scripts/ui/TitleScreen.cs" id="1_8nffn"]
 [ext_resource type="Texture2D" uid="uid://dd16kqi8py3r0" path="res://assets/spritesheets/2508822703.png" id="1_d4aqq"]
 [ext_resource type="StyleBox" uid="uid://b08eihf13eg7t" path="res://resources/panel_style.tres" id="3_d7trr"]
 [ext_resource type="PackedScene" uid="uid://bgh7iu7ibpoxu" path="res://scenes/ui/user_input_explainer.tscn" id="3_y3rsy"]

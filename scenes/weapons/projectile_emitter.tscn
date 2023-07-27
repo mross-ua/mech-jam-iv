@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dt2hpb3k3ussg"]
 
-[ext_resource type="Script" path="res://scripts/ProjectileEmitter.cs" id="1_ys388"]
+[ext_resource type="Script" path="res://scripts/weapons/ProjectileEmitter.cs" id="1_ys388"]
 
 [node name="ProjectileEmitter" type="Node2D"]
 script = ExtResource("1_ys388")

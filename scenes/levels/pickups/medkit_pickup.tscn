@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://n83wwlywvgtu"]
 
 [ext_resource type="Texture2D" uid="uid://caidr8anqioe7" path="res://assets/spritesheets/powerups-sheet-alpha.png" id="1_nxmk4"]
-[ext_resource type="Script" path="res://scripts/MedkitPickup.cs" id="1_p437x"]
+[ext_resource type="Script" path="res://scripts/levels/pickups/MedkitPickup.cs" id="1_p437x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5cyn3"]
 atlas = ExtResource("1_nxmk4")

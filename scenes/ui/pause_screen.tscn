@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7u0w5qpcxohb"]
 
-[ext_resource type="Script" path="res://scripts/PauseScreen.cs" id="1_er4pt"]
+[ext_resource type="Script" path="res://scripts/ui/PauseScreen.cs" id="1_er4pt"]
 [ext_resource type="PackedScene" uid="uid://bgh7iu7ibpoxu" path="res://scenes/ui/user_input_explainer.tscn" id="2_u1iu1"]
 
 [node name="PauseScreen" type="CanvasLayer"]

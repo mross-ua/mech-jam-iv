@@ -1,9 +1,9 @@
 [gd_scene load_steps=50 format=3 uid="uid://bt7vafft2mqcp"]
 
-[ext_resource type="Script" path="res://scripts/Player.cs" id="1_bcjvt"]
+[ext_resource type="Script" path="res://scripts/players/Player.cs" id="1_bcjvt"]
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://assets/spritesheets/char-sheet-alpha.png" id="1_fkqgm"]
 [ext_resource type="Texture2D" uid="uid://cmh45ek0vt4j4" path="res://assets/spritesheets/diewhirl-sheet-alpha.png" id="3_lkoxu"]
-[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_wlw4n"]
+[ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_wlw4n"]
 [ext_resource type="PackedScene" uid="uid://tatq2gmyab34" path="res://scenes/effects/immunity_shield.tscn" id="4_y0w7f"]
 [ext_resource type="PackedScene" uid="uid://c0h0eogjo2jqf" path="res://scenes/weapons/weapon_manager.tscn" id="6_3wjrj"]
 [ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="7_f12p3"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://dtsnbv8umgt5h"]
 
-[ext_resource type="Script" path="res://scripts/Robot.cs" id="1_ga06e"]
+[ext_resource type="Script" path="res://scripts/players/Robot.cs" id="1_ga06e"]
 [ext_resource type="Texture2D" uid="uid://bxs1dcnhhud8d" path="res://assets/spritesheets/tiles-tech-gold-blue-alpha.png" id="1_xq3as"]
-[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="3_5unbu"]
+[ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="3_5unbu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dsws0"]
 atlas = ExtResource("1_xq3as")

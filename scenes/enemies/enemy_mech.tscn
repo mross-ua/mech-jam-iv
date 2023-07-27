@@ -1,9 +1,9 @@
 [gd_scene load_steps=39 format=3 uid="uid://dyh1s8bk7j5t2"]
 
 [ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://assets/spritesheets/enemies2-sheet-alpha.png" id="1_e23bj"]
-[ext_resource type="Script" path="res://scripts/EnemyMech.cs" id="1_kyk5f"]
+[ext_resource type="Script" path="res://scripts/enemies/EnemyMech.cs" id="1_kyk5f"]
 [ext_resource type="Texture2D" uid="uid://bscr5no8hdlm8" path="res://assets/spritesheets/jrob774-explosion_2-sheet-alpha.png" id="2_g4aft"]
-[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_pw5xl"]
+[ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_pw5xl"]
 [ext_resource type="PackedScene" uid="uid://blpij04jleg8e" path="res://scenes/enemies/hitbox.tscn" id="5_jof1d"]
 [ext_resource type="PackedScene" uid="uid://c0h0eogjo2jqf" path="res://scenes/weapons/weapon_manager.tscn" id="6_ut1s5"]
 [ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="7_ii8ie"]

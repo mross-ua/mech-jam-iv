@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c6df5qfxoappy"]
 
 [ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://assets/spritesheets/space_merc.png" id="1_bgs5m"]
-[ext_resource type="Script" path="res://scripts/Barrel.cs" id="1_po06p"]
+[ext_resource type="Script" path="res://scripts/levels/decorations/Barrel.cs" id="1_po06p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eohit"]
 atlas = ExtResource("1_bgs5m")

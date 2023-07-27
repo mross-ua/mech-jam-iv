@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://c30u2um8erh61"]
 
-[ext_resource type="Script" path="res://scripts/Objective.cs" id="1_cnd7k"]
+[ext_resource type="Script" path="res://scripts/levels/decorations/Objective.cs" id="1_cnd7k"]
 [ext_resource type="Texture2D" uid="uid://jtvul1lc641r" path="res://assets/spritesheets/ship-unit-with-thrusts.png" id="1_phrf3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ka4q0"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bjdstnq527cta"]
 
-[ext_resource type="Script" path="res://scripts/JumpPad.cs" id="1_1xent"]
+[ext_resource type="Script" path="res://scripts/levels/decorations/JumpPad.cs" id="1_1xent"]
 [ext_resource type="Texture2D" uid="uid://5rgsfkhthdce" path="res://assets/spritesheets/tiles-tech-steel-green-alpha.png" id="1_f23xd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5utwj"]

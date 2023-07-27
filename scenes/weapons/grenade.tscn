@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://bg2lrlwoo7stu"]
 
 [ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://assets/spritesheets/space_merc.png" id="1_2e28v"]
-[ext_resource type="Script" path="res://scripts/Grenade.cs" id="1_k8bcu"]
+[ext_resource type="Script" path="res://scripts/weapons/Grenade.cs" id="1_k8bcu"]
 [ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://assets/spritesheets/impacts-sheet-colour-3-alpha.png" id="2_tts1i"]
-[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_twoyx"]
+[ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_twoyx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ajwn"]
 atlas = ExtResource("2_tts1i")

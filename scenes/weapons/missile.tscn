@@ -1,9 +1,9 @@
 [gd_scene load_steps=22 format=3 uid="uid://dxtbt33nlhuer"]
 
 [ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://assets/spritesheets/enemies2-sheet-alpha.png" id="1_22chs"]
-[ext_resource type="Script" path="res://scripts/Missile.cs" id="1_72hel"]
+[ext_resource type="Script" path="res://scripts/weapons/Missile.cs" id="1_72hel"]
 [ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://assets/spritesheets/impacts-sheet-colour-3-alpha.png" id="2_k15pn"]
-[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="2_schm0"]
+[ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="2_schm0"]
 
 [sub_resource type="Gradient" id="Gradient_03oxk"]
 offsets = PackedFloat32Array(0, 0.163717, 0.318584, 0.504425, 1)

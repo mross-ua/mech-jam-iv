@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://du3si7fvnoa5m"]
 
-[ext_resource type="Script" path="res://scripts/ExplosiveBarrel.cs" id="1_et6ja"]
+[ext_resource type="Script" path="res://scripts/levels/hazards/ExplosiveBarrel.cs" id="1_et6ja"]
 [ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://assets/spritesheets/space_merc.png" id="2_4gtso"]
 [ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://assets/spritesheets/impacts-sheet-colour-3-alpha.png" id="2_s5lj2"]
-[ext_resource type="Script" path="res://scripts/CharacterAnimator.cs" id="4_f8lv1"]
+[ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_f8lv1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_40jjt"]
 atlas = ExtResource("2_s5lj2")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cx2gfd1kayu52"]
 
 [ext_resource type="Texture2D" uid="uid://5rgsfkhthdce" path="res://assets/spritesheets/tiles-tech-steel-green-alpha.png" id="1_aupdy"]
-[ext_resource type="Script" path="res://scripts/Spikes.cs" id="1_x56ow"]
+[ext_resource type="Script" path="res://scripts/levels/hazards/Spikes.cs" id="1_x56ow"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e7upb"]
 atlas = ExtResource("1_aupdy")

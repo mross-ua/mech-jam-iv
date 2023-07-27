@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cih14kvkdr7ww"]
 
-[ext_resource type="Script" path="res://scripts/CreditsScreen.cs" id="1_66kps"]
+[ext_resource type="Script" path="res://scripts/ui/CreditsScreen.cs" id="1_66kps"]
 [ext_resource type="Texture2D" uid="uid://dcba5406u54qk" path="res://assets/other/qr-github.png" id="3_ccrig"]
 [ext_resource type="StyleBox" uid="uid://b08eihf13eg7t" path="res://resources/panel_style.tres" id="3_iiwy0"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://co8t223oorgqn"]
 
-[ext_resource type="Script" path="res://scripts/Spawn.cs" id="1_lewgn"]
+[ext_resource type="Script" path="res://scripts/levels/decorations/Spawn.cs" id="1_lewgn"]
 [ext_resource type="PackedScene" uid="uid://cses4a08f7sqs" path="res://scenes/levels/decorations/tile_map_tech_steel_green.tscn" id="1_lodwd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6o5a4"]

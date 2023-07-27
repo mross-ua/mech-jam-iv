@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/enemies/Hitbox.cs" id="1_fy7lg"]
 
-[node name="Hitbox" type="Area2D"]
+[node name="Hitbox" type="Area2D" groups=["hitbox"]]
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_fy7lg")
+Damage = 10

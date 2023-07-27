@@ -12,10 +12,10 @@ public partial class Hitbox : Area2D
 	public delegate void CollidingEventHandler(Node2D body);
 
 	[Export]
-	public int Damage { get; set; } = 10;
+	public int Damage { get; set; }
 
 	[Export]
-	public bool IsWeakSpot { get; set; } = false;
+	public bool IsWeakSpot { get; set; }
 
 	public override void _Ready()
 	{

@@ -90,7 +90,7 @@ public partial class ExplosiveBarrel : Barrel
 
 	#endregion
 
-	#region IDetonatable
+	#region IDetonable
 
 	[Signal]
 	public delegate void DetonatedEventHandler();

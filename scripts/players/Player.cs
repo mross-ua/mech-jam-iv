@@ -19,12 +19,6 @@ public partial class Player : CharacterBase
 
 	#endregion
 
-	#region Resources
-
-	private static readonly PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/effects/blood_splatter.tscn");
-
-	#endregion
-
     public override void _Ready()
     {
 		base._Ready();
@@ -82,7 +76,7 @@ public partial class Player : CharacterBase
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        this.EmitParticlesOnce(bloodSplatterResource.Instantiate<GpuParticles2D>(), globalPos);
+        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 	public void ActivateShield()

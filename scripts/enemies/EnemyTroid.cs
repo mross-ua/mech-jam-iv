@@ -7,14 +7,7 @@ public partial class EnemyTroid : EnemyBase
 
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
-	private int chaseDuration = 1;
 	private DateTime lastTimePlayerSeen = DateTime.MinValue;
-
-	#region Resources
-
-	private static readonly PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
-
-	#endregion
 
 	protected override Vector2 GetMovementDirection_Idle()
 	{
@@ -65,7 +58,7 @@ public partial class EnemyTroid : EnemyBase
 
 			lastTimePlayerSeen = DateTime.Now;
 		}
-		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= chaseDuration)
+		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= ChaseDuration)
 		{
 			State = EnemyState.Idle;
 		}
@@ -81,7 +74,7 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        this.EmitParticlesOnce(acidSplatter.Instantiate<GpuParticles2D>(), globalPos);
+        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 }

@@ -5,18 +5,11 @@ using MechJamIV;
 public partial class EnemyMech : EnemyBase
 {
 
-	private int chaseDuration = 10;
 	private DateTime lastTimePlayerSeen = DateTime.MinValue;
 
 	#region Node references
 
 	private WeaponManager weaponManager;
-
-	#endregion
-
-	#region Resources
-
-	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
 	#endregion
 
@@ -88,7 +81,7 @@ public partial class EnemyMech : EnemyBase
 
 			lastTimePlayerSeen = DateTime.Now;
 		}
-		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= chaseDuration)
+		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= ChaseDuration)
 		{
 			State = EnemyState.Idle;
 		}
@@ -114,7 +107,7 @@ public partial class EnemyMech : EnemyBase
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), globalPos);
+        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 }

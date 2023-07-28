@@ -20,6 +20,9 @@ namespace MechJamIV {
         [Export]
         public float JumpVelocity { get; set; } = -10.0f;
 
+        [Export]
+        public PackedScene PointDamageEffect { get; set; }
+
 	    protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 		protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
 

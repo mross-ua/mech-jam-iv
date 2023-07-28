@@ -21,6 +21,9 @@ namespace MechJamIV {
         [Export]
         public float PickupDropRate { get; set; } = 0.5f;
 
+        [Export]
+        public int ChaseDuration { get; set; }
+
         public EnemyState State { get; protected set; } = EnemyState.Idle;
 
         #region Node references

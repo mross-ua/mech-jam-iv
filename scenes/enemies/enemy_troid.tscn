@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://bwc210e86gkpi"]
+[gd_scene load_steps=21 format=3 uid="uid://bwc210e86gkpi"]
 
 [ext_resource type="Script" path="res://scripts/enemies/EnemyTroid.cs" id="1_l108c"]
 [ext_resource type="Texture2D" uid="uid://b376i71q83ere" path="res://assets/spritesheets/enemies-16col-sheet-alpha.png" id="2_4vtbx"]
 [ext_resource type="Texture2D" uid="uid://dbuffy8gymi7y" path="res://assets/spritesheets/impacts-sheet-colour-2-alpha.png" id="2_585xy"]
+[ext_resource type="PackedScene" uid="uid://4ymlnpettkdq" path="res://scenes/effects/acid_splatter.tscn" id="2_gvad2"]
 [ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_4be1k"]
 [ext_resource type="PackedScene" uid="uid://blpij04jleg8e" path="res://scenes/enemies/hitbox.tscn" id="4_eqwrd"]
 
@@ -123,6 +124,8 @@ radius = 9.0
 collision_layer = 64
 motion_mode = 1
 script = ExtResource("1_l108c")
+ChaseDuration = 1
+PointDamageEffect = ExtResource("2_gvad2")
 MoveAcceleration = 15.0
 MaxMoveSpeed = 60.0
 Health = 5

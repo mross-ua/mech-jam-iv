@@ -25,6 +25,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 
 	#region Resources
 
+	//TODO this needs to be communicated to the world
 	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
     #endregion

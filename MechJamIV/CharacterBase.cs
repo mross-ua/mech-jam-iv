@@ -135,7 +135,7 @@ namespace MechJamIV {
 
 			    collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-                this.TimedFree(5.0f, false, true);
+                this.TimedFree(5.0f);
             }
         }
 

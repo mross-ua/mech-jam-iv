@@ -7,9 +7,9 @@ namespace MechJamIV {
     public static class NodeHelper
     {
 
-        public static async void TimedFree(this Node node, double timeSec, bool processAlways = true, bool processInPhysics = false, bool ignoreTimeScale = false)
+        public static async void TimedFree(this Node node, double timeSec, bool processAlways = false, bool processInPhysics = true)
         {
-			await node.ToSignal(node.GetTree().CreateTimer(timeSec, processAlways, processInPhysics, ignoreTimeScale), SceneTreeTimer.SignalName.Timeout);
+			await node.ToSignal(node.GetTree().CreateTimer(timeSec, processAlways, processInPhysics), SceneTreeTimer.SignalName.Timeout);
 
 			node.QueueFree();
         }

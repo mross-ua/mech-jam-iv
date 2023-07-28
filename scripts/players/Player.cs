@@ -8,12 +8,13 @@ public partial class Player : CharacterBase
 	,IPlayable
 {
 
+	private bool isImmune = false;
+
 	#region Node references
 
 	public Marker2D RobotMarker { get; private set; }
 	public WeaponManager WeaponManager { get; private set; }
 
-	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
 	private RemoteTransform2D remoteTransform;
 
@@ -24,9 +25,6 @@ public partial class Player : CharacterBase
 		base._Ready();
 
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
-
-		immunityTimer = GetNode<Timer>("ImmunityTimer");
-		immunityTimer.Timeout += () => DeactivateShield();
 
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
 
@@ -95,9 +93,9 @@ public partial class Player : CharacterBase
 
 	#region ICollidable
 
-	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+	public async override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
-		if (immunityTimer.TimeLeft > 0)
+		if (isImmune)
 		{
 			return;
 		}
@@ -111,7 +109,11 @@ public partial class Player : CharacterBase
 
 		ActivateShield();
 
-		immunityTimer.Start();
+		await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
+
+		DeactivateShield();
+
+		isImmune = false;
 	}
 
 	#endregion

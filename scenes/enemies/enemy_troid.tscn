@@ -125,9 +125,9 @@ collision_layer = 64
 motion_mode = 1
 script = ExtResource("1_l108c")
 ChaseDuration = 1
-PointDamageEffect = ExtResource("2_gvad2")
 MoveAcceleration = 15.0
 MaxMoveSpeed = 60.0
+PointDamageEffect = ExtResource("2_gvad2")
 Health = 5
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]

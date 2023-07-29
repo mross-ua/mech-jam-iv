@@ -130,6 +130,8 @@ namespace MechJamIV {
 
                 EmitSignal(SignalName.Killed);
 
+                CharacterTracker.Untrack();
+
                 // NOTE: We disable the collision shape and wait to
 			    //       free so the death animation can fully play.
 

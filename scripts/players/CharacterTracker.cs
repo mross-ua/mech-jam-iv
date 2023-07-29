@@ -55,6 +55,7 @@ public partial class CharacterTracker : Node2D
 			{
 				DrawLine(rayCast.Position, ToLocal(rayCast.GetCollisionPoint()), Colors.SkyBlue);
 			}
+			//TODO don't draw a line if the target is no longer in range
 			else
 			{
 				DrawDashedLine(rayCast.Position, ToLocal(rayCast.GetCollisionPoint()), Colors.SkyBlue);
@@ -87,13 +88,33 @@ public partial class CharacterTracker : Node2D
 
 		if (target != null)
 		{
-			if (Owner is CharacterBase c)
+			//TODO we need another way to identify destructibles (we can't subscribe
+			//     to signals through interfaces, AFAIK)
+			// if (target is IDestructible d)
+			// {
+			// 	d.Killed += () => Untrack(target);
+			// }
+			if (target is CharacterBase c)
 			{
-				c.Killed += () => Untrack(target);
+				c.Killed += () =>
+				{
+					// make sure we are still tracking the object that fired this event
+					if (Target == target)
+					{
+						Untrack();
+					}
+				};
 			}
 
 			// just in case we miss the Killed signal
-			Target.TreeExiting += () => Untrack(target);
+			target.TreeExiting += () =>
+			{
+				// make sure we are still tracking the object that fired this event
+				if (Target == target)
+				{
+					Untrack();
+				}
+			};
 		}
 	}
 
@@ -107,13 +128,9 @@ public partial class CharacterTracker : Node2D
 		Track(target);
 	}
 
-	private void Untrack(Node2D target)
+	public void Untrack()
 	{
-		// make sure we are still tracking the object that fired this event
-		if (Target == target)
-		{
-			Track(null);
-		}
+		Target = null;
 	}
 
 }

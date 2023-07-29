@@ -71,4 +71,23 @@ public partial class Missile : Grenade
 		gpuParticles2D.Emitting = false;
 	}
 
+	#region IDestructible
+
+	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+	{
+		if (Health <= 0)
+		{
+			return;
+		}
+
+		base.Hurt(damage, globalPos, normal);
+
+		if (Health <= 0)
+		{
+			CharacterTracker.Untrack();
+		}
+	}
+
+	#endregion
+
 }

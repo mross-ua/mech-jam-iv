@@ -40,7 +40,13 @@ public partial class World : Node2D
 		InitDeathZones();
 
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
-		player.Killed += () => pauseScreen.PauseGame();
+		player.Killed += async () =>
+		{
+			//TODO ideally this should wait for the death animation to finish
+			await ToSignal(GetTree().CreateTimer(3.0f), SceneTreeTimer.SignalName.Timeout);
+
+			pauseScreen.PauseGame();
+		};
 
 		robot.GlobalTransform = player.RobotMarker.GlobalTransform;
 		robot.CharacterTracker.Track(player);

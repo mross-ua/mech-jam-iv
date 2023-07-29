@@ -15,7 +15,7 @@ namespace MechJamIV {
 		public int Ammo { get; }
 
 		//[Export(PropertyHint.Layers2DPhysics)]
-		public uint LineOfSightMask { get; }
+		public uint CollisionMask { get; }
 
 		public float LineOfSightDistance { get; }
 

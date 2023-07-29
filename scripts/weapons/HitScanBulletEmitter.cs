@@ -68,7 +68,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 			Exclude = bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,
-			CollisionMask = LineOfSightMask
+			CollisionMask = CollisionMask
 		});
 
 		if (collision.ContainsKey("collider"))

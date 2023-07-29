@@ -45,7 +45,7 @@ namespace MechJamIV {
         }
 
         [Export(PropertyHint.Layers2DPhysics)]
-        public uint LineOfSightMask { get; set; }
+        public uint CollisionMask { get; set; }
 
         [Export]
         public float LineOfSightDistance { get; set; }

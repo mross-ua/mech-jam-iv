@@ -6,7 +6,6 @@ using System.Linq;
 
 namespace MechJamIV {
     public abstract partial class EnemyBase : CharacterBase
-        ,ITracker
     {
 
         [Signal]
@@ -67,10 +66,6 @@ namespace MechJamIV {
                     };
                 }
             }
-
-#if DEBUG
-            AddRayCast();
-#endif
         }
 
         protected sealed override Vector2 GetMovementDirection()
@@ -113,10 +108,6 @@ namespace MechJamIV {
 
                     break;
             }
-
-#if DEBUG
-            UpdateRayCastToTarget();
-#endif
         }
 
         protected abstract void ProcessAction_Idle();
@@ -158,38 +149,6 @@ namespace MechJamIV {
                 }
 
                 hitboxes.Clear();
-            }
-        }
-
-        #endregion
-
-        #region ITracker
-
-        public CollisionLayerMask LineOfSightMask { get; private set; }
-
-        public float LineOfSightDistance { get; private set; } = 10_000.0f;
-
-        public CharacterBase Target { get; private set; }
-
-        public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)
-        {
-            Target = c;
-            LineOfSightMask = lineOfSightMask;
-
-            if (c != null)
-            {
-                Target.Killed += () => Untrack(c);
-                // just in case we miss the Killed signal
-                Target.TreeExiting += () => Untrack(c);
-            }
-        }
-
-        private void Untrack(CharacterBase c)
-        {
-            // make sure we are still tracking the object that fired this event
-            if (Target == c)
-            {
-                Target = null;
             }
         }
 

@@ -19,7 +19,7 @@ public partial class ProjectileEmitter : WeaponBase
 		bodiesToExclude = new List<CollisionObject2D>(bodies);
 	}
 
-	protected async override void _Fire(Vector2 globalPos, CharacterBase target)
+	protected async override void _Fire(Vector2 globalPos, CollisionObject2D target = null)
 	{
 		ProjectileBase projectile = ProjectileBaseItem.Instantiate<ProjectileBase>();
 		projectile.GlobalTransform = GlobalTransform;
@@ -35,9 +35,10 @@ public partial class ProjectileEmitter : WeaponBase
 			d.PrimeFuse();
 		}
 
-		if (projectile is ITracker t)
+		//TODO we need another way to identify trackers (since we got rid of ITracker)
+		if (projectile is Missile m)
 		{
-			t.Track(target, (CollisionLayerMask)LineOfSightMask);
+			m.CharacterTracker.Track(target);
 		}
 	}
 

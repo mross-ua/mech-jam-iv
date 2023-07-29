@@ -14,7 +14,7 @@ namespace MechJamIV {
 
         public abstract void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies);
 
-        protected abstract void _Fire(Vector2 globalPos, CharacterBase target);
+        protected abstract void _Fire(Vector2 globalPos, CollisionObject2D target = null);
 
         #region IWeapon
 
@@ -50,7 +50,7 @@ namespace MechJamIV {
         [Export]
         public float LineOfSightDistance { get; set; }
 
-        public async void Fire(Vector2 globalPos, CharacterBase target = null)
+        public async void Fire(Vector2 globalPos, CollisionObject2D target = null)
         {
             if (isCoolingDown)
             {

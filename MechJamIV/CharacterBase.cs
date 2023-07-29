@@ -28,6 +28,8 @@ namespace MechJamIV {
 
         #region Node references
 
+        public CharacterTracker CharacterTracker { get; private set;}
+
         private CharacterAnimator characterAnimator;
 
 	    private CollisionShape2D collisionShape2D;
@@ -45,6 +47,8 @@ namespace MechJamIV {
                 Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, MoveAcceleration / MaxMoveSpeed);
             }
 
+            CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
+
             characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 		    collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 		}
@@ -61,10 +65,6 @@ namespace MechJamIV {
             }
 
             AnimateMovement();
-
-#if DEBUG
-            QueueRedraw();
-#endif
         }
 
 		public override void _PhysicsProcess(double delta)

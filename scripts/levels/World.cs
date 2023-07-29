@@ -43,7 +43,7 @@ public partial class World : Node2D
 		player.Killed += () => pauseScreen.PauseGame();
 
 		robot.GlobalTransform = player.RobotMarker.GlobalTransform;
-		robot.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);
+		robot.CharacterTracker.Track(player);
 
 		playerCamera.Track(player);
 	}
@@ -86,7 +86,7 @@ public partial class World : Node2D
 				GetTree().CurrentScene.AddChildDeferred(pickup);
 			};
 
-			enemy.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);
+			enemy.CharacterTracker.Track(player);
 		}
 	}
 

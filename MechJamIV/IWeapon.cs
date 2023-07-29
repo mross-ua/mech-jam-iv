@@ -15,11 +15,11 @@ namespace MechJamIV {
 		public int Ammo { get; }
 
 		//[Export(PropertyHint.Layers2DPhysics)]
-		public uint LineOfSightMask { get; set; }
+		public uint LineOfSightMask { get; }
 
-		public float LineOfSightDistance { get; set; }
+		public float LineOfSightDistance { get; }
 
-		public void Fire(Vector2 globalPos, CharacterBase target = null);
+		public void Fire(Vector2 globalPos, CollisionObject2D target = null);
 
 	}
 }

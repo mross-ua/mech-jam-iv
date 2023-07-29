@@ -40,12 +40,12 @@ public partial class EnemyMech : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Chase()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			return Vector2.Zero;
 		}
 
-		return new Vector2(this.GetDirectionToTarget().X, 0.0f).Normalized();
+		return new Vector2(CharacterTracker.GetDirectionToTarget().X, 0.0f).Normalized();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -57,11 +57,11 @@ public partial class EnemyMech : EnemyBase
 
 	protected override void ProcessAction_Idle()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			return;
 		}
-		else if (this.IsTargetInFieldOfView(FaceDirection, FieldOfView) && this.IsTargetInLineOfSight())
+		else if (CharacterTracker.IsTargetInFieldOfView(FaceDirection, FieldOfView) && CharacterTracker.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Chase;
 
@@ -71,11 +71,11 @@ public partial class EnemyMech : EnemyBase
 
 	protected override void ProcessAction_Chase()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			State = EnemyState.Idle;
 		}
-		else if (this.IsTargetInLineOfSight())
+		else if (CharacterTracker.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Attacking;
 
@@ -89,11 +89,11 @@ public partial class EnemyMech : EnemyBase
 
 	protected override void ProcessAction_Attacking()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			State = EnemyState.Idle;
 		}
-		else if (!this.IsTargetInLineOfSight())
+		else if (!CharacterTracker.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Chase;
 
@@ -101,8 +101,8 @@ public partial class EnemyMech : EnemyBase
 		}
 
 		//TODO we only want to fire machine gun if player is within attack range
-		//weaponManager.Fire(FireMode.PrimarySustained, Target.GlobalTransform.Origin, Target);
-		weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), Target);
+		//weaponManager.Fire(FireMode.PrimarySustained, Target.GlobalTransform.Origin, CharacterTracker.Target);
+		weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), CharacterTracker.Target);
 	}
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)

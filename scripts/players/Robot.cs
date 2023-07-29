@@ -3,14 +3,13 @@ using System;
 using MechJamIV;
 
 public partial class Robot : CharacterBase
-	,ITracker
 {
 
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
 	protected override Vector2 GetMovementDirection()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			return Vector2.Zero;
 		}
@@ -18,7 +17,7 @@ public partial class Robot : CharacterBase
 		//TODO there's a hard cast here--need to refactor...something.
 		//     we don't need to rely on the marker--the robot will eventually
 		//     have other logic or user input
-		return GlobalTransform.Origin.DirectionTo(((Player)Target).RobotMarker.GlobalTransform.Origin);
+		return GlobalTransform.Origin.DirectionTo(((Player)CharacterTracker.Target).RobotMarker.GlobalTransform.Origin);
 	}
 
     protected override bool IsJumping() => false;
@@ -40,39 +39,6 @@ public partial class Robot : CharacterBase
 		// ignore damage
         //base.Hurt(damage, globalPos, normal);
     }
-
-	#endregion
-
-	#region ITracker
-
-	public CollisionLayerMask LineOfSightMask { get; private set; }
-
-	[Obsolete("Not being used.")]
-	public float LineOfSightDistance { get; private set; } = 10_000.0f;
-
-	public CharacterBase Target { get; private set; }
-
-	public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)
-	{
-		Target = c;
-		LineOfSightMask = lineOfSightMask;
-
-		if (c != null)
-		{
-			Target.Killed += () => Untrack(c);
-			// just in case we miss the Killed signal
-			Target.TreeExiting += () => Untrack(c);
-		}
-	}
-
-	private void Untrack(CharacterBase c)
-	{
-		// make sure we are still tracking the object that fired this event
-		if (Target == c)
-		{
-			Target = null;
-		}
-	}
 
 	#endregion
 

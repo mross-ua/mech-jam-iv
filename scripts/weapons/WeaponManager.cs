@@ -38,7 +38,7 @@ public partial class WeaponManager : Node2D
 		SecondaryWeapon?.SetBodiesToExclude(bodies);
 	}
 
-	public void Fire(FireMode mode, Vector2 globalPos, CharacterBase target = null)
+	public void Fire(FireMode mode, Vector2 globalPos, CollisionObject2D target = null)
 	{
 		switch (mode)
 		{

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbkjkuljk0kq"]
+
+[ext_resource type="Script" path="res://scripts/players/CharacterTracker.cs" id="1_5syax"]
+
+[node name="CharacterTracker" type="Node2D"]
+script = ExtResource("1_5syax")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+collision_mask = 0
+collide_with_areas = true

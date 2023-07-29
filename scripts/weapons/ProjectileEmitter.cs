@@ -28,7 +28,9 @@ public partial class ProjectileEmitter : WeaponBase
 
 		await GetTree().CurrentScene.AddChildDeferred(projectile);
 
-		projectile.ApplyImpulse((globalPos - GlobalTransform.Origin).Normalized() * ImpulseStrength);
+		Vector2 dir = (globalPos - GlobalTransform.Origin).Normalized();
+
+		projectile.ApplyImpulse(dir * ImpulseStrength);
 
 		if (projectile is IDetonable d)
 		{
@@ -38,6 +40,9 @@ public partial class ProjectileEmitter : WeaponBase
 		//TODO we need another way to identify trackers (since we got rid of ITracker)
 		if (projectile is Missile m)
 		{
+			//TODO this is needed only if there is no target
+			m.Rotate(m.CharacterAnimator.SpriteFaceDirection.AngleTo(dir));
+
 			m.CharacterTracker.Track(target);
 		}
 	}

@@ -17,7 +17,7 @@ public partial class ExplosiveBarrel : Barrel
 
 	#region Node references
 
-	protected CharacterAnimator CharacterAnimator;
+	public CharacterAnimator CharacterAnimator;
 
 	private CollisionShape2D collisionShape2D;
 	private Area2D explosionAreaOfEffect;
@@ -30,6 +30,7 @@ public partial class ExplosiveBarrel : Barrel
 		base._Ready();
 
 		CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 
 		explosionAreaOfEffect = GetNode<Area2D>("ExplosionAreaOfEffect");

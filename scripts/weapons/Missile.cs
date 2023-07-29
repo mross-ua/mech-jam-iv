@@ -18,7 +18,6 @@ public partial class Missile : Grenade
 	public CharacterTracker CharacterTracker { get; private set;}
 
 	private GpuParticles2D gpuParticles2D;
-	private CharacterAnimator characterAnimator;
 
 	#endregion
 
@@ -29,7 +28,6 @@ public partial class Missile : Grenade
 		CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
 
 		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
-		characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
 
 		BodyEntered += (body) => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
 	}
@@ -45,7 +43,7 @@ public partial class Missile : Grenade
 		{
 			Vector2 directionToTarget = CharacterTracker.GetDirectionToTarget();
 
-			float angleDiff = Mathf.RadToDeg(characterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
+			float angleDiff = Mathf.RadToDeg(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
 			int turnDirection = Mathf.Sign(angleDiff);
 
 			float rotation = TurnSpeed * (float)delta;
@@ -60,7 +58,7 @@ public partial class Missile : Grenade
 			}
 		}
 
-		ApplyForce(characterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
+		ApplyForce(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
     }
 
 	protected override void AnimateDeath()

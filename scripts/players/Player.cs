@@ -100,6 +100,8 @@ public partial class Player : CharacterBase
 			return;
 		}
 
+		isImmune = true;
+
 		base.Hurt(damage, globalPos, normal);
 
 		if (Health <= 0)

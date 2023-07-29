@@ -56,7 +56,8 @@ public partial class CharacterTracker : Node2D
 				DrawLine(rayCast.Position, ToLocal(rayCast.GetCollisionPoint()), Colors.SkyBlue);
 			}
 			//TODO don't draw a line if the target is no longer in range
-			else if (rayCast.IsColliding() && !rayCast.GetCollisionPoint().IsZeroApprox())
+			//     (this will show a line if there is a wall in range but not the player)
+			else if (rayCast.IsColliding())
 			{
 				DrawDashedLine(rayCast.Position, ToLocal(rayCast.GetCollisionPoint()), Colors.SkyBlue);
 			}

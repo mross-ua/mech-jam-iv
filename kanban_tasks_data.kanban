@@ -40,7 +40,6 @@
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
 			"title": "Doing",
 			"tasks": [
-				"b325c2a2-30fa-44e2-a074-ae678f6a1dd8",
 				"0053ca14-5347-4029-bb7e-1a220b554cc7"
 			]
 		},
@@ -51,6 +50,7 @@
 				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
 				"7171987d-0355-4db3-be06-05746adb5967",
 				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
+				"b325c2a2-30fa-44e2-a074-ae678f6a1dd8",
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
 				"7e206230-1945-43db-9228-ad0085d786ee",
@@ -788,7 +788,7 @@
 			"steps": [
 				{
 					"details": "Allow player to use missiles",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add missile pickups",

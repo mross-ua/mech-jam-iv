@@ -43,7 +43,7 @@ public partial class World : Node2D
 		player.Killed += async () =>
 		{
 			//TODO ideally this should wait for the death animation to finish
-			await ToSignal(GetTree().CreateTimer(3.0f), SceneTreeTimer.SignalName.Timeout);
+			await ToSignal(GetTree().CreateTimer(3.0f, false, true), SceneTreeTimer.SignalName.Timeout);
 
 			pauseScreen.PauseGame();
 		};

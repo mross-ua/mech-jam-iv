@@ -111,7 +111,7 @@ public partial class Player : CharacterBase
 
 		ActivateShield();
 
-		await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(2.0f, false, true), SceneTreeTimer.SignalName.Timeout);
 
 		DeactivateShield();
 

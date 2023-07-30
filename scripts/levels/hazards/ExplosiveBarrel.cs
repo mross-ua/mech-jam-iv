@@ -99,7 +99,7 @@ public partial class ExplosiveBarrel : Barrel
 	[Export]
 	public float FuseDelay { get; set; } = 4.0f;
 
-	private bool isFusePrimed = false;
+	protected bool IsFusePrimed { get; private set; } = false;
 
 	public async void PrimeFuse()
 	{
@@ -107,12 +107,12 @@ public partial class ExplosiveBarrel : Barrel
 		{
 			return;
 		}
-		else if (isFusePrimed)
+		else if (IsFusePrimed)
 		{
 			return;
 		}
 
-		isFusePrimed = true;
+		IsFusePrimed = true;
 
 		await ToSignal(GetTree().CreateTimer(FuseDelay, false, true), SceneTreeTimer.SignalName.Timeout);
 

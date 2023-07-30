@@ -15,9 +15,9 @@ public partial class Missile : Grenade
 
 	#region Node references
 
-	public CharacterTracker CharacterTracker { get; private set;}
+	public GpuParticles2D GpuParticles2D { get; private set; }
 
-	private GpuParticles2D gpuParticles2D;
+	public CharacterTracker CharacterTracker { get; private set; }
 
 	#endregion
 
@@ -25,11 +25,17 @@ public partial class Missile : Grenade
 	{
 		base._Ready();
 
+		GpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
+
 		CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
 
-		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
-
-		BodyEntered += (body) => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+		BodyEntered += (body) =>
+		{
+			if (IsFusePrimed)
+			{
+				Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+			}
+		};
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -66,7 +72,7 @@ public partial class Missile : Grenade
 		base.AnimateDeath();
 
 		// allow emitted particles to decay
-		gpuParticles2D.Emitting = false;
+		GpuParticles2D.Emitting = false;
 	}
 
 	#region IDestructible

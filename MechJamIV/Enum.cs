@@ -32,7 +32,8 @@ namespace MechJamIV {
     public enum PickupType : long
     {
         Medkit = 0,
-        Grenade = 1
+        Grenade = 1,
+        Missile = 2
     }
 
     public enum EnemyState : long

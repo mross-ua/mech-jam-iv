@@ -12,19 +12,24 @@ namespace MechJamIV {
 
     	private static readonly PackedScene grenadePickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/grenade_pickup.tscn");
 
+    	private static readonly PackedScene missilePickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/missile_pickup.tscn");
+
         #endregion
 
         public static PickupBase GenerateRandomPickup(float probability)
         {
             if (RandomHelper.GetSingle() <= probability)
             {
-                switch ((PickupType)RandomHelper.GetInt(2))
+                switch ((PickupType)RandomHelper.GetInt(Enum.GetValues<PickupType>().Length))
                 {
                     case PickupType.Medkit:
-                        return medkitPickup.Instantiate<PickupBase>();
+                        return medkitPickup.Instantiate<MedkitPickup>();
 
                     case PickupType.Grenade:
-                        return grenadePickup.Instantiate<PickupBase>();
+                        return grenadePickup.Instantiate<GrenadePickup>();
+
+                    case PickupType.Missile:
+                         return missilePickup.Instantiate<MissilePickup>();
                 }
             }
 

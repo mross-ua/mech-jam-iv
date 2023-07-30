@@ -50,6 +50,8 @@ namespace MechJamIV {
         [Export]
         public float LineOfSightDistance { get; set; }
 
+        public abstract Texture2D SpriteTexture { get; }
+
         public async void Fire(Vector2 globalPos, CollisionObject2D target = null)
         {
             if (isCoolingDown)

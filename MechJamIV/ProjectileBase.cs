@@ -12,6 +12,8 @@ namespace MechJamIV {
 		[Export]
 		public PackedScene PointDamageEffect { get; set; }
 
+    	public abstract Texture2D SpriteTexture { get; }
+
 		public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 		{
 			//TODO remove previously excluded bodies?

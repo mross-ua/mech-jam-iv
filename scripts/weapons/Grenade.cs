@@ -6,6 +6,6 @@ using MechJamIV;
 public partial class Grenade : ExplosiveBarrel
 {
 
-	//TODO we can get rid of this class
+    public override Texture2D SpriteTexture => GetNode<CharacterAnimator>("CharacterAnimator").SpriteFrames.GetFrameTexture("idle", 0);
 
 }

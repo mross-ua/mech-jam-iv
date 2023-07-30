@@ -47,4 +47,10 @@ public partial class ProjectileEmitter : WeaponBase
 		}
 	}
 
+	#region IWeapon
+
+    public override Texture2D SpriteTexture => ProjectileBaseItem.Instantiate<ProjectileBase>().SpriteTexture;
+
+	#endregion
+
 }

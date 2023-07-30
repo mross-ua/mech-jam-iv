@@ -101,4 +101,10 @@ public partial class HitScanBulletEmitter : WeaponBase
 		isNeedsRedraw = true;
 	}
 
+	#region IWeapon
+
+    public override Texture2D SpriteTexture => GetNode<Sprite2D>("UISprite").Texture;
+
+	#endregion
+
 }

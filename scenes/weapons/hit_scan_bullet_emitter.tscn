@@ -9,6 +9,7 @@ Damage = 1
 TracerColor = Color(1, 1, 1, 1)
 TracerWidth = 1.0
 RoundsPerSecond = 1.0
+LineOfSightDistance = 10000.0
 
 [node name="UISprite" type="Sprite2D" parent="."]
 visible = false

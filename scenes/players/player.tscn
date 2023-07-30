@@ -345,7 +345,6 @@ TracerColor = Color(1, 1, 0.7, 1)
 RoundsPerSecond = 5.0
 Ammo = -1
 CollisionMask = 289
-LineOfSightDistance = 10000.0
 
 [node name="ProjectileEmitter" parent="WeaponManager" instance=ExtResource("8_4d3xc")]
 ProjectileBaseItem = ExtResource("9_ird66")

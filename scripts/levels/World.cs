@@ -120,14 +120,31 @@ public partial class World : Node2D
 			};
 		}
 	}
+    public override void _Input(InputEvent @event)
+    {
+		if (@event.IsActionPressed("quit"))
+		{
+			pauseScreen.PauseGame();
+
+			GetViewport().SetInputAsHandled();
+		}
+    }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionJustPressed("quit"))
+		if (Input.IsActionPressed("fire_secondary"))
 		{
-			pauseScreen.PauseGame();
+			if (player.CharacterTracker.Target == null || Input.IsActionJustPressed("fire_secondary"))
+			{
+				CollisionObject2D target = FindTarget(GetGlobalMousePosition());
+
+				if (target != null)
+				{
+					player.CharacterTracker.Track(target);
+				}
+			}
 		}
-		else if (Input.IsActionJustPressed("fire_secondary"))
+		else if (Input.IsActionJustReleased("fire_secondary"))
 		{
 			player.Fire(FireMode.Secondary, GetGlobalMousePosition());
 		}
@@ -140,5 +157,41 @@ public partial class World : Node2D
 			player.Fire(FireMode.Primary, GetGlobalMousePosition());
 		}
     }
+
+	private CollisionObject2D FindTarget(Vector2 globalPos)
+	{
+		CollisionObject2D target = null;
+
+		PhysicsShapeQueryParameters2D queryParams = new ()
+		{
+			Transform = new Transform2D()
+			{
+				Origin = globalPos
+			},
+			Shape = new CircleShape2D()
+			{
+				Radius = 300.0f
+			},
+			CollisionMask = (uint)CollisionLayerMask.Enemy,
+			Exclude = null
+		};
+
+		foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
+		{
+			if (collision["collider"].Obj is CharacterBase character)
+			{
+				if (target == null)
+				{
+					target = character;
+				}
+				else if ((character.GlobalTransform.Origin - GlobalTransform.Origin).Length() < (target.GlobalTransform.Origin - GlobalTransform.Origin).Length())
+				{
+					target = character;
+				}
+			}
+		}
+
+		return target;
+	}
 
 }

@@ -50,11 +50,7 @@ public partial class Player : CharacterBase
 			return;
 		}
 
-		//TODO let's have missiles scan for the nearest target (long-term solution is to let user select a target)
-
-		//CharacterBase c = GetTree().GetNodesInGroup("enemy").OfType<EnemyBase>().Where(e => e.Health > 0).FirstOrDefault();
-		//WeaponManager.Fire(mode, globalPos, c);
-		WeaponManager.Fire(mode, globalPos);
+		WeaponManager.Fire(mode, globalPos, CharacterTracker.Target);
 	}
 
 	public void Pickup(PickupBase pickup)
@@ -67,6 +63,10 @@ public partial class Player : CharacterBase
 				break;
 			case PickupType.Grenade:
 				WeaponManager.PickupAmmo(PickupType.Grenade);
+
+				break;
+			case PickupType.Missile:
+				WeaponManager.PickupAmmo(PickupType.Missile);
 
 				break;
 		}

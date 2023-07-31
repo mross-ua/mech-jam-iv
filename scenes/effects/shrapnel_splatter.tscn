@@ -19,6 +19,7 @@ orbit_velocity_max = 0.0
 color_ramp = SubResource("GradientTexture1D_8uv3t")
 
 [node name="ShrapnelSplatter" type="GPUParticles2D"]
+z_index = 1
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_d4e1w")
 one_shot = true

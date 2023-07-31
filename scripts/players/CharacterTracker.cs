@@ -15,9 +15,13 @@ public partial class CharacterTracker : Node2D
 	[Export]
 	public float LineOfSightDistance { get; private set; }
 
+	[Export]
+	public bool DrawReticle { get; set; }
+
     #region Node references
 
-    RayCast2D rayCast;
+    private RayCast2D rayCast;
+	private Sprite2D sprite2d;
 
     #endregion
 
@@ -25,6 +29,8 @@ public partial class CharacterTracker : Node2D
     {
 		rayCast = GetNode<RayCast2D>("RayCast2D");
 		rayCast.CollisionMask = LineOfSightMask;
+
+		sprite2d = GetNode<Sprite2D>("Sprite2D");
     }
 
 	public override void _Process(double delta)
@@ -39,6 +45,12 @@ public partial class CharacterTracker : Node2D
     {
 		if (Target != null)
 		{
+			if (DrawReticle)
+			{
+				sprite2d.GlobalPosition = Target.GlobalPosition;
+				sprite2d.Rotate(0.5f * (float)delta);
+			}
+
 			rayCast.TargetPosition = GetDirectionToTarget() * LineOfSightDistance;
 
 			//TODO is this a good solution or a hack?
@@ -89,6 +101,9 @@ public partial class CharacterTracker : Node2D
 
 		if (target != null)
 		{
+			sprite2d.Visible = DrawReticle;
+			sprite2d.Rotation = 0.0f;
+
 			//TODO we need another way to identify destructibles (we can't subscribe
 			//     to signals through interfaces, AFAIK)
 			// if (target is IDestructible d)
@@ -117,6 +132,10 @@ public partial class CharacterTracker : Node2D
 				}
 			};
 		}
+		else
+		{
+			sprite2d.Visible = false;
+		}
 	}
 
 	public void Track(CollisionObject2D target, uint lineOfSightMask, float lineOfSightDistance)
@@ -132,6 +151,8 @@ public partial class CharacterTracker : Node2D
 	public void Untrack()
 	{
 		Target = null;
+
+		sprite2d.Visible = false;
 	}
 
 }

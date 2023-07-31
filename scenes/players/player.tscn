@@ -331,6 +331,7 @@ shape = SubResource("RectangleShape2D_euxq4")
 [node name="CharacterTracker" parent="." instance=ExtResource("7_omsc2")]
 LineOfSightMask = 65
 LineOfSightDistance = 10000.0
+DrawReticle = true
 
 [node name="ImmunityShield" parent="." instance=ExtResource("4_y0w7f")]
 visible = false

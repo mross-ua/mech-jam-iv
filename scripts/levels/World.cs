@@ -115,7 +115,7 @@ public partial class World : Node2D
 			{
 				if (body is Player player)
 				{
-					player.Hurt(player.Health, player.GlobalTransform.Origin, Vector2.Zero);
+					player.Hurt(player.Health, player.GlobalPosition, Vector2.Zero);
 				}
 			};
 		}
@@ -203,7 +203,7 @@ public partial class World : Node2D
 				{
 					target = character;
 				}
-				else if ((character.GlobalTransform.Origin - GlobalTransform.Origin).Length() < (target.GlobalTransform.Origin - GlobalTransform.Origin).Length())
+				else if ((character.GlobalPosition - GlobalPosition).Length() < (target.GlobalPosition - GlobalPosition).Length())
 				{
 					target = character;
 				}

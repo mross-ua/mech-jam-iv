@@ -20,7 +20,7 @@ public partial class MissilePickup : PickupBase
 		//       the initial position.
 
 		missile = GetNode<Missile>("Missile");
-		missile.GlobalTransform = GlobalTransform;
+		missile.GlobalPosition = GlobalPosition;
 		missile.GpuParticles2D.Visible = false;
 		missile.ThrustForce = 0.0f;
 		missile.GravityScale = 1.0f;

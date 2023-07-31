@@ -33,7 +33,7 @@ public partial class Missile : Grenade
 		{
 			if (IsFusePrimed)
 			{
-				Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+				Hurt(Health, GlobalPosition, Vector2.Zero);
 			}
 		};
 	}

@@ -61,7 +61,7 @@ namespace MechJamIV {
 
                         if (body is Player player)
                         {
-                            player.Hurt(hitbox.Damage, hitbox.GlobalTransform.Origin, Vector2.Zero);
+                            player.Hurt(hitbox.Damage, hitbox.GlobalPosition, Vector2.Zero);
                         }
                     };
                 }
@@ -122,7 +122,7 @@ namespace MechJamIV {
 
             if (pickup != null)
             {
-                pickup.GlobalTransform = GlobalTransform;
+                pickup.GlobalPosition = GlobalPosition;
 
                 EmitSignal(SignalName.PickupDropped, pickup);
             }

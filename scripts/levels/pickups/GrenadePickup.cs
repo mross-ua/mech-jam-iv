@@ -20,7 +20,7 @@ public partial class GrenadePickup : PickupBase
 		//       the initial position.
 
 		grenade = GetNode<Grenade>("Grenade");
-		grenade.GlobalTransform = GlobalTransform;
+		grenade.GlobalPosition = GlobalPosition;
 		grenade.Killed += () => QueueFree();
 	}
 

@@ -123,7 +123,7 @@ public partial class ExplosiveBarrel : Barrel
 
         EmitSignal(SignalName.Detonated);
 
-		Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+		Hurt(Health, GlobalPosition, Vector2.Zero);
 	}
 
 	private void Detonate()
@@ -138,16 +138,16 @@ public partial class ExplosiveBarrel : Barrel
 
 			if (node is CharacterBase character)
 			{
-				Vector2 dir = character.GlobalTransform.Origin - GlobalTransform.Origin;
+				Vector2 dir = character.GlobalPosition - GlobalPosition;
 
-				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalTransform.Origin, -dir.Normalized());
+				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalPosition, -dir.Normalized());
 				character.Velocity += ExplosionIntensity * dir / dir.LengthSquared();
 			}
 			else if (node is ProjectileBase projectile)
 			{
-				Vector2 dir = projectile.GlobalTransform.Origin - GlobalTransform.Origin;
+				Vector2 dir = projectile.GlobalPosition - GlobalPosition;
 
-				projectile.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), projectile.GlobalTransform.Origin, -dir.Normalized());
+				projectile.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), projectile.GlobalPosition, -dir.Normalized());
 				projectile.ApplyImpulse(ExplosionIntensity * dir / dir.LengthSquared());
 			}
 		}

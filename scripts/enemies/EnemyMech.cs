@@ -101,7 +101,7 @@ public partial class EnemyMech : EnemyBase
 		}
 
 		//TODO we only want to fire machine gun if player is within attack range
-		//weaponManager.Fire(FireMode.PrimarySustained, Target.GlobalTransform.Origin, CharacterTracker.Target);
+		//weaponManager.Fire(FireMode.PrimarySustained, Target.GlobalPosition, CharacterTracker.Target);
 		weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), CharacterTracker.Target);
 	}
 

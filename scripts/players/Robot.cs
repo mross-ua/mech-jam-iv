@@ -17,7 +17,7 @@ public partial class Robot : CharacterBase
 		//TODO there's a hard cast here--need to refactor...something.
 		//     we don't need to rely on the marker--the robot will eventually
 		//     have other logic or user input
-		return GlobalTransform.Origin.DirectionTo(((Player)CharacterTracker.Target).RobotMarker.GlobalTransform.Origin);
+		return GlobalPosition.DirectionTo(((Player)CharacterTracker.Target).RobotMarker.GlobalPosition);
 	}
 
     protected override bool IsJumping() => false;

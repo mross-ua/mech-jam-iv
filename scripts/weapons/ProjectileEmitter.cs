@@ -28,7 +28,7 @@ public partial class ProjectileEmitter : WeaponBase
 
 		await GetTree().CurrentScene.AddChildDeferred(projectile);
 
-		Vector2 dir = (globalPos - GlobalTransform.Origin).Normalized();
+		Vector2 dir = (globalPos - GlobalPosition).Normalized();
 
 		projectile.ApplyImpulse(dir * ImpulseStrength);
 

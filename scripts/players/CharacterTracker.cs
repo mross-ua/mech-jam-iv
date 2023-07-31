@@ -80,7 +80,7 @@ public partial class CharacterTracker : Node2D
 	{
 		Debug.Assert(Target != null, "A target is not currently being tracked.");
 
-		return GlobalTransform.Origin.DirectionTo(Target.GlobalTransform.Origin);
+		return GlobalPosition.DirectionTo(Target.GlobalPosition);
 	}
 
 	public bool IsTargetInFieldOfView(Vector2 faceDirection, float fieldOfView)

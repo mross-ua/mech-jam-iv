@@ -33,7 +33,8 @@
 			"tasks": [
 				"a53af30a-1248-4ce9-af0d-2e9ba8d9ff5d",
 				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
-				"08118283-8d8e-439e-9461-bcba7524f3f1"
+				"08118283-8d8e-439e-9461-bcba7524f3f1",
+				"20b64220-52f2-438c-8405-0df6bf846e55"
 			]
 		},
 		{
@@ -51,6 +52,7 @@
 				"7171987d-0355-4db3-be06-05746adb5967",
 				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
 				"b325c2a2-30fa-44e2-a074-ae678f6a1dd8",
+				"51f2eb60-fbd4-4e42-b1ca-f5293792e952",
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
 				"7e206230-1945-43db-9228-ad0085d786ee",
@@ -94,7 +96,8 @@
 				"74fb86a6-2527-47c8-8624-c0c9442ec0a6",
 				"f8dda55a-578b-4880-9b17-775cabd85440",
 				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
-				"6b3037da-cead-452c-9582-7a0165e5373e"
+				"6b3037da-cead-452c-9582-7a0165e5373e",
+				"8291bf58-3836-4ce6-9db8-00131972df86"
 			]
 		},
 		{
@@ -106,7 +109,6 @@
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
 			"tasks": [
-				"51f2eb60-fbd4-4e42-b1ca-f5293792e952",
 				"6aad344f-a439-4fc4-9b5f-fa75ccaaec80"
 			]
 		},
@@ -892,6 +894,20 @@
 			"title": "Missile pickup doesn't play death animation",
 			"description": "",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "20b64220-52f2-438c-8405-0df6bf846e55",
+			"title": "Make medkit a rigid body so it can fall and generalize pickup scene",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "8291bf58-3836-4ce6-9db8-00131972df86",
+			"title": "Review projectile logic",
+			"description": "Consider using an extra step or user input to lock onto targets so that a projectile is not released on the same click action as the lock-on.\n\nAlso, guided projectiles should hit the player cursor before initiating their guided sequence. This would allow for easier shooting around obstacles since it wouldn't be dependent entirely on the impulse strength.\n\nAlso also, consider not priming projectiles fired by the user or using a longer timer.",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
 		}
 	],

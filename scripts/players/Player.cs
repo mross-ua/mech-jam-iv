@@ -36,9 +36,7 @@ public partial class Player : CharacterBase
 
 	protected override Vector2 GetMovementDirection()
 	{
-		Vector2 dir = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-
-		return new Vector2(dir.X, 0.0f).Normalized();
+		return Input.GetVector("move_left", "move_right", null, null);
 	}
 
     protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();

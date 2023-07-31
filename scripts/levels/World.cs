@@ -77,7 +77,7 @@ public partial class World : Node2D
 	{
 		foreach (PickupBase pickup in GetTree().GetNodesInGroup("pickup").OfType<PickupBase>())
 		{
-			pickup.PickedUp += () => player.Pickup(pickup);
+			pickup.PickedUp += () => Pickup(pickup);
 		}
 	}
 
@@ -87,7 +87,7 @@ public partial class World : Node2D
 		{
 			enemy.PickupDropped += (pickup) =>
 			{
-				pickup.PickedUp += () => player.Pickup(pickup);
+				pickup.PickedUp += () => Pickup(pickup);
 
 				GetTree().CurrentScene.AddChildDeferred(pickup);
 			};
@@ -157,6 +157,25 @@ public partial class World : Node2D
 			player.Fire(FireMode.Primary, GetGlobalMousePosition());
 		}
     }
+
+	private void Pickup(PickupBase pickup)
+	{
+		switch (pickup.PickupType)
+		{
+			case PickupType.Medkit:
+				player.Heal(50);
+
+				break;
+			case PickupType.Grenade:
+				player.WeaponManager.PickupAmmo(PickupType.Grenade);
+
+				break;
+			case PickupType.Missile:
+				player.WeaponManager.PickupAmmo(PickupType.Missile);
+
+				break;
+		}
+	}
 
 	private CollisionObject2D FindTarget(Vector2 globalPos)
 	{

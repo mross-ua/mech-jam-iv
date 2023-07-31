@@ -51,25 +51,6 @@ public partial class Player : CharacterBase
 		WeaponManager.Fire(mode, globalPos, CharacterTracker.Target);
 	}
 
-	public void Pickup(PickupBase pickup)
-	{
-		switch (pickup.PickupType)
-		{
-			case PickupType.Medkit:
-				Heal(50);
-
-				break;
-			case PickupType.Grenade:
-				WeaponManager.PickupAmmo(PickupType.Grenade);
-
-				break;
-			case PickupType.Missile:
-				WeaponManager.PickupAmmo(PickupType.Missile);
-
-				break;
-		}
-	}
-
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
         this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);

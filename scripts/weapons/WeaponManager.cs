@@ -65,6 +65,13 @@ public partial class WeaponManager : Node2D
 				}
 
 				break;
+			case PickupType.Missile:
+				if (SecondaryWeapon != null)
+				{
+					SecondaryWeapon.Ammo++;
+				}
+
+				break;
 		}
 	}
 

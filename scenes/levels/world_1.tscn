@@ -66,6 +66,7 @@ position = Vector2(976, 347)
 
 [node name="JumpPad" parent="Environment" instance=ExtResource("9_5xgty")]
 position = Vector2(382, 384)
+JumpMultiplier = 14.0
 
 [node name="Hazards" type="Node" parent="."]
 

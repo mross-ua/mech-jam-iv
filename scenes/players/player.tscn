@@ -314,7 +314,8 @@ collision_mask = 153
 script = ExtResource("1_bcjvt")
 MoveAcceleration = 50.0
 MaxMoveSpeed = 300.0
-JumpVelocity = -400.0
+JumpVelocity = -50.0
+MaxJumpAirTime = 0.3
 PointDamageEffect = ExtResource("2_begmq")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]

@@ -39,7 +39,7 @@ public partial class Player : CharacterBase
 		return Input.GetVector("move_left", "move_right", "noop", "noop");
 	}
 
-    protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
+    protected override bool _IsJumping() => Input.IsActionPressed("jump");
 
 	public void Fire(FireMode mode, Vector2 globalPos)
 	{

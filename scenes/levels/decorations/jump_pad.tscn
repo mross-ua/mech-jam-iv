@@ -92,6 +92,7 @@ position = Vector2(0, -16)
 collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_1xent")
+JumpMultiplier = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2mens")

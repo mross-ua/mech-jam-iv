@@ -21,10 +21,17 @@ namespace MechJamIV {
         public float JumpVelocity { get; set; } = -10.0f;
 
         [Export]
+        public float MaxJumpAirTime { get; set; }
+
+        [Export]
         public PackedScene PointDamageEffect { get; set; }
 
 	    protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 		protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
+
+        private double jumpAirTime = 0.0f;
+        private bool isJumping = false;
+        private bool canJump = false;
 
         #region Node references
 
@@ -55,7 +62,27 @@ namespace MechJamIV {
 
 		protected abstract Vector2 GetMovementDirection();
 
-		protected abstract bool IsJumping();
+        private bool IsJumping(double delta)
+        {
+            canJump = canJump || (!_IsJumping() && IsOnFloor());
+
+            if ((isJumping && jumpAirTime <= MaxJumpAirTime && _IsJumping()) || (canJump && _IsJumping()))
+            {
+                jumpAirTime += delta;
+                isJumping = true;
+                // disallow double jump
+                canJump = false;
+            }
+            else if (isJumping)
+            {
+                jumpAirTime = 0.0f;
+                isJumping = false;
+            }
+
+            return isJumping;
+        }
+
+		protected abstract bool _IsJumping();
 
         public override void _Process(double delta)
         {
@@ -82,9 +109,9 @@ namespace MechJamIV {
 
 			MoveAndSlide();
 
-			if (IsJumping())
+			if (IsJumping(delta))
 			{
-				Velocity += new Vector2(0.0f, JumpVelocity);
+				Velocity += new Vector2(0.0f, JumpVelocity * (1.0f - (float)(jumpAirTime / MaxJumpAirTime)));
 			}
 		}
 

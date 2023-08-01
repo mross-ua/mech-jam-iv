@@ -129,7 +129,6 @@ radius = 50.0
 [node name="Missile" type="RigidBody2D"]
 collision_layer = 256
 collision_mask = 339
-gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_72hel")
@@ -138,6 +137,7 @@ FuseDelay = 10.0
 PointDamageEffect = ExtResource("2_g8h07")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
 position = Vector2(0, 4)
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_p7q0h")

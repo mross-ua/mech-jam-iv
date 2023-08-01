@@ -15,9 +15,9 @@ public partial class Missile : Grenade
 
 	#region Node references
 
-	public GpuParticles2D GpuParticles2D { get; private set; }
-
 	public CharacterTracker CharacterTracker { get; private set; }
+
+	private GpuParticles2D GpuParticles2D;
 
 	#endregion
 
@@ -45,26 +45,29 @@ public partial class Missile : Grenade
 			return;
 		}
 
-		if (CharacterTracker.Target != null)
+		if (IsFusePrimed)
 		{
-			Vector2 directionToTarget = CharacterTracker.GetDirectionToTarget();
-
-			float angleDiff = Mathf.RadToDeg(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
-			int turnDirection = Mathf.Sign(angleDiff);
-
-			float rotation = TurnSpeed * (float)delta;
-
-			if (Mathf.Abs(angleDiff) < rotation)
+			if (CharacterTracker.Target != null)
 			{
-				Rotate(Mathf.DegToRad(angleDiff));
+				Vector2 directionToTarget = CharacterTracker.GetDirectionToTarget();
+
+				float angleDiff = Mathf.RadToDeg(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
+				int turnDirection = Mathf.Sign(angleDiff);
+
+				float rotation = TurnSpeed * (float)delta;
+
+				if (Mathf.Abs(angleDiff) < rotation)
+				{
+					Rotate(Mathf.DegToRad(angleDiff));
+				}
+				else
+				{
+					Rotate(Mathf.DegToRad(rotation) * turnDirection);
+				}
 			}
-			else
-			{
-				Rotate(Mathf.DegToRad(rotation) * turnDirection);
-			}
+
+			ApplyForce(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
 		}
-
-		ApplyForce(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
     }
 
 	protected override void AnimateDeath()
@@ -91,6 +94,18 @@ public partial class Missile : Grenade
 			CharacterTracker.Untrack();
 		}
 	}
+
+    #endregion
+
+    #region IDetonable
+
+    public override void PrimeFuse()
+    {
+		GpuParticles2D.Visible = true;
+		GravityScale = 0.0f;
+
+        base.PrimeFuse();
+    }
 
 	#endregion
 

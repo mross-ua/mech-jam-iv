@@ -97,11 +97,11 @@ public partial class ExplosiveBarrel : Barrel
 	public delegate void DetonatedEventHandler();
 
 	[Export]
-	public float FuseDelay { get; set; } = 4.0f;
+	public float FuseDelay { get; set; }
 
 	protected bool IsFusePrimed { get; private set; } = false;
 
-	public async void PrimeFuse()
+	public async virtual void PrimeFuse()
 	{
 		if (Health <= 0)
 		{

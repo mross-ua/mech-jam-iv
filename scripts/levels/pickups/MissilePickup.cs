@@ -21,9 +21,6 @@ public partial class MissilePickup : PickupBase
 
 		missile = GetNode<Missile>("Missile");
 		missile.GlobalPosition = GlobalPosition;
-		missile.GpuParticles2D.Visible = false;
-		missile.ThrustForce = 0.0f;
-		missile.GravityScale = 1.0f;
 		missile.Killed += () => QueueFree();
 	}
 

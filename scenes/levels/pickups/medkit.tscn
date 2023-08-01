@@ -30,7 +30,7 @@ radius = 9.0
 
 [node name="Medkit" type="RigidBody2D"]
 collision_layer = 0
-collision_mask = 81
+collision_mask = 337
 script = ExtResource("1_pjpf3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

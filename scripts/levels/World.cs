@@ -22,6 +22,8 @@ public partial class World : Node2D
 
 	private PauseScreen pauseScreen;
 
+	private bool isEnteringTargetMode = false;
+
 	#endregion
 
 	public override void _Ready()
@@ -136,19 +138,28 @@ public partial class World : Node2D
     {
 		if (Input.IsActionPressed("fire_secondary"))
 		{
-			if (player.CharacterTracker.Target == null || Input.IsActionJustPressed("fire_secondary"))
+			if (player.CharacterTracker.Target == null || !isEnteringTargetMode)
 			{
 				CollisionObject2D target = FindTarget(GetGlobalMousePosition());
 
-				if (target != null)
+				if (target != null && target != player.CharacterTracker.Target)
 				{
 					player.CharacterTracker.Track(target);
+
+					isEnteringTargetMode = true;
 				}
 			}
 		}
 		else if (Input.IsActionJustReleased("fire_secondary"))
 		{
-			player.Fire(FireMode.Secondary, GetGlobalMousePosition());
+			if (isEnteringTargetMode)
+			{
+				isEnteringTargetMode = false;
+			}
+			else
+			{
+				player.Fire(FireMode.Secondary, GetGlobalMousePosition());
+			}
 		}
 		else if (Input.IsActionJustPressed("fire_primary"))
 		{

@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://du3si7fvnoa5m" path="res://scenes/levels/hazards/explosive_barrel.tscn" id="9_1lbpm"]
 [ext_resource type="PackedScene" uid="uid://cydjxvklk03tv" path="res://scenes/levels/pickups/grenade_pickup.tscn" id="10_1eub6"]
 [ext_resource type="PackedScene" uid="uid://n83wwlywvgtu" path="res://scenes/levels/pickups/medkit_pickup.tscn" id="11_m2t0l"]
-[ext_resource type="PackedScene" uid="uid://dxtbt33nlhuer" path="res://scenes/weapons/missile.tscn" id="12_eyqgk"]
+[ext_resource type="PackedScene" uid="uid://bpxh4sphjfunw" path="res://scenes/levels/pickups/missile_pickup.tscn" id="12_wgwip"]
 [ext_resource type="PackedScene" uid="uid://cx2gfd1kayu52" path="res://scenes/levels/hazards/spikes.tscn" id="13_k2jyb"]
 [ext_resource type="PackedScene" uid="uid://dyh1s8bk7j5t2" path="res://scenes/enemies/enemy_mech.tscn" id="14_2vqbk"]
 [ext_resource type="PackedScene" uid="uid://bwc210e86gkpi" path="res://scenes/enemies/enemy_troid.tscn" id="15_28cdv"]
@@ -53,7 +53,7 @@ position = Vector2(996, 402)
 
 [node name="JumpPad" parent="Environment" instance=ExtResource("7_ufbty")]
 position = Vector2(416, 373)
-metadata/_edit_lock_ = true
+JumpMultiplier = 35.0
 
 [node name="Barrel" parent="Environment" instance=ExtResource("8_qqv8k")]
 position = Vector2(705, 388)
@@ -73,8 +73,8 @@ position = Vector2(518, 396)
 [node name="MedkitPickup" parent="Environment" instance=ExtResource("11_m2t0l")]
 position = Vector2(260, 375)
 
-[node name="Missile" parent="Environment" instance=ExtResource("12_eyqgk")]
-position = Vector2(449, 295)
+[node name="MissilePickup" parent="Environment" instance=ExtResource("12_wgwip")]
+position = Vector2(531, 103)
 
 [node name="Hazards" type="Node" parent="."]
 

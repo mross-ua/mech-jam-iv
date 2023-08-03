@@ -212,7 +212,7 @@ public partial class World : Node2D
 		{
 			if (collision["collider"].Obj is CharacterBase character)
 			{
-				if (target == null)
+				if (target == null || player.CharacterTracker.Target != character)
 				{
 					target = character;
 				}

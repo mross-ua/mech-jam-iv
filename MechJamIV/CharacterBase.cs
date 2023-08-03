@@ -31,7 +31,6 @@ namespace MechJamIV {
 
         private double jumpAirTime = 0.0f;
         private bool isJumping = false;
-        private bool canJump = false;
 
         #region Node references
 
@@ -64,19 +63,25 @@ namespace MechJamIV {
 
         private bool IsJumping(double delta)
         {
-            canJump = canJump || (!_IsJumping() && IsOnFloor());
-
-            if ((isJumping && jumpAirTime <= MaxJumpAirTime && _IsJumping()) || (canJump && _IsJumping()))
+            if (jumpAirTime >= MaxJumpAirTime && _IsJumping())
+            {
+                jumpAirTime = MaxJumpAirTime;
+                isJumping = false;
+            }
+            else if (isJumping && jumpAirTime < MaxJumpAirTime && _IsJumping())
             {
                 jumpAirTime += delta;
                 isJumping = true;
-                // disallow double jump
-                canJump = false;
             }
             else if (isJumping)
             {
                 jumpAirTime = 0.0f;
                 isJumping = false;
+            }
+            else if (!isJumping)
+            {
+                jumpAirTime = 0.0f;
+                isJumping = _IsJumping();
             }
 
             return isJumping;
@@ -111,7 +116,7 @@ namespace MechJamIV {
 
 			if (IsJumping(delta))
 			{
-				Velocity += new Vector2(0.0f, JumpVelocity * (1.0f - (float)(jumpAirTime / MaxJumpAirTime)));
+                Velocity += new Vector2(0.0f, JumpVelocity * (1.0f - (float)(jumpAirTime / MaxJumpAirTime))) - (float)delta * Gravity;
 			}
 		}
 

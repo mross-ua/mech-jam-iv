@@ -9,6 +9,7 @@ public partial class Player : CharacterBase
 {
 
 	private bool isImmune = false;
+	private bool isJumping = false;
 
 	#region Node references
 
@@ -39,7 +40,16 @@ public partial class Player : CharacterBase
 		return Input.GetVector("move_left", "move_right", "noop", "noop");
 	}
 
-    protected override bool _IsJumping() => Input.IsActionPressed("jump");
+    protected override bool _IsJumping()
+	{
+		// NOTE: This should be run in a process loop since we need user input.
+
+		// only allow continuous jump key presses that start when character is on the floor
+		// (disallow double jumps and jumps after walking off an edge)
+		isJumping = (isJumping && Input.IsActionPressed("jump") && !IsOnFloor()) || (Input.IsActionJustPressed("jump") && IsOnFloor());
+
+		return isJumping;
+	}
 
 	public void Fire(FireMode mode, Vector2 globalPos)
 	{

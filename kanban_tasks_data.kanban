@@ -39,9 +39,7 @@
 		{
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
 			"title": "Doing",
-			"tasks": [
-				"0053ca14-5347-4029-bb7e-1a220b554cc7"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
@@ -49,8 +47,10 @@
 			"tasks": [
 				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
 				"1c184ad9-552f-4285-a053-f964cb784f12",
+				"ce3c0ca5-a868-467c-94a0-3122f0590244",
 				"7171987d-0355-4db3-be06-05746adb5967",
 				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
+				"0053ca14-5347-4029-bb7e-1a220b554cc7",
 				"b325c2a2-30fa-44e2-a074-ae678f6a1dd8",
 				"51f2eb60-fbd4-4e42-b1ca-f5293792e952",
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
@@ -110,7 +110,8 @@
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
 			"tasks": [
-				"6aad344f-a439-4fc4-9b5f-fa75ccaaec80"
+				"6aad344f-a439-4fc4-9b5f-fa75ccaaec80",
+				"aeede1a3-b630-4b37-a775-8480900939b5"
 			]
 		},
 		{
@@ -130,6 +131,7 @@
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
+				"d386949b-81f3-4995-ac44-16ac0ccef723",
 				"b5084154-8d48-4e99-aaed-402fce07c8e8",
 				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
@@ -654,6 +656,10 @@
 				{
 					"details": "Add ammo and reload mechanism",
 					"done": false
+				},
+				{
+					"details": "Add paper doll UI for changing weapons",
+					"done": false
 				}
 			]
 		},
@@ -804,7 +810,7 @@
 				},
 				{
 					"details": "Allow weapon switching",
-					"done": false
+					"done": true
 				}
 			]
 		},
@@ -871,7 +877,16 @@
 			"title": "Barrel/projectile collisions are bad",
 			"description": "Before adding projectiles layer, grenades bounced off barrels. Now they knock them over.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
-			"steps": []
+			"steps": [
+				{
+					"details": "Update masses of all rigid bodies",
+					"done": false
+				},
+				{
+					"details": "Review interactions between projectiles and character (scripted) bodies",
+					"done": false
+				}
+			]
 		},
 		{
 			"uuid": "6aad344f-a439-4fc4-9b5f-fa75ccaaec80",
@@ -921,6 +936,37 @@
 			"description": "",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
+		},
+		{
+			"uuid": "d386949b-81f3-4995-ac44-16ac0ccef723",
+			"title": "Put platforms in another layer?",
+			"description": "",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
+			"steps": [
+				{
+					"details": "Allow enemies (trackers) to see through platforms",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "ce3c0ca5-a868-467c-94a0-3122f0590244",
+			"title": "Player can jump after falling off ledge",
+			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "aeede1a3-b630-4b37-a775-8480900939b5",
+			"title": "Can't shoot barrels",
+			"description": "Barrels are on the Environment layer but regardless of the projectiles collision issue, the gun should still work.\n\n===\n\nIf we put barrels in the projectile layer, they will have to be based on the ProjectileBase class, I think.",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": [
+				{
+					"details": "Have rifle hit environment layer or put barrels in projectile layer",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

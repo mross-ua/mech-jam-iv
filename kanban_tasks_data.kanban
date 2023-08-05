@@ -32,8 +32,7 @@
 			"title": "Todo",
 			"tasks": [
 				"a53af30a-1248-4ce9-af0d-2e9ba8d9ff5d",
-				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
-				"08118283-8d8e-439e-9461-bcba7524f3f1"
+				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8"
 			]
 		},
 		{
@@ -109,17 +108,13 @@
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
-			"tasks": [
-				"6aad344f-a439-4fc4-9b5f-fa75ccaaec80",
-				"aeede1a3-b630-4b37-a775-8480900939b5"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
 			"title": "Other",
 			"tasks": [
 				"2b647899-789e-4808-b725-f9512f90fa8d",
-				"33210564-26ea-4cf5-9ab4-4ea284461710",
 				"e4d5a3ee-8e07-43ed-82fc-deef70190d67",
 				"be1049e6-9f87-4115-b483-774a3e6d1f53",
 				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
@@ -138,7 +133,6 @@
 				"780e9834-6fbc-4523-9449-fd62af2283bd",
 				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
 				"940a4908-25af-461e-a939-a8d1ed90a95c",
-				"41e15c4c-55f1-41c6-9794-bd340f357613",
 				"69cb3884-3f49-4dcf-8122-482362823170",
 				"e870e598-a765-4561-a720-9ae84438d486"
 			]
@@ -352,13 +346,6 @@
 					"done": true
 				}
 			]
-		},
-		{
-			"uuid": "41e15c4c-55f1-41c6-9794-bd340f357613",
-			"title": "Use different method to get mouse coordinates",
-			"description": "From docs: https://docs.godotengine.org/en/stable/tutorials/inputs/mouse_and_input_coordinates.html\n\nWhen the mouse mode is set to Input.MOUSE_MODE_CAPTURED, the event.position value from InputEventMouseMotion is the center of the screen. Use event.relative instead of event.position and event.speed to process mouse movement and position changes.",
-			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
-			"steps": []
 		},
 		{
 			"uuid": "204a1279-b3f5-4634-b737-c924b635a8cc",
@@ -866,36 +853,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "33210564-26ea-4cf5-9ab4-4ea284461710",
-			"title": "Engine crashes when character ancestor of projectile is killed",
-			"description": "When a projectile is fired, it should not collide with the character that fired it, so we explicitly add a collision exception. But it seems that when the originating character is killed (not even when they are freed, but when they are killed), the whole engine crashes.\n\n===\n\nNOTE: I haven't seen this issue for a little while.",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
-			"steps": []
-		},
-		{
-			"uuid": "08118283-8d8e-439e-9461-bcba7524f3f1",
-			"title": "Barrel/projectile collisions are bad",
-			"description": "Before adding projectiles layer, grenades bounced off barrels. Now they knock them over.",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
-			"steps": [
-				{
-					"details": "Update masses of all rigid bodies",
-					"done": false
-				},
-				{
-					"details": "Review interactions between projectiles and character (scripted) bodies",
-					"done": false
-				}
-			]
-		},
-		{
-			"uuid": "6aad344f-a439-4fc4-9b5f-fa75ccaaec80",
-			"title": "The robot is hurting the player upon collision now",
-			"description": "",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
-			"steps": []
-		},
-		{
 			"uuid": "a53af30a-1248-4ce9-af0d-2e9ba8d9ff5d",
 			"title": "Create HealthManager class",
 			"description": "",
@@ -955,18 +912,6 @@
 			"description": "",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
-		},
-		{
-			"uuid": "aeede1a3-b630-4b37-a775-8480900939b5",
-			"title": "Can't shoot barrels",
-			"description": "Barrels are on the Environment layer but regardless of the projectiles collision issue, the gun should still work.\n\n===\n\nIf we put barrels in the projectile layer, they will have to be based on the ProjectileBase class, I think.",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
-			"steps": [
-				{
-					"details": "Have rifle hit environment layer or put barrels in projectile layer",
-					"done": false
-				}
-			]
 		}
 	],
 	"layout": {

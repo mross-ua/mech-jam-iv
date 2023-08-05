@@ -122,6 +122,7 @@
 				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
 				"f019bee2-f622-4151-aa14-8245ea787d3a",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
+				"8e3f8f72-f3c2-48c8-91c7-5cf266860d06",
 				"3b8a1e6f-2294-4acc-bb2c-e4a76edde156",
 				"e7ce2f21-57ec-499d-9068-eeac3fead489",
 				"e623005c-7655-41f5-93af-a0436331d420",
@@ -660,7 +661,7 @@
 		{
 			"uuid": "b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
 			"title": "Figure out respawn logic",
-			"description": "See https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html\n\nWe don't need to save to a file as we just want to reset the current level. We can write custom JSON (de-)serializers.\n\n===\n\nNOTE: This task seems especially difficult because we need to track which enemies are alive or dead and for live enemies we have to decide if they should be saved at the point the respawn is set or if they should be reset to their original state.",
+			"description": "See https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html\n\nWe don't need to save to a file as we just want to reset the current level. We can write custom JSON (de-)serializers.\n\n===\n\nNOTE: This task seems especially dificult because we need to track which enemies are alive or dead and for live enemies we have to decide if they should be saved at the point the respawn is set or if they should be reset to their original state.",
 			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": [
 				{
@@ -918,6 +919,13 @@
 			"title": "Enemies should aggro when attacked",
 			"description": "",
 			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": []
+		},
+		{
+			"uuid": "8e3f8f72-f3c2-48c8-91c7-5cf266860d06",
+			"title": "Polish jump/platforming movement",
+			"description": "The player jumping and platforming needs to be much more rewarding.\n\nThe variable jump height logic needs some tuning. There should be various methods depending on intended feel.",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": []
 		}
 	],

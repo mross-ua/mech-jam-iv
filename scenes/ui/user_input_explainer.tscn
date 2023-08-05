@@ -7,46 +7,75 @@ offset_right = 240.0
 offset_bottom = 166.0
 theme_override_styles/panel = ExtResource("1_jl8ta")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label15" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "OBJECTIVES
+  Return to your ship alive.
+
+RULES OF ENGAGEMENT
+  Fire At Will"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="GridContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "ESC"
 
-[node name="Label2" type="Label" parent="GridContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Pause Menu"
 
-[node name="Label3" type="Label" parent="GridContainer"]
+[node name="Label3" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "WASD"
 
-[node name="Label4" type="Label" parent="GridContainer"]
+[node name="Label4" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Move"
 
-[node name="Label5" type="Label" parent="GridContainer"]
+[node name="Label5" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "SPACE"
 
-[node name="Label6" type="Label" parent="GridContainer"]
+[node name="Label6" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Jump"
 
-[node name="Label7" type="Label" parent="GridContainer"]
+[node name="Label7" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Left Mouse"
 
-[node name="Label8" type="Label" parent="GridContainer"]
+[node name="Label8" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Fire Gun"
+text = "Fire Primary"
 
-[node name="Label9" type="Label" parent="GridContainer"]
+[node name="Label9" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Right Mouse"
 
-[node name="Label10" type="Label" parent="GridContainer"]
+[node name="Label10" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Throw Grenade"
+text = "Select Target (Lock-On) or Fire Secondary"
+
+[node name="Label11" type="Label" parent="VBoxContainer/GridContainer"]
+visible = false
+layout_mode = 2
+text = "N"
+
+[node name="Label12" type="Label" parent="VBoxContainer/GridContainer"]
+visible = false
+layout_mode = 2
+text = "Next Primary Weapon	"
+
+[node name="Label13" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "M"
+
+[node name="Label14" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Switch	 Secondary		"

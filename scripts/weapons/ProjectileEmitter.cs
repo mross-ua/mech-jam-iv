@@ -16,7 +16,14 @@ public partial class ProjectileEmitter : WeaponBase
 
 	public override void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 	{
-		bodiesToExclude = new List<CollisionObject2D>(bodies);
+		if (bodies == null)
+		{
+			bodiesToExclude = null;
+		}
+		else
+		{
+			bodiesToExclude = new List<CollisionObject2D>(bodies);
+		}
 	}
 
 	protected async override void _Fire(Vector2 globalPos, CollisionObject2D target = null)

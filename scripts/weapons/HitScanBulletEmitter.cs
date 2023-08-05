@@ -49,7 +49,14 @@ public partial class HitScanBulletEmitter : WeaponBase
 
 	public override void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 	{
-		bodiesToExclude = new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid()));
+		if (bodies == null)
+		{
+			bodiesToExclude = null;
+		}
+		else
+		{
+			bodiesToExclude = new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid()));
+		}
 	}
 
 	protected override void _Fire(Vector2 globalPos, CollisionObject2D target = null)

@@ -141,7 +141,6 @@ public partial class World : Node2D
 		{
 			player.WeaponManager.NextWeaponSecondary();
 		}
-
     }
 
     public override void _PhysicsProcess(double delta)

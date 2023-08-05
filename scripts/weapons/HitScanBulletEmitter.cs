@@ -9,6 +9,9 @@ public partial class HitScanBulletEmitter : WeaponBase
 {
 
 	[Export]
+	public PackedScene PointDamageEffect { get; set; }
+
+	[Export]
 	public int Damage { get; set; }
 
 	[Export(PropertyHint.ColorNoAlpha)]
@@ -22,13 +25,6 @@ public partial class HitScanBulletEmitter : WeaponBase
 	private Godot.Collections.Array<Rid> bodiesToExclude = null;
 
 	private bool isNeedsRedraw = false;
-
-	#region Resources
-
-	//TODO this needs to be communicated to the world
-	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
-
-    #endregion
 
     public override void _Process(double delta)
     {
@@ -88,7 +84,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 			{
 				// world or environment hit
 
-        		this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), position);
+        		this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), position);
 			}
 
 			bulletsToDraw.Enqueue(new Tuple<Vector2, Vector2>(from, position));

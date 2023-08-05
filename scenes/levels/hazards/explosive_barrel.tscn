@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://du3si7fvnoa5m"]
+[gd_scene load_steps=18 format=3 uid="uid://du3si7fvnoa5m"]
 
 [ext_resource type="Script" path="res://scripts/levels/hazards/ExplosiveBarrel.cs" id="1_et6ja"]
 [ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://assets/spritesheets/space_merc.png" id="2_4gtso"]
+[ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_8jbut"]
 [ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://assets/spritesheets/impacts-sheet-colour-3-alpha.png" id="2_s5lj2"]
 [ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_f8lv1"]
 
@@ -99,6 +100,7 @@ radius = 50.0
 collision_layer = 8
 collision_mask = 95
 script = ExtResource("1_et6ja")
+PointDamageEffect = ExtResource("2_8jbut")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gike7")

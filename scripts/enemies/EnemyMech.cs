@@ -5,18 +5,11 @@ using MechJamIV;
 public partial class EnemyMech : EnemyBase
 {
 
-	private int chaseDuration = 10;
 	private DateTime lastTimePlayerSeen = DateTime.MinValue;
 
 	#region Node references
 
 	private WeaponManager weaponManager;
-
-	#endregion
-
-	#region Resources
-
-	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
 
 	#endregion
 
@@ -47,12 +40,12 @@ public partial class EnemyMech : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Chase()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			return Vector2.Zero;
 		}
 
-		return new Vector2(this.GetDirectionToTarget().X, 0.0f).Normalized();
+		return new Vector2(CharacterTracker.GetDirectionToTarget().X, 0.0f).Normalized();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -60,15 +53,15 @@ public partial class EnemyMech : EnemyBase
 		return GetMovementDirection_Chase();
 	}
 
-    protected override bool IsJumping() => false;
+    protected override bool _IsJumping() => false;
 
 	protected override void ProcessAction_Idle()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			return;
 		}
-		else if (this.IsTargetInFieldOfView(FaceDirection, FieldOfView) && this.IsTargetInLineOfSight())
+		else if (CharacterTracker.IsTargetInFieldOfView(FaceDirection, FieldOfView) && CharacterTracker.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Chase;
 
@@ -78,17 +71,17 @@ public partial class EnemyMech : EnemyBase
 
 	protected override void ProcessAction_Chase()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			State = EnemyState.Idle;
 		}
-		else if (this.IsTargetInLineOfSight())
+		else if (CharacterTracker.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Attacking;
 
 			lastTimePlayerSeen = DateTime.Now;
 		}
-		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= chaseDuration)
+		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= ChaseDuration)
 		{
 			State = EnemyState.Idle;
 		}
@@ -96,11 +89,11 @@ public partial class EnemyMech : EnemyBase
 
 	protected override void ProcessAction_Attacking()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			State = EnemyState.Idle;
 		}
-		else if (!this.IsTargetInLineOfSight())
+		else if (!CharacterTracker.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Chase;
 
@@ -108,13 +101,13 @@ public partial class EnemyMech : EnemyBase
 		}
 
 		//TODO we only want to fire machine gun if player is within attack range
-		//weaponManager.Fire(FireMode.PrimarySustained, Target.GlobalTransform.Origin, Target);
-		weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), Target);
+		//weaponManager.Fire(FireMode.PrimarySustained, Target.GlobalPosition, CharacterTracker.Target);
+		weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), CharacterTracker.Target);
 	}
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), globalPos);
+        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 }

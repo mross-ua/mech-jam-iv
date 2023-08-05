@@ -31,6 +31,7 @@
 			"uuid": "2672f96a-9194-47de-b5a1-7961b242be5a",
 			"title": "Todo",
 			"tasks": [
+				"a53af30a-1248-4ce9-af0d-2e9ba8d9ff5d",
 				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
 				"08118283-8d8e-439e-9461-bcba7524f3f1"
 			]
@@ -38,18 +39,20 @@
 		{
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
 			"title": "Doing",
-			"tasks": [
-				"b325c2a2-30fa-44e2-a074-ae678f6a1dd8",
-				"0053ca14-5347-4029-bb7e-1a220b554cc7"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "6aa33cc0-55c2-433b-ae66-146963a41273",
 			"title": "Done",
 			"tasks": [
 				"09728062-4873-4a0b-8827-b0f2c9d45e2a",
+				"1c184ad9-552f-4285-a053-f964cb784f12",
+				"ce3c0ca5-a868-467c-94a0-3122f0590244",
 				"7171987d-0355-4db3-be06-05746adb5967",
 				"3af3ef6f-7ce6-46fd-a30f-3761c61f26a3",
+				"0053ca14-5347-4029-bb7e-1a220b554cc7",
+				"b325c2a2-30fa-44e2-a074-ae678f6a1dd8",
+				"51f2eb60-fbd4-4e42-b1ca-f5293792e952",
 				"333761d4-a5ef-4e56-a8d1-449f87448b67",
 				"806e0924-0ff3-402a-b13e-3ac2254a9976",
 				"7e206230-1945-43db-9228-ad0085d786ee",
@@ -59,6 +62,7 @@
 				"28c876ed-cafd-42b3-9812-b43a3a4b3340",
 				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 				"c61104e0-1c77-4cd6-bdeb-46e775693006",
+				"6f67aea8-9b43-4469-9675-28ea36e84573",
 				"5738d7de-d303-4119-bf94-afe9ad149b6e",
 				"1475d785-346f-4dbe-b6b9-9665aef66301",
 				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4",
@@ -68,6 +72,7 @@
 				"7088a23f-cda2-4c5f-a79e-bd1d68bc5167",
 				"429a4d67-879f-4d41-8518-567ee61afb8a",
 				"bc336b5d-ae80-4d1f-822b-8cf8655641a2",
+				"20b64220-52f2-438c-8405-0df6bf846e55",
 				"c681e1f0-9683-477d-9fa7-60dd7eb650dc",
 				"e74d796e-6e39-4098-8aa3-978a3f4d9334",
 				"bda2224d-406c-418a-b6b0-f523d681203d",
@@ -92,28 +97,29 @@
 				"74fb86a6-2527-47c8-8624-c0c9442ec0a6",
 				"f8dda55a-578b-4880-9b17-775cabd85440",
 				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
-				"51f2eb60-fbd4-4e42-b1ca-f5293792e952",
-				"6b3037da-cead-452c-9582-7a0165e5373e"
+				"6b3037da-cead-452c-9582-7a0165e5373e",
+				"8291bf58-3836-4ce6-9db8-00131972df86"
 			]
 		},
 		{
 			"uuid": "dc0fbd22-1581-470e-8fac-bd737d4d7bd6",
 			"title": "Expedite",
-			"tasks": [
-				"6f67aea8-9b43-4469-9675-28ea36e84573"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
 			"tasks": [
-				"33210564-26ea-4cf5-9ab4-4ea284461710"
+				"6aad344f-a439-4fc4-9b5f-fa75ccaaec80",
+				"aeede1a3-b630-4b37-a775-8480900939b5"
 			]
 		},
 		{
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
 			"title": "Other",
 			"tasks": [
+				"2b647899-789e-4808-b725-f9512f90fa8d",
+				"33210564-26ea-4cf5-9ab4-4ea284461710",
 				"e4d5a3ee-8e07-43ed-82fc-deef70190d67",
 				"be1049e6-9f87-4115-b483-774a3e6d1f53",
 				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
@@ -121,9 +127,11 @@
 				"f019bee2-f622-4151-aa14-8245ea787d3a",
 				"f1d3539d-c342-46b0-988b-e74fa1b9eeaa",
 				"3b8a1e6f-2294-4acc-bb2c-e4a76edde156",
+				"e7ce2f21-57ec-499d-9068-eeac3fead489",
 				"e623005c-7655-41f5-93af-a0436331d420",
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
+				"d386949b-81f3-4995-ac44-16ac0ccef723",
 				"b5084154-8d48-4e99-aaed-402fce07c8e8",
 				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
@@ -604,10 +612,15 @@
 		},
 		{
 			"uuid": "23f28138-4558-4c1d-a5de-bfea4505d7eb",
-			"title": "Review potential issue with overriden exported properties",
-			"description": "It seems the Godot editor shows overriden properties twice and neither items are taking the default value of the override.",
-			"category": "d7f3156e-deab-4272-904a-646df391c36d",
-			"steps": []
+			"title": "Set exported property defaults in scenes and not in scripts",
+			"description": "",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": [
+				{
+					"details": "Do *not* override exported properties",
+					"done": false
+				}
+			]
 		},
 		{
 			"uuid": "ae701850-ff9c-44c5-9c88-7100b376a7c2",
@@ -643,6 +656,10 @@
 				{
 					"details": "Add ammo and reload mechanism",
 					"done": false
+				},
+				{
+					"details": "Add paper doll UI for changing weapons",
+					"done": false
 				}
 			]
 		},
@@ -656,7 +673,7 @@
 		{
 			"uuid": "b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
 			"title": "Figure out respawn logic",
-			"description": "",
+			"description": "See https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html\n\nWe don't need to save to a file as we just want to reset the current level. We can write custom JSON (de-)serializers.",
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": [
 				{
@@ -665,6 +682,10 @@
 				},
 				{
 					"details": "Allow for respawning or restarting the entire level",
+					"done": false
+				},
+				{
+					"details": "Save scene? (Restore on respawn)",
 					"done": false
 				}
 			]
@@ -777,14 +798,18 @@
 			"steps": [
 				{
 					"details": "Allow player to use missiles",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Add missile pickups",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Give mech an instance of WeaponManager",
+					"done": true
+				},
+				{
+					"details": "Allow weapon switching",
 					"done": true
 				}
 			]
@@ -808,7 +833,7 @@
 				},
 				{
 					"details": "Update layers so projectiles collide with enemies",
-					"done": false
+					"done": true
 				}
 			]
 		},
@@ -816,7 +841,7 @@
 			"uuid": "51f2eb60-fbd4-4e42-b1ca-f5293792e952",
 			"title": "Allow user to select a projectile (long-range) target by holding down the attack button",
 			"description": "",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		},
 		{
@@ -843,7 +868,7 @@
 		{
 			"uuid": "33210564-26ea-4cf5-9ab4-4ea284461710",
 			"title": "Engine crashes when character ancestor of projectile is killed",
-			"description": "When a projectile is fired, it should not collide with the character that fired it, so we explicitly add a collision exception. But it seems that when the originating character is killed (not even when they are freed, but when they are killed), the whole engine crashes. ",
+			"description": "When a projectile is fired, it should not collide with the character that fired it, so we explicitly add a collision exception. But it seems that when the originating character is killed (not even when they are freed, but when they are killed), the whole engine crashes.\n\n===\n\nNOTE: I haven't seen this issue for a little while.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
 		},
@@ -852,7 +877,96 @@
 			"title": "Barrel/projectile collisions are bad",
 			"description": "Before adding projectiles layer, grenades bounced off barrels. Now they knock them over.",
 			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": [
+				{
+					"details": "Update masses of all rigid bodies",
+					"done": false
+				},
+				{
+					"details": "Review interactions between projectiles and character (scripted) bodies",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "6aad344f-a439-4fc4-9b5f-fa75ccaaec80",
+			"title": "The robot is hurting the player upon collision now",
+			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
 			"steps": []
+		},
+		{
+			"uuid": "a53af30a-1248-4ce9-af0d-2e9ba8d9ff5d",
+			"title": "Create HealthManager class",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "e7ce2f21-57ec-499d-9068-eeac3fead489",
+			"title": "Write shaders for \"lava\" floor glow or other effects",
+			"description": "",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
+			"steps": []
+		},
+		{
+			"uuid": "2b647899-789e-4808-b725-f9512f90fa8d",
+			"title": "Missile pickup doesn't play death animation",
+			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "20b64220-52f2-438c-8405-0df6bf846e55",
+			"title": "Make medkit a rigid body so it can fall",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "8291bf58-3836-4ce6-9db8-00131972df86",
+			"title": "Review projectile logic",
+			"description": "Consider using an extra step or user input to lock onto targets so that a projectile is not released on the same click action as the lock-on.\n\nAlso, guided projectiles should hit the player cursor before initiating their guided sequence. This would allow for easier shooting around obstacles since it wouldn't be dependent entirely on the impulse strength.\n\nAlso also, consider not priming projectiles fired by the user or using a longer timer.",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": []
+		},
+		{
+			"uuid": "1c184ad9-552f-4285-a053-f964cb784f12",
+			"title": "Make jump height variable based on time pressed",
+			"description": "",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": []
+		},
+		{
+			"uuid": "d386949b-81f3-4995-ac44-16ac0ccef723",
+			"title": "Put platforms in another layer?",
+			"description": "",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
+			"steps": [
+				{
+					"details": "Allow enemies (trackers) to see through platforms",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "ce3c0ca5-a868-467c-94a0-3122f0590244",
+			"title": "Player can jump after falling off ledge",
+			"description": "",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
+			"uuid": "aeede1a3-b630-4b37-a775-8480900939b5",
+			"title": "Can't shoot barrels",
+			"description": "Barrels are on the Environment layer but regardless of the projectiles collision issue, the gun should still work.\n\n===\n\nIf we put barrels in the projectile layer, they will have to be based on the ProjectileBase class, I think.",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": [
+				{
+					"details": "Have rifle hit environment layer or put barrels in projectile layer",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

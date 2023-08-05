@@ -7,14 +7,7 @@ public partial class EnemyTroid : EnemyBase
 
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
-	private int chaseDuration = 1;
 	private DateTime lastTimePlayerSeen = DateTime.MinValue;
-
-	#region Resources
-
-	private static readonly PackedScene acidSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/acid_splatter.tscn");
-
-	#endregion
 
 	protected override Vector2 GetMovementDirection_Idle()
 	{
@@ -23,12 +16,12 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Chase()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			return Vector2.Zero;
 		}
 
-		return this.GetDirectionToTarget();
+		return CharacterTracker.GetDirectionToTarget();
 	}
 
 	protected override Vector2 GetMovementDirection_Attacking()
@@ -37,15 +30,15 @@ public partial class EnemyTroid : EnemyBase
         return GetMovementDirection_Chase();
 	}
 
-    protected override bool IsJumping() => false;
+    protected override bool _IsJumping() => false;
 
 	protected override void ProcessAction_Idle()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			return;
 		}
-        else if (this.IsTargetInLineOfSight())
+        else if (CharacterTracker.IsTargetInLineOfSight())
         {
             State = EnemyState.Chase;
 
@@ -55,17 +48,17 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override void ProcessAction_Chase()
 	{
-		if (Target == null)
+		if (CharacterTracker.Target == null)
 		{
 			State = EnemyState.Idle;
 		}
-		else if (this.IsTargetInLineOfSight())
+		else if (CharacterTracker.IsTargetInLineOfSight())
 		{
 			State = EnemyState.Attacking;
 
 			lastTimePlayerSeen = DateTime.Now;
 		}
-		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= chaseDuration)
+		else if ((DateTime.Now - lastTimePlayerSeen).Seconds >= ChaseDuration)
 		{
 			State = EnemyState.Idle;
 		}
@@ -81,7 +74,7 @@ public partial class EnemyTroid : EnemyBase
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        this.EmitParticlesOnce(acidSplatter.Instantiate<GpuParticles2D>(), globalPos);
+        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 }

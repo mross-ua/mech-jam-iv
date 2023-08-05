@@ -5,15 +5,13 @@ using MechJamIV;
 public partial class Barrel : ProjectileBase
 {
 
-	#region Resources
+	public override PickupType WeaponType { get => throw new NotImplementedException(); }
 
-	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
-
-	#endregion
+	public override Texture2D SpriteTexture { get => throw new NotImplementedException(); }
 
 	protected virtual void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), globalPos);
+        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 	#region ICollidable

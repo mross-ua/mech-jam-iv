@@ -22,10 +22,14 @@ public partial class World : Node2D
 
 	private PauseScreen pauseScreen;
 
+	private bool isEnteringTargetMode = false;
+
 	#endregion
 
 	public override void _Ready()
 	{
+	    Input.SetCustomMouseCursor(ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png"), Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
+
 		player = (Player)GetTree().GetFirstNodeInGroup("player");
 
 		robot = (Robot)GetTree().GetFirstNodeInGroup("robot");
@@ -40,10 +44,16 @@ public partial class World : Node2D
 		InitDeathZones();
 
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
-		player.Killed += () => pauseScreen.PauseGame();
+		player.Killed += async () =>
+		{
+			//TODO ideally this should wait for the death animation to finish
+			await ToSignal(GetTree().CreateTimer(3.0f, false, true), SceneTreeTimer.SignalName.Timeout);
+
+			pauseScreen.PauseGame();
+		};
 
 		robot.GlobalTransform = player.RobotMarker.GlobalTransform;
-		robot.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);
+		robot.CharacterTracker.Track(player);
 
 		playerCamera.Track(player);
 	}
@@ -51,6 +61,7 @@ public partial class World : Node2D
 	private void InitSpawns()
 	{
 		spawns = new List<Spawn>();
+
 		foreach (Spawn spawn in GetTree().GetNodesInGroup("spawn").OfType<Spawn>())
 		{
 			spawns.Add(spawn);
@@ -71,7 +82,7 @@ public partial class World : Node2D
 	{
 		foreach (PickupBase pickup in GetTree().GetNodesInGroup("pickup").OfType<PickupBase>())
 		{
-			pickup.PickedUp += () => player.Pickup(pickup);
+			pickup.PickedUp += () => Pickup(pickup);
 		}
 	}
 
@@ -81,12 +92,12 @@ public partial class World : Node2D
 		{
 			enemy.PickupDropped += (pickup) =>
 			{
-				pickup.PickedUp += () => player.Pickup(pickup);
+				pickup.PickedUp += () => Pickup(pickup);
 
 				GetTree().CurrentScene.AddChildDeferred(pickup);
 			};
 
-			enemy.Track(player, CollisionLayerMask.World | CollisionLayerMask.Player);
+			enemy.CharacterTracker.Track(player);
 		}
 	}
 
@@ -109,21 +120,55 @@ public partial class World : Node2D
 			{
 				if (body is Player player)
 				{
-					player.Hurt(player.Health, player.GlobalTransform.Origin, Vector2.Zero);
+					player.Hurt(player.Health, player.GlobalPosition, Vector2.Zero);
 				}
 			};
 		}
 	}
+    public override void _Input(InputEvent @event)
+    {
+		if (@event.IsActionPressed("quit"))
+		{
+			pauseScreen.PauseGame();
+
+			GetViewport().SetInputAsHandled();
+		}
+		else if (@event.IsActionPressed("next_weapon_primary"))
+		{
+			player.WeaponManager.NextWeaponPrimary();
+		}
+		else if (@event.IsActionPressed("next_weapon_secondary"))
+		{
+			player.WeaponManager.NextWeaponSecondary();
+		}
+    }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionJustPressed("quit"))
+		if (Input.IsActionPressed("fire_secondary"))
 		{
-			pauseScreen.PauseGame();
+			if (player.CharacterTracker.Target == null || !isEnteringTargetMode)
+			{
+				CollisionObject2D target = FindTarget(GetGlobalMousePosition());
+
+				if (target != null && target != player.CharacterTracker.Target)
+				{
+					player.CharacterTracker.Track(target);
+
+					isEnteringTargetMode = true;
+				}
+			}
 		}
-		else if (Input.IsActionJustPressed("fire_secondary"))
+		else if (Input.IsActionJustReleased("fire_secondary"))
 		{
-			player.Fire(FireMode.Secondary, GetGlobalMousePosition());
+			if (isEnteringTargetMode)
+			{
+				isEnteringTargetMode = false;
+			}
+			else
+			{
+				player.Fire(FireMode.Secondary, GetGlobalMousePosition());
+			}
 		}
 		else if (Input.IsActionJustPressed("fire_primary"))
 		{
@@ -134,5 +179,58 @@ public partial class World : Node2D
 			player.Fire(FireMode.Primary, GetGlobalMousePosition());
 		}
     }
+
+	private void Pickup(PickupBase pickup)
+	{
+		switch (pickup.PickupType)
+		{
+			case PickupType.Medkit:
+				player.Heal(50);
+
+				break;
+			case PickupType.Rifle:
+			case PickupType.Grenade:
+			case PickupType.Missile:
+				player.WeaponManager.Pickup(pickup.PickupType);
+
+				break;
+		}
+	}
+
+	private CollisionObject2D FindTarget(Vector2 globalPos)
+	{
+		CollisionObject2D target = null;
+
+		PhysicsShapeQueryParameters2D queryParams = new ()
+		{
+			Transform = new Transform2D()
+			{
+				Origin = globalPos
+			},
+			Shape = new CircleShape2D()
+			{
+				Radius = 300.0f
+			},
+			CollisionMask = (uint)CollisionLayerMask.Enemy,
+			Exclude = null
+		};
+
+		foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
+		{
+			if (collision["collider"].Obj is CharacterBase character)
+			{
+				if (target == null || player.CharacterTracker.Target != character)
+				{
+					target = character;
+				}
+				else if ((character.GlobalPosition - GlobalPosition).Length() < (target.GlobalPosition - GlobalPosition).Length())
+				{
+					target = character;
+				}
+			}
+		}
+
+		return target;
+	}
 
 }

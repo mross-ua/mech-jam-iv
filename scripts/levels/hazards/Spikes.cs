@@ -15,7 +15,7 @@ public partial class Spikes : Area2D
 		{
 			if (body is Player player)
 			{
-				player.Hurt(Damage, player.GlobalTransform.Origin, Vector2.Zero);
+				player.Hurt(Damage, player.GlobalPosition, Vector2.Zero);
 			}
 		};
 	}
@@ -26,7 +26,7 @@ public partial class Spikes : Area2D
 		{
 			if (node is Player player)
 			{
-				player.Hurt(Damage, player.GlobalTransform.Origin, Vector2.Zero);
+				player.Hurt(Damage, player.GlobalPosition, Vector2.Zero);
 			}
 		}
 	}

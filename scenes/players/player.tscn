@@ -1,14 +1,15 @@
-[gd_scene load_steps=50 format=3 uid="uid://bt7vafft2mqcp"]
+[gd_scene load_steps=51 format=3 uid="uid://bt7vafft2mqcp"]
 
 [ext_resource type="Script" path="res://scripts/players/Player.cs" id="1_bcjvt"]
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://assets/spritesheets/char-sheet-alpha.png" id="1_fkqgm"]
+[ext_resource type="PackedScene" uid="uid://o7jj0d7gfodw" path="res://scenes/effects/blood_splatter.tscn" id="2_begmq"]
 [ext_resource type="Texture2D" uid="uid://cmh45ek0vt4j4" path="res://assets/spritesheets/diewhirl-sheet-alpha.png" id="3_lkoxu"]
 [ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_wlw4n"]
 [ext_resource type="PackedScene" uid="uid://tatq2gmyab34" path="res://scenes/effects/immunity_shield.tscn" id="4_y0w7f"]
 [ext_resource type="PackedScene" uid="uid://c0h0eogjo2jqf" path="res://scenes/weapons/weapon_manager.tscn" id="6_3wjrj"]
-[ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="7_f12p3"]
-[ext_resource type="PackedScene" uid="uid://dt2hpb3k3ussg" path="res://scenes/weapons/projectile_emitter.tscn" id="8_4d3xc"]
-[ext_resource type="PackedScene" uid="uid://bg2lrlwoo7stu" path="res://scenes/weapons/grenade.tscn" id="9_ird66"]
+[ext_resource type="PackedScene" uid="uid://bbkjkuljk0kq" path="res://scenes/players/character_tracker.tscn" id="7_omsc2"]
+[ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="9_tr2dm"]
+[ext_resource type="PackedScene" uid="uid://cjeql1mtfxeol" path="res://scenes/weapons/grenade_emitter.tscn" id="10_m0mws"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jogux"]
 atlas = ExtResource("1_fkqgm")
@@ -312,7 +313,9 @@ collision_mask = 153
 script = ExtResource("1_bcjvt")
 MoveAcceleration = 50.0
 MaxMoveSpeed = 300.0
-JumpVelocity = -400.0
+JumpVelocity = -20.0
+MaxJumpAirTime = 0.3
+PointDamageEffect = ExtResource("2_begmq")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xxkfi")
@@ -325,10 +328,10 @@ SpriteFaceDirection = Vector2(1, 0)
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_euxq4")
 
-[node name="ImmunityTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
+[node name="CharacterTracker" parent="." instance=ExtResource("7_omsc2")]
+LineOfSightMask = 65
+LineOfSightDistance = 10000.0
+DrawReticle = true
 
 [node name="ImmunityShield" parent="." instance=ExtResource("4_y0w7f")]
 visible = false
@@ -343,15 +346,7 @@ update_scale = false
 
 [node name="WeaponManager" parent="." instance=ExtResource("6_3wjrj")]
 
-[node name="HitScanBulletEmitter" parent="WeaponManager" instance=ExtResource("7_f12p3")]
-TracerColor = Color(1, 1, 0.7, 1)
-RoundsPerSecond = 5.0
-Ammo = -1
-LineOfSightMask = 289
-LineOfSightDistance = 10000.0
+[node name="HitScanBulletEmitter" parent="WeaponManager" instance=ExtResource("9_tr2dm")]
 
-[node name="ProjectileEmitter" parent="WeaponManager" instance=ExtResource("8_4d3xc")]
-ProjectileBaseItem = ExtResource("9_ird66")
-ImpulseStrength = 500.0
+[node name="GrenadeEmitter" parent="WeaponManager" instance=ExtResource("10_m0mws")]
 Ammo = 4
-LineOfSightMask = 321

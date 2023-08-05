@@ -9,6 +9,9 @@ public partial class HitScanBulletEmitter : WeaponBase
 {
 
 	[Export]
+	public PackedScene PointDamageEffect { get; set; }
+
+	[Export]
 	public int Damage { get; set; }
 
 	[Export(PropertyHint.ColorNoAlpha)]
@@ -23,11 +26,20 @@ public partial class HitScanBulletEmitter : WeaponBase
 
 	private bool isNeedsRedraw = false;
 
-	#region Resources
+	#region Node references
 
-	private static readonly PackedScene shrapnelSplatter = ResourceLoader.Load<PackedScene>("res://scenes/effects/shrapnel_splatter.tscn");
+	public Sprite2D UISprite
+	{
+		get
+		{
+			// NOTE: This must be accessible outside of scene tree.
+			//       (_Ready() may not have been called.)
 
-    #endregion
+			return GetNode<Sprite2D>("UISprite");
+		}
+	}
+
+	#endregion
 
     public override void _Process(double delta)
     {
@@ -52,12 +64,19 @@ public partial class HitScanBulletEmitter : WeaponBase
 
 	public override void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 	{
-		bodiesToExclude = new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid()));
+		if (bodies == null)
+		{
+			bodiesToExclude = null;
+		}
+		else
+		{
+			bodiesToExclude = new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid()));
+		}
 	}
 
-	protected override void _Fire(Vector2 globalPos, CharacterBase target = null)
+	protected override void _Fire(Vector2 globalPos, CollisionObject2D target = null)
 	{
-		Vector2 from = GlobalTransform.Origin;
+		Vector2 from = GlobalPosition;
 		Vector2 to = from + from.DirectionTo(globalPos) * LineOfSightDistance;
 
 		Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
@@ -67,7 +86,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 			Exclude = bodiesToExclude,
 			CollideWithBodies = true,
 			CollideWithAreas = true,
-			CollisionMask = LineOfSightMask
+			CollisionMask = CollisionMask
 		});
 
 		if (collision.ContainsKey("collider"))
@@ -87,7 +106,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 			{
 				// world or environment hit
 
-        		this.EmitParticlesOnce(shrapnelSplatter.Instantiate<GpuParticles2D>(), position);
+        		this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), position);
 			}
 
 			bulletsToDraw.Enqueue(new Tuple<Vector2, Vector2>(from, position));
@@ -99,5 +118,13 @@ public partial class HitScanBulletEmitter : WeaponBase
 
 		isNeedsRedraw = true;
 	}
+
+	#region IWeapon
+
+    public override PickupType WeaponType => PickupType.Rifle;
+
+    public override Texture2D SpriteTexture => UISprite.Texture;
+
+	#endregion
 
 }

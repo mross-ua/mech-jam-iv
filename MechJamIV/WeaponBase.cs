@@ -14,43 +14,33 @@ namespace MechJamIV {
 
         public abstract void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies);
 
-        protected abstract void _Fire(Vector2 globalPos, CharacterBase target);
+        protected abstract void _Fire(Vector2 globalPos, CollisionObject2D target = null);
 
         #region IWeapon
 
-        private int ammo = 0;
-
         [Signal]
         public delegate void FiredEventHandler();
+
+        [Signal]
+		public delegate void AmmoAddedEventHandler();
+
+		public abstract PickupType WeaponType { get; }
 
         [Export]
         public float RoundsPerSecond { get; set; }
 
         [Export]
-        public int Ammo
-        {
-            get
-            {
-                return ammo;
-            }
-            set
-            {
-                if (ammo != value)
-                {
-                    ammo = value;
-
-                    EmitSignal(SignalName.Fired);
-                }
-            }
-        }
+        public int Ammo { get; set; }
 
         [Export(PropertyHint.Layers2DPhysics)]
-        public uint LineOfSightMask { get; set; }
+        public uint CollisionMask { get; set; }
 
         [Export]
         public float LineOfSightDistance { get; set; }
 
-        public async void Fire(Vector2 globalPos, CharacterBase target = null)
+        public abstract Texture2D SpriteTexture { get; }
+
+        public async void Fire(Vector2 globalPos, CollisionObject2D target = null)
         {
             if (isCoolingDown)
             {
@@ -65,10 +55,7 @@ namespace MechJamIV {
                 // allow this for infinite ammo
             }
 
-            if (Ammo > 0)
-            {
-                Ammo--;
-            }
+            Ammo--;
 
             isCoolingDown = true;
 
@@ -78,10 +65,24 @@ namespace MechJamIV {
 
             if (!Mathf.IsZeroApprox(RoundsPerSecond))
             {
-                await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond), SceneTreeTimer.SignalName.Timeout);
+                await ToSignal(GetTree().CreateTimer(1.0f / RoundsPerSecond, false, true), SceneTreeTimer.SignalName.Timeout);
             }
 
             isCoolingDown = false;
+        }
+
+		public void AddAmmo(int count)
+        {
+            if (Ammo < 0)
+            {
+                // allow this for infinite ammo
+
+                return;
+            }
+
+            Ammo += count;
+
+            EmitSignal(SignalName.AmmoAdded);
         }
 
         #endregion

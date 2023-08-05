@@ -2,12 +2,12 @@ using Godot;
 using System;
 using MechJamIV;
 
-public partial class GrenadePickup : PickupBase
+public partial class HitScanBulletEmitterPickup : PickupBase
 {
 
 	#region Node references
 
-	private Grenade grenade;
+	private HitScanBulletEmitter hitScanBulletEmitter;
 
 	#endregion
 
@@ -19,9 +19,9 @@ public partial class GrenadePickup : PickupBase
 		//       set Grenade.TopLevel = true. Therefore, we have to set
 		//       the initial position.
 
-		grenade = GetNode<Grenade>("Grenade");
-		grenade.GlobalPosition = GlobalPosition;
-		grenade.Killed += () => QueueFree();
+		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
+		hitScanBulletEmitter.GlobalPosition = GlobalPosition;
+		hitScanBulletEmitter.UISprite.Visible = true;
 	}
 
 }

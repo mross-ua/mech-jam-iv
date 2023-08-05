@@ -5,7 +5,6 @@ using System.Diagnostics;
 using MechJamIV;
 
 public partial class Missile : Grenade
-	,ITracker
 {
 
 	[Export]
@@ -14,10 +13,13 @@ public partial class Missile : Grenade
 	[Export]
 	public float TurnSpeed { get; set; } = 3_000f;
 
+	public override PickupType WeaponType { get => PickupType.Missile; }
+
 	#region Node references
 
-	private GpuParticles2D gpuParticles2D;
-	private CharacterAnimator characterAnimator;
+	public CharacterTracker CharacterTracker { get; private set; }
+
+	private GpuParticles2D GpuParticles2D;
 
 	#endregion
 
@@ -25,26 +27,17 @@ public partial class Missile : Grenade
 	{
 		base._Ready();
 
-		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
-		characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+		GpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
 
-		BodyEntered += (body) => Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+		CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
 
-#if DEBUG
-		AddRayCast();
-#endif
-	}
-
-	public override void _Process(double delta)
-	{
-		if (Health <= 0)
+		BodyEntered += (body) =>
 		{
-			return;
-		}
-
-#if DEBUG
-		QueueRedraw();
-#endif
+			if (IsFusePrimed)
+			{
+				Hurt(Health, GlobalPosition, Vector2.Zero);
+			}
+		};
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -54,30 +47,29 @@ public partial class Missile : Grenade
 			return;
 		}
 
-		if (Target != null)
+		if (IsFusePrimed)
 		{
-			Vector2 directionToTarget = this.GetDirectionToTarget();
-
-			float angleDiff = Mathf.RadToDeg(characterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
-			int turnDirection = Mathf.Sign(angleDiff);
-
-			float rotation = TurnSpeed * (float)delta;
-
-			if (Mathf.Abs(angleDiff) < rotation)
+			if (CharacterTracker.Target != null)
 			{
-				Rotate(Mathf.DegToRad(angleDiff));
+				Vector2 directionToTarget = CharacterTracker.GetDirectionToTarget();
+
+				float angleDiff = Mathf.RadToDeg(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
+				int turnDirection = Mathf.Sign(angleDiff);
+
+				float rotation = TurnSpeed * (float)delta;
+
+				if (Mathf.Abs(angleDiff) < rotation)
+				{
+					Rotate(Mathf.DegToRad(angleDiff));
+				}
+				else
+				{
+					Rotate(Mathf.DegToRad(rotation) * turnDirection);
+				}
 			}
-			else
-			{
-				Rotate(Mathf.DegToRad(rotation) * turnDirection);
-			}
+
+			ApplyForce(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
 		}
-
-		ApplyForce(characterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
-
-#if DEBUG
-		UpdateRayCastToTarget();
-#endif
     }
 
 	protected override void AnimateDeath()
@@ -85,38 +77,37 @@ public partial class Missile : Grenade
 		base.AnimateDeath();
 
 		// allow emitted particles to decay
-		gpuParticles2D.Emitting = false;
+		GpuParticles2D.Emitting = false;
 	}
 
-	#region ITracker
+	#region IDestructible
 
-	public CollisionLayerMask LineOfSightMask { get; private set; }
-
-	public float LineOfSightDistance { get; private set; } = 10_000.0f;
-
-	public CharacterBase Target { get; private set; }
-
-	public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)
+	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
-		Target = c;
-		LineOfSightMask = lineOfSightMask;
-
-		if (c != null)
+		if (Health <= 0)
 		{
-			Target.Killed += () => Untrack(c);
-			// just in case we miss the Killed signal
-			Target.TreeExiting += () => Untrack(c);
+			return;
+		}
+
+		base.Hurt(damage, globalPos, normal);
+
+		if (Health <= 0)
+		{
+			CharacterTracker.Untrack();
 		}
 	}
 
-	private void Untrack(CharacterBase c)
-	{
-		// make sure we are still tracking the object that fired this event
-		if (Target == c)
-		{
-			Target = null;
-		}
-	}
+    #endregion
+
+    #region IDetonable
+
+    public override void PrimeFuse()
+    {
+		GpuParticles2D.Visible = true;
+		GravityScale = 0.0f;
+
+        base.PrimeFuse();
+    }
 
 	#endregion
 

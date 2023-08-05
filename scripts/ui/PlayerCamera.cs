@@ -12,7 +12,10 @@ public partial class PlayerCamera : Camera2D
 	private GpuParticles2D immunityShield;
 	private ProgressBar healthBar;
 
+	private TextureRect primaryTextureRect;
 	private Label primaryAmmoLabel;
+
+	private TextureRect secondaryTextureRect;
 	private Label secondaryAmmoLabel;
 
 	#endregion
@@ -22,7 +25,10 @@ public partial class PlayerCamera : Camera2D
 		immunityShield = GetNode<GpuParticles2D>("UI/Control/TextureRect/ImmunityShield");
 		healthBar = GetNode<ProgressBar>("UI/Control/HealthBar");
 
+		primaryTextureRect = GetNode<TextureRect>("UI/Control2/PrimaryTextureRect");
 		primaryAmmoLabel = GetNode<Label>("UI/Control2/PrimaryAmmoLabel");
+
+		secondaryTextureRect = GetNode<TextureRect>("UI/Control3/SecondaryTextureRect");
 		secondaryAmmoLabel = GetNode<Label>("UI/Control3/SecondaryAmmoLabel");
 	}
 
@@ -45,7 +51,7 @@ public partial class PlayerCamera : Camera2D
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
 		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
 
-		player.WeaponManager.WeaponFired += (fireMode, weapon) => UpdateUI();
+		player.WeaponManager.WeaponUpdated += (weapon) => UpdateUI();
 
 		player.SetRemoteTarget(this);
 
@@ -56,22 +62,25 @@ public partial class PlayerCamera : Camera2D
 	{
 		healthBar.Value = player.Health;
 
-		if (player.WeaponManager.PrimaryWeapon.Ammo < 0)
+		primaryTextureRect.Texture = player.WeaponManager.PrimaryWeapon?.SpriteTexture;
+		secondaryTextureRect.Texture = player.WeaponManager.SecondaryWeapon?.SpriteTexture;
+
+		if (player.WeaponManager.PrimaryWeapon?.Ammo < 0)
 		{
 			primaryAmmoLabel.Text = "∞";
 		}
 		else
 		{
-			primaryAmmoLabel.Text = player.WeaponManager.PrimaryWeapon.Ammo.ToString();
+			primaryAmmoLabel.Text = player.WeaponManager.PrimaryWeapon?.Ammo.ToString();
 		}
 
-		if (player.WeaponManager.SecondaryWeapon.Ammo < 0)
+		if (player.WeaponManager.SecondaryWeapon?.Ammo < 0)
 		{
 			secondaryAmmoLabel.Text = "∞";
 		}
 		else
 		{
-			secondaryAmmoLabel.Text = player.WeaponManager.SecondaryWeapon.Ammo.ToString();
+			secondaryAmmoLabel.Text = player.WeaponManager.SecondaryWeapon?.Ammo.ToString();
 		}
 	}
 

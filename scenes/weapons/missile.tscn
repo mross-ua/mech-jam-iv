@@ -1,9 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://dxtbt33nlhuer"]
+[gd_scene load_steps=24 format=3 uid="uid://dxtbt33nlhuer"]
 
 [ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://assets/spritesheets/enemies2-sheet-alpha.png" id="1_22chs"]
 [ext_resource type="Script" path="res://scripts/weapons/Missile.cs" id="1_72hel"]
+[ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_g8h07"]
 [ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://assets/spritesheets/impacts-sheet-colour-3-alpha.png" id="2_k15pn"]
 [ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="2_schm0"]
+[ext_resource type="PackedScene" uid="uid://bbkjkuljk0kq" path="res://scenes/players/character_tracker.tscn" id="6_o3jq2"]
 
 [sub_resource type="Gradient" id="Gradient_03oxk"]
 offsets = PackedFloat32Array(0, 0.163717, 0.318584, 0.504425, 1)
@@ -127,14 +129,15 @@ radius = 50.0
 [node name="Missile" type="RigidBody2D"]
 collision_layer = 256
 collision_mask = 339
-gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_72hel")
 Health = 1
 FuseDelay = 10.0
+PointDamageEffect = ExtResource("2_g8h07")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
 position = Vector2(0, 4)
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_p7q0h")
@@ -148,6 +151,10 @@ SpriteFaceDirection = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_77806")
+
+[node name="CharacterTracker" parent="." instance=ExtResource("6_o3jq2")]
+LineOfSightMask = 67
+LineOfSightDistance = 10000.0
 
 [node name="ExplosionAreaOfEffect" type="Area2D" parent="."]
 collision_layer = 0

@@ -7,7 +7,7 @@ public partial class MedkitPickup : PickupBase
 
 	#region Node references
 
-	private AnimatedSprite2D animatedSprite2D;
+	private Medkit medkit;
 
 	#endregion
 
@@ -15,9 +15,12 @@ public partial class MedkitPickup : PickupBase
 	{
 		base._Ready();
 
-		animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		// make it flicker
-		animatedSprite2D.AnimationLooped += () => animatedSprite2D.Rotate(Mathf.DegToRad(RandomHelper.GetInt(360)));
+		// NOTE: In order to get the RemoteTransform2D to work, I had to
+		//       set Medkit.TopLevel = true. Therefore, we have to set
+		//       the initial position.
+
+		medkit = GetNode<Medkit>("Medkit");
+		medkit.GlobalPosition = GlobalPosition;
 	}
 
 }

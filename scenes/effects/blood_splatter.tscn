@@ -12,6 +12,7 @@ orbit_velocity_max = 0.0
 color = Color(0.784314, 0, 0, 1)
 
 [node name="BloodSplatter" type="GPUParticles2D"]
+z_index = 1
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_xl6jy")
 one_shot = true

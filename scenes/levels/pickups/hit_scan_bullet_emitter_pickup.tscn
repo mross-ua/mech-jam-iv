@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2l3yu2tfqi6b"]
+
+[ext_resource type="Script" path="res://scripts/levels/pickups/HitScanBulletEmitterPickup.cs" id="1_roph5"]
+[ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="2_kfc51"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oc437"]
+size = Vector2(18, 10)
+
+[node name="HitScanBulletEmitterPickup" type="Area2D" groups=["pickup"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_roph5")
+PickupType = 1
+
+[node name="HitScanBulletEmitter" parent="." instance=ExtResource("2_kfc51")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oc437")

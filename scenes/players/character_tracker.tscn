@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbkjkuljk0kq"]
+
+[ext_resource type="Script" path="res://scripts/players/CharacterTracker.cs" id="1_5syax"]
+[ext_resource type="Texture2D" uid="uid://25mub4b5jiq5" path="res://assets/sprites/WhiteCrosshair-69.png" id="2_38qvw"]
+
+[node name="CharacterTracker" type="Node2D"]
+script = ExtResource("1_5syax")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+collision_mask = 0
+collide_with_areas = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture = ExtResource("2_38qvw")

@@ -1,29 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://n83wwlywvgtu"]
+[gd_scene load_steps=4 format=3 uid="uid://n83wwlywvgtu"]
 
-[ext_resource type="Texture2D" uid="uid://caidr8anqioe7" path="res://assets/spritesheets/powerups-sheet-alpha.png" id="1_nxmk4"]
+[ext_resource type="PackedScene" uid="uid://cyk2sakvlse4x" path="res://scenes/levels/pickups/medkit.tscn" id="1_h76w7"]
 [ext_resource type="Script" path="res://scripts/levels/pickups/MedkitPickup.cs" id="1_p437x"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5cyn3"]
-atlas = ExtResource("1_nxmk4")
-region = Rect2(0, 36, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g1k2c"]
-atlas = ExtResource("1_nxmk4")
-region = Rect2(18, 36, 18, 18)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_oeigw"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5cyn3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g1k2c")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 20.0
-}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7io8x"]
 
@@ -32,10 +10,10 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_p437x")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_oeigw")
-animation = &"idle"
-autoplay = "idle"
+[node name="Medkit" parent="." instance=ExtResource("1_h76w7")]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Medkit"]
+remote_path = NodePath("../../CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7io8x")

@@ -5,7 +5,7 @@ public partial class JumpPad : Area2D
 {
 
 	[Export]
-	public float JumpMultiplier { get; set; } = 2.0f;
+	public float JumpMultiplier { get; set; }
 
 	private AnimatedSprite2D animatedSprite2D;
 
@@ -29,11 +29,6 @@ public partial class JumpPad : Area2D
 				animatedSprite2D.Play("jump");
 			}
 		};
-	}
-
-	public override void _PhysicsProcess(double delta)
-	{
-
 	}
 
 }

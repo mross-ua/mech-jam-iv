@@ -6,7 +6,6 @@ using System.Linq;
 
 namespace MechJamIV {
     public abstract partial class EnemyBase : CharacterBase
-        ,ITracker
     {
 
         [Signal]
@@ -20,6 +19,9 @@ namespace MechJamIV {
 
         [Export]
         public float PickupDropRate { get; set; } = 0.5f;
+
+        [Export]
+        public int ChaseDuration { get; set; }
 
         public EnemyState State { get; protected set; } = EnemyState.Idle;
 
@@ -59,15 +61,11 @@ namespace MechJamIV {
 
                         if (body is Player player)
                         {
-                            player.Hurt(hitbox.Damage, hitbox.GlobalTransform.Origin, Vector2.Zero);
+                            player.Hurt(hitbox.Damage, hitbox.GlobalPosition, Vector2.Zero);
                         }
                     };
                 }
             }
-
-#if DEBUG
-            AddRayCast();
-#endif
         }
 
         protected sealed override Vector2 GetMovementDirection()
@@ -110,10 +108,6 @@ namespace MechJamIV {
 
                     break;
             }
-
-#if DEBUG
-            UpdateRayCastToTarget();
-#endif
         }
 
         protected abstract void ProcessAction_Idle();
@@ -128,7 +122,7 @@ namespace MechJamIV {
 
             if (pickup != null)
             {
-                pickup.GlobalTransform = GlobalTransform;
+                pickup.GlobalPosition = GlobalPosition;
 
                 EmitSignal(SignalName.PickupDropped, pickup);
             }
@@ -155,38 +149,6 @@ namespace MechJamIV {
                 }
 
                 hitboxes.Clear();
-            }
-        }
-
-        #endregion
-
-        #region ITracker
-
-        public CollisionLayerMask LineOfSightMask { get; private set; }
-
-        public float LineOfSightDistance { get; private set; } = 10_000.0f;
-
-        public CharacterBase Target { get; private set; }
-
-        public void Track(CharacterBase c, CollisionLayerMask lineOfSightMask)
-        {
-            Target = c;
-            LineOfSightMask = lineOfSightMask;
-
-            if (c != null)
-            {
-                Target.Killed += () => Untrack(c);
-                // just in case we miss the Killed signal
-                Target.TreeExiting += () => Untrack(c);
-            }
-        }
-
-        private void Untrack(CharacterBase c)
-        {
-            // make sure we are still tracking the object that fired this event
-            if (Target == c)
-            {
-                Target = null;
             }
         }
 

@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtsnbv8umgt5h"]
+[gd_scene load_steps=12 format=3 uid="uid://dtsnbv8umgt5h"]
 
 [ext_resource type="Script" path="res://scripts/players/Robot.cs" id="1_ga06e"]
 [ext_resource type="Texture2D" uid="uid://bxs1dcnhhud8d" path="res://assets/spritesheets/tiles-tech-gold-blue-alpha.png" id="1_xq3as"]
+[ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_ppvxv"]
 [ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="3_5unbu"]
+[ext_resource type="PackedScene" uid="uid://bbkjkuljk0kq" path="res://scenes/players/character_tracker.tscn" id="5_xnqsy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dsws0"]
 atlas = ExtResource("1_xq3as")
@@ -85,6 +87,7 @@ motion_mode = 1
 script = ExtResource("1_ga06e")
 MoveAcceleration = 50.0
 MaxMoveSpeed = 300.0
+PointDamageEffect = ExtResource("2_ppvxv")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4dncl")
@@ -94,3 +97,7 @@ script = ExtResource("3_5unbu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_751yh")
+
+[node name="CharacterTracker" parent="." instance=ExtResource("5_xnqsy")]
+LineOfSightMask = 3
+LineOfSightDistance = 10000.0

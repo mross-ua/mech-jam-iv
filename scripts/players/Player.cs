@@ -8,20 +8,16 @@ public partial class Player : CharacterBase
 	,IPlayable
 {
 
+	private bool isImmune = false;
+	private bool isJumping = false;
+
 	#region Node references
 
 	public Marker2D RobotMarker { get; private set; }
 	public WeaponManager WeaponManager { get; private set; }
 
-	private Timer immunityTimer;
 	private GpuParticles2D immunityShield;
 	private RemoteTransform2D remoteTransform;
-
-	#endregion
-
-	#region Resources
-
-	private static readonly PackedScene bloodSplatterResource = ResourceLoader.Load<PackedScene>("res://scenes/effects/blood_splatter.tscn");
 
 	#endregion
 
@@ -30,9 +26,6 @@ public partial class Player : CharacterBase
 		base._Ready();
 
 		RobotMarker = GetNode<Marker2D>("RobotMarker");
-
-		immunityTimer = GetNode<Timer>("ImmunityTimer");
-		immunityTimer.Timeout += () => DeactivateShield();
 
 		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
 
@@ -44,12 +37,19 @@ public partial class Player : CharacterBase
 
 	protected override Vector2 GetMovementDirection()
 	{
-		Vector2 dir = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-
-		return new Vector2(dir.X, 0.0f).Normalized();
+		return Input.GetVector("move_left", "move_right", "noop", "noop");
 	}
 
-    protected override bool IsJumping() => Input.IsActionJustPressed("jump") && IsOnFloor();
+    protected override bool _IsJumping()
+	{
+		// NOTE: This should be run in a process loop since we need user input.
+
+		// only allow continuous jump key presses that start when character is on the floor
+		// (disallow double jumps and jumps after walking off an edge)
+		isJumping = (isJumping && Input.IsActionPressed("jump") && !IsOnFloor()) || (Input.IsActionJustPressed("jump") && IsOnFloor());
+
+		return isJumping;
+	}
 
 	public void Fire(FireMode mode, Vector2 globalPos)
 	{
@@ -58,31 +58,12 @@ public partial class Player : CharacterBase
 			return;
 		}
 
-		//TODO let's have missiles scan for the nearest target (long-term solution is to let user select a target)
-
-		//CharacterBase c = GetTree().GetNodesInGroup("enemy").OfType<EnemyBase>().Where(e => e.Health > 0).FirstOrDefault();
-		//WeaponManager.Fire(mode, globalPos, c);
-		WeaponManager.Fire(mode, globalPos);
-	}
-
-	public void Pickup(PickupBase pickup)
-	{
-		switch (pickup.PickupType)
-		{
-			case PickupType.Medkit:
-				Heal(50);
-
-				break;
-			case PickupType.Grenade:
-				WeaponManager.PickupAmmo(PickupType.Grenade);
-
-				break;
-		}
+		WeaponManager.Fire(mode, globalPos, CharacterTracker.Target);
 	}
 
 	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
-        this.EmitParticlesOnce(bloodSplatterResource.Instantiate<GpuParticles2D>(), globalPos);
+        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 	public void ActivateShield()
@@ -101,12 +82,14 @@ public partial class Player : CharacterBase
 
 	#region ICollidable
 
-	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+	public async override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 	{
-		if (immunityTimer.TimeLeft > 0)
+		if (isImmune)
 		{
 			return;
 		}
+
+		isImmune = true;
 
 		base.Hurt(damage, globalPos, normal);
 
@@ -117,7 +100,11 @@ public partial class Player : CharacterBase
 
 		ActivateShield();
 
-		immunityTimer.Start();
+		await ToSignal(GetTree().CreateTimer(2.0f, false, true), SceneTreeTimer.SignalName.Timeout);
+
+		DeactivateShield();
+
+		isImmune = false;
 	}
 
 	#endregion

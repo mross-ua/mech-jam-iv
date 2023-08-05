@@ -17,7 +17,7 @@ public partial class ExplosiveBarrel : Barrel
 
 	#region Node references
 
-	protected CharacterAnimator CharacterAnimator;
+	public CharacterAnimator CharacterAnimator;
 
 	private CollisionShape2D collisionShape2D;
 	private Area2D explosionAreaOfEffect;
@@ -30,6 +30,7 @@ public partial class ExplosiveBarrel : Barrel
 		base._Ready();
 
 		CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 
 		explosionAreaOfEffect = GetNode<Area2D>("ExplosionAreaOfEffect");
@@ -79,7 +80,7 @@ public partial class ExplosiveBarrel : Barrel
 			SetDeferred(PropertyName.Freeze, true);
 			collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-			this.TimedFree(5.0f, false, true);
+			this.TimedFree(5.0f);
 		}
 	}
 
@@ -90,28 +91,28 @@ public partial class ExplosiveBarrel : Barrel
 
 	#endregion
 
-	#region IDetonatable
+	#region IDetonable
 
 	[Signal]
 	public delegate void DetonatedEventHandler();
 
 	[Export]
-	public float FuseDelay { get; set; } = 4.0f;
+	public float FuseDelay { get; set; }
 
-	private bool isFusePrimed = false;
+	protected bool IsFusePrimed { get; private set; } = false;
 
-	public async void PrimeFuse()
+	public async virtual void PrimeFuse()
 	{
 		if (Health <= 0)
 		{
 			return;
 		}
-		else if (isFusePrimed)
+		else if (IsFusePrimed)
 		{
 			return;
 		}
 
-		isFusePrimed = true;
+		IsFusePrimed = true;
 
 		await ToSignal(GetTree().CreateTimer(FuseDelay, false, true), SceneTreeTimer.SignalName.Timeout);
 
@@ -122,7 +123,7 @@ public partial class ExplosiveBarrel : Barrel
 
         EmitSignal(SignalName.Detonated);
 
-		Hurt(Health, GlobalTransform.Origin, Vector2.Zero);
+		Hurt(Health, GlobalPosition, Vector2.Zero);
 	}
 
 	private void Detonate()
@@ -137,16 +138,16 @@ public partial class ExplosiveBarrel : Barrel
 
 			if (node is CharacterBase character)
 			{
-				Vector2 dir = character.GlobalTransform.Origin - GlobalTransform.Origin;
+				Vector2 dir = character.GlobalPosition - GlobalPosition;
 
-				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalTransform.Origin, -dir.Normalized());
+				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalPosition, -dir.Normalized());
 				character.Velocity += ExplosionIntensity * dir / dir.LengthSquared();
 			}
 			else if (node is ProjectileBase projectile)
 			{
-				Vector2 dir = projectile.GlobalTransform.Origin - GlobalTransform.Origin;
+				Vector2 dir = projectile.GlobalPosition - GlobalPosition;
 
-				projectile.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), projectile.GlobalTransform.Origin, -dir.Normalized());
+				projectile.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), projectile.GlobalPosition, -dir.Normalized());
 				projectile.ApplyImpulse(ExplosionIntensity * dir / dir.LengthSquared());
 			}
 		}

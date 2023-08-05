@@ -31,5 +31,6 @@ scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_dmfq8")
 
 [node name="ImmunityShield" type="GPUParticles2D"]
+z_index = 1
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_bqtl8")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjeql1mtfxeol"]
+
+[ext_resource type="Script" path="res://scripts/weapons/ProjectileEmitter.cs" id="1_pu6jp"]
+[ext_resource type="PackedScene" uid="uid://bg2lrlwoo7stu" path="res://scenes/weapons/grenade.tscn" id="2_s1mfh"]
+
+[node name="GrenadeEmitter" type="Node2D" groups=["weapon"]]
+script = ExtResource("1_pu6jp")
+ProjectileBaseItem = ExtResource("2_s1mfh")
+ImpulseStrength = 500.0
+CollisionMask = 323

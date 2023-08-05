@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2ehmkeavxqof"]
+[gd_scene load_steps=7 format=3 uid="uid://b2ehmkeavxqof"]
 
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://assets/spritesheets/char-sheet-alpha.png" id="1_oytgi"]
 [ext_resource type="Script" path="res://scripts/ui/PlayerCamera.cs" id="1_uyyex"]
@@ -31,20 +31,6 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ct4du"]
-load_path = "res://.godot/imported/space_merc.png-bcabdf27d3bff9c89e25fa32f8a747a6.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4olvj"]
-atlas = SubResource("CompressedTexture2D_ct4du")
-region = Rect2(208, 96, 16, 8)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o6wag"]
-load_path = "res://.godot/imported/space_merc.png-bcabdf27d3bff9c89e25fa32f8a747a6.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1lrm7"]
-atlas = SubResource("CompressedTexture2D_o6wag")
-region = Rect2(240, 152, 8, 8)
 
 [node name="PlayerCamera" type="Camera2D"]
 script = ExtResource("1_uyyex")
@@ -90,14 +76,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="UI/Control2"]
+[node name="PrimaryTextureRect" type="TextureRect" parent="UI/Control2"]
 layout_mode = 0
 offset_left = 23.0
 offset_top = 65.0
 offset_right = 105.0
 offset_bottom = 105.0
 scale = Vector2(0.6, 0.6)
-texture = SubResource("AtlasTexture_4olvj")
 
 [node name="PrimaryAmmoLabel" type="Label" parent="UI/Control2"]
 layout_mode = 0
@@ -106,7 +91,6 @@ offset_top = 60.0
 offset_right = 100.0
 offset_bottom = 97.0
 theme_override_font_sizes/font_size = 24
-text = "N/A"
 horizontal_alignment = 2
 
 [node name="Control3" type="Control" parent="UI"]
@@ -115,14 +99,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="UI/Control3"]
+[node name="SecondaryTextureRect" type="TextureRect" parent="UI/Control3"]
 layout_mode = 0
 offset_left = 37.0
 offset_top = 102.0
 offset_right = 77.0
 offset_bottom = 142.0
 scale = Vector2(0.6, 0.6)
-texture = SubResource("AtlasTexture_1lrm7")
 
 [node name="SecondaryAmmoLabel" type="Label" parent="UI/Control3"]
 layout_mode = 0
@@ -131,4 +114,3 @@ offset_top = 97.0
 offset_right = 99.0
 offset_bottom = 134.0
 theme_override_font_sizes/font_size = 24
-text = "N/A"

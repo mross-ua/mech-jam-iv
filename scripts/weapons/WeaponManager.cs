@@ -1,13 +1,18 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MechJamIV;
 
 public partial class WeaponManager : Node2D
 {
 
 	[Signal]
-	public delegate void WeaponFiredEventHandler(FireMode fireMode, WeaponBase weapon);
+	public delegate void WeaponUpdatedEventHandler(WeaponBase weapon);
+
+	private Dictionary<PickupType, WeaponBase> weapons;
+
+    private IEnumerable<CollisionObject2D> bodiesToExclude = null;
 
 	#region Node references
 
@@ -18,27 +23,50 @@ public partial class WeaponManager : Node2D
 
     public override void _Ready()
     {
-		PrimaryWeapon = GetNodeOrNull<WeaponBase>("HitScanBulletEmitter");
-		SecondaryWeapon = GetNodeOrNull<WeaponBase>("ProjectileEmitter");
-
-		if (PrimaryWeapon != null)
-		{
-			PrimaryWeapon.Fired += () => EmitSignal(SignalName.WeaponFired, (long)FireMode.Primary, PrimaryWeapon);
-		}
-
-		if (SecondaryWeapon != null)
-		{
-			SecondaryWeapon.Fired += () => EmitSignal(SignalName.WeaponFired, (long)FireMode.Secondary, SecondaryWeapon);
-		}
+		InitWeapons();
     }
+
+	private void InitWeapons()
+	{
+		weapons = new Dictionary<PickupType, WeaponBase>();
+
+		foreach (WeaponBase weapon in GetChildren().Where(n => n.IsInGroup("weapon")).OfType<WeaponBase>())
+		{
+			InitWeapon(weapon);
+		}
+
+		NextWeaponPrimary();
+		NextWeaponSecondary();
+	}
+
+	private void InitWeapon(WeaponBase weapon)
+	{
+		weapon.SetBodiesToExclude(bodiesToExclude);
+
+		weapon.Fired += () => EmitSignal(SignalName.WeaponUpdated, weapon);
+		weapon.AmmoAdded += () => EmitSignal(SignalName.WeaponUpdated, weapon);
+
+		weapons[weapon.WeaponType] = weapon;
+	}
 
 	public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 	{
-		PrimaryWeapon?.SetBodiesToExclude(bodies);
-		SecondaryWeapon?.SetBodiesToExclude(bodies);
+		if (bodies == null)
+		{
+			bodiesToExclude = null;
+		}
+		else
+		{
+			bodiesToExclude = new List<CollisionObject2D>(bodies);
+		}
+
+		foreach (WeaponBase weapon in weapons.Values)
+		{
+			weapon.SetBodiesToExclude(bodies);
+		}
 	}
 
-	public void Fire(FireMode mode, Vector2 globalPos, CharacterBase target = null)
+	public void Fire(FireMode mode, Vector2 globalPos, CollisionObject2D target = null)
 	{
 		switch (mode)
 		{
@@ -54,17 +82,123 @@ public partial class WeaponManager : Node2D
 		}
 	}
 
-	public void PickupAmmo(PickupType pickupType)
+	public async void Pickup(PickupType pickupType)
 	{
+		if (!weapons.ContainsKey(pickupType))
+		{
+			WeaponBase weapon = PickupHelper.GenerateWeapon(pickupType);
+
+			InitWeapon(weapon);
+
+			await this.AddChildDeferred(weapon);
+
+			// auto-select the weapon if needed
+
+			if (PrimaryWeapon == null)
+			{
+				NextWeaponPrimary();
+			}
+
+			if (SecondaryWeapon == null)
+			{
+				NextWeaponSecondary();
+			}
+		}
+
 		switch (pickupType)
 		{
-			case PickupType.Grenade:
-				if (SecondaryWeapon != null)
-				{
-					SecondaryWeapon.Ammo++;
-				}
+			case PickupType.Rifle:
+				weapons[pickupType].AddAmmo(30);
 
 				break;
+			case PickupType.Grenade:
+			case PickupType.Missile:
+				weapons[pickupType].AddAmmo(1);
+
+				break;
+		}
+	}
+
+	public void NextWeaponPrimary()
+	{
+		bool isWeaponFound = false;
+
+		WeaponBase firstWeapon = null;
+		WeaponBase lastWeapon = null;
+
+		foreach (WeaponBase weapon in weapons.Values)
+		{
+			switch (weapon.WeaponType)
+			{
+				case PickupType.Rifle:
+					if (PrimaryWeapon == null || isWeaponFound)
+					{
+						PrimaryWeapon = weapon;
+
+						EmitSignal(SignalName.WeaponUpdated, weapon);
+
+						return;
+					}
+					else if (firstWeapon == null)
+					{
+						firstWeapon = weapon;
+					}
+
+					lastWeapon = weapon;
+
+					isWeaponFound = (PrimaryWeapon == weapon);
+
+					break;
+			}
+		}
+
+		if (isWeaponFound && firstWeapon != lastWeapon)
+		{
+			PrimaryWeapon = firstWeapon;
+
+			EmitSignal(SignalName.WeaponUpdated, firstWeapon);
+		}
+	}
+
+	public void NextWeaponSecondary()
+	{
+		bool isWeaponFound = false;
+
+		WeaponBase firstWeapon = null;
+		WeaponBase lastWeapon = null;
+
+		foreach (WeaponBase weapon in weapons.Values)
+		{
+			switch (weapon.WeaponType)
+			{
+				case PickupType.Grenade:
+				case PickupType.Missile:
+					if (SecondaryWeapon == null || isWeaponFound)
+					{
+						SecondaryWeapon = weapon;
+
+						EmitSignal(SignalName.WeaponUpdated, weapon);
+
+						return;
+					}
+					else if (firstWeapon == null)
+					{
+						firstWeapon = weapon;
+					}
+
+					lastWeapon = weapon;
+
+					isWeaponFound = (SecondaryWeapon == weapon);
+
+					break;
+			}
+		}
+
+		if (isWeaponFound && firstWeapon != lastWeapon)
+		{
+			SecondaryWeapon = firstWeapon;
+
+			EmitSignal(SignalName.WeaponUpdated, firstWeapon);
 		}
 	}
 

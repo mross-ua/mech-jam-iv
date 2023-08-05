@@ -23,6 +23,8 @@ namespace MechJamIV {
         [Signal]
         public delegate void FiredEventHandler();
 
+		public abstract PickupType WeaponType { get; }
+
         [Export]
         public float RoundsPerSecond { get; set; }
 

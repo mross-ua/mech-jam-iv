@@ -10,6 +10,8 @@ namespace MechJamIV {
 		//[Signal]
 		public delegate void FiredEventHandler();
 
+		public PickupType WeaponType { get; }
+
 		public float RoundsPerSecond { get; }
 
 		public int Ammo { get; }

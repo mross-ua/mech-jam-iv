@@ -53,6 +53,23 @@ public partial class ProjectileEmitter : WeaponBase
 
     public override Texture2D SpriteTexture => ProjectileBaseItem.Instantiate<ProjectileBase>().SpriteTexture;
 
+	public override PickupType WeaponType
+	{
+		get
+		{
+			//TODO this is highly inefficient
+
+			ProjectileBase item = ProjectileBaseItem.Instantiate<ProjectileBase>();
+
+			PickupType pickupType = item.WeaponType;
+
+			// we have to free it because we don't add it to the scene tree
+			item.Free();
+
+			return pickupType;
+		}
+	}
+
 	#endregion
 
 }

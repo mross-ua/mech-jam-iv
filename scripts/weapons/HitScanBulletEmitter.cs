@@ -101,6 +101,8 @@ public partial class HitScanBulletEmitter : WeaponBase
 
     public override Texture2D SpriteTexture => GetNode<Sprite2D>("UISprite").Texture;
 
+    public override PickupType WeaponType => PickupType.Rifle;
+
 	#endregion
 
 }

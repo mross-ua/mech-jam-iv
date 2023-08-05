@@ -13,6 +13,8 @@ public partial class Missile : Grenade
 	[Export]
 	public float TurnSpeed { get; set; } = 3_000f;
 
+	public override PickupType WeaponType { get => PickupType.Missile; }
+
 	#region Node references
 
 	public CharacterTracker CharacterTracker { get; private set; }

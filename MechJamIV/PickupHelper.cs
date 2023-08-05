@@ -20,15 +20,15 @@ namespace MechJamIV {
         {
             if (RandomHelper.GetSingle() <= probability)
             {
-                switch ((PickupType)RandomHelper.GetInt(Enum.GetValues<PickupType>().Length))
+                switch (RandomHelper.GetInt(3))
                 {
-                    case PickupType.Medkit:
+                    case 0:
                         return medkitPickup.Instantiate<MedkitPickup>();
 
-                    case PickupType.Grenade:
+                    case 1:
                         return grenadePickup.Instantiate<GrenadePickup>();
 
-                    case PickupType.Missile:
+                    case 2:
                          return missilePickup.Instantiate<MissilePickup>();
                 }
             }

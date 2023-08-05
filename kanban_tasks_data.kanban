@@ -87,6 +87,7 @@
 			"uuid": "ea59d79b-f8bf-487b-82fd-1ae4113af119",
 			"title": "Gameplay Ideas",
 			"tasks": [
+				"f5cc05c8-39cd-46ea-8fb2-ba93fd8f7da7",
 				"788e1907-29f8-492b-a1d9-5c6a339bdb7c",
 				"6f7b488d-c507-4ba0-9cfb-062dbd2867ec",
 				"b52d76ed-3f22-4c0d-b2fb-cb1900213cc8",
@@ -107,7 +108,9 @@
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
-			"tasks": []
+			"tasks": [
+				"00b666b8-399a-41d7-a0b9-7a805c11cc33"
+			]
 		},
 		{
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
@@ -926,6 +929,20 @@
 			"title": "Polish jump/platforming movement",
 			"description": "The player jumping and platforming needs to be much more rewarding.\n\nThe variable jump height logic needs some tuning. There should be various methods depending on intended feel.",
 			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
+			"steps": []
+		},
+		{
+			"uuid": "00b666b8-399a-41d7-a0b9-7a805c11cc33",
+			"title": "Make an actual objective",
+			"description": "The medkit animation should be reused as some kind of objective the player has to collect. We would have to revert them to be static and user would have to solve a puzzle or face some obstacle to collect them.\n\nThe medkit could take on a different sprite (and collision shape), like one with a red cross.",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": []
+		},
+		{
+			"uuid": "f5cc05c8-39cd-46ea-8fb2-ba93fd8f7da7",
+			"title": "Story idea",
+			"description": "The medkit orbs are \"CyberSteel replicators[1].\" They have the power to grow into powerful cyborgs and must be recovered at all costs. The replicators need a specific substrate to grow and are not seen doing so in this game.\n\n1. https://conwaylife.com/wiki/Replicator",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
 			"steps": []
 		}
 	],

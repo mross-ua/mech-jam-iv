@@ -61,6 +61,7 @@ public partial class World : Node2D
 	private void InitSpawns()
 	{
 		spawns = new List<Spawn>();
+
 		foreach (Spawn spawn in GetTree().GetNodesInGroup("spawn").OfType<Spawn>())
 		{
 			spawns.Add(spawn);

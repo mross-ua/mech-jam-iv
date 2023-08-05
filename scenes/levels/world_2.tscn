@@ -67,6 +67,7 @@ JumpMultiplier = 25.0
 
 [node name="JumpPad2" parent="Environment" instance=ExtResource("10_t63ar")]
 position = Vector2(2934, 433)
+JumpMultiplier = 20.0
 
 [node name="MedkitPickup" parent="Environment" instance=ExtResource("11_nmrf1")]
 position = Vector2(2217, 449)

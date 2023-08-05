@@ -34,6 +34,9 @@ public partial class WeaponManager : Node2D
 		{
 			InitWeapon(weapon);
 		}
+
+		NextWeaponPrimary();
+		NextWeaponSecondary();
 	}
 
 	private void InitWeapon(WeaponBase weapon)
@@ -44,29 +47,6 @@ public partial class WeaponManager : Node2D
 		weapon.AmmoAdded += () => EmitSignal(SignalName.WeaponUpdated, weapon);
 
 		weapons[weapon.WeaponType] = weapon;
-
-		switch (weapon.WeaponType)
-		{
-			case PickupType.Rifle:
-				if (PrimaryWeapon == null)
-				{
-					PrimaryWeapon = weapon;
-
-					EmitSignal(SignalName.WeaponUpdated, weapon);
-				}
-
-				break;
-			case PickupType.Grenade:
-			case PickupType.Missile:
-				if (SecondaryWeapon == null)
-				{
-					SecondaryWeapon = weapon;
-
-					EmitSignal(SignalName.WeaponUpdated, weapon);
-				}
-
-				break;
-		}
 	}
 
 	public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
@@ -102,7 +82,7 @@ public partial class WeaponManager : Node2D
 		}
 	}
 
-	public void Pickup(PickupType pickupType)
+	public async void Pickup(PickupType pickupType)
 	{
 		if (!weapons.ContainsKey(pickupType))
 		{
@@ -110,8 +90,19 @@ public partial class WeaponManager : Node2D
 
 			InitWeapon(weapon);
 
-			//TODO? await this.AddChildDeferred(weapon);
-			AddChild(weapon);
+			await this.AddChildDeferred(weapon);
+
+			// auto-select the weapon if needed
+
+			if (PrimaryWeapon == null)
+			{
+				NextWeaponPrimary();
+			}
+
+			if (SecondaryWeapon == null)
+			{
+				NextWeaponSecondary();
+			}
 		}
 
 		switch (pickupType)
@@ -125,6 +116,89 @@ public partial class WeaponManager : Node2D
 				weapons[pickupType].AddAmmo(1);
 
 				break;
+		}
+	}
+
+	public void NextWeaponPrimary()
+	{
+		bool isWeaponFound = false;
+
+		WeaponBase firstWeapon = null;
+		WeaponBase lastWeapon = null;
+
+		foreach (WeaponBase weapon in weapons.Values)
+		{
+			switch (weapon.WeaponType)
+			{
+				case PickupType.Rifle:
+					if (PrimaryWeapon == null || isWeaponFound)
+					{
+						PrimaryWeapon = weapon;
+
+						EmitSignal(SignalName.WeaponUpdated, weapon);
+
+						return;
+					}
+					else if (firstWeapon == null)
+					{
+						firstWeapon = weapon;
+					}
+
+					lastWeapon = weapon;
+
+					isWeaponFound = (PrimaryWeapon == weapon);
+
+					break;
+			}
+		}
+
+		if (isWeaponFound && firstWeapon != lastWeapon)
+		{
+			PrimaryWeapon = firstWeapon;
+
+			EmitSignal(SignalName.WeaponUpdated, firstWeapon);
+		}
+	}
+
+	public void NextWeaponSecondary()
+	{
+		bool isWeaponFound = false;
+
+		WeaponBase firstWeapon = null;
+		WeaponBase lastWeapon = null;
+
+		foreach (WeaponBase weapon in weapons.Values)
+		{
+			switch (weapon.WeaponType)
+			{
+				case PickupType.Grenade:
+				case PickupType.Missile:
+					if (SecondaryWeapon == null || isWeaponFound)
+					{
+						SecondaryWeapon = weapon;
+
+						EmitSignal(SignalName.WeaponUpdated, weapon);
+
+						return;
+					}
+					else if (firstWeapon == null)
+					{
+						firstWeapon = weapon;
+					}
+
+					lastWeapon = weapon;
+
+					isWeaponFound = (SecondaryWeapon == weapon);
+
+					break;
+			}
+		}
+
+		if (isWeaponFound && firstWeapon != lastWeapon)
+		{
+			SecondaryWeapon = firstWeapon;
+
+			EmitSignal(SignalName.WeaponUpdated, firstWeapon);
 		}
 	}
 

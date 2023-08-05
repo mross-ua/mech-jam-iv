@@ -133,6 +133,15 @@ public partial class World : Node2D
 
 			GetViewport().SetInputAsHandled();
 		}
+		else if (@event.IsActionPressed("next_weapon_primary"))
+		{
+			player.WeaponManager.NextWeaponPrimary();
+		}
+		else if (@event.IsActionPressed("next_weapon_secondary"))
+		{
+			player.WeaponManager.NextWeaponSecondary();
+		}
+
     }
 
     public override void _PhysicsProcess(double delta)

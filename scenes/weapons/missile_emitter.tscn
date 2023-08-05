@@ -8,4 +8,3 @@ script = ExtResource("1_6k2de")
 ProjectileBaseItem = ExtResource("2_ag4ag")
 ImpulseStrength = 150.0
 RoundsPerSecond = 1.0
-CollisionMask = 323

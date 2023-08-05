@@ -4,13 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_exfpi"]
 [ext_resource type="Texture2D" uid="uid://dw0jy43tr5e1h" path="res://assets/resources/rifle_texture.tres" id="2_w4ffs"]
 
-[node name="HitScanBulletEmitter" type="Node2D"]
+[node name="HitScanBulletEmitter" type="Node2D" groups=["weapon"]]
 script = ExtResource("1_ljwkw")
 PointDamageEffect = ExtResource("2_exfpi")
 Damage = 1
-TracerColor = Color(1, 1, 1, 1)
+TracerColor = Color(1, 1, 0.7, 1)
 TracerWidth = 1.0
-RoundsPerSecond = 1.0
+RoundsPerSecond = 5.0
+Ammo = -1
+CollisionMask = 323
 LineOfSightDistance = 10000.0
 
 [node name="UISprite" type="Sprite2D" parent="."]

@@ -18,10 +18,11 @@ namespace MechJamIV {
 
         #region IWeapon
 
-        private int ammo = 0;
-
         [Signal]
         public delegate void FiredEventHandler();
+
+        [Signal]
+		public delegate void AmmoAddedEventHandler();
 
 		public abstract PickupType WeaponType { get; }
 
@@ -29,22 +30,7 @@ namespace MechJamIV {
         public float RoundsPerSecond { get; set; }
 
         [Export]
-        public int Ammo
-        {
-            get
-            {
-                return ammo;
-            }
-            set
-            {
-                if (ammo != value)
-                {
-                    ammo = value;
-
-                    EmitSignal(SignalName.Fired);
-                }
-            }
-        }
+        public int Ammo { get; set; }
 
         [Export(PropertyHint.Layers2DPhysics)]
         public uint CollisionMask { get; set; }
@@ -69,10 +55,7 @@ namespace MechJamIV {
                 // allow this for infinite ammo
             }
 
-            if (Ammo > 0)
-            {
-                Ammo--;
-            }
+            Ammo--;
 
             isCoolingDown = true;
 
@@ -86,6 +69,20 @@ namespace MechJamIV {
             }
 
             isCoolingDown = false;
+        }
+
+		public void AddAmmo(int count)
+        {
+            if (Ammo < 0)
+            {
+                // allow this for infinite ammo
+
+                return;
+            }
+
+            Ammo += count;
+
+            EmitSignal(SignalName.AmmoAdded);
         }
 
         #endregion

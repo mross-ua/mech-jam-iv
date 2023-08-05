@@ -180,11 +180,8 @@ public partial class World : Node2D
 
 				break;
 			case PickupType.Grenade:
-				player.WeaponManager.PickupAmmo(PickupType.Grenade);
-
-				break;
 			case PickupType.Missile:
-				player.WeaponManager.PickupAmmo(PickupType.Missile);
+				player.WeaponManager.Pickup(pickup.PickupType);
 
 				break;
 		}

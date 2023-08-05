@@ -13,6 +13,8 @@ namespace MechJamIV {
     	private static readonly PackedScene grenadePickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/grenade_pickup.tscn");
 
     	private static readonly PackedScene missilePickup = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/missile_pickup.tscn");
+    	private static readonly PackedScene grenadeEmitter = ResourceLoader.Load<PackedScene>("res://scenes/weapons/grenade_emitter.tscn");
+    	private static readonly PackedScene missileEmitter = ResourceLoader.Load<PackedScene>("res://scenes/weapons/missile_emitter.tscn");
 
         #endregion
 
@@ -31,6 +33,20 @@ namespace MechJamIV {
                     case 2:
                          return missilePickup.Instantiate<MissilePickup>();
                 }
+            }
+
+            return null;
+        }
+
+        public static WeaponBase GenerateWeapon(PickupType pickupType)
+        {
+            switch (pickupType)
+            {
+                case PickupType.Grenade:
+                    return grenadeEmitter.Instantiate<ProjectileEmitter>();
+
+                case PickupType.Missile:
+                    return missileEmitter.Instantiate<ProjectileEmitter>();
             }
 
             return null;

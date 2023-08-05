@@ -10,6 +10,9 @@ namespace MechJamIV {
 		//[Signal]
 		public delegate void FiredEventHandler();
 
+		//[Signal]
+		public delegate void AmmoAddedEventHandler();
+
 		public PickupType WeaponType { get; }
 
 		public float RoundsPerSecond { get; }
@@ -24,6 +27,8 @@ namespace MechJamIV {
 		public Texture2D SpriteTexture { get; }
 
 		public void Fire(Vector2 globalPos, CollisionObject2D target = null);
+
+		public void AddAmmo(int count);
 
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bt7vafft2mqcp"]
+[gd_scene load_steps=51 format=3 uid="uid://bt7vafft2mqcp"]
 
 [ext_resource type="Script" path="res://scripts/players/Player.cs" id="1_bcjvt"]
 [ext_resource type="Texture2D" uid="uid://7dvejqpmb4am" path="res://assets/spritesheets/char-sheet-alpha.png" id="1_fkqgm"]
@@ -7,10 +7,9 @@
 [ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_wlw4n"]
 [ext_resource type="PackedScene" uid="uid://tatq2gmyab34" path="res://scenes/effects/immunity_shield.tscn" id="4_y0w7f"]
 [ext_resource type="PackedScene" uid="uid://c0h0eogjo2jqf" path="res://scenes/weapons/weapon_manager.tscn" id="6_3wjrj"]
-[ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="7_f12p3"]
 [ext_resource type="PackedScene" uid="uid://bbkjkuljk0kq" path="res://scenes/players/character_tracker.tscn" id="7_omsc2"]
-[ext_resource type="PackedScene" uid="uid://dt2hpb3k3ussg" path="res://scenes/weapons/projectile_emitter.tscn" id="8_4d3xc"]
-[ext_resource type="PackedScene" uid="uid://bg2lrlwoo7stu" path="res://scenes/weapons/grenade.tscn" id="9_ird66"]
+[ext_resource type="PackedScene" uid="uid://dt6lo73in6sdi" path="res://scenes/weapons/hit_scan_bullet_emitter.tscn" id="9_tr2dm"]
+[ext_resource type="PackedScene" uid="uid://cjeql1mtfxeol" path="res://scenes/weapons/grenade_emitter.tscn" id="10_m0mws"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jogux"]
 atlas = ExtResource("1_fkqgm")
@@ -347,14 +346,7 @@ update_scale = false
 
 [node name="WeaponManager" parent="." instance=ExtResource("6_3wjrj")]
 
-[node name="HitScanBulletEmitter" parent="WeaponManager" instance=ExtResource("7_f12p3")]
-TracerColor = Color(1, 1, 0.7, 1)
-RoundsPerSecond = 5.0
-Ammo = -1
-CollisionMask = 289
+[node name="HitScanBulletEmitter" parent="WeaponManager" instance=ExtResource("9_tr2dm")]
 
-[node name="ProjectileEmitter" parent="WeaponManager" instance=ExtResource("8_4d3xc")]
-ProjectileBaseItem = ExtResource("9_ird66")
-ImpulseStrength = 500.0
+[node name="GrenadeEmitter" parent="WeaponManager" instance=ExtResource("10_m0mws")]
 Ammo = 4
-CollisionMask = 321

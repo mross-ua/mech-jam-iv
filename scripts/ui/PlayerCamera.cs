@@ -51,7 +51,7 @@ public partial class PlayerCamera : Camera2D
 		player.ImmunityShieldActivated += () => immunityShield.Visible = true;
 		player.ImmunityShieldDeactivated += () => immunityShield.Visible = false;
 
-		player.WeaponManager.WeaponFired += (fireMode, weapon) => UpdateUI();
+		player.WeaponManager.WeaponUpdated += (weapon) => UpdateUI();
 
 		player.SetRemoteTarget(this);
 
@@ -62,25 +62,25 @@ public partial class PlayerCamera : Camera2D
 	{
 		healthBar.Value = player.Health;
 
-		primaryTextureRect.Texture = player.WeaponManager.PrimaryWeapon.SpriteTexture;
-		secondaryTextureRect.Texture = player.WeaponManager.SecondaryWeapon.SpriteTexture;
+		primaryTextureRect.Texture = player.WeaponManager.PrimaryWeapon?.SpriteTexture;
+		secondaryTextureRect.Texture = player.WeaponManager.SecondaryWeapon?.SpriteTexture;
 
-		if (player.WeaponManager.PrimaryWeapon.Ammo < 0)
+		if (player.WeaponManager.PrimaryWeapon?.Ammo < 0)
 		{
 			primaryAmmoLabel.Text = "∞";
 		}
 		else
 		{
-			primaryAmmoLabel.Text = player.WeaponManager.PrimaryWeapon.Ammo.ToString();
+			primaryAmmoLabel.Text = player.WeaponManager.PrimaryWeapon?.Ammo.ToString();
 		}
 
-		if (player.WeaponManager.SecondaryWeapon.Ammo < 0)
+		if (player.WeaponManager.SecondaryWeapon?.Ammo < 0)
 		{
 			secondaryAmmoLabel.Text = "∞";
 		}
 		else
 		{
-			secondaryAmmoLabel.Text = player.WeaponManager.SecondaryWeapon.Ammo.ToString();
+			secondaryAmmoLabel.Text = player.WeaponManager.SecondaryWeapon?.Ammo.ToString();
 		}
 	}
 

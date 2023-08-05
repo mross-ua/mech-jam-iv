@@ -12,7 +12,7 @@ TracerColor = Color(1, 1, 0.7, 1)
 TracerWidth = 1.0
 RoundsPerSecond = 5.0
 Ammo = -1
-CollisionMask = 323
+CollisionMask = 331
 LineOfSightDistance = 10000.0
 
 [node name="UISprite" type="Sprite2D" parent="."]

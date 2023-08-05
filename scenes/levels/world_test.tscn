@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://nqbfpa8gpdu8"]
+[gd_scene load_steps=19 format=3 uid="uid://nqbfpa8gpdu8"]
 
 [ext_resource type="Script" path="res://scripts/levels/World.cs" id="1_c8a4v"]
 [ext_resource type="PackedScene" uid="uid://cses4a08f7sqs" path="res://scenes/levels/decorations/tile_map_tech_steel_green.tscn" id="2_eyy2s"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cydjxvklk03tv" path="res://scenes/levels/pickups/grenade_pickup.tscn" id="10_1eub6"]
 [ext_resource type="PackedScene" uid="uid://n83wwlywvgtu" path="res://scenes/levels/pickups/medkit_pickup.tscn" id="11_m2t0l"]
 [ext_resource type="PackedScene" uid="uid://bpxh4sphjfunw" path="res://scenes/levels/pickups/missile_pickup.tscn" id="12_wgwip"]
+[ext_resource type="PackedScene" uid="uid://c2l3yu2tfqi6b" path="res://scenes/levels/pickups/hit_scan_bullet_emitter_pickup.tscn" id="13_6ho3t"]
 [ext_resource type="PackedScene" uid="uid://cx2gfd1kayu52" path="res://scenes/levels/hazards/spikes.tscn" id="13_k2jyb"]
 [ext_resource type="PackedScene" uid="uid://dyh1s8bk7j5t2" path="res://scenes/enemies/enemy_mech.tscn" id="14_2vqbk"]
 [ext_resource type="PackedScene" uid="uid://bwc210e86gkpi" path="res://scenes/enemies/enemy_troid.tscn" id="15_28cdv"]
@@ -75,6 +76,10 @@ position = Vector2(260, 375)
 
 [node name="MissilePickup" parent="Environment" instance=ExtResource("12_wgwip")]
 position = Vector2(531, 103)
+
+[node name="HitScanBulletEmitterPickup" parent="Environment" instance=ExtResource("13_6ho3t")]
+position = Vector2(617, 391)
+rotation = -1.5708
 
 [node name="Hazards" type="Node" parent="."]
 

@@ -179,6 +179,7 @@ public partial class World : Node2D
 				player.Heal(50);
 
 				break;
+			case PickupType.Rifle:
 			case PickupType.Grenade:
 			case PickupType.Missile:
 				player.WeaponManager.Pickup(pickup.PickupType);

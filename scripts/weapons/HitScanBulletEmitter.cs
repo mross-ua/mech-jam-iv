@@ -20,7 +20,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 	[Export]
 	public float TracerWidth { get; set; }
 
-	private Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new Queue<Tuple<Vector2, Vector2>>();
+	private readonly Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new ();
 
 	private Godot.Collections.Array<Rid> bodiesToExclude = null;
 

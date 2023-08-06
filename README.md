@@ -37,7 +37,12 @@ And thanks very much to the following artists for making their work freely avail
   - [Pixel Planet Generator](https://deep-fold.itch.io/pixel-planet-generator)
 
 - [ansimuz](https://itch.io/profile/ansimuz)
+
   - [Sideview Sci-Fi - Patreon Collection](https://ansimuz.itch.io/sideview-sci-fi)
+
+- [Rad Potato](https://rad-potato.itch.io/)
+
+  - [Pixel Perfect: Ultimate Crosshair kit](https://rad-potato.itch.io/pixel-perfect-ultimate-crosshair-kit)
 
 ## Features:
 

@@ -10,6 +10,8 @@ public partial class World : Node2D
 	[Export]
 	public PackedScene NextScene { get; set; } = null;
 
+	private int numObjectivesRemaining = 0;
+
 	#region Node references
 
 	private Player player;
@@ -113,17 +115,23 @@ public partial class World : Node2D
 	{
 		foreach (Objective objective in GetTree().GetNodesInGroup("objective").OfType<Objective>())
 		{
+			if (objective is CyberSteel cyberSteel)
+			{
+				numObjectivesRemaining++;
+			}
+
 			objective.ObjectiveReached += () =>
 			{
 				if (objective is CyberSteel cyberSteel)
 				{
-					//TODO record cybersteel replicator as collected
+					numObjectivesRemaining--;
 				}
 				else if (objective is Spaceship spaceship)
 				{
-					//TODO ensure all cybersteel replicators are collected
-
-					GetTree().ChangeSceneToPacked(NextScene);
+					if (numObjectivesRemaining == 0)
+					{
+						GetTree().ChangeSceneToPacked(NextScene);
+					}
 				}
 			};
 		}

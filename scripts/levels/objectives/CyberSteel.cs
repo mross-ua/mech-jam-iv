@@ -8,6 +8,7 @@ public partial class CyberSteel : Objective
 	#region Node references
 
 	private AnimatedSprite2D animatedSprite2D;
+	private CollisionShape2D collisionShape2D;
 
 	#endregion
 
@@ -17,7 +18,14 @@ public partial class CyberSteel : Objective
 
 		animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		// make it flicker
-		animatedSprite2D.AnimationLooped += () => animatedSprite2D.Rotate(Mathf.DegToRad(RandomHelper.GetInt(360)));
+
+		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+
+		BodyEntered += (body) =>
+		{
+			Visible = false;
+			collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+		};
 	}
 
 }

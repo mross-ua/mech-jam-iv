@@ -5,16 +5,16 @@ using System.Linq;
 using MechJamIV;
 
 namespace MechJamIV {
-	public abstract partial class ProjectileBase : RigidBody2D
+	public partial class Projectile : RigidBody2D
 		,ICollidable
 	{
 
 		[Export]
 		public PackedScene PointDamageEffect { get; set; }
 
-		public abstract PickupType WeaponType { get; }
+		public virtual PickupType WeaponType { get => throw new NotImplementedException(); }
 
-    	public abstract Texture2D SpriteTexture { get; }
+		public virtual Texture2D SpriteTexture { get => throw new NotImplementedException(); }
 
 		public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 		{
@@ -26,12 +26,20 @@ namespace MechJamIV {
 			}
 		}
 
+		private void AnimateInjury(Vector2 globalPos)
+		{
+			this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+		}
+
 		#region ICollidable
 
 		[Signal]
 		public delegate void InjuredEventHandler(int damage);
 
-		public abstract void Hurt(int damage, Vector2 globalPos, Vector2 normal);
+		public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+		{
+			AnimateInjury(globalPos);
+		}
 
 		#endregion
 

@@ -7,7 +7,7 @@ public partial class MedkitPickup : PickupBase
 
 	#region Node references
 
-	private Medkit medkit;
+	private Projectile medkit;
 
 	#endregion
 
@@ -19,7 +19,7 @@ public partial class MedkitPickup : PickupBase
 		//       set Medkit.TopLevel = true. Therefore, we have to set
 		//       the initial position.
 
-		medkit = GetNode<Medkit>("Medkit");
+		medkit = GetNode<Projectile>("Medkit");
 		medkit.GlobalPosition = GlobalPosition;
 	}
 

@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://cyk2sakvlse4x" path="res://scenes/levels/pickups/medkit.tscn" id="1_h76w7"]
 [ext_resource type="Script" path="res://scripts/levels/pickups/MedkitPickup.cs" id="1_p437x"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7io8x"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxefv"]
+size = Vector2(34, 34)
 
 [node name="MedkitPickup" type="Area2D" groups=["pickup"]]
 collision_layer = 0
@@ -16,4 +17,4 @@ script = ExtResource("1_p437x")
 remote_path = NodePath("../../CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_7io8x")
+shape = SubResource("RectangleShape2D_nxefv")

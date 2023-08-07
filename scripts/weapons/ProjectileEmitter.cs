@@ -28,7 +28,7 @@ public partial class ProjectileEmitter : WeaponBase
 
 	protected async override void _Fire(Vector2 globalPos, CollisionObject2D target = null)
 	{
-		ProjectileBase projectile = ProjectileBaseItem.Instantiate<ProjectileBase>();
+		Projectile projectile = ProjectileBaseItem.Instantiate<Projectile>();
 		projectile.GlobalTransform = GlobalTransform;
 
 		projectile.SetBodiesToExclude(bodiesToExclude);
@@ -64,7 +64,7 @@ public partial class ProjectileEmitter : WeaponBase
 		{
 			//TODO this is highly inefficient
 
-			ProjectileBase item = ProjectileBaseItem.Instantiate<ProjectileBase>();
+			Projectile item = ProjectileBaseItem.Instantiate<Projectile>();
 
 			PickupType pickupType = item.WeaponType;
 
@@ -81,7 +81,7 @@ public partial class ProjectileEmitter : WeaponBase
 		{
 			//TODO this is highly inefficient
 
-			ProjectileBase item = ProjectileBaseItem.Instantiate<ProjectileBase>();
+			Projectile item = ProjectileBaseItem.Instantiate<Projectile>();
 
 			Texture2D texture2d = item.SpriteTexture;
 

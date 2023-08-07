@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MechJamIV;
 
-public partial class ExplosiveBarrel : Barrel
+public partial class ExplosiveBarrel : Projectile
 	,IDestructible
 	,IDetonable
 {
@@ -143,7 +143,7 @@ public partial class ExplosiveBarrel : Barrel
 				character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalPosition, -dir.Normalized());
 				character.Velocity += ExplosionIntensity * dir / dir.LengthSquared();
 			}
-			else if (node is ProjectileBase projectile)
+			else if (node is Projectile projectile)
 			{
 				Vector2 dir = projectile.GlobalPosition - GlobalPosition;
 

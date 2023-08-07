@@ -8,7 +8,7 @@ public partial class World : Node2D
 {
 
 	[Export]
-	public PackedScene NextScene { get; set; } = null;
+	public PackedScene NextScene { get; set; }
 
 	private int numObjectivesRemaining = 0;
 

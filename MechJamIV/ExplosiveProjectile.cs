@@ -17,7 +17,8 @@ namespace MechJamIV {
 
 		#region Node references
 
-		public CharacterAnimator CharacterAnimator;
+		public CharacterAnimator CharacterAnimator { get; private set; }
+		public CharacterTracker CharacterTracker { get; private set; }
 
 		private CollisionShape2D collisionShape2D;
 		private Area2D explosionAreaOfEffect;
@@ -30,6 +31,7 @@ namespace MechJamIV {
 			base._Ready();
 
 			CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+			CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
 
 			collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 
@@ -72,6 +74,8 @@ namespace MechJamIV {
 				Detonate();
 
 				EmitSignal(SignalName.Killed);
+
+				CharacterTracker?.Untrack();
 
 				// NOTE: We disable the collision shape and wait to
 				//       free so the death animation can fully play.

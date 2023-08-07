@@ -9,7 +9,7 @@ namespace MechJamIV {
     {
 
         [Signal]
-        public delegate void PickupDroppedEventHandler(PickupBase pickup);
+        public delegate void PickupDroppedEventHandler(long pickupType);
 
         [Export]
         public float FieldOfView { get; set; } = 45.0f;
@@ -27,7 +27,7 @@ namespace MechJamIV {
 
         #region Node references
 
-	    private IList<Hitbox> hitboxes = new List<Hitbox>();
+	    private readonly IList<Hitbox> hitboxes = new List<Hitbox>();
 
         #endregion
 
@@ -35,7 +35,7 @@ namespace MechJamIV {
         {
             base._Ready();
 
-            foreach (Node2D node in GetNode<Node2D>("Hitboxes").GetChildren())
+            foreach (Node2D node in GetNode<Node2D>("Hitboxes").GetChildren().OfType<Node2D>())
             {
                 if (node is Hitbox hitbox)
                 {
@@ -43,7 +43,7 @@ namespace MechJamIV {
 
                     hitbox.Hit += (damage, isWeakSpot, position, normal) =>
                     {
-                        if (isWeakSpot || RandomHelper.GetSingle() <= CriticalHitRate)
+                        if (isWeakSpot || GD.Randf() <= CriticalHitRate)
                         {
                             Hurt(damage * 2, position, normal);
                         }
@@ -80,6 +80,9 @@ namespace MechJamIV {
 
                 case EnemyState.Attacking:
                     return GetMovementDirection_Attacking();
+
+                default:
+                    break;
             }
 
             return Vector2.Zero;
@@ -118,13 +121,11 @@ namespace MechJamIV {
 
         private void DropPickup()
         {
-            PickupBase pickup = PickupHelper.GenerateRandomPickup(PickupDropRate);
+            PickupType? pickupType = PickupHelper.GenerateRandomPickup(PickupDropRate);
 
-            if (pickup != null)
+            if (pickupType.HasValue)
             {
-                pickup.GlobalPosition = GlobalPosition;
-
-                EmitSignal(SignalName.PickupDropped, pickup);
+                EmitSignal(SignalName.PickupDropped, (long)pickupType.Value);
             }
         }
 

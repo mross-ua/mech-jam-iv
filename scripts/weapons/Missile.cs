@@ -4,22 +4,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using MechJamIV;
 
-public partial class Missile : Grenade
+public partial class Missile : ExplosiveProjectile
 {
 
 	[Export]
-	public float ThrustForce { get; set; } = 5_000.0f;
+	public float ThrustForce { get; set; }
 
 	[Export]
-	public float TurnSpeed { get; set; } = 3_000f;
-
-	public override PickupType WeaponType { get => PickupType.Missile; }
+	public float TurnSpeed { get; set; }
 
 	#region Node references
 
-	public CharacterTracker CharacterTracker { get; private set; }
-
-	private GpuParticles2D GpuParticles2D;
+	private GpuParticles2D gpuParticles2D;
 
 	#endregion
 
@@ -27,9 +23,7 @@ public partial class Missile : Grenade
 	{
 		base._Ready();
 
-		GpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
-
-		CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
+		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
 
 		BodyEntered += (body) =>
 		{
@@ -77,33 +71,14 @@ public partial class Missile : Grenade
 		base.AnimateDeath();
 
 		// allow emitted particles to decay
-		GpuParticles2D.Emitting = false;
+		gpuParticles2D.Emitting = false;
 	}
-
-	#region IDestructible
-
-	public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
-	{
-		if (Health <= 0)
-		{
-			return;
-		}
-
-		base.Hurt(damage, globalPos, normal);
-
-		if (Health <= 0)
-		{
-			CharacterTracker.Untrack();
-		}
-	}
-
-    #endregion
 
     #region IDetonable
 
     public override void PrimeFuse()
     {
-		GpuParticles2D.Visible = true;
+		gpuParticles2D.Visible = true;
 		GravityScale = 0.0f;
 
         base.PrimeFuse();

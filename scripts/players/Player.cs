@@ -116,7 +116,7 @@ public partial class Player : CharacterBase
 	[Signal]
 	public delegate void ImmunityShieldDeactivatedEventHandler();
 
-	public void SetRemoteTarget(PlayerCamera cam)
+	public void SetRemoteTarget(Camera2D cam)
 	{
 		remoteTransform.RemotePath = cam.GetPath();
 	}

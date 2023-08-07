@@ -125,14 +125,21 @@ layout_mode = 2
 
 [node name="Label14" type="Label" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
-text = "ansimuz"
+text = "Deep-Fold"
 
 [node name="Label11" type="Label" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="Label12" type="Label" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
-text = "deep-fold"
+text = "ansimuz"
+
+[node name="Label15" type="Label" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label16" type="Label" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Rad Potato"
 
 [node name="Label9" type="Label" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2

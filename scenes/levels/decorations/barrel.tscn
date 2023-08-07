@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c6df5qfxoappy"]
 
 [ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://assets/spritesheets/space_merc.png" id="1_bgs5m"]
-[ext_resource type="Script" path="res://scripts/levels/decorations/Barrel.cs" id="1_po06p"]
-[ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_uespu"]
+[ext_resource type="Script" path="res://MechJamIV/Projectile.cs" id="1_it3s8"]
+[ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_wbnxv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eohit"]
 atlas = ExtResource("1_bgs5m")
@@ -14,8 +14,8 @@ size = Vector2(16, 23)
 [node name="Barrel" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 95
-script = ExtResource("1_po06p")
-PointDamageEffect = ExtResource("2_uespu")
+script = ExtResource("1_it3s8")
+PointDamageEffect = ExtResource("2_wbnxv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_eohit")

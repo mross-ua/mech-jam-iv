@@ -14,6 +14,7 @@ theme_override_constants/separation = 15
 [node name="Label15" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "OBJECTIVES
+  Recover CyberSteel replicators.
   Return to your ship alive.
 
 RULES OF ENGAGEMENT

@@ -5,5 +5,5 @@
 
 [node name="GrenadeEmitter" type="Node2D" groups=["weapon"]]
 script = ExtResource("1_pu6jp")
-ProjectileBaseItem = ExtResource("2_s1mfh")
+Projectile = ExtResource("2_s1mfh")
 ImpulseStrength = 500.0

@@ -24,7 +24,7 @@ namespace MechJamIV {
 
 		public float LineOfSightDistance { get; }
 
-		public Texture2D SpriteTexture { get; }
+		public Texture2D UISprite { get; }
 
 		public void Fire(Vector2 globalPos, CollisionObject2D target = null);
 

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://blh66bna728md"]
+
+[ext_resource type="Texture2D" uid="uid://c75k71v657ew4" path="res://resources/space_merc.tres" id="1_3s28n"]
+
+[resource]
+atlas = ExtResource("1_3s28n")
+region = Rect2(240, 152, 8, 8)

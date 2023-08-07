@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://bg2lrlwoo7stu"]
+[gd_scene load_steps=19 format=3 uid="uid://bg2lrlwoo7stu"]
 
 [ext_resource type="Texture2D" uid="uid://cve7oedbxbrqp" path="res://assets/spritesheets/space_merc.png" id="1_2e28v"]
-[ext_resource type="Script" path="res://scripts/weapons/Grenade.cs" id="1_k8bcu"]
+[ext_resource type="Script" path="res://MechJamIV/ExplosiveProjectile.cs" id="1_5ust0"]
 [ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://assets/spritesheets/impacts-sheet-colour-3-alpha.png" id="2_tts1i"]
 [ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_wnpuq"]
+[ext_resource type="Texture2D" uid="uid://blh66bna728md" path="res://resources/grenade_texture.tres" id="3_b4xxq"]
 [ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="4_twoyx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ajwn"]
@@ -96,13 +97,17 @@ radius = 4.12311
 [sub_resource type="CircleShape2D" id="CircleShape2D_bo8vd"]
 radius = 50.0
 
-[node name="Grenade" type="RigidBody2D"]
+[node name="Grenade" type="RigidBody2D" groups=["pickup"]]
 collision_layer = 256
 collision_mask = 347
-script = ExtResource("1_k8bcu")
+max_contacts_reported = 8
+contact_monitor = true
+script = ExtResource("1_5ust0")
 Health = 1
 FuseDelay = 3.0
 PointDamageEffect = ExtResource("2_wnpuq")
+WeaponType = 2
+UISprite = ExtResource("3_b4xxq")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gsn40")

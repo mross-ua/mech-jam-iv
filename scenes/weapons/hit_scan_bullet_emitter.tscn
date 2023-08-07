@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/weapons/HitScanBulletEmitter.cs" id="1_ljwkw"]
 [ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_exfpi"]
-[ext_resource type="Texture2D" uid="uid://dw0jy43tr5e1h" path="res://assets/resources/rifle_texture.tres" id="2_w4ffs"]
+[ext_resource type="Texture2D" uid="uid://dw0jy43tr5e1h" path="res://resources/rifle_texture.tres" id="2_w4ffs"]
 
 [node name="HitScanBulletEmitter" type="Node2D" groups=["weapon"]]
 script = ExtResource("1_ljwkw")

@@ -27,7 +27,7 @@ namespace MechJamIV {
 
         #region Node references
 
-	    private IList<Hitbox> hitboxes = new List<Hitbox>();
+	    private readonly IList<Hitbox> hitboxes = new List<Hitbox>();
 
         #endregion
 
@@ -35,7 +35,7 @@ namespace MechJamIV {
         {
             base._Ready();
 
-            foreach (Node2D node in GetNode<Node2D>("Hitboxes").GetChildren())
+            foreach (Node2D node in GetNode<Node2D>("Hitboxes").GetChildren().OfType<Node2D>())
             {
                 if (node is Hitbox hitbox)
                 {
@@ -80,6 +80,9 @@ namespace MechJamIV {
 
                 case EnemyState.Attacking:
                     return GetMovementDirection_Attacking();
+
+                default:
+                    break;
             }
 
             return Vector2.Zero;

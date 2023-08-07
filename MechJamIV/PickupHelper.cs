@@ -54,9 +54,14 @@ namespace MechJamIV {
 
                 case PickupType.Missile:
                     return missileEmitter.Instantiate<ProjectileEmitter>();
+
+                default:
+                    // this should never happen
+
+                    break;
             }
 
-            return null;
+            throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a weapon type");
         }
 
     }

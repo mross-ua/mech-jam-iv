@@ -16,7 +16,7 @@ public partial class HitScanBulletEmitterPickup : PickupBase
 		base._Ready();
 
 		// NOTE: In order to get the RemoteTransform2D to work, I had to
-		//       set Grenade.TopLevel = true. Therefore, we have to set
+		//       set HitScanBulletEmitter.TopLevel = true. Therefore, we have to set
 		//       the initial position.
 
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");

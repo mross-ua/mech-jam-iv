@@ -139,11 +139,8 @@ public partial class WeaponManager : Node2D
 
 						return;
 					}
-					else if (firstWeapon == null)
-					{
-						firstWeapon = weapon;
-					}
 
+					firstWeapon ??= weapon;
 					lastWeapon = weapon;
 
 					isWeaponFound = (PrimaryWeapon == weapon);
@@ -181,11 +178,8 @@ public partial class WeaponManager : Node2D
 
 						return;
 					}
-					else if (firstWeapon == null)
-					{
-						firstWeapon = weapon;
-					}
 
+					firstWeapon ??= weapon;
 					lastWeapon = weapon;
 
 					isWeaponFound = (SecondaryWeapon == weapon);

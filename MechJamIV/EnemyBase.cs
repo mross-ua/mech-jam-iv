@@ -43,7 +43,7 @@ namespace MechJamIV {
 
                     hitbox.Hit += (damage, isWeakSpot, position, normal) =>
                     {
-                        if (isWeakSpot || RandomHelper.GetSingle() <= CriticalHitRate)
+                        if (isWeakSpot || GD.Randf() <= CriticalHitRate)
                         {
                             Hurt(damage * 2, position, normal);
                         }

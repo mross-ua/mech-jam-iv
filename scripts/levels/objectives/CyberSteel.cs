@@ -18,6 +18,7 @@ public partial class CyberSteel : Objective
 
 		animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		// make it flicker
+		animatedSprite2D.AnimationLooped += () => animatedSprite2D.Rotate((float)GD.RandRange(0.0f, 2 * Mathf.Pi));
 
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 

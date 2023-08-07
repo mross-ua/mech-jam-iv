@@ -23,7 +23,7 @@ public partial class EnemyMech : EnemyBase
 
 	protected override Vector2 GetMovementDirection_Idle()
 	{
-		if (RandomHelper.GetSingle() < 0.01f)
+		if (GD.Randf() < 0.01f)
 		{
 			if (FaceDirection.IsEqualApprox(Vector2.Left))
 			{

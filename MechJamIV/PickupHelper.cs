@@ -20,9 +20,9 @@ namespace MechJamIV {
 
         public static PickupType? GenerateRandomPickup(float probability)
         {
-            if (RandomHelper.GetSingle() <= probability)
+            if (GD.Randf() <= probability)
             {
-                switch (RandomHelper.GetInt(3))
+                switch (GD.Randi() % 3)
                 {
                     case 0:
                         return PickupType.Medkit;

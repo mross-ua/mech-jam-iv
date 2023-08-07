@@ -11,11 +11,11 @@ public partial class Spawn : Node2D
 	public delegate void SpawnReachedEventHandler(Player player);
 
 	[Export]
-	public bool IsWorldSpawn { get; set; } = false;
+	public bool IsWorldSpawn { get; set; }
 
 	#region Node references
 
-	public Marker2D SpawnPointMarker { get; set; }
+	public Marker2D SpawnPointMarker { get; private set; }
 
 	private Timer healthGenTimer;
 	private Area2D area2D;

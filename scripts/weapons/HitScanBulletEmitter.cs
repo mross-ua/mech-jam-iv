@@ -26,21 +26,6 @@ public partial class HitScanBulletEmitter : WeaponBase
 
 	private bool isNeedsRedraw = false;
 
-	#region Node references
-
-	public Sprite2D UISprite
-	{
-		get
-		{
-			// NOTE: This must be accessible outside of scene tree.
-			//       (_Ready() may not have been called.)
-
-			return GetNode<Sprite2D>("UISprite");
-		}
-	}
-
-	#endregion
-
     public override void _Process(double delta)
     {
         if (isNeedsRedraw)
@@ -123,7 +108,16 @@ public partial class HitScanBulletEmitter : WeaponBase
 
     public override PickupType WeaponType => PickupType.Rifle;
 
-    public override Texture2D SpriteTexture => UISprite.Texture;
+    public override Texture2D UISprite
+	{
+		get
+		{
+			// NOTE: This must be accessible outside of scene tree.
+			//       (_Ready() may not have been called.)
+
+			return GetNode<Sprite2D>("UISprite").Texture;
+		}
+	}
 
 	#endregion
 

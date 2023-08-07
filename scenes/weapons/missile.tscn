@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://dxtbt33nlhuer"]
+[gd_scene load_steps=25 format=3 uid="uid://dxtbt33nlhuer"]
 
 [ext_resource type="Texture2D" uid="uid://c7hgekyi06oyw" path="res://assets/spritesheets/enemies2-sheet-alpha.png" id="1_22chs"]
 [ext_resource type="Script" path="res://scripts/weapons/Missile.cs" id="1_72hel"]
 [ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_g8h07"]
 [ext_resource type="Texture2D" uid="uid://rtnpstsudspl" path="res://assets/spritesheets/impacts-sheet-colour-3-alpha.png" id="2_k15pn"]
 [ext_resource type="Script" path="res://scripts/players/CharacterAnimator.cs" id="2_schm0"]
+[ext_resource type="Texture2D" uid="uid://bw4p2827pt5g2" path="res://resources/missile_texture.tres" id="3_n08by"]
 [ext_resource type="PackedScene" uid="uid://bbkjkuljk0kq" path="res://scenes/players/character_tracker.tscn" id="6_o3jq2"]
 
 [sub_resource type="Gradient" id="Gradient_03oxk"]
@@ -135,6 +136,8 @@ script = ExtResource("1_72hel")
 Health = 1
 FuseDelay = 10.0
 PointDamageEffect = ExtResource("2_g8h07")
+WeaponType = 3
+UISprite = ExtResource("3_n08by")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 visible = false

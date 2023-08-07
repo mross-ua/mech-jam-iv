@@ -12,9 +12,11 @@ namespace MechJamIV {
 		[Export]
 		public PackedScene PointDamageEffect { get; set; }
 
-		public virtual PickupType WeaponType { get => throw new NotImplementedException(); }
+		[Export(PropertyHint.Enum)]
+		public PickupType WeaponType { get; set; }
 
-		public virtual Texture2D SpriteTexture { get => throw new NotImplementedException(); }
+		[Export]
+		public Texture2D UISprite { get; set; }
 
 		public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 		{

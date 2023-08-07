@@ -62,8 +62,8 @@ public partial class PlayerCamera : Camera2D
 	{
 		healthBar.Value = player.Health;
 
-		primaryTextureRect.Texture = player.WeaponManager.PrimaryWeapon?.SpriteTexture;
-		secondaryTextureRect.Texture = player.WeaponManager.SecondaryWeapon?.SpriteTexture;
+		primaryTextureRect.Texture = player.WeaponManager.PrimaryWeapon?.UISprite;
+		secondaryTextureRect.Texture = player.WeaponManager.SecondaryWeapon?.UISprite;
 
 		if (player.WeaponManager.PrimaryWeapon?.Ammo < 0)
 		{

@@ -21,7 +21,7 @@ public partial class HitScanBulletEmitterPickup : PickupBase
 
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
 		hitScanBulletEmitter.GlobalPosition = GlobalPosition;
-		hitScanBulletEmitter.UISprite.Visible = true;
+		hitScanBulletEmitter.GetNode<Sprite2D>("UISprite").Visible = true;
 	}
 
 }

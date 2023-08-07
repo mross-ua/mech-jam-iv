@@ -7,7 +7,7 @@ public partial class ProjectileEmitter : WeaponBase
 {
 
 	[Export]
-	public PackedScene ProjectileBaseItem { get; set; }
+	public PackedScene Projectile { get; set; }
 
 	[Export]
 	public float ImpulseStrength { get; set; }
@@ -28,7 +28,7 @@ public partial class ProjectileEmitter : WeaponBase
 
 	protected async override void _Fire(Vector2 globalPos, CollisionObject2D target = null)
 	{
-		Projectile projectile = ProjectileBaseItem.Instantiate<Projectile>();
+		Projectile projectile = Projectile.Instantiate<Projectile>();
 		projectile.GlobalTransform = GlobalTransform;
 
 		projectile.SetBodiesToExclude(bodiesToExclude);
@@ -64,7 +64,7 @@ public partial class ProjectileEmitter : WeaponBase
 		{
 			//TODO this is highly inefficient
 
-			Projectile item = ProjectileBaseItem.Instantiate<Projectile>();
+			Projectile item = Projectile.Instantiate<Projectile>();
 
 			PickupType pickupType = item.WeaponType;
 
@@ -75,15 +75,15 @@ public partial class ProjectileEmitter : WeaponBase
 		}
 	}
 
-    public override Texture2D SpriteTexture
+    public override Texture2D UISprite
 	{
 		get
 		{
 			//TODO this is highly inefficient
 
-			Projectile item = ProjectileBaseItem.Instantiate<Projectile>();
+			Projectile item = Projectile.Instantiate<Projectile>();
 
-			Texture2D texture2d = item.SpriteTexture;
+			Texture2D texture2d = item.UISprite;
 
 			// we have to free it because we don't add it to the scene tree
 			item.Free();

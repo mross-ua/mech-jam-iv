@@ -7,7 +7,7 @@ public partial class GrenadePickup : PickupBase
 
 	#region Node references
 
-	private Grenade grenade;
+	private ExplosiveProjectile grenade;
 
 	#endregion
 
@@ -19,7 +19,7 @@ public partial class GrenadePickup : PickupBase
 		//       set Grenade.TopLevel = true. Therefore, we have to set
 		//       the initial position.
 
-		grenade = GetNode<Grenade>("Grenade");
+		grenade = GetNode<ExplosiveProjectile>("Grenade");
 		grenade.GlobalPosition = GlobalPosition;
 		grenade.Killed += () => QueueFree();
 	}

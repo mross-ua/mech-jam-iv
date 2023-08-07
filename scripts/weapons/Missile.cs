@@ -8,10 +8,10 @@ public partial class Missile : ExplosiveProjectile
 {
 
 	[Export]
-	public float ThrustForce { get; set; } = 5_000.0f;
+	public float ThrustForce { get; set; }
 
 	[Export]
-	public float TurnSpeed { get; set; } = 3_000f;
+	public float TurnSpeed { get; set; }
 
 	#region Node references
 

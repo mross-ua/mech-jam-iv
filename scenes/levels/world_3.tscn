@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/players/player.tscn" id="5_yvd76"]
 [ext_resource type="PackedScene" uid="uid://b2ehmkeavxqof" path="res://scenes/ui/player_camera.tscn" id="6_asx2e"]
 [ext_resource type="PackedScene" uid="uid://dtsnbv8umgt5h" path="res://scenes/players/robot.tscn" id="7_3g4rp"]
-[ext_resource type="PackedScene" uid="uid://c30u2um8erh61" path="res://scenes/levels/decorations/spaceship.tscn" id="8_jwnfq"]
+[ext_resource type="PackedScene" uid="uid://c30u2um8erh61" path="res://scenes/levels/objectives/spaceship.tscn" id="8_jwnfq"]
 [ext_resource type="PackedScene" uid="uid://co8t223oorgqn" path="res://scenes/levels/decorations/spawn.tscn" id="9_n5c2t"]
 [ext_resource type="PackedScene" uid="uid://n83wwlywvgtu" path="res://scenes/levels/pickups/medkit_pickup.tscn" id="10_5rivu"]
 [ext_resource type="PackedScene" uid="uid://cydjxvklk03tv" path="res://scenes/levels/pickups/grenade_pickup.tscn" id="11_80f84"]

@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bwc210e86gkpi" path="res://scenes/enemies/enemy_troid.tscn" id="8_kb63d"]
 [ext_resource type="PackedScene" uid="uid://cydjxvklk03tv" path="res://scenes/levels/pickups/grenade_pickup.tscn" id="8_qqbyb"]
 [ext_resource type="PackedScene" uid="uid://bjdstnq527cta" path="res://scenes/levels/decorations/jump_pad.tscn" id="9_5xgty"]
-[ext_resource type="PackedScene" uid="uid://c30u2um8erh61" path="res://scenes/levels/decorations/spaceship.tscn" id="14_drfdk"]
+[ext_resource type="PackedScene" uid="uid://c30u2um8erh61" path="res://scenes/levels/objectives/spaceship.tscn" id="14_drfdk"]
 [ext_resource type="PackedScene" uid="uid://c7u0w5qpcxohb" path="res://scenes/ui/pause_screen.tscn" id="16_fm6fg"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3o8uu"]

@@ -107,7 +107,16 @@ public partial class World : Node2D
 		{
 			objective.ObjectiveReached += () =>
 			{
-				GetTree().ChangeSceneToPacked(NextScene);
+				if (objective is CyberSteel cyberSteel)
+				{
+					//TODO record cybersteel replicator as collected
+				}
+				else if (objective is Spaceship spaceship)
+				{
+					//TODO ensure all cybersteel replicators are collected
+
+					GetTree().ChangeSceneToPacked(NextScene);
+				}
 			};
 		}
 	}

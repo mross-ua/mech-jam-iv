@@ -10,7 +10,13 @@ namespace MechJamIV {
 
 		public override void _Ready()
 		{
-			BodyEntered += (body) => EmitSignal(SignalName.ObjectiveReached);
+			BodyEntered += (body) =>
+			{
+				if (body is Player player)
+				{
+					EmitSignal(SignalName.ObjectiveReached);
+				}
+			};
 		}
 
 	}

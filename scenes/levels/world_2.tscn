@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c30u2um8erh61" path="res://scenes/levels/objectives/spaceship.tscn" id="8_01dlj"]
 [ext_resource type="PackedScene" uid="uid://co8t223oorgqn" path="res://scenes/levels/decorations/spawn.tscn" id="9_6lsyt"]
 [ext_resource type="PackedScene" uid="uid://bjdstnq527cta" path="res://scenes/levels/decorations/jump_pad.tscn" id="10_t63ar"]
-[ext_resource type="PackedScene" uid="uid://n83wwlywvgtu" path="res://scenes/levels/pickups/medkit_pickup.tscn" id="11_nmrf1"]
+[ext_resource type="PackedScene" uid="uid://cyk2sakvlse4x" path="res://scenes/levels/pickups/medkit.tscn" id="11_5pfl4"]
 [ext_resource type="PackedScene" uid="uid://cx2gfd1kayu52" path="res://scenes/levels/hazards/spikes.tscn" id="12_egp7n"]
 [ext_resource type="PackedScene" uid="uid://dyh1s8bk7j5t2" path="res://scenes/enemies/enemy_mech.tscn" id="13_ew28m"]
 [ext_resource type="PackedScene" uid="uid://bwc210e86gkpi" path="res://scenes/enemies/enemy_troid.tscn" id="14_sddde"]
@@ -69,7 +69,7 @@ JumpMultiplier = 25.0
 position = Vector2(2934, 433)
 JumpMultiplier = 20.0
 
-[node name="MedkitPickup" parent="Environment" instance=ExtResource("11_nmrf1")]
+[node name="Medkit" parent="Environment" instance=ExtResource("11_5pfl4")]
 position = Vector2(2217, 449)
 
 [node name="Hazards" type="Node" parent="."]

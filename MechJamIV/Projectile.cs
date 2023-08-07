@@ -9,6 +9,9 @@ namespace MechJamIV {
 		,ICollidable
 	{
 
+        [Signal]
+        public delegate void PickedUpEventHandler();
+
 		[Export]
 		public PackedScene PointDamageEffect { get; set; }
 
@@ -17,6 +20,21 @@ namespace MechJamIV {
 
 		[Export]
 		public Texture2D UISprite { get; set; }
+
+        public override void _Ready()
+        {
+			BodyEntered += (body) =>
+			{
+				if (CanBePickedUp() && body is Player player)
+				{
+                	EmitSignal(SignalName.PickedUp);
+
+                	QueueFree();
+				}
+			};
+        }
+
+        protected virtual bool CanBePickedUp() => true;
 
 		public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 		{

@@ -2,8 +2,11 @@ using Godot;
 using System;
 using MechJamIV;
 
-public partial class HitScanBulletEmitterPickup : PickupBase
+public partial class HitScanBulletEmitterPickup : Area2D
 {
+
+	[Signal]
+	public delegate void PickedUpEventHandler();
 
 	#region Node references
 
@@ -22,6 +25,14 @@ public partial class HitScanBulletEmitterPickup : PickupBase
 		hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
 		hitScanBulletEmitter.GlobalPosition = GlobalPosition;
 		hitScanBulletEmitter.GetNode<Sprite2D>("UISprite").Visible = true;
+
+		BodyEntered += (body) =>
+		{
+			//TODO this will cause an exception
+			//EmitSignal(SignalName.PickedUp);
+
+			QueueFree();
+		};
 	}
 
 }

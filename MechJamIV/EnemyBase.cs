@@ -9,7 +9,7 @@ namespace MechJamIV {
     {
 
         [Signal]
-        public delegate void PickupDroppedEventHandler(PickupBase pickup);
+        public delegate void PickupDroppedEventHandler(long pickupType);
 
         [Export]
         public float FieldOfView { get; set; } = 45.0f;
@@ -121,13 +121,11 @@ namespace MechJamIV {
 
         private void DropPickup()
         {
-            PickupBase pickup = PickupHelper.GenerateRandomPickup(PickupDropRate);
+            PickupType? pickupType = PickupHelper.GenerateRandomPickup(PickupDropRate);
 
-            if (pickup != null)
+            if (pickupType.HasValue)
             {
-                pickup.GlobalPosition = GlobalPosition;
-
-                EmitSignal(SignalName.PickupDropped, pickup);
+                EmitSignal(SignalName.PickupDropped, (long)pickupType.Value);
             }
         }
 

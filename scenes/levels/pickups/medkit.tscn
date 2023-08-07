@@ -10,9 +10,11 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7jv0"]
 size = Vector2(16, 16)
 
-[node name="Medkit" type="RigidBody2D"]
+[node name="Medkit" type="RigidBody2D" groups=["pickup"]]
 collision_layer = 0
-collision_mask = 337
+collision_mask = 347
+max_contacts_reported = 8
+contact_monitor = true
 script = ExtResource("1_pt5qx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

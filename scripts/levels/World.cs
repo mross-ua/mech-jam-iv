@@ -80,9 +80,14 @@ public partial class World : Node2D
 
 	private void InitPickups()
 	{
-		foreach (PickupBase pickup in GetTree().GetNodesInGroup("pickup").OfType<PickupBase>())
+		foreach (Projectile pickup in GetTree().GetNodesInGroup("pickup").OfType<Projectile>())
 		{
-			pickup.PickedUp += () => Pickup(pickup);
+			pickup.PickedUp += () => Pickup(pickup.WeaponType);
+		}
+
+		foreach (HitScanBulletEmitterPickup pickup in GetTree().GetNodesInGroup("pickup").OfType<HitScanBulletEmitterPickup>())
+		{
+			pickup.PickedUp += () => Pickup(PickupType.Rifle);
 		}
 	}
 
@@ -90,11 +95,14 @@ public partial class World : Node2D
 	{
 		foreach (EnemyBase enemy in GetTree().GetNodesInGroup("enemy").OfType<EnemyBase>())
 		{
-			enemy.PickupDropped += (pickup) =>
+			enemy.PickupDropped += (pickupType) =>
 			{
-				pickup.PickedUp += () => Pickup(pickup);
+				Projectile projectile = PickupHelper.GenerateProjectile((PickupType)pickupType);
+                projectile.GlobalPosition = enemy.GlobalPosition;
 
-				GetTree().CurrentScene.AddChildDeferred(pickup);
+				projectile.PickedUp += () => Pickup(projectile.WeaponType);
+
+				GetTree().CurrentScene.AddChildDeferred(projectile);
 			};
 
 			enemy.CharacterTracker.Track(player);
@@ -189,9 +197,9 @@ public partial class World : Node2D
 		}
     }
 
-	private void Pickup(PickupBase pickup)
+	private void Pickup(PickupType pickupType)
 	{
-		switch (pickup.PickupType)
+		switch (pickupType)
 		{
 			case PickupType.Medkit:
 				player.Heal(50);
@@ -200,7 +208,7 @@ public partial class World : Node2D
 			case PickupType.Rifle:
 			case PickupType.Grenade:
 			case PickupType.Missile:
-				player.WeaponManager.Pickup(pickup.PickupType);
+				player.WeaponManager.Pickup(pickupType);
 
 				break;
 		}

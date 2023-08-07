@@ -9,9 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bjdstnq527cta" path="res://scenes/levels/decorations/jump_pad.tscn" id="7_ufbty"]
 [ext_resource type="PackedScene" uid="uid://c6df5qfxoappy" path="res://scenes/levels/decorations/barrel.tscn" id="8_qqv8k"]
 [ext_resource type="PackedScene" uid="uid://du3si7fvnoa5m" path="res://scenes/levels/hazards/explosive_barrel.tscn" id="9_1lbpm"]
-[ext_resource type="PackedScene" uid="uid://cydjxvklk03tv" path="res://scenes/levels/pickups/grenade_pickup.tscn" id="10_1eub6"]
-[ext_resource type="PackedScene" uid="uid://n83wwlywvgtu" path="res://scenes/levels/pickups/medkit_pickup.tscn" id="11_m2t0l"]
-[ext_resource type="PackedScene" uid="uid://bpxh4sphjfunw" path="res://scenes/levels/pickups/missile_pickup.tscn" id="12_wgwip"]
+[ext_resource type="PackedScene" uid="uid://bg2lrlwoo7stu" path="res://scenes/weapons/grenade.tscn" id="10_x03eg"]
+[ext_resource type="PackedScene" uid="uid://cyk2sakvlse4x" path="res://scenes/levels/pickups/medkit.tscn" id="11_k7fe8"]
+[ext_resource type="PackedScene" uid="uid://dxtbt33nlhuer" path="res://scenes/weapons/missile.tscn" id="12_fnbsx"]
 [ext_resource type="PackedScene" uid="uid://c2l3yu2tfqi6b" path="res://scenes/levels/pickups/hit_scan_bullet_emitter_pickup.tscn" id="13_6ho3t"]
 [ext_resource type="PackedScene" uid="uid://cx2gfd1kayu52" path="res://scenes/levels/hazards/spikes.tscn" id="13_k2jyb"]
 [ext_resource type="PackedScene" uid="uid://dyh1s8bk7j5t2" path="res://scenes/enemies/enemy_mech.tscn" id="14_2vqbk"]
@@ -65,16 +65,16 @@ position = Vector2(695, 365)
 [node name="ExplosiveBarrel" parent="Environment" instance=ExtResource("9_1lbpm")]
 position = Vector2(683, 388)
 
-[node name="GrenadePickup" parent="Environment" instance=ExtResource("10_1eub6")]
+[node name="Grenade" parent="Environment" instance=ExtResource("10_x03eg")]
 position = Vector2(507, 396)
 
-[node name="GrenadePickup2" parent="Environment" instance=ExtResource("10_1eub6")]
+[node name="Grenade2" parent="Environment" instance=ExtResource("10_x03eg")]
 position = Vector2(518, 396)
 
-[node name="MedkitPickup" parent="Environment" instance=ExtResource("11_m2t0l")]
+[node name="Medkit" parent="Environment" instance=ExtResource("11_k7fe8")]
 position = Vector2(260, 375)
 
-[node name="MissilePickup" parent="Environment" instance=ExtResource("12_wgwip")]
+[node name="Missile" parent="Environment" instance=ExtResource("12_fnbsx")]
 position = Vector2(531, 103)
 
 [node name="HitScanBulletEmitterPickup" parent="Environment" instance=ExtResource("13_6ho3t")]

@@ -21,6 +21,9 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 # top of each source file even if they aren't always used
 dotnet_diagnostic.IDE0005.severity = silent
 
+# it is preferred that if expressions are readable, not compact
+dotnet_diagnostic.IDE0046.severity = silent
+
 # it is preferred to wrap some expressions in parentheses
 # (e.g. bool myBool = (myVar == myValue);)
 dotnet_diagnostic.IDE0047.severity = silent

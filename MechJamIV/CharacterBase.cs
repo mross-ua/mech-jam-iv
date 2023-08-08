@@ -28,7 +28,7 @@ namespace MechJamIV
         protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
         protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
 
-        private double jumpAirTime = 0.0f;
+        private float jumpAirTime = 0.0f;
         private bool isJumping = false;
 
         #region Node references
@@ -69,7 +69,7 @@ namespace MechJamIV
             }
             else if (isJumping && jumpAirTime < MaxJumpAirTime && _IsJumping())
             {
-                jumpAirTime += delta;
+                jumpAirTime += (float)delta;
                 isJumping = true;
             }
             else if (isJumping)
@@ -109,13 +109,13 @@ namespace MechJamIV
 
             ProcessAction();
 
-            Velocity += MoveAcceleration * FaceDirection - Drag * Velocity + (float)delta * Gravity;
+            Velocity += (MoveAcceleration * FaceDirection) - (Drag * Velocity) + ((float)delta * Gravity);
 
             MoveAndSlide();
 
             if (IsJumping(delta))
             {
-                Velocity += new Vector2(0.0f, JumpVelocity * (1.0f - (float)(jumpAirTime / MaxJumpAirTime))) - (float)delta * Gravity;
+                Velocity += new Vector2(0.0f, JumpVelocity * (1.0f - (jumpAirTime / MaxJumpAirTime))) - ((float)delta * Gravity);
             }
         }
 
@@ -124,11 +124,17 @@ namespace MechJamIV
 
         }
 
-        protected void AnimateMovement() => characterAnimator.AnimateMovement(FaceDirection);
+        protected void AnimateMovement()
+        {
+            characterAnimator.AnimateMovement(FaceDirection);
+        }
 
         protected abstract void AnimateInjury(int damage, Vector2 position, Vector2 normal);
 
-        protected void AnimateDeath() => characterAnimator.AnimateDeath();
+        protected void AnimateDeath()
+        {
+            characterAnimator.AnimateDeath();
+        }
 
         #region IDestructible/ICollidable
 

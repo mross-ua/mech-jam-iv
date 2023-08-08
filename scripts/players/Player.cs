@@ -80,7 +80,7 @@ public partial class Player : CharacterBase
 
     #region ICollidable
 
-    public async override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+    public override async void Hurt(int damage, Vector2 globalPos, Vector2 normal)
     {
         if (isImmune)
         {

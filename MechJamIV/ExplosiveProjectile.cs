@@ -117,7 +117,7 @@ namespace MechJamIV
 
         protected bool IsFusePrimed { get; private set; } = false;
 
-        public async virtual void PrimeFuse()
+        public virtual async void PrimeFuse()
         {
             if (Health <= 0)
             {

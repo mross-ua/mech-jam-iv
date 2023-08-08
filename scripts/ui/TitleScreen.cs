@@ -5,7 +5,7 @@ public partial class TitleScreen : PauseScreen
 {
 
     [Export(PropertyHint.File, "*.tscn,")]
-    public string GameStartSceneFilename { get; set; }
+    public string NextScene { get; set; }
 
     public override void _Ready()
     {
@@ -16,7 +16,7 @@ public partial class TitleScreen : PauseScreen
 
     public override void RestartScene()
     {
-        GetTree().ChangeSceneToFile(GameStartSceneFilename);
+        GetTree().ChangeSceneToFile(NextScene);
 
         UnpauseGame();
     }

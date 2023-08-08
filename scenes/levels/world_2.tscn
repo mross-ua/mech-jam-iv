@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://kh2l4subhovw"]
+[gd_scene load_steps=17 format=3 uid="uid://kh2l4subhovw"]
 
 [ext_resource type="Script" path="res://scripts/levels/World.cs" id="1_bb6wy"]
-[ext_resource type="PackedScene" uid="uid://cih14kvkdr7ww" path="res://scenes/ui/credits_screen.tscn" id="2_glpma"]
 [ext_resource type="AudioStream" uid="uid://b7r38jr8ouyos" path="res://assets/music/zerospace2.wav" id="3_j58g3"]
 [ext_resource type="PackedScene" uid="uid://cses4a08f7sqs" path="res://scenes/levels/decorations/tile_map_tech_steel_green.tscn" id="4_4shnw"]
 [ext_resource type="PackedScene" uid="uid://bt7vafft2mqcp" path="res://scenes/players/player.tscn" id="5_tpc8t"]
@@ -21,7 +20,7 @@
 
 [node name="World_2" type="Node2D"]
 script = ExtResource("1_bb6wy")
-NextScene = ExtResource("2_glpma")
+NextScene = "res://scenes/ui/credits_screen.tscn"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_j58g3")

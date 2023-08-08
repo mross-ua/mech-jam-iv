@@ -7,8 +7,8 @@ using MechJamIV;
 public partial class World : Node2D
 {
 
-	[Export]
-	public PackedScene NextScene { get; set; }
+    [Export(PropertyHint.File, "*.tscn,")]
+    public string NextScene { get; set; }
 
 	private int numObjectivesRemaining = 0;
 
@@ -130,7 +130,7 @@ public partial class World : Node2D
 				{
 					if (numObjectivesRemaining == 0)
 					{
-						GetTree().ChangeSceneToPacked(NextScene);
+						GetTree().ChangeSceneToFile(NextScene);
 					}
 				}
 			};

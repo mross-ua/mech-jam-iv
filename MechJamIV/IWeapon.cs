@@ -26,7 +26,7 @@ namespace MechJamIV {
 
 		public Texture2D UISprite { get; }
 
-		public void Fire(Vector2 globalPos, CollisionObject2D target = null);
+		public void Fire(Vector2 globalPos, PhysicsBody2D target = null);
 
 		public void AddAmmo(int count);
 

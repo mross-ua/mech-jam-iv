@@ -12,7 +12,7 @@ public partial class WeaponManager : Node2D
 
 	private Dictionary<PickupType, WeaponBase> weapons;
 
-    private IEnumerable<CollisionObject2D> bodiesToExclude = null;
+    private IEnumerable<PhysicsBody2D> bodiesToExclude = null;
 
 	#region Node references
 
@@ -49,7 +49,7 @@ public partial class WeaponManager : Node2D
 		weapons[weapon.WeaponType] = weapon;
 	}
 
-	public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
+	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
 	{
 		if (bodies == null)
 		{
@@ -57,7 +57,7 @@ public partial class WeaponManager : Node2D
 		}
 		else
 		{
-			bodiesToExclude = new List<CollisionObject2D>(bodies);
+			bodiesToExclude = new List<PhysicsBody2D>(bodies);
 		}
 
 		foreach (WeaponBase weapon in weapons.Values)
@@ -66,7 +66,7 @@ public partial class WeaponManager : Node2D
 		}
 	}
 
-	public void Fire(FireMode mode, Vector2 globalPos, CollisionObject2D target = null)
+	public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D target = null)
 	{
 		switch (mode)
 		{

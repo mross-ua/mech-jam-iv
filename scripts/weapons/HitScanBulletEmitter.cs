@@ -47,7 +47,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 		}
 	}
 
-	public override void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
+	public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
 	{
 		if (bodies == null)
 		{
@@ -59,7 +59,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 		}
 	}
 
-	protected override void _Fire(Vector2 globalPos, CollisionObject2D target = null)
+	protected override void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
 	{
 		Vector2 from = GlobalPosition;
 		Vector2 to = from + from.DirectionTo(globalPos) * LineOfSightDistance;

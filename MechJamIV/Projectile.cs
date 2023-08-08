@@ -36,14 +36,14 @@ namespace MechJamIV {
 
         protected virtual bool CanBePickedUp() => true;
 
-		public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
+		public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
 		{
-			foreach (CollisionObject2D body in GetCollisionExceptions())
+			foreach (PhysicsBody2D body in GetCollisionExceptions())
 			{
 				RemoveCollisionExceptionWith(body);
 			}
 
-			foreach (CollisionObject2D body in bodies)
+			foreach (PhysicsBody2D body in bodies)
 			{
 				AddCollisionExceptionWith(body);
 			}

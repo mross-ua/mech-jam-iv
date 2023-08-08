@@ -7,7 +7,7 @@ public partial class CharacterTracker : Node2D
 {
 
 	//[Export(PropertyHint.NodeType)]
-	public CollisionObject2D Target { get; private set; }
+	public PhysicsBody2D Target { get; private set; }
 
 	[Export(PropertyHint.Layers2DPhysics)]
 	public uint LineOfSightMask { get; private set; }
@@ -95,7 +95,7 @@ public partial class CharacterTracker : Node2D
 		return rayCast.GetCollider() == Target;
 	}
 
-	public void Track(CollisionObject2D target)
+	public void Track(PhysicsBody2D target)
 	{
 		Target = target;
 
@@ -138,7 +138,7 @@ public partial class CharacterTracker : Node2D
 		}
 	}
 
-	public void Track(CollisionObject2D target, uint lineOfSightMask, float lineOfSightDistance)
+	public void Track(PhysicsBody2D target, uint lineOfSightMask, float lineOfSightDistance)
 	{
 		LineOfSightMask = lineOfSightMask;
 		LineOfSightDistance = lineOfSightDistance;

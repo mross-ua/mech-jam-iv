@@ -39,9 +39,9 @@ public partial class ProjectileEmitter : WeaponBase
 	[Export]
 	public float ImpulseStrength { get; set; }
 
-	private IList<CollisionObject2D> bodiesToExclude = null;
+	private IList<PhysicsBody2D> bodiesToExclude = null;
 
-	public override void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
+	public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
 	{
 		if (bodies == null)
 		{
@@ -49,11 +49,11 @@ public partial class ProjectileEmitter : WeaponBase
 		}
 		else
 		{
-			bodiesToExclude = new List<CollisionObject2D>(bodies);
+			bodiesToExclude = new List<PhysicsBody2D>(bodies);
 		}
 	}
 
-	protected async override void _Fire(Vector2 globalPos, CollisionObject2D target = null)
+	protected async override void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
 	{
 		Projectile projectile = Projectile.Instantiate<Projectile>();
 		projectile.GlobalTransform = GlobalTransform;

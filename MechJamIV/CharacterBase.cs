@@ -6,7 +6,7 @@ using MechJamIV;
 namespace MechJamIV
 {
     public abstract partial class CharacterBase : CharacterBody2D
-        ,IDestructible
+        , IDestructible
     {
 
         [Export]
@@ -35,7 +35,7 @@ namespace MechJamIV
 
         #region Node references
 
-        public CharacterTracker CharacterTracker { get; private set;}
+        public CharacterTracker CharacterTracker { get; private set; }
 
         private CharacterAnimator characterAnimator;
 

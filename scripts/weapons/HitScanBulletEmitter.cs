@@ -20,7 +20,7 @@ public partial class HitScanBulletEmitter : WeaponBase
     [Export]
     public float TracerWidth { get; set; }
 
-    private readonly Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new ();
+    private readonly Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new();
 
     private Godot.Collections.Array<Rid> bodiesToExclude = null;
 
@@ -85,7 +85,7 @@ public partial class HitScanBulletEmitter : WeaponBase
             }
             else if (collision["collider"].Obj is ICollidable c)
             {
-                c.Hurt(Damage, position,  normal);
+                c.Hurt(Damage, position, normal);
             }
             else
             {

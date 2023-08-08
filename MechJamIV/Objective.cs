@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public partial class Objective : Area2D
     {
 

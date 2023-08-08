@@ -9,7 +9,8 @@ public partial class ProjectileEmitter : WeaponBase
     private PackedScene projectile = null;
 
     [Export]
-    public PackedScene Projectile {
+    public PackedScene Projectile
+    {
         get
         {
             return projectile;

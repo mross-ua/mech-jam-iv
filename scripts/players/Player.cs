@@ -5,7 +5,7 @@ using System.Linq;
 using MechJamIV;
 
 public partial class Player : CharacterBase
-    ,IPlayable
+    , IPlayable
 {
 
     private bool isImmune = false;

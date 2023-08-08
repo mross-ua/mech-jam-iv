@@ -5,9 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using MechJamIV;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public abstract partial class WeaponBase : Node2D
-        ,IWeapon
+        , IWeapon
     {
 
         private bool isCoolingDown = false;

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public abstract partial class EnemyBase : CharacterBase
     {
 
@@ -27,7 +28,7 @@ namespace MechJamIV {
 
         #region Node references
 
-	    private readonly IList<Hitbox> hitboxes = new List<Hitbox>();
+        private readonly IList<Hitbox> hitboxes = new List<Hitbox>();
 
         #endregion
 

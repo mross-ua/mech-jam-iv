@@ -2,7 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public static class PickupHelper
     {
 
@@ -31,7 +32,7 @@ namespace MechJamIV {
                         return PickupType.Grenade;
 
                     case 2:
-                         return PickupType.Missile;
+                        return PickupType.Missile;
                 }
             }
 

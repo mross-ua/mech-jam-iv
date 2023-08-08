@@ -3,7 +3,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public static class YieldHelper
     {
 

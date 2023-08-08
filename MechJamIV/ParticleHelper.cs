@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using static Godot.Node;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public static class ParticleHelper
     {
 

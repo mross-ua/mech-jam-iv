@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using MechJamIV;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public partial class Projectile : RigidBody2D
-        ,ICollidable
+        , ICollidable
     {
 
         [Signal]

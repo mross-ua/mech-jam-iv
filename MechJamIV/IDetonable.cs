@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using MechJamIV;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public interface IDetonable
     {
 

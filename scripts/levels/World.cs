@@ -226,7 +226,7 @@ public partial class World : Node2D
     {
         PhysicsBody2D target = null;
 
-        PhysicsShapeQueryParameters2D queryParams = new ()
+        PhysicsShapeQueryParameters2D queryParams = new()
         {
             Transform = new Transform2D()
             {

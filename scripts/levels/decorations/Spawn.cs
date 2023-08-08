@@ -69,7 +69,7 @@ public partial class Spawn : Node2D
 		{
 			if (body is Player player)
 			{
-				player.Heal(10);
+				player.Heal(10, false);
 			}
 		}
 	}

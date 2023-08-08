@@ -88,6 +88,9 @@ script = ExtResource("1_ga06e")
 MoveAcceleration = 50.0
 MaxMoveSpeed = 300.0
 PointDamageEffect = ExtResource("2_ppvxv")
+MaxHealth = 100
+MaxOverHealth = 25
+Health = 100
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4dncl")

@@ -11,6 +11,7 @@ public partial class PlayerCamera : Camera2D
 
 	private GpuParticles2D immunityShield;
 	private ProgressBar healthBar;
+	private ProgressBar overHealthBar;
 
 	private TextureRect primaryTextureRect;
 	private Label primaryAmmoLabel;
@@ -24,6 +25,7 @@ public partial class PlayerCamera : Camera2D
 	{
 		immunityShield = GetNode<GpuParticles2D>("UI/Control/TextureRect/ImmunityShield");
 		healthBar = GetNode<ProgressBar>("UI/Control/HealthBar");
+		overHealthBar = GetNode<ProgressBar>("UI/Control/OverHealthBar");
 
 		primaryTextureRect = GetNode<TextureRect>("UI/Control2/PrimaryTextureRect");
 		primaryAmmoLabel = GetNode<Label>("UI/Control2/PrimaryAmmoLabel");
@@ -60,7 +62,12 @@ public partial class PlayerCamera : Camera2D
 
 	private void UpdateUI()
 	{
-		healthBar.Value = player.Health;
+		healthBar.MaxValue = player.MaxHealth;
+		// we want the overhealth bar to have the same scale
+		overHealthBar.MaxValue = player.MaxHealth;
+
+		healthBar.Value = Math.Max(player.MaxHealth, player.Health);
+		overHealthBar.Value = player.Health - player.MaxHealth;
 
 		primaryTextureRect.Texture = player.WeaponManager.PrimaryWeapon?.UISprite;
 		secondaryTextureRect.Texture = player.WeaponManager.SecondaryWeapon?.UISprite;

@@ -210,7 +210,7 @@ public partial class World : Node2D
 		switch (pickupType)
 		{
 			case PickupType.Medkit:
-				player.Heal(50);
+				player.Heal(50, true);
 
 				break;
 			case PickupType.Rifle:

@@ -129,6 +129,7 @@ ChaseDuration = 1
 MoveAcceleration = 15.0
 MaxMoveSpeed = 60.0
 PointDamageEffect = ExtResource("2_gvad2")
+MaxHealth = 5
 Health = 5
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]

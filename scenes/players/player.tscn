@@ -316,6 +316,9 @@ MaxMoveSpeed = 300.0
 JumpVelocity = -20.0
 MaxJumpAirTime = 0.3
 PointDamageEffect = ExtResource("2_begmq")
+MaxHealth = 100
+MaxOverHealth = 25
+Health = 100
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xxkfi")

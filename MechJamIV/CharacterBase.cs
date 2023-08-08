@@ -141,7 +141,12 @@ namespace MechJamIV {
         public delegate void HealedEventHandler(int health);
 
         [Export]
-        public int Health { get; set; } = 100;
+        public int MaxHealth { get; set; }
+        [Export]
+        public int MaxOverHealth { get; set; }
+
+        [Export]
+        public int Health { get; set; }
 
         public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
         {
@@ -173,15 +178,21 @@ namespace MechJamIV {
             }
         }
 
-		public virtual void Heal(int health)
+		public virtual void Heal(int health, bool allowOverHealth)
 		{
             if (Health <= 0)
             {
                 return;
             }
 
-            //TODO we need to know initial/max health
-            Health = Math.Min(100, Health + health);
+            if (allowOverHealth)
+            {
+                Health = Math.Min(MaxHealth + MaxOverHealth, Health + health);
+            }
+            else
+            {
+                Health = Math.Min(MaxHealth, Health + health);
+            }
 
             EmitSignal(SignalName.Healed, health);
 		}

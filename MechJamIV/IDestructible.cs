@@ -13,9 +13,13 @@ namespace MechJamIV {
         //[Signal]
         public delegate void HealedEventHandler(int health);
 
+        public int MaxHealth { get; }
+
+        public int MaxOverHealth { get; }
+
         public int Health { get; }
 
-		public void Heal(int health);
+		public void Heal(int health, bool allowOverHealth);
 
 	}
 }

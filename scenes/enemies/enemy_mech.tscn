@@ -242,6 +242,8 @@ FaceDirection = Vector2(-1, 0)
 MoveAcceleration = 5.0
 MaxMoveSpeed = 30.0
 PointDamageEffect = ExtResource("2_ppg8j")
+MaxHealth = 100
+Health = 100
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="." groups=["enemy"]]
 sprite_frames = SubResource("SpriteFrames_f71hv")

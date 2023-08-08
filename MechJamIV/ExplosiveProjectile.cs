@@ -51,8 +51,12 @@ namespace MechJamIV {
 		[Signal]
 		public delegate void HealedEventHandler(int health);
 
+		public int MaxHealth { get => throw new NotImplementedException("Projectiles cannot be healed"); }
+
+		public int MaxOverHealth { get => throw new NotImplementedException("Projectiles cannot be healed"); }
+
 		[Export]
-		public int Health { get; set; } = 10;
+		public int Health { get; set; }
 
 		public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
 		{
@@ -90,9 +94,9 @@ namespace MechJamIV {
 			}
 		}
 
-		public void Heal(int health)
+		public void Heal(int health, bool allowOverHealth)
 		{
-			// do nothing
+			throw new NotImplementedException("Projectiles cannot be healed");
 		}
 
 		#endregion

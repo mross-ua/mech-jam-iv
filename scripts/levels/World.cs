@@ -48,7 +48,7 @@ public partial class World : Node2D
 		player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
 		player.Killed += async () =>
 		{
-			//TODO ideally this should wait for the death animation to finish
+			//TODO ideally this should wait for the death animation to finish (using a signal)
 			await ToSignal(GetTree().CreateTimer(3.0f, false, true), SceneTreeTimer.SignalName.Timeout);
 
 			pauseScreen.PauseGame();

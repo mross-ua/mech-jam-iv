@@ -1,11 +1,10 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using MechJamIV;
 
-namespace MechJamIV {
-	public interface IDestructible : ICollidable
-	{
+namespace MechJamIV
+{
+    public interface IDestructible : ICollidable
+    {
 
         //[Signal]
         public delegate void KilledEventHandler();
@@ -19,7 +18,7 @@ namespace MechJamIV {
 
         public int Health { get; }
 
-		public void Heal(int health, bool allowOverHealth);
+        public void Heal(int health, bool allowOverHealth);
 
-	}
+    }
 }

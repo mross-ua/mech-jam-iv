@@ -4,14 +4,26 @@ using System;
 public partial class CreditsScreen : TitleScreen
 {
 
-	public override void _Ready()
-	{
-		base._Ready();
+    private static readonly string URL_GITHUB = "https://github.com/krazkidd/mech-jam-iv".URIEncode();
 
-		GetNode<TextureButton>("MarginContainer/VBoxContainer/LinkToGitHubButton").Pressed += () =>
-		{
-			OS.ShellOpen("https://github.com/krazkidd/mech-jam-iv");
-		};
-	}
+    #region Node references
+
+    private TextureButton linkToGitHubButton;
+
+    #endregion
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        linkToGitHubButton = GetNode<TextureButton>("MarginContainer/VBoxContainer/LinkToGitHubButton");
+        linkToGitHubButton.Pressed += () =>
+        {
+            if (OS.ShellOpen(URL_GITHUB) != Error.Ok)
+            {
+                GD.PrintErr($"Cannot open URL {URL_GITHUB}");
+            }
+        };
+    }
 
 }

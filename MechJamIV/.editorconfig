@@ -1,0 +1,3 @@
+[*.cs]
+# ignore namespace folder structure for now
+dotnet_diagnostic.IDE0130.severity = silent

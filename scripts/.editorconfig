@@ -1,0 +1,3 @@
+[*.cs]
+# don't require namespaces for scripts attached to nodes
+dotnet_diagnostic.CA1050.severity = silent

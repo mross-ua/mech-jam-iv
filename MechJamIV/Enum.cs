@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public enum CollisionLayer : long
     {
         World,
@@ -41,7 +42,7 @@ namespace MechJamIV {
     {
         Idle,
         Chase,
-        Attacking
+        Attack
     }
 
     public enum FireMode : long

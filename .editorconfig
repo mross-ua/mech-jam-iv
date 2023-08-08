@@ -1,0 +1,47 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = false
+
+[*.cs]
+# Default severity for analyzer diagnostics with category 'Style' (escalated to build warnings)
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+#dotnet_diagnostic.<rule ID>.severity = error|warning|suggestion|silent|none|default
+
+#TODO review these rules
+
+# Godot explicitly requires signals (delegates)
+# to end with the name "EventHandler"
+dotnet_diagnostic.CA1711.severity = silent
+
+# it is generally preferred to set initial values with member declarations
+dotnet_diagnostic.CA1805.severity = silent
+
+# it is preferred to have common using statements at the
+# top of each source file even if they aren't always used
+dotnet_diagnostic.IDE0005.severity = silent
+
+# deprioritize switch blocks that are
+# not populated with all cases
+dotnet_diagnostic.IDE0010.severity = suggestion
+
+# it is preferred that if expressions are readable, not compact
+dotnet_diagnostic.IDE0045.severity = silent
+dotnet_diagnostic.IDE0046.severity = silent
+
+# it is preferred to wrap some expressions in parentheses
+# (e.g. bool myBool = (myVar == myValue);)
+dotnet_diagnostic.IDE0047.severity = silent
+
+# some Godot calls have a return type even
+# though they always return null
+dotnet_diagnostic.IDE0058.severity = silent

@@ -16,9 +16,14 @@ public partial class TitleScreen : PauseScreen
 
     public override void RestartScene()
     {
-        GetTree().ChangeSceneToFile(NextScene);
-
-        UnpauseGame();
+        if (GetTree().ChangeSceneToFile(NextScene) == Error.Ok)
+        {
+            UnpauseGame();
+        }
+        else
+        {
+            GD.PrintErr($"Cannot open scene file {NextScene}");
+        }
     }
 
 }

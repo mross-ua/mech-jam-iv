@@ -1,10 +1,9 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public abstract partial class EnemyBase : CharacterBase
     {
 
@@ -27,7 +26,7 @@ namespace MechJamIV {
 
         #region Node references
 
-	    private readonly IList<Hitbox> hitboxes = new List<Hitbox>();
+        private readonly IList<Hitbox> hitboxes = new List<Hitbox>();
 
         #endregion
 
@@ -73,13 +72,13 @@ namespace MechJamIV {
             switch (State)
             {
                 case EnemyState.Idle:
-                    return GetMovementDirection_Idle();
+                    return GetMovementDirectionForIdleState();
 
                 case EnemyState.Chase:
-                    return GetMovementDirection_Chase();
+                    return GetMovementDirectionForChaseState();
 
-                case EnemyState.Attacking:
-                    return GetMovementDirection_Attacking();
+                case EnemyState.Attack:
+                    return GetMovementDirectionForAttackState();
 
                 default:
                     break;
@@ -88,36 +87,40 @@ namespace MechJamIV {
             return Vector2.Zero;
         }
 
-        protected abstract Vector2 GetMovementDirection_Idle();
+        protected abstract Vector2 GetMovementDirectionForIdleState();
 
-        protected abstract Vector2 GetMovementDirection_Chase();
+        protected abstract Vector2 GetMovementDirectionForChaseState();
 
-        protected abstract Vector2 GetMovementDirection_Attacking();
+        protected abstract Vector2 GetMovementDirectionForAttackState();
 
         protected sealed override void ProcessAction()
         {
             switch (State)
             {
                 case EnemyState.Idle:
-                    ProcessAction_Idle();
+                    ProcessActionForIdleState();
 
                     break;
                 case EnemyState.Chase:
-                    ProcessAction_Chase();
+                    ProcessActionForChaseState();
 
                     break;
-                case EnemyState.Attacking:
-                    ProcessAction_Attacking();
+                case EnemyState.Attack:
+                    ProcessActionForAttackState();
+
+                    break;
+                default:
+                    // do nothing
 
                     break;
             }
         }
 
-        protected abstract void ProcessAction_Idle();
+        protected abstract void ProcessActionForIdleState();
 
-        protected abstract void ProcessAction_Chase();
+        protected abstract void ProcessActionForChaseState();
 
-        protected abstract void ProcessAction_Attacking();
+        protected abstract void ProcessActionForAttackState();
 
         private void DropPickup()
         {

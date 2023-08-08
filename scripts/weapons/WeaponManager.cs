@@ -7,193 +7,196 @@ using MechJamIV;
 public partial class WeaponManager : Node2D
 {
 
-	[Signal]
-	public delegate void WeaponUpdatedEventHandler(WeaponBase weapon);
+    [Signal]
+    public delegate void WeaponUpdatedEventHandler(WeaponBase weapon);
 
-	private Dictionary<PickupType, WeaponBase> weapons;
+    private Dictionary<PickupType, WeaponBase> weapons;
 
     private IEnumerable<PhysicsBody2D> bodiesToExclude = null;
 
-	#region Node references
+    #region Node references
 
-	public WeaponBase PrimaryWeapon { get; private set; }
-	public WeaponBase SecondaryWeapon { get; private set; }
+    public WeaponBase PrimaryWeapon { get; private set; }
+    public WeaponBase SecondaryWeapon { get; private set; }
 
-	#endregion
+    #endregion
 
     public override void _Ready()
     {
-		InitWeapons();
+        InitWeapons();
     }
 
-	private void InitWeapons()
-	{
-		weapons = new Dictionary<PickupType, WeaponBase>();
+    private void InitWeapons()
+    {
+        weapons = new Dictionary<PickupType, WeaponBase>();
 
-		foreach (WeaponBase weapon in GetChildren().Where(n => n.IsInGroup("weapon")).OfType<WeaponBase>())
-		{
-			InitWeapon(weapon);
-		}
+        foreach (WeaponBase weapon in GetChildren().Where(n => n.IsInGroup("weapon")).OfType<WeaponBase>())
+        {
+            InitWeapon(weapon);
+        }
 
-		NextWeaponPrimary();
-		NextWeaponSecondary();
-	}
+        NextWeaponPrimary();
+        NextWeaponSecondary();
+    }
 
-	private void InitWeapon(WeaponBase weapon)
-	{
-		weapon.SetBodiesToExclude(bodiesToExclude);
+    private void InitWeapon(WeaponBase weapon)
+    {
+        weapon.SetBodiesToExclude(bodiesToExclude);
 
-		weapon.Fired += () => EmitSignal(SignalName.WeaponUpdated, weapon);
-		weapon.AmmoAdded += () => EmitSignal(SignalName.WeaponUpdated, weapon);
+        weapon.Fired += () => EmitSignal(SignalName.WeaponUpdated, weapon);
+        weapon.AmmoAdded += () => EmitSignal(SignalName.WeaponUpdated, weapon);
 
-		weapons[weapon.WeaponType] = weapon;
-	}
+        weapons[weapon.WeaponType] = weapon;
+    }
 
-	public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
-	{
-		if (bodies == null)
-		{
-			bodiesToExclude = null;
-		}
-		else
-		{
-			bodiesToExclude = new List<PhysicsBody2D>(bodies);
-		}
+    public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+    {
+        bodiesToExclude = bodies == null ? null : new List<PhysicsBody2D>(bodies);
 
-		foreach (WeaponBase weapon in weapons.Values)
-		{
-			weapon.SetBodiesToExclude(bodies);
-		}
-	}
+        foreach (WeaponBase weapon in weapons.Values)
+        {
+            weapon.SetBodiesToExclude(bodies);
+        }
+    }
 
-	public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D target = null)
-	{
-		switch (mode)
-		{
-			case FireMode.Primary:
-			case FireMode.PrimarySustained:
-				PrimaryWeapon?.Fire(globalPos, target);
+    public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D target = null)
+    {
+        switch (mode)
+        {
+            case FireMode.Primary:
+            case FireMode.PrimarySustained:
+                PrimaryWeapon?.Fire(globalPos, target);
 
-				break;
-			case FireMode.Secondary:
-				SecondaryWeapon?.Fire(globalPos, target);
+                break;
+            case FireMode.Secondary:
+                SecondaryWeapon?.Fire(globalPos, target);
 
-				break;
-		}
-	}
+                break;
+        }
+    }
 
-	public async void Pickup(PickupType pickupType)
-	{
-		if (!weapons.ContainsKey(pickupType))
-		{
-			WeaponBase weapon = PickupHelper.GenerateWeapon(pickupType);
+    public async void Pickup(PickupType pickupType)
+    {
+        if (!weapons.ContainsKey(pickupType))
+        {
+            WeaponBase weapon = PickupHelper.GenerateWeapon(pickupType);
 
-			InitWeapon(weapon);
+            InitWeapon(weapon);
 
-			await this.AddChildDeferred(weapon);
+            await this.AddChildDeferred(weapon);
 
-			// auto-select the weapon if needed
+            // auto-select the weapon if needed
 
-			if (PrimaryWeapon == null)
-			{
-				NextWeaponPrimary();
-			}
+            if (PrimaryWeapon == null)
+            {
+                NextWeaponPrimary();
+            }
 
-			if (SecondaryWeapon == null)
-			{
-				NextWeaponSecondary();
-			}
-		}
+            if (SecondaryWeapon == null)
+            {
+                NextWeaponSecondary();
+            }
+        }
 
-		switch (pickupType)
-		{
-			case PickupType.Rifle:
-				weapons[pickupType].AddAmmo(30);
+        switch (pickupType)
+        {
+            case PickupType.Rifle:
+                weapons[pickupType].AddAmmo(30);
 
-				break;
-			case PickupType.Grenade:
-			case PickupType.Missile:
-				weapons[pickupType].AddAmmo(1);
+                break;
+            case PickupType.Grenade:
+            case PickupType.Missile:
+                weapons[pickupType].AddAmmo(1);
 
-				break;
-		}
-	}
+                break;
+        }
+    }
 
-	public void NextWeaponPrimary()
-	{
-		bool isWeaponFound = false;
+    public void NextWeaponPrimary()
+    {
+        bool isWeaponFound = false;
 
-		WeaponBase firstWeapon = null;
-		WeaponBase lastWeapon = null;
+        WeaponBase firstWeapon = null;
+        WeaponBase lastWeapon = null;
 
-		foreach (WeaponBase weapon in weapons.Values)
-		{
-			switch (weapon.WeaponType)
-			{
-				case PickupType.Rifle:
-					if (PrimaryWeapon == null || isWeaponFound)
-					{
-						PrimaryWeapon = weapon;
+        foreach (WeaponBase weapon in weapons.Values)
+        {
+            switch (weapon.WeaponType)
+            {
+                case PickupType.Rifle:
+                    if (PrimaryWeapon == null || isWeaponFound)
+                    {
+                        PrimaryWeapon = weapon;
 
-						EmitSignal(SignalName.WeaponUpdated, weapon);
+                        EmitSignal(SignalName.WeaponUpdated, weapon);
 
-						return;
-					}
+                        return;
+                    }
 
-					firstWeapon ??= weapon;
-					lastWeapon = weapon;
+                    firstWeapon ??= weapon;
+                    lastWeapon = weapon;
 
-					isWeaponFound = (PrimaryWeapon == weapon);
+                    isWeaponFound = (PrimaryWeapon == weapon);
 
-					break;
-			}
-		}
+                    break;
+                default:
+                    // this should never happen
+                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
 
-		if (isWeaponFound && firstWeapon != lastWeapon)
-		{
-			PrimaryWeapon = firstWeapon;
+                    break;
+            }
+        }
 
-			EmitSignal(SignalName.WeaponUpdated, firstWeapon);
-		}
-	}
+        if (isWeaponFound && firstWeapon != lastWeapon)
+        {
+            PrimaryWeapon = firstWeapon;
 
-	public void NextWeaponSecondary()
-	{
-		bool isWeaponFound = false;
+            EmitSignal(SignalName.WeaponUpdated, firstWeapon);
+        }
+    }
 
-		WeaponBase firstWeapon = null;
-		WeaponBase lastWeapon = null;
+    public void NextWeaponSecondary()
+    {
+        bool isWeaponFound = false;
 
-		foreach (WeaponBase weapon in weapons.Values)
-		{
-			switch (weapon.WeaponType)
-			{
-				case PickupType.Grenade:
-				case PickupType.Missile:
-					if (SecondaryWeapon == null || isWeaponFound)
-					{
-						SecondaryWeapon = weapon;
+        WeaponBase firstWeapon = null;
+        WeaponBase lastWeapon = null;
 
-						EmitSignal(SignalName.WeaponUpdated, weapon);
+        foreach (WeaponBase weapon in weapons.Values)
+        {
+            switch (weapon.WeaponType)
+            {
+                case PickupType.Grenade:
+                case PickupType.Missile:
+                    if (SecondaryWeapon == null || isWeaponFound)
+                    {
+                        SecondaryWeapon = weapon;
 
-						return;
-					}
+                        EmitSignal(SignalName.WeaponUpdated, weapon);
 
-					firstWeapon ??= weapon;
-					lastWeapon = weapon;
+                        return;
+                    }
 
-					isWeaponFound = (SecondaryWeapon == weapon);
+                    firstWeapon ??= weapon;
+                    lastWeapon = weapon;
 
-					break;
-			}
-		}
+                    isWeaponFound = (SecondaryWeapon == weapon);
 
-		if (isWeaponFound && firstWeapon != lastWeapon)
-		{
-			SecondaryWeapon = firstWeapon;
+                    break;
+                default:
+                    // this should never happen
+                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
 
-			EmitSignal(SignalName.WeaponUpdated, firstWeapon);
-		}
-	}
+                    break;
+            }
+        }
+
+        if (isWeaponFound && firstWeapon != lastWeapon)
+        {
+            SecondaryWeapon = firstWeapon;
+
+            EmitSignal(SignalName.WeaponUpdated, firstWeapon);
+        }
+    }
 
 }

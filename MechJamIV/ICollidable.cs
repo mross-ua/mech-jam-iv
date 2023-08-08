@@ -1,9 +1,8 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using MechJamIV;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public interface ICollidable
     {
 
@@ -12,5 +11,5 @@ namespace MechJamIV {
 
         public void Hurt(int damage, Vector2 globalPos, Vector2 normal);
 
-   }
+    }
 }

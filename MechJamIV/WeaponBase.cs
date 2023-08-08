@@ -1,13 +1,11 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MechJamIV;
 
-namespace MechJamIV {
+namespace MechJamIV
+{
     public abstract partial class WeaponBase : Node2D
-        ,IWeapon
+        , IWeapon
     {
 
         private bool isCoolingDown = false;
@@ -22,9 +20,9 @@ namespace MechJamIV {
         public delegate void FiredEventHandler();
 
         [Signal]
-		public delegate void AmmoAddedEventHandler();
+        public delegate void AmmoAddedEventHandler();
 
-		public abstract PickupType WeaponType { get; }
+        public abstract PickupType WeaponType { get; }
 
         [Export]
         public float RoundsPerSecond { get; set; }
@@ -71,7 +69,7 @@ namespace MechJamIV {
             isCoolingDown = false;
         }
 
-		public void AddAmmo(int count)
+        public void AddAmmo(int count)
         {
             if (Ammo < 0)
             {

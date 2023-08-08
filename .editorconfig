@@ -17,6 +17,10 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 
 #dotnet_diagnostic.<rule ID>.severity = error|warning|suggestion|silent|none|default
 
+# it is preferred to wrap some expressions in parentheses
+# (e.g. bool myBool = (myVar == myValue);)
+dotnet_diagnostic.IDE0047.severity = silent
+
 # ignore namespace folder structure for now
 dotnet_diagnostic.IDE0130.severity = silent
 

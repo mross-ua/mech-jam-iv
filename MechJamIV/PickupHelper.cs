@@ -27,10 +27,6 @@ namespace MechJamIV {
                     case 0:
                         return PickupType.Medkit;
 
-                    //TODO we can absolutely do these since they have sprites (see scenes/levels/pickups/hit_scan_bullet_emitter_pickup.tscn)
-                    // case #:
-                    //  return riflePickup.Instantiate<HitScanBulletEmitterPickup>()
-
                     case 1:
                         return PickupType.Grenade;
 
@@ -49,10 +45,6 @@ namespace MechJamIV {
                 case PickupType.Medkit:
                     return medkit.Instantiate<Projectile>();
 
-                //TODO we can't do this without making the rifle pickup a projectile
-                // case PickupType.Rifle:
-                //  return riflePickup.Instantiate<HitScanBulletEmitterPickup>()
-
                 case PickupType.Grenade:
                     return grenade.Instantiate<Projectile>();
 
@@ -65,7 +57,7 @@ namespace MechJamIV {
                     break;
             }
 
-            throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a weapon type");
+            throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a projectile type");
         }
 
         public static WeaponBase GenerateWeapon(PickupType pickupType)

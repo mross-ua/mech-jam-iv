@@ -28,8 +28,7 @@ public partial class HitScanBulletEmitterPickup : Area2D
 
 		BodyEntered += (body) =>
 		{
-			//TODO this will cause an exception
-			//EmitSignal(SignalName.PickedUp);
+			EmitSignal(SignalName.PickedUp);
 
 			QueueFree();
 		};

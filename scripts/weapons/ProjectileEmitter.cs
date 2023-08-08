@@ -6,8 +6,35 @@ using MechJamIV;
 public partial class ProjectileEmitter : WeaponBase
 {
 
+	private PackedScene projectile = null;
+
 	[Export]
-	public PackedScene Projectile { get; set; }
+	public PackedScene Projectile {
+		get
+		{
+			return projectile;
+		}
+		set
+		{
+			if (value == null)
+			{
+				weaponType = (PickupType)(-1);
+				uiSprite = null;
+			}
+			else
+			{
+				Projectile item = value.Instantiate<Projectile>();
+
+				weaponType = item.WeaponType;
+				uiSprite = item.UISprite;
+
+				// we have to free it ourselves because we don't add it to the scene tree
+				item.Free();
+			}
+
+			projectile = value;
+		}
+	}
 
 	[Export]
 	public float ImpulseStrength { get; set; }
@@ -58,20 +85,19 @@ public partial class ProjectileEmitter : WeaponBase
 
 	#region IWeapon
 
+	private PickupType weaponType = (PickupType)(-1);
+	private Texture2D uiSprite = null;
+
 	public override PickupType WeaponType
 	{
 		get
 		{
-			//TODO this is highly inefficient
+			if (!Enum.IsDefined(weaponType))
+			{
+				throw new InvalidOperationException("Projectile is not set");
+			}
 
-			Projectile item = Projectile.Instantiate<Projectile>();
-
-			PickupType pickupType = item.WeaponType;
-
-			// we have to free it because we don't add it to the scene tree
-			item.Free();
-
-			return pickupType;
+			return weaponType;
 		}
 	}
 
@@ -79,16 +105,12 @@ public partial class ProjectileEmitter : WeaponBase
 	{
 		get
 		{
-			//TODO this is highly inefficient
+			if (uiSprite == null)
+			{
+				throw new InvalidOperationException("Projectile is not set");
+			}
 
-			Projectile item = Projectile.Instantiate<Projectile>();
-
-			Texture2D texture2d = item.UISprite;
-
-			// we have to free it because we don't add it to the scene tree
-			item.Free();
-
-			return texture2d;
+			return uiSprite;
 		}
 	}
 

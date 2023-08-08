@@ -38,7 +38,10 @@ namespace MechJamIV {
 
 		public void SetBodiesToExclude(IEnumerable<CollisionObject2D> bodies)
 		{
-			//TODO remove previously excluded bodies?
+			foreach (CollisionObject2D body in GetCollisionExceptions())
+			{
+				RemoveCollisionExceptionWith(body);
+			}
 
 			foreach (CollisionObject2D body in bodies)
 			{

@@ -66,7 +66,7 @@ public partial class PlayerCamera : Camera2D
         // we want the overhealth bar to have the same scale
         overHealthBar.MaxValue = player.MaxHealth;
 
-        healthBar.Value = Math.Max(player.MaxHealth, player.Health);
+        healthBar.Value = Math.Min(player.MaxHealth, player.Health);
         overHealthBar.Value = player.Health - player.MaxHealth;
 
         primaryTextureRect.Texture = player.WeaponManager.PrimaryWeapon?.UISprite;

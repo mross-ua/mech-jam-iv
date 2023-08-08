@@ -79,31 +79,9 @@ public partial class ProjectileEmitter : WeaponBase
     private PickupType weaponType = (PickupType)(-1);
     private Texture2D uiSprite = null;
 
-    public override PickupType WeaponType
-    {
-        get
-        {
-            if (!Enum.IsDefined(weaponType))
-            {
-                throw new InvalidOperationException("Projectile is not set");
-            }
+    public override PickupType WeaponType => Enum.IsDefined(weaponType) ? weaponType : throw new InvalidOperationException("Projectile is not set");
 
-            return weaponType;
-        }
-    }
-
-    public override Texture2D UISprite
-    {
-        get
-        {
-            if (uiSprite == null)
-            {
-                throw new InvalidOperationException("Projectile is not set");
-            }
-
-            return uiSprite;
-        }
-    }
+    public override Texture2D UISprite => uiSprite ?? throw new InvalidOperationException("Projectile is not set");
 
     #endregion
 

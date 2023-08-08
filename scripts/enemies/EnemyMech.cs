@@ -25,14 +25,7 @@ public partial class EnemyMech : EnemyBase
     {
         if (GD.Randf() < 0.01f)
         {
-            if (FaceDirection.IsEqualApprox(Vector2.Left))
-            {
-                return Vector2.Right;
-            }
-            else
-            {
-                return Vector2.Left;
-            }
+            return FaceDirection.IsEqualApprox(Vector2.Left) ? Vector2.Right : Vector2.Left;
         }
 
         return FaceDirection;

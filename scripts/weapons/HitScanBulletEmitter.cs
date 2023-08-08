@@ -54,7 +54,7 @@ public partial class HitScanBulletEmitter : WeaponBase
     protected override void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
     {
         Vector2 from = GlobalPosition;
-        Vector2 to = from + from.DirectionTo(globalPos) * LineOfSightDistance;
+        Vector2 to = from + (from.DirectionTo(globalPos) * LineOfSightDistance);
 
         Godot.Collections.Dictionary collision = GetWorld2D().DirectSpaceState.IntersectRay(new PhysicsRayQueryParameters2D()
         {

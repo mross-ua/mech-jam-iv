@@ -190,14 +190,9 @@ namespace MechJamIV
                 return;
             }
 
-            if (allowOverHealth)
-            {
-                Health = Math.Min(MaxHealth + MaxOverHealth, Health + health);
-            }
-            else
-            {
-                Health = Math.Min(MaxHealth, Health + health);
-            }
+            int maxHealth = allowOverHealth ? MaxHealth + MaxOverHealth : MaxHealth;
+
+            Health = Math.Min(maxHealth, Health + health);
 
             EmitSignal(SignalName.Healed, health);
         }

@@ -51,14 +51,7 @@ public partial class WeaponManager : Node2D
 
     public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
     {
-        if (bodies == null)
-        {
-            bodiesToExclude = null;
-        }
-        else
-        {
-            bodiesToExclude = new List<PhysicsBody2D>(bodies);
-        }
+        bodiesToExclude = bodies == null ? null : new List<PhysicsBody2D>(bodies);
 
         foreach (WeaponBase weapon in weapons.Values)
         {

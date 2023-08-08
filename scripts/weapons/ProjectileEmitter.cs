@@ -41,17 +41,10 @@ public partial class ProjectileEmitter : WeaponBase
 
     public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
     {
-        if (bodies == null)
-        {
-            bodiesToExclude = null;
-        }
-        else
-        {
-            bodiesToExclude = new List<PhysicsBody2D>(bodies);
-        }
+        bodiesToExclude = bodies == null ? null : new List<PhysicsBody2D>(bodies);
     }
 
-    protected async override void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
+    protected override async void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
     {
         Projectile projectile = Projectile.Instantiate<Projectile>();
         projectile.GlobalTransform = GlobalTransform;

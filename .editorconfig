@@ -17,6 +17,8 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 
 #dotnet_diagnostic.<rule ID>.severity = error|warning|suggestion|silent|none|default
 
+#TODO review these rules
+
 # Godot explicitly requires signals (delegates)
 # to end with the name "EventHandler"
 dotnet_diagnostic.CA1711.severity = silent
@@ -33,6 +35,7 @@ dotnet_diagnostic.IDE0005.severity = silent
 dotnet_diagnostic.IDE0010.severity = suggestion
 
 # it is preferred that if expressions are readable, not compact
+dotnet_diagnostic.IDE0045.severity = silent
 dotnet_diagnostic.IDE0046.severity = silent
 
 # it is preferred to wrap some expressions in parentheses

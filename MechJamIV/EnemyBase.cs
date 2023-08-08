@@ -109,6 +109,10 @@ namespace MechJamIV
                     ProcessAction_Attacking();
 
                     break;
+                default:
+                    // do nothing
+
+                    break;
             }
         }
 

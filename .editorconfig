@@ -28,6 +28,10 @@ dotnet_diagnostic.CA1805.severity = silent
 # top of each source file even if they aren't always used
 dotnet_diagnostic.IDE0005.severity = silent
 
+# deprioritize switch blocks that are
+# not populated with all cases
+dotnet_diagnostic.IDE0010.severity = suggestion
+
 # it is preferred that if expressions are readable, not compact
 dotnet_diagnostic.IDE0046.severity = silent
 

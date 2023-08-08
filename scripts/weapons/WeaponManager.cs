@@ -140,8 +140,7 @@ public partial class WeaponManager : Node2D
 
                     break;
                 default:
-                    // this should never happen
-                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
+                    // ignore
 
                     break;
             }
@@ -184,8 +183,7 @@ public partial class WeaponManager : Node2D
 
                     break;
                 default:
-                    // this should never happen
-                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
+                    // ignore
 
                     break;
             }

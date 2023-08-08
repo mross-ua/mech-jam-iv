@@ -21,7 +21,7 @@ public partial class EnemyMech : EnemyBase
         weaponManager.SetBodiesToExclude(this.Yield());
     }
 
-    protected override Vector2 GetMovementDirection_Idle()
+    protected override Vector2 GetMovementDirectionForIdleState()
     {
         if (GD.Randf() < 0.01f)
         {
@@ -31,7 +31,7 @@ public partial class EnemyMech : EnemyBase
         return FaceDirection;
     }
 
-    protected override Vector2 GetMovementDirection_Chase()
+    protected override Vector2 GetMovementDirectionForChaseState()
     {
         if (CharacterTracker.Target == null)
         {
@@ -41,17 +41,17 @@ public partial class EnemyMech : EnemyBase
         return new Vector2(CharacterTracker.GetDirectionToTarget().X, 0.0f).Normalized();
     }
 
-    protected override Vector2 GetMovementDirection_Attacking()
+    protected override Vector2 GetMovementDirectionForAttackState()
     {
-        return GetMovementDirection_Chase();
+        return GetMovementDirectionForChaseState();
     }
 
-    protected override bool _IsJumping()
+    protected override bool IsJumping()
     {
         return false;
     }
 
-    protected override void ProcessAction_Idle()
+    protected override void ProcessActionForIdleState()
     {
         if (CharacterTracker.Target == null)
         {
@@ -65,7 +65,7 @@ public partial class EnemyMech : EnemyBase
         }
     }
 
-    protected override void ProcessAction_Chase()
+    protected override void ProcessActionForChaseState()
     {
         if (CharacterTracker.Target == null)
         {
@@ -73,7 +73,7 @@ public partial class EnemyMech : EnemyBase
         }
         else if (CharacterTracker.IsTargetInLineOfSight())
         {
-            State = EnemyState.Attacking;
+            State = EnemyState.Attack;
 
             lastTimePlayerSeen = DateTime.Now;
         }
@@ -83,7 +83,7 @@ public partial class EnemyMech : EnemyBase
         }
     }
 
-    protected override void ProcessAction_Attacking()
+    protected override void ProcessActionForAttackState()
     {
         if (CharacterTracker.Target == null)
         {

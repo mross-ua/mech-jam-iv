@@ -38,7 +38,7 @@ public partial class Player : CharacterBase
         return Input.GetVector("move_left", "move_right", "noop", "noop");
     }
 
-    protected override bool _IsJumping()
+    protected override bool IsJumping()
     {
         // NOTE: This should be run in a process loop since we need user input.
 

@@ -62,12 +62,12 @@ namespace MechJamIV
 
         private bool IsJumping(double delta)
         {
-            if (jumpAirTime >= MaxJumpAirTime && _IsJumping())
+            if (jumpAirTime >= MaxJumpAirTime && IsJumping())
             {
                 jumpAirTime = MaxJumpAirTime;
                 isJumping = false;
             }
-            else if (isJumping && jumpAirTime < MaxJumpAirTime && _IsJumping())
+            else if (isJumping && jumpAirTime < MaxJumpAirTime && IsJumping())
             {
                 jumpAirTime += (float)delta;
                 isJumping = true;
@@ -80,13 +80,13 @@ namespace MechJamIV
             else if (!isJumping)
             {
                 jumpAirTime = 0.0f;
-                isJumping = _IsJumping();
+                isJumping = IsJumping();
             }
 
             return isJumping;
         }
 
-        protected abstract bool _IsJumping();
+        protected abstract bool IsJumping();
 
         public override void _Process(double delta)
         {

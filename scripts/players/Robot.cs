@@ -20,7 +20,7 @@ public partial class Robot : CharacterBase
         return GlobalPosition.DirectionTo(((Player)CharacterTracker.Target).RobotMarker.GlobalPosition);
     }
 
-    protected override bool _IsJumping()
+    protected override bool IsJumping()
     {
         return false;
     }

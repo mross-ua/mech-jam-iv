@@ -9,12 +9,12 @@ public partial class EnemyTroid : EnemyBase
 
     private DateTime lastTimePlayerSeen = DateTime.MinValue;
 
-    protected override Vector2 GetMovementDirection_Idle()
+    protected override Vector2 GetMovementDirectionForIdleState()
     {
         return Vector2.Zero;
     }
 
-    protected override Vector2 GetMovementDirection_Chase()
+    protected override Vector2 GetMovementDirectionForChaseState()
     {
         if (CharacterTracker.Target == null)
         {
@@ -24,18 +24,18 @@ public partial class EnemyTroid : EnemyBase
         return CharacterTracker.GetDirectionToTarget();
     }
 
-    protected override Vector2 GetMovementDirection_Attacking()
+    protected override Vector2 GetMovementDirectionForAttackState()
     {
         // stay with player
-        return GetMovementDirection_Chase();
+        return GetMovementDirectionForChaseState();
     }
 
-    protected override bool _IsJumping()
+    protected override bool IsJumping()
     {
         return false;
     }
 
-    protected override void ProcessAction_Idle()
+    protected override void ProcessActionForIdleState()
     {
         if (CharacterTracker.Target == null)
         {
@@ -49,7 +49,7 @@ public partial class EnemyTroid : EnemyBase
         }
     }
 
-    protected override void ProcessAction_Chase()
+    protected override void ProcessActionForChaseState()
     {
         if (CharacterTracker.Target == null)
         {
@@ -57,7 +57,7 @@ public partial class EnemyTroid : EnemyBase
         }
         else if (CharacterTracker.IsTargetInLineOfSight())
         {
-            State = EnemyState.Attacking;
+            State = EnemyState.Attack;
 
             lastTimePlayerSeen = DateTime.Now;
         }
@@ -67,12 +67,12 @@ public partial class EnemyTroid : EnemyBase
         }
     }
 
-    protected override void ProcessAction_Attacking()
+    protected override void ProcessActionForAttackState()
     {
         // NOTE: We currently have collision checks on
         //       hitboxes so attacks happen automatically.
 
-        ProcessAction_Chase();
+        ProcessActionForChaseState();
     }
 
     protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)

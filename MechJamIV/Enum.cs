@@ -42,7 +42,7 @@ namespace MechJamIV
     {
         Idle,
         Chase,
-        Attacking
+        Attack
     }
 
     public enum FireMode : long

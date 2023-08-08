@@ -1,7 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using static Godot.Node;
 
 namespace MechJamIV
 {
@@ -15,7 +13,7 @@ namespace MechJamIV
             node.QueueFree();
         }
 
-        public static SignalAwaiter AddChildDeferred(this Node parent, Node node, bool forceReadableName = false, InternalMode @internal = InternalMode.Disabled)
+        public static SignalAwaiter AddChildDeferred(this Node parent, Node node, bool forceReadableName = false, Node.InternalMode @internal = Node.InternalMode.Disabled)
         {
             // NOTE: This is a possible future Godot feature.
             //       See https://github.com/godotengine/godot-proposals/issues/3935

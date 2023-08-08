@@ -16,3 +16,7 @@ insert_final_newline = false
 dotnet_analyzer_diagnostic.category-Style.severity = warning
 
 #dotnet_diagnostic.<rule ID>.severity = error|warning|suggestion|silent|none|default
+
+# it is preferred to have common using statements at the
+# top of each file even if they aren't always used
+dotnet_diagnostic.IDE0005.severity = silent

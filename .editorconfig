@@ -31,6 +31,3 @@ dotnet_diagnostic.IDE0047.severity = silent
 # some Godot calls have a return type even
 # though they always return null
 dotnet_diagnostic.IDE0058.severity = silent
-
-# ignore namespace folder structure for now
-dotnet_diagnostic.IDE0130.severity = silent

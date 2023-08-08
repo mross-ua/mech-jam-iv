@@ -3,167 +3,171 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MechJamIV {
-	public partial class ExplosiveProjectile : Projectile
-		,IDestructible
-		,IDetonable
-	{
+namespace MechJamIV
+{
+    public partial class ExplosiveProjectile : Projectile
+        , IDestructible
+        , IDetonable
+    {
 
-		[Export]
-		public int ExplosionDamage { get; set; } = 80;
+        [Export]
+        public int ExplosionDamage { get; set; } = 80;
 
-		[Export]
-		public float ExplosionIntensity { get; set; } = 10_000.0f;
+        [Export]
+        public float ExplosionIntensity { get; set; } = 10_000.0f;
 
-		#region Node references
+        #region Node references
 
-		public CharacterAnimator CharacterAnimator { get; private set; }
-		public CharacterTracker CharacterTracker { get; private set; }
+        public CharacterAnimator CharacterAnimator { get; private set; }
+        public CharacterTracker CharacterTracker { get; private set; }
 
-		private CollisionShape2D collisionShape2D;
-		private Area2D explosionAreaOfEffect;
-		private CollisionShape2D explosionCollisionShape2D;
+        private CollisionShape2D collisionShape2D;
+        private Area2D explosionAreaOfEffect;
+        private CollisionShape2D explosionCollisionShape2D;
 
-		#endregion
+        #endregion
 
-		public override void _Ready()
-		{
-			base._Ready();
+        public override void _Ready()
+        {
+            base._Ready();
 
-			CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
-			CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
+            CharacterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+            CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
 
-			collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+            collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 
-			explosionAreaOfEffect = GetNode<Area2D>("ExplosionAreaOfEffect");
-			explosionCollisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
-		}
+            explosionAreaOfEffect = GetNode<Area2D>("ExplosionAreaOfEffect");
+            explosionCollisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
+        }
 
         protected override bool CanBePickedUp() => !IsFusePrimed;
 
-		protected virtual void AnimateDeath() => CharacterAnimator.AnimateDeath();
+        protected virtual void AnimateDeath()
+        {
+            CharacterAnimator.AnimateDeath();
+        }
 
-		#region IDestructible
+        #region IDestructible
 
-		[Signal]
-		public delegate void KilledEventHandler();
+        [Signal]
+        public delegate void KilledEventHandler();
 
-		[Signal]
-		public delegate void HealedEventHandler(int health);
+        [Signal]
+        public delegate void HealedEventHandler(int health);
 
-		public int MaxHealth { get => throw new NotImplementedException("Projectiles cannot be healed"); }
+        public int MaxHealth => throw new NotImplementedException("Projectiles cannot be healed");
 
-		public int MaxOverHealth { get => throw new NotImplementedException("Projectiles cannot be healed"); }
+        public int MaxOverHealth => throw new NotImplementedException("Projectiles cannot be healed");
 
-		[Export]
-		public int Health { get; set; }
+        [Export]
+        public int Health { get; set; }
 
-		public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
-		{
-			if (Health <= 0)
-			{
-				return;
-			}
+        public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+        {
+            if (Health <= 0)
+            {
+                return;
+            }
 
-			base.Hurt(damage, globalPos, normal);
+            base.Hurt(damage, globalPos, normal);
 
-			Health = Math.Max(0, Health - damage);
+            Health = Math.Max(0, Health - damage);
 
-			EmitSignal(SignalName.Injured, damage);
+            EmitSignal(SignalName.Injured, damage);
 
-			if (Health <= 0)
-			{
-				AnimateDeath();
+            if (Health <= 0)
+            {
+                AnimateDeath();
 
-				Detonate();
+                Detonate();
 
-				EmitSignal(SignalName.Killed);
+                EmitSignal(SignalName.Killed);
 
-				CharacterTracker?.Untrack();
+                CharacterTracker?.Untrack();
 
-				// NOTE: We disable the collision shape and wait to
-				//       free so the death animation can fully play.
-				//       In order to support that, we have to freeze
-				//       the projectile or else the death animation
-				//       will continue moving/falling and it looks bad.
+                // NOTE: We disable the collision shape and wait to
+                //       free so the death animation can fully play.
+                //       In order to support that, we have to freeze
+                //       the projectile or else the death animation
+                //       will continue moving/falling and it looks bad.
 
-				SetDeferred(PropertyName.Freeze, true);
-				collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+                SetDeferred(PropertyName.Freeze, true);
+                collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-				this.TimedFree(5.0f);
-			}
-		}
+                this.TimedFree(5.0f);
+            }
+        }
 
-		public void Heal(int health, bool allowOverHealth)
-		{
-			throw new NotImplementedException("Projectiles cannot be healed");
-		}
+        public void Heal(int health, bool allowOverHealth)
+        {
+            throw new NotImplementedException("Projectiles cannot be healed");
+        }
 
-		#endregion
+        #endregion
 
-		#region IDetonable
+        #region IDetonable
 
-		[Signal]
-		public delegate void DetonatedEventHandler();
+        [Signal]
+        public delegate void DetonatedEventHandler();
 
-		[Export]
-		public float FuseDelay { get; set; }
+        [Export]
+        public float FuseDelay { get; set; }
 
-		protected bool IsFusePrimed { get; private set; } = false;
+        protected bool IsFusePrimed { get; private set; } = false;
 
-		public async virtual void PrimeFuse()
-		{
-			if (Health <= 0)
-			{
-				return;
-			}
-			else if (IsFusePrimed)
-			{
-				return;
-			}
+        public async virtual void PrimeFuse()
+        {
+            if (Health <= 0)
+            {
+                return;
+            }
+            else if (IsFusePrimed)
+            {
+                return;
+            }
 
-			IsFusePrimed = true;
+            IsFusePrimed = true;
 
-			await ToSignal(GetTree().CreateTimer(FuseDelay, false, true), SceneTreeTimer.SignalName.Timeout);
+            await ToSignal(GetTree().CreateTimer(FuseDelay, false, true), SceneTreeTimer.SignalName.Timeout);
 
-			if (Health <= 0)
-			{
-				return;
-			}
+            if (Health <= 0)
+            {
+                return;
+            }
 
-			EmitSignal(SignalName.Detonated);
+            EmitSignal(SignalName.Detonated);
 
-			Hurt(Health, GlobalPosition, Vector2.Zero);
-		}
+            Hurt(Health, GlobalPosition, Vector2.Zero);
+        }
 
-		private void Detonate()
-		{
-			// we assume the shape is a circle
-			float radius = explosionCollisionShape2D.Shape.GetRect().Size.X / 2;
+        private void Detonate()
+        {
+            // we assume the shape is a circle
+            float radius = explosionCollisionShape2D.Shape.GetRect().Size.X / 2;
 
-			foreach (Node2D node in explosionAreaOfEffect.GetOverlappingBodies().Where(n => n != this))
-			{
-				// NOTE: We scale the damage and push force depending on
-				//       the node's distance from the explosion.
+            foreach (Node2D node in explosionAreaOfEffect.GetOverlappingBodies().Where(n => n != this))
+            {
+                // NOTE: We scale the damage and push force depending on
+                //       the node's distance from the explosion.
 
-				if (node is CharacterBase character)
-				{
-					Vector2 dir = character.GlobalPosition - GlobalPosition;
+                if (node is CharacterBase character)
+                {
+                    Vector2 dir = character.GlobalPosition - GlobalPosition;
 
-					character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalPosition, -dir.Normalized());
-					character.Velocity += ExplosionIntensity * dir / dir.LengthSquared();
-				}
-				else if (node is Projectile projectile)
-				{
-					Vector2 dir = projectile.GlobalPosition - GlobalPosition;
+                    character.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), character.GlobalPosition, -dir.Normalized());
+                    character.Velocity += ExplosionIntensity * dir / dir.LengthSquared();
+                }
+                else if (node is Projectile projectile)
+                {
+                    Vector2 dir = projectile.GlobalPosition - GlobalPosition;
 
-					projectile.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), projectile.GlobalPosition, -dir.Normalized());
-					projectile.ApplyImpulse(ExplosionIntensity * dir / dir.LengthSquared());
-				}
-			}
-		}
+                    projectile.Hurt(Mathf.RoundToInt(ExplosionDamage * radius / dir.LengthSquared()), projectile.GlobalPosition, -dir.Normalized());
+                    projectile.ApplyImpulse(ExplosionIntensity * dir / dir.LengthSquared());
+                }
+            }
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

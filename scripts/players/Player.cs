@@ -5,122 +5,122 @@ using System.Linq;
 using MechJamIV;
 
 public partial class Player : CharacterBase
-	,IPlayable
+    ,IPlayable
 {
 
-	private bool isImmune = false;
-	private bool isJumping = false;
+    private bool isImmune = false;
+    private bool isJumping = false;
 
-	#region Node references
+    #region Node references
 
-	public Marker2D RobotMarker { get; private set; }
-	public WeaponManager WeaponManager { get; private set; }
+    public Marker2D RobotMarker { get; private set; }
+    public WeaponManager WeaponManager { get; private set; }
 
-	private GpuParticles2D immunityShield;
-	private RemoteTransform2D remoteTransform;
+    private GpuParticles2D immunityShield;
+    private RemoteTransform2D remoteTransform;
 
-	#endregion
+    #endregion
 
     public override void _Ready()
     {
-		base._Ready();
+        base._Ready();
 
-		RobotMarker = GetNode<Marker2D>("RobotMarker");
+        RobotMarker = GetNode<Marker2D>("RobotMarker");
 
-		immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
+        immunityShield = GetNode<GpuParticles2D>("ImmunityShield");
 
-		remoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
+        remoteTransform = GetNode<RemoteTransform2D>("RemoteTransform");
 
-		WeaponManager = GetNode<WeaponManager>("WeaponManager");
-		WeaponManager.SetBodiesToExclude(this.Yield());
+        WeaponManager = GetNode<WeaponManager>("WeaponManager");
+        WeaponManager.SetBodiesToExclude(this.Yield());
     }
 
-	protected override Vector2 GetMovementDirection()
-	{
-		return Input.GetVector("move_left", "move_right", "noop", "noop");
-	}
+    protected override Vector2 GetMovementDirection()
+    {
+        return Input.GetVector("move_left", "move_right", "noop", "noop");
+    }
 
     protected override bool _IsJumping()
-	{
-		// NOTE: This should be run in a process loop since we need user input.
+    {
+        // NOTE: This should be run in a process loop since we need user input.
 
-		// only allow continuous jump key presses that start when character is on the floor
-		// (disallow double jumps and jumps after walking off an edge)
-		isJumping = (isJumping && Input.IsActionPressed("jump") && !IsOnFloor()) || (Input.IsActionJustPressed("jump") && IsOnFloor());
+        // only allow continuous jump key presses that start when character is on the floor
+        // (disallow double jumps and jumps after walking off an edge)
+        isJumping = (isJumping && Input.IsActionPressed("jump") && !IsOnFloor()) || (Input.IsActionJustPressed("jump") && IsOnFloor());
 
-		return isJumping;
-	}
+        return isJumping;
+    }
 
-	public void Fire(FireMode mode, Vector2 globalPos)
-	{
-		if (Health <= 0)
-		{
-			return;
-		}
+    public void Fire(FireMode mode, Vector2 globalPos)
+    {
+        if (Health <= 0)
+        {
+            return;
+        }
 
-		WeaponManager.Fire(mode, globalPos, CharacterTracker.Target);
-	}
+        WeaponManager.Fire(mode, globalPos, CharacterTracker.Target);
+    }
 
-	protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
+    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
         this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
-	public void ActivateShield()
-	{
-		immunityShield.Visible = true;
+    public void ActivateShield()
+    {
+        immunityShield.Visible = true;
 
-		EmitSignal(SignalName.ImmunityShieldActivated);
-	}
+        EmitSignal(SignalName.ImmunityShieldActivated);
+    }
 
-	public void DeactivateShield()
-	{
-		immunityShield.Visible = false;
+    public void DeactivateShield()
+    {
+        immunityShield.Visible = false;
 
-		EmitSignal(SignalName.ImmunityShieldDeactivated);
-	}
+        EmitSignal(SignalName.ImmunityShieldDeactivated);
+    }
 
-	#region ICollidable
+    #region ICollidable
 
-	public async override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
-	{
-		if (isImmune)
-		{
-			return;
-		}
+    public async override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+    {
+        if (isImmune)
+        {
+            return;
+        }
 
-		isImmune = true;
+        isImmune = true;
 
-		base.Hurt(damage, globalPos, normal);
+        base.Hurt(damage, globalPos, normal);
 
-		if (Health <= 0)
-		{
-			return;
-		}
+        if (Health <= 0)
+        {
+            return;
+        }
 
-		ActivateShield();
+        ActivateShield();
 
-		await ToSignal(GetTree().CreateTimer(2.0f, false, true), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(2.0f, false, true), SceneTreeTimer.SignalName.Timeout);
 
-		DeactivateShield();
+        DeactivateShield();
 
-		isImmune = false;
-	}
+        isImmune = false;
+    }
 
-	#endregion
+    #endregion
 
-	#region IPlayable
+    #region IPlayable
 
-	[Signal]
-	public delegate void ImmunityShieldActivatedEventHandler();
-	[Signal]
-	public delegate void ImmunityShieldDeactivatedEventHandler();
+    [Signal]
+    public delegate void ImmunityShieldActivatedEventHandler();
+    [Signal]
+    public delegate void ImmunityShieldDeactivatedEventHandler();
 
-	public void SetRemoteTarget(Camera2D cam)
-	{
-		remoteTransform.RemotePath = cam.GetPath();
-	}
+    public void SetRemoteTarget(Camera2D cam)
+    {
+        remoteTransform.RemotePath = cam.GetPath();
+    }
 
-	#endregion
+    #endregion
 
 }

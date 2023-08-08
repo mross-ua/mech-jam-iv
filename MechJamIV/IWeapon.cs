@@ -4,31 +4,31 @@ using System.Collections.Generic;
 using MechJamIV;
 
 namespace MechJamIV {
-	public interface IWeapon
-	{
+    public interface IWeapon
+    {
 
-		//[Signal]
-		public delegate void FiredEventHandler();
+        //[Signal]
+        public delegate void FiredEventHandler();
 
-		//[Signal]
-		public delegate void AmmoAddedEventHandler();
+        //[Signal]
+        public delegate void AmmoAddedEventHandler();
 
-		public PickupType WeaponType { get; }
+        public PickupType WeaponType { get; }
 
-		public float RoundsPerSecond { get; }
+        public float RoundsPerSecond { get; }
 
-		public int Ammo { get; }
+        public int Ammo { get; }
 
-		//[Export(PropertyHint.Layers2DPhysics)]
-		public uint CollisionMask { get; }
+        //[Export(PropertyHint.Layers2DPhysics)]
+        public uint CollisionMask { get; }
 
-		public float LineOfSightDistance { get; }
+        public float LineOfSightDistance { get; }
 
-		public Texture2D UISprite { get; }
+        public Texture2D UISprite { get; }
 
-		public void Fire(Vector2 globalPos, PhysicsBody2D target = null);
+        public void Fire(Vector2 globalPos, PhysicsBody2D target = null);
 
-		public void AddAmmo(int count);
+        public void AddAmmo(int count);
 
-	}
+    }
 }

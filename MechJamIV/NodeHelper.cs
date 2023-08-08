@@ -9,9 +9,9 @@ namespace MechJamIV {
 
         public static async void TimedFree(this Node node, double timeSec, bool processAlways = false, bool processInPhysics = true)
         {
-			await node.ToSignal(node.GetTree().CreateTimer(timeSec, processAlways, processInPhysics), SceneTreeTimer.SignalName.Timeout);
+            await node.ToSignal(node.GetTree().CreateTimer(timeSec, processAlways, processInPhysics), SceneTreeTimer.SignalName.Timeout);
 
-			node.QueueFree();
+            node.QueueFree();
         }
 
         public static SignalAwaiter AddChildDeferred(this Node parent, Node node, bool forceReadableName = false, InternalMode @internal = InternalMode.Disabled)

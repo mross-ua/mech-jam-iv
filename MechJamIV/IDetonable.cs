@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using MechJamIV;
 
 namespace MechJamIV {
-	public interface IDetonable
-	{
+    public interface IDetonable
+    {
 
         //[Signal]
         public delegate void DetonatedEventHandler();
 
-    	public float FuseDelay { get; }
+        public float FuseDelay { get; }
 
         public void PrimeFuse();
 
-	}
+    }
 }

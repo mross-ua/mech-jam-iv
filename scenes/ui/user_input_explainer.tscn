@@ -72,7 +72,7 @@ text = "N"
 [node name="Label12" type="Label" parent="VBoxContainer/GridContainer"]
 visible = false
 layout_mode = 2
-text = "Next Primary Weapon	"
+text = "Next Primary Weapon"
 
 [node name="Label13" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -80,4 +80,4 @@ text = "M"
 
 [node name="Label14" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Switch	 Secondary		"
+text = "Switch Secondary"

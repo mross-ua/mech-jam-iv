@@ -22,9 +22,9 @@ namespace MechJamIV {
         public delegate void FiredEventHandler();
 
         [Signal]
-		public delegate void AmmoAddedEventHandler();
+        public delegate void AmmoAddedEventHandler();
 
-		public abstract PickupType WeaponType { get; }
+        public abstract PickupType WeaponType { get; }
 
         [Export]
         public float RoundsPerSecond { get; set; }
@@ -71,7 +71,7 @@ namespace MechJamIV {
             isCoolingDown = false;
         }
 
-		public void AddAmmo(int count)
+        public void AddAmmo(int count)
         {
             if (Ammo < 0)
             {

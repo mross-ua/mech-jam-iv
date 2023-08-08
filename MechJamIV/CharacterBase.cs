@@ -129,7 +129,7 @@ namespace MechJamIV
             characterAnimator.AnimateMovement(FaceDirection);
         }
 
-        protected abstract void AnimateInjury(int damage, Vector2 position, Vector2 normal);
+        protected abstract void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal);
 
         protected void AnimateDeath()
         {

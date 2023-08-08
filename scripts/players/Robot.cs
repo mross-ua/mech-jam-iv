@@ -30,7 +30,7 @@ public partial class Robot : CharacterBase
         //TODO
     }
 
-    protected override void AnimateInjury(int damage, Vector2 position, Vector2 normal)
+    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
         //TODO
     }

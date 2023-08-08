@@ -21,6 +21,9 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 # to end with the name "EventHandler"
 dotnet_diagnostic.CA1711.severity = silent
 
+# it is generally preferred to set initial values with member declarations
+dotnet_diagnostic.CA1805.severity = silent
+
 # it is preferred to have common using statements at the
 # top of each source file even if they aren't always used
 dotnet_diagnostic.IDE0005.severity = silent

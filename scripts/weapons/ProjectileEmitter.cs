@@ -11,10 +11,7 @@ public partial class ProjectileEmitter : WeaponBase
     [Export]
     public PackedScene Projectile
     {
-        get
-        {
-            return projectile;
-        }
+        get => projectile;
         set
         {
             if (value == null)

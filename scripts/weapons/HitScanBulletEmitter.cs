@@ -107,16 +107,9 @@ public partial class HitScanBulletEmitter : WeaponBase
 
     public override PickupType WeaponType => PickupType.Rifle;
 
-    public override Texture2D UISprite
-    {
-        get
-        {
-            // NOTE: This must be accessible outside of scene tree.
-            //       (_Ready() may not have been called.)
-
-            return GetNode<Sprite2D>("UISprite").Texture;
-        }
-    }
+    // NOTE: This must be accessible outside of scene tree.
+    //       (_Ready() may not have been called.)
+    public override Texture2D UISprite => GetNode<Sprite2D>("UISprite").Texture;
 
     #endregion
 

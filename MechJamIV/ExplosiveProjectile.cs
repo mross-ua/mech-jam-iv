@@ -39,7 +39,10 @@ namespace MechJamIV
             explosionCollisionShape2D = GetNode<CollisionShape2D>("ExplosionAreaOfEffect/CollisionShape2D");
         }
 
-        protected override bool CanBePickedUp() => !IsFusePrimed;
+        protected override bool CanBePickedUp()
+        {
+            return !IsFusePrimed;
+        }
 
         protected virtual void AnimateDeath()
         {

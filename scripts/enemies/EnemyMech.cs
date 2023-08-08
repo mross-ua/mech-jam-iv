@@ -53,7 +53,10 @@ public partial class EnemyMech : EnemyBase
         return GetMovementDirection_Chase();
     }
 
-    protected override bool _IsJumping() => false;
+    protected override bool _IsJumping()
+    {
+        return false;
+    }
 
     protected override void ProcessAction_Idle()
     {

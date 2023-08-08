@@ -33,7 +33,10 @@ namespace MechJamIV
             };
         }
 
-        protected virtual bool CanBePickedUp() => true;
+        protected virtual bool CanBePickedUp()
+        {
+            return true;
+        }
 
         public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
         {

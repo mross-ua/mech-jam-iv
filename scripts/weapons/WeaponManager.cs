@@ -139,6 +139,11 @@ public partial class WeaponManager : Node2D
                     isWeaponFound = (PrimaryWeapon == weapon);
 
                     break;
+                default:
+                    // this should never happen
+                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
+
+                    break;
             }
         }
 
@@ -176,6 +181,11 @@ public partial class WeaponManager : Node2D
                     lastWeapon = weapon;
 
                     isWeaponFound = (SecondaryWeapon == weapon);
+
+                    break;
+                default:
+                    // this should never happen
+                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
 
                     break;
             }

@@ -53,6 +53,7 @@ namespace MechJamIV
 
                 default:
                     // this should never happen
+                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
 
                     break;
             }
@@ -75,6 +76,7 @@ namespace MechJamIV
 
                 default:
                     // this should never happen
+                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
 
                     break;
             }

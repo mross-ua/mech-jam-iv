@@ -130,7 +130,14 @@ public partial class World : Node2D
                 {
                     if (numObjectivesRemaining == 0)
                     {
-                        GetTree().ChangeSceneToFile(NextScene);
+                        if (GetTree().ChangeSceneToFile(NextScene) == Error.Ok)
+                        {
+                            // do nothing
+                        }
+                        else
+                        {
+                            GD.PrintErr($"Cannot open scene file {NextScene}");
+                        }
                     }
                 }
             };

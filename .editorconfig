@@ -28,5 +28,9 @@ dotnet_diagnostic.IDE0046.severity = silent
 # (e.g. bool myBool = (myVar == myValue);)
 dotnet_diagnostic.IDE0047.severity = silent
 
+# some Godot calls have a return type even
+# though they always return null
+dotnet_diagnostic.IDE0058.severity = silent
+
 # ignore namespace folder structure for now
 dotnet_diagnostic.IDE0130.severity = silent

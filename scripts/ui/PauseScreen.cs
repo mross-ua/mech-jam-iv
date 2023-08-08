@@ -58,9 +58,14 @@ public partial class PauseScreen : CanvasLayer
 
     public virtual void RestartScene()
     {
-        GetTree().ReloadCurrentScene();
-
-        UnpauseGame();
+        if (GetTree().ReloadCurrentScene() == Error.Ok)
+        {
+            UnpauseGame();
+        }
+        else
+        {
+            GD.PrintErr($"Cannot reload current scene");
+        }
     }
 
 }

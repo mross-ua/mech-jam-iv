@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyk2sakvlse4x"]
+[gd_scene load_steps=6 format=3 uid="uid://cyk2sakvlse4x"]
 
 [ext_resource type="Script" path="res://MechJamIV/Projectile.cs" id="1_pt5qx"]
 [ext_resource type="Texture2D" uid="uid://bldyxfdw0kii2" path="res://assets/spritesheets/spr_sheet_boxes.png" id="2_gneoy"]
+[ext_resource type="PackedScene" uid="uid://c2fgbc8librcm" path="res://scenes/effects/shrapnel_splatter.tscn" id="2_oc00i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mb76b"]
 atlas = ExtResource("2_gneoy")
@@ -11,11 +12,12 @@ region = Rect2(0, 0, 32, 32)
 size = Vector2(16, 16)
 
 [node name="Medkit" type="RigidBody2D" groups=["pickup"]]
-collision_layer = 0
+collision_layer = 256
 collision_mask = 347
 max_contacts_reported = 8
 contact_monitor = true
 script = ExtResource("1_pt5qx")
+PointDamageEffect = ExtResource("2_oc00i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

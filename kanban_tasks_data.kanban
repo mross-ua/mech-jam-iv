@@ -59,6 +59,7 @@
 				"9cffd7b1-a177-44e3-bde8-de147bdfbc09",
 				"c61104e0-1c77-4cd6-bdeb-46e775693006",
 				"6f67aea8-9b43-4469-9675-28ea36e84573",
+				"2b647899-789e-4808-b725-f9512f90fa8d",
 				"5738d7de-d303-4119-bf94-afe9ad149b6e",
 				"1475d785-346f-4dbe-b6b9-9665aef66301",
 				"d9aa058a-62ab-40c0-95f7-c7c7861a85e4",
@@ -74,6 +75,7 @@
 				"bda2224d-406c-418a-b6b0-f523d681203d",
 				"8012f5a7-30ec-4e65-af94-9b5795dfda47",
 				"33059468-5ac0-43bf-a1ac-179bdf3b16ea",
+				"00b666b8-399a-41d7-a0b9-7a805c11cc33",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
 				"a926493d-020e-4b97-b127-80e77aba729d",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
@@ -108,9 +110,7 @@
 		{
 			"uuid": "a2075292-05ae-4a5a-862c-065770c5f9d4",
 			"title": "Expedite",
-			"tasks": [
-				"00b666b8-399a-41d7-a0b9-7a805c11cc33"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "86426af1-d49f-4980-af92-7c39d92ddf80",
@@ -118,7 +118,6 @@
 			"tasks": [
 				"b5084154-8d48-4e99-aaed-402fce07c8e8",
 				"a53af30a-1248-4ce9-af0d-2e9ba8d9ff5d",
-				"2b647899-789e-4808-b725-f9512f90fa8d",
 				"e4d5a3ee-8e07-43ed-82fc-deef70190d67",
 				"be1049e6-9f87-4115-b483-774a3e6d1f53",
 				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
@@ -132,6 +131,7 @@
 				"4b36d268-0c5c-426d-b2c4-c7c47bf8b524",
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
 				"d386949b-81f3-4995-ac44-16ac0ccef723",
+				"39b4dec8-9071-4008-bda3-029230017e1d",
 				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
 				"780e9834-6fbc-4523-9449-fd62af2283bd",
@@ -935,14 +935,30 @@
 			"uuid": "00b666b8-399a-41d7-a0b9-7a805c11cc33",
 			"title": "Make an actual objective",
 			"description": "The medkit animation should be reused as some kind of objective the player has to collect. We would have to revert them to be static and user would have to solve a puzzle or face some obstacle to collect them.\n\nThe medkit could take on a different sprite (and collision shape), like one with a red cross.",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
-			"steps": []
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
+			"steps": [
+				{
+					"details": "Restore old (static) medkit and rename as CyberSteel",
+					"done": true
+				},
+				{
+					"details": "Current medkit needs a new sprite (and collision shape)",
+					"done": true
+				}
+			]
 		},
 		{
 			"uuid": "f5cc05c8-39cd-46ea-8fb2-ba93fd8f7da7",
 			"title": "Story idea",
 			"description": "The medkit orbs are \"CyberSteel replicators[1].\" They have the power to grow into powerful cyborgs and must be recovered at all costs. The replicators need a specific substrate to grow and are not seen doing so in this game.\n\n1. https://conwaylife.com/wiki/Replicator",
 			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": []
+		},
+		{
+			"uuid": "39b4dec8-9071-4008-bda3-029230017e1d",
+			"title": "Bullet tracers don't work great under high FPS",
+			"description": "Turn off V-Sync and turn on \"Print FPS\" in project settings. Bullet tracers may not show if the frame rate is higher than the monitor refresh rate.\n\nAre there any methods for dealing with a game that runs faster than the monitor refresh rate? Or do we just need to specify a minimum time displayed (must be less than firing rate)?",
+			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
 			"steps": []
 		}
 	],

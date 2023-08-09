@@ -30,7 +30,11 @@
 		{
 			"uuid": "2672f96a-9194-47de-b5a1-7961b242be5a",
 			"title": "Todo",
-			"tasks": []
+			"tasks": [
+				"31305b90-1b99-424e-9480-240adc754c07",
+				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
+				"067f3d45-a8c3-46f1-97dc-fc28583328fe"
+			]
 		},
 		{
 			"uuid": "ea9a30db-7c6c-4a78-9aa3-578a9c774714",
@@ -77,6 +81,7 @@
 				"33059468-5ac0-43bf-a1ac-179bdf3b16ea",
 				"00b666b8-399a-41d7-a0b9-7a805c11cc33",
 				"421b6547-2391-4f9e-82ff-794a094451b0",
+				"e4d5a3ee-8e07-43ed-82fc-deef70190d67",
 				"a926493d-020e-4b97-b127-80e77aba729d",
 				"a8fb3ba2-cef9-42b0-b355-42ae5553381f",
 				"cc285e8e-36dd-49c4-abef-ee1cadd6c9b0",
@@ -99,7 +104,7 @@
 				"04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
 				"6b3037da-cead-452c-9582-7a0165e5373e",
 				"8291bf58-3836-4ce6-9db8-00131972df86",
-				"31305b90-1b99-424e-9480-240adc754c07"
+				"4f08e99e-f90b-4ab0-8772-822a54b9986e"
 			]
 		},
 		{
@@ -118,7 +123,6 @@
 			"tasks": [
 				"b5084154-8d48-4e99-aaed-402fce07c8e8",
 				"a53af30a-1248-4ce9-af0d-2e9ba8d9ff5d",
-				"e4d5a3ee-8e07-43ed-82fc-deef70190d67",
 				"be1049e6-9f87-4115-b483-774a3e6d1f53",
 				"ae701850-ff9c-44c5-9c88-7100b376a7c2",
 				"fc5c18e7-233c-4689-b080-3c4c80d9cc3b",
@@ -132,10 +136,8 @@
 				"67e7ea18-c0b9-418b-9978-fca800a87fef",
 				"d386949b-81f3-4995-ac44-16ac0ccef723",
 				"39b4dec8-9071-4008-bda3-029230017e1d",
-				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
 				"6e36c9e7-8574-47dd-808e-8f37d976e5b9",
 				"780e9834-6fbc-4523-9449-fd62af2283bd",
-				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
 				"940a4908-25af-461e-a939-a8d1ed90a95c",
 				"69cb3884-3f49-4dcf-8122-482362823170",
 				"e870e598-a765-4561-a720-9ae84438d486"
@@ -920,8 +922,8 @@
 		{
 			"uuid": "31305b90-1b99-424e-9480-240adc754c07",
 			"title": "Enemies should aggro when attacked",
-			"description": "",
-			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"description": "Merely setting the enemy state to Chase or Attack may not be sufficient as we put limitations on what each enemy type can do w.r.t player visibility. We probably want an Aggro state where enemies look further and for an extended period of time after they are attacked.",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		},
 		{
@@ -938,7 +940,7 @@
 			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": [
 				{
-					"details": "Restore old (static) medkit and rename as CyberSteel",
+					"details": "Restore old (static) medkit and rename as replicator",
 					"done": true
 				},
 				{
@@ -955,10 +957,31 @@
 			"steps": []
 		},
 		{
+			"uuid": "c9cd8d24-5536-4701-90a8-5e4902fa494d",
+			"title": "Rifle cannot be picked up",
+			"description": "We need to refactor to be able to fire the picked up event on the rifle.",
+			"category": "d7f3156e-deab-4272-904a-646df391c36d",
+			"steps": []
+		},
+		{
 			"uuid": "39b4dec8-9071-4008-bda3-029230017e1d",
 			"title": "Bullet tracers don't work great under high FPS",
 			"description": "Turn off V-Sync and turn on \"Print FPS\" in project settings. Bullet tracers may not show if the frame rate is higher than the monitor refresh rate.\n\nAre there any methods for dealing with a game that runs faster than the monitor refresh rate? Or do we just need to specify a minimum time displayed (must be less than firing rate)?",
 			"category": "8098e19b-3628-4202-bf0e-6c124903a6bc",
+			"steps": []
+		},
+		{
+			"uuid": "4f08e99e-f90b-4ab0-8772-822a54b9986e",
+			"title": "Friendly fire is friendly",
+			"description": "Players should be able to collide with each other and use weapons on each other but without damage (or reduced damage).",
+			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
+			"steps": []
+		},
+		{
+			"uuid": "69393b99-37ce-492e-a88d-7147370c320a",
+			"title": "New task",
+			"description": "",
+			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
 			"steps": []
 		}
 	],

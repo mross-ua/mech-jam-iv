@@ -211,14 +211,9 @@
 		{
 			"uuid": "04c70eaf-bd79-4111-bac7-0ae5bf66ae92",
 			"title": "Add crouch ability",
-			"description": "",
+			"description": "Use multiple collision shapes and disable those that don't cover the character in crouch mode",
 			"category": "2bf2b255-67ba-4e67-9e39-bd31cb5dd780",
-			"steps": [
-				{
-					"details": "Shrink collision shape during crouch",
-					"done": false
-				}
-			]
+			"steps": []
 		},
 		{
 			"uuid": "7a19e8a6-bac7-4e52-817e-aa44bb155e8c",

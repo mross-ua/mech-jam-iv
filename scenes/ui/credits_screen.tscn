@@ -65,7 +65,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Find source code and links
-to art assets on Github"
+to art assets on GitHub"
 horizontal_alignment = 2
 
 [node name="LinkToGitHubButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]

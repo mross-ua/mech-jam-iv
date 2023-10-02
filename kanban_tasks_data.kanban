@@ -33,7 +33,8 @@
 			"tasks": [
 				"31305b90-1b99-424e-9480-240adc754c07",
 				"23f28138-4558-4c1d-a5de-bfea4505d7eb",
-				"067f3d45-a8c3-46f1-97dc-fc28583328fe"
+				"067f3d45-a8c3-46f1-97dc-fc28583328fe",
+				"6897ff1f-86c9-4f34-9fe5-adcd1728bba0"
 			]
 		},
 		{
@@ -977,6 +978,13 @@
 			"title": "New task",
 			"description": "",
 			"category": "17f84e7a-1483-467f-9416-b50fe05877cc",
+			"steps": []
+		},
+		{
+			"uuid": "6897ff1f-86c9-4f34-9fe5-adcd1728bba0",
+			"title": "Improved explosion damage",
+			"description": "Explosions need to use raycast and collide with world to explosions dont go through walls",
+			"category": "da83a95d-2890-46d3-ba88-9e63d8da0a65",
 			"steps": []
 		}
 	],

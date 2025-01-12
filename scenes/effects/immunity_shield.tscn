@@ -16,15 +16,13 @@ curve = SubResource("Curve_aui8x")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bqtl8"]
 lifetime_randomness = 0.8
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(9, 16, 1)
-particle_flag_disable_z = true
 direction = Vector3(0, 0, 0)
 spread = 180.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_max = 2.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 linear_accel_max = 10.0
 linear_accel_curve = SubResource("CurveTexture_nk0la")
 scale_max = 2.0

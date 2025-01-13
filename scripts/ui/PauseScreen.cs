@@ -17,7 +17,7 @@ public partial class PauseScreen : CanvasLayer
         continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
         if (continueButton != null)
         {
-            continueButton.Pressed += () => UnpauseGame();
+            continueButton.Pressed += () => UnpauseGame(GetTree());
         }
 
         Button restartButton = GetNode<Button>("Menu/RestartButton");
@@ -44,11 +44,11 @@ public partial class PauseScreen : CanvasLayer
         Visible = true;
     }
 
-    public void UnpauseGame()
+    public void UnpauseGame(SceneTree sceneTree)
     {
         Visible = false;
 
-        GetTree().Paused = false;
+        sceneTree.Paused = false;
     }
 
     public void QuitGame()
@@ -58,9 +58,12 @@ public partial class PauseScreen : CanvasLayer
 
     public virtual void RestartScene()
     {
-        if (GetTree().ReloadCurrentScene() == Error.Ok)
+        // once we change scenes, GetTree() will return null
+        SceneTree currentSceneTree = GetTree();
+
+        if (currentSceneTree.ReloadCurrentScene() == Error.Ok)
         {
-            UnpauseGame();
+            UnpauseGame(currentSceneTree);
         }
         else
         {

@@ -16,9 +16,12 @@ public partial class TitleScreen : PauseScreen
 
     public override void RestartScene()
     {
-        if (GetTree().ChangeSceneToFile(NextScene) == Error.Ok)
+        // once we change scenes, GetTree() will return null
+        SceneTree currentSceneTree = GetTree();
+
+        if (currentSceneTree.ChangeSceneToFile(NextScene) == Error.Ok)
         {
-            UnpauseGame();
+            UnpauseGame(currentSceneTree);
         }
         else
         {

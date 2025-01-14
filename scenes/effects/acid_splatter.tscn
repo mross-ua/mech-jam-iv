@@ -3,12 +3,10 @@
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1hx7u"]
 particle_flag_disable_z = true
 spread = 180.0
-gravity = Vector3(0, 98, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 50.0
 angular_velocity_max = 3.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 98, 0)
 color = Color(0, 0.815686, 0, 1)
 
 [node name="AcidSplatter" type="GPUParticles2D"]

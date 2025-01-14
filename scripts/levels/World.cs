@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class World : Node2D
 {
@@ -226,6 +227,8 @@ public partial class World : Node2D
                 player.WeaponManager.Pickup(pickupType);
 
                 break;
+            default:
+                throw new NotImplementedException();
         }
     }
 

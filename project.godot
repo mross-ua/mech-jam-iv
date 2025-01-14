@@ -25,10 +25,6 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="MechJam IV"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
-
 [input]
 
 move_right={

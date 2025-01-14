@@ -16,6 +16,8 @@ public partial class TitleScreen : PauseScreen
 
     public override void RestartScene()
     {
+        // HACK: This actually starts the game.
+
         // once we change scenes, GetTree() will return null
         SceneTree currentSceneTree = GetTree();
 

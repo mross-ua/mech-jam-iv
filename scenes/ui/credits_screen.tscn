@@ -7,6 +7,7 @@
 [node name="CreditsScreen" type="CanvasLayer"]
 process_mode = 2
 script = ExtResource("1_66kps")
+NextScene = "res://scenes/levels/world_1.tscn"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 5

@@ -39,11 +39,11 @@ public partial class SceneManager : Node
         currentScene.Free();
 
         // these are equivalent...
-        PackedScene nextScene = GD.Load<PackedScene>(path);
+        PackedScene scene = GD.Load<PackedScene>(path);
         // but this one doesn't compile
-        //PackedScene nextScene = ResourceLoader.Load(path, "PackedScene", ResourceLoader.CacheMode.CACHE_MODE_REUSE);
+        //PackedScene scene = ResourceLoader.Load(path, "PackedScene", ResourceLoader.CacheMode.CACHE_MODE_REUSE);
 
-        currentScene = nextScene.Instantiate();
+        currentScene = scene.Instantiate();
 
         GetTree().Root.AddChild(currentScene);
 

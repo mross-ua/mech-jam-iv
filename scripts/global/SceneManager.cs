@@ -38,6 +38,8 @@ public partial class SceneManager : Node
 
         currentScene.Free();
 
+        //TODO should we cached the packed scene?
+
         // these are equivalent...
         PackedScene scene = GD.Load<PackedScene>(path);
         // but this one doesn't compile

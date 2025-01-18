@@ -16,8 +16,6 @@ public partial class PauseScreen : CanvasLayer
     {
         SceneManager = GetNode<SceneManager>("/root/SceneManager");
 
-        //TODO this class shouldnt be the base (if continue button is optional); refactor this
-
         continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
         if (continueButton != null)
         {

@@ -4,6 +4,8 @@ using System;
 public partial class SceneManager : Node
 {
 
+    public CompressedTexture2D CursorTexture { get; private set; }
+
     private Node currentScene;
 
     public override void _Ready()
@@ -11,6 +13,8 @@ public partial class SceneManager : Node
         // global scripts are loaded into the tree first,
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);
+
+        CursorTexture = ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png");
     }
 
     public void GoToScene(string path)

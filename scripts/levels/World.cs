@@ -33,9 +33,9 @@ public partial class World : Node2D
 
     public override void _Ready()
     {
-        Input.SetCustomMouseCursor(ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png"), Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
-
         SceneManager = GetNode<SceneManager>("/root/SceneManager");
+
+        Input.SetCustomMouseCursor(SceneManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
 
         player = (Player)GetTree().GetFirstNodeInGroup("player");
 

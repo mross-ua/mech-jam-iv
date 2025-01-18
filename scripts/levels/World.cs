@@ -15,6 +15,8 @@ public partial class World : Node2D
 
     #region Node references
 
+    private SceneManager sceneManager;
+
     private Player player;
     private Robot robot;
 
@@ -32,6 +34,8 @@ public partial class World : Node2D
     public override void _Ready()
     {
         Input.SetCustomMouseCursor(ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png"), Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
+
+        sceneManager = GetNode<SceneManager>("/root/SceneManager");
 
         player = (Player)GetTree().GetFirstNodeInGroup("player");
 
@@ -59,6 +63,8 @@ public partial class World : Node2D
         robot.CharacterTracker.Track(player);
 
         playerCamera.Track(player);
+
+        sceneManager.UnpauseGame();
     }
 
     private void InitSpawns()
@@ -131,14 +137,7 @@ public partial class World : Node2D
                 {
                     if (numObjectivesRemaining == 0)
                     {
-                        if (GetTree().ChangeSceneToFile(NextScene) == Error.Ok)
-                        {
-                            // do nothing
-                        }
-                        else
-                        {
-                            GD.PrintErr($"Cannot open scene file {NextScene}");
-                        }
+                        sceneManager.GoToScene(NextScene);
                     }
                 }
             };

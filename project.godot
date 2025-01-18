@@ -15,6 +15,10 @@ run/main_scene="res://scenes/ui/title_screen.tscn"
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SceneManager="*res://scripts/global/SceneManager.cs"
+
 [display]
 
 window/size/mode=2

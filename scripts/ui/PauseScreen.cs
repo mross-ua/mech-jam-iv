@@ -6,25 +6,29 @@ public partial class PauseScreen : CanvasLayer
 
     #region Node references
 
+    protected SceneManager SceneManager { get; private set; }
+
     private Button continueButton;
 
     #endregion
 
     public override void _Ready()
     {
+        SceneManager = GetNode<SceneManager>("/root/SceneManager");
+
         //TODO this class shouldnt be the base (if continue button is optional); refactor this
 
         continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
         if (continueButton != null)
         {
-            continueButton.Pressed += () => UnpauseGame(GetTree());
+            continueButton.Pressed += () => UnpauseGame();
         }
 
         Button restartButton = GetNode<Button>("Menu/RestartButton");
         restartButton.Pressed += () => RestartScene();
 
         Button quitButton = GetNode<Button>("Menu/QuitButton");
-        quitButton.Pressed += () => QuitGame();
+        quitButton.Pressed += () => SceneManager.QuitGame();
     }
 
     public override void _Input(InputEvent @event)
@@ -39,36 +43,21 @@ public partial class PauseScreen : CanvasLayer
 
     public void PauseGame()
     {
-        GetTree().Paused = true;
+        SceneManager.PauseGame();
 
         Visible = true;
     }
 
-    public void UnpauseGame(SceneTree sceneTree)
+    public void UnpauseGame()
     {
         Visible = false;
 
-        sceneTree.Paused = false;
-    }
-
-    public void QuitGame()
-    {
-        GetTree().Quit();
+        SceneManager.UnpauseGame();
     }
 
     public virtual void RestartScene()
     {
-        // once we change scenes, GetTree() will return null
-        SceneTree currentSceneTree = GetTree();
-
-        if (currentSceneTree.ReloadCurrentScene() == Error.Ok)
-        {
-            UnpauseGame(currentSceneTree);
-        }
-        else
-        {
-            GD.PrintErr($"Cannot reload current scene");
-        }
+        SceneManager.ReloadScene();
     }
 
 }

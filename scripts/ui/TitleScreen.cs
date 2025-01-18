@@ -18,17 +18,7 @@ public partial class TitleScreen : PauseScreen
     {
         // HACK: This actually starts the game.
 
-        // once we change scenes, GetTree() will return null
-        SceneTree currentSceneTree = GetTree();
-
-        if (currentSceneTree.ChangeSceneToFile(NextScene) == Error.Ok)
-        {
-            UnpauseGame(currentSceneTree);
-        }
-        else
-        {
-            GD.PrintErr($"Cannot open scene file {NextScene}");
-        }
+        SceneManager.GoToScene(NextScene);
     }
 
 }

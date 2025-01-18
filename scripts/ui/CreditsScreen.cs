@@ -16,6 +16,9 @@ public partial class CreditsScreen : TitleScreen
     {
         base._Ready();
 
+        //TODO this isn't working
+        Input.SetDefaultCursorShape();
+
         linkToGitHubButton = GetNode<TextureButton>("MarginContainer/VBoxContainer/LinkToGitHubButton");
         linkToGitHubButton.Pressed += () =>
         {

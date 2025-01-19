@@ -18,6 +18,7 @@ script = ExtResource("1_it3s8")
 PointDamageEffect = ExtResource("2_wbnxv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = SubResource("AtlasTexture_eohit")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

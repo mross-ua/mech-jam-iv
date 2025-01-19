@@ -146,6 +146,7 @@ amount = 24
 process_material = SubResource("ParticleProcessMaterial_p7q0h")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_ilwwa")
 animation = &"idle"
 autoplay = "idle"

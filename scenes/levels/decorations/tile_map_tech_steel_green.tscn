@@ -284,5 +284,6 @@ pattern_0 = SubResource("TileMapPattern_7vgoy")
 pattern_1 = SubResource("TileMapPattern_yyk0d")
 
 [node name="TileMapTechSteelGreen" type="TileMap"]
+texture_filter = 1
 tile_set = SubResource("TileSet_cbgrn")
 format = 2

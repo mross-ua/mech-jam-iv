@@ -14,4 +14,5 @@ collide_with_areas = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 z_index = 1
+texture_filter = 1
 texture = ExtResource("2_38qvw")

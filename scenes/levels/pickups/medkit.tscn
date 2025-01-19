@@ -20,6 +20,7 @@ script = ExtResource("1_pt5qx")
 PointDamageEffect = ExtResource("2_oc00i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_mb76b")
 

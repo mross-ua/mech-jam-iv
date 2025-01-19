@@ -133,6 +133,7 @@ MaxHealth = 5
 Health = 5
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_osp1x")
 animation = &"idle"
 autoplay = "idle"

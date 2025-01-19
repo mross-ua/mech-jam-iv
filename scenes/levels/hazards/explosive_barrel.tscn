@@ -104,6 +104,7 @@ Health = 10
 PointDamageEffect = ExtResource("2_8jbut")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_gike7")
 animation = &"idle"
 autoplay = "idle"

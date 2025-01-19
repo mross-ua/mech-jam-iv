@@ -246,6 +246,7 @@ MaxHealth = 100
 Health = 100
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="." groups=["enemy"]]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_f71hv")
 animation = &"idle"
 autoplay = "idle"

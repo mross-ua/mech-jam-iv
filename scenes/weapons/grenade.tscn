@@ -110,6 +110,7 @@ WeaponType = 2
 UISprite = ExtResource("3_b4xxq")
 
 [node name="CharacterAnimator" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_gsn40")
 animation = &"idle"
 autoplay = "idle"

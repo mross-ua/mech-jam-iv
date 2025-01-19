@@ -58,6 +58,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="UI/Control"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 25.0
 offset_top = 5.0
@@ -102,6 +103,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="PrimaryTextureRect" type="TextureRect" parent="UI/Control2"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 23.0
 offset_top = 65.0
@@ -125,6 +127,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="SecondaryTextureRect" type="TextureRect" parent="UI/Control3"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 37.0
 offset_top = 102.0

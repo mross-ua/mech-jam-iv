@@ -22,7 +22,7 @@ public partial class World : Node2D
 
     private PlayerCamera playerCamera;
 
-    private readonly IList<Spawn> spawns = [];
+    private IList<Spawn> spawns;
     private Spawn activeSpawn;
 
     private PauseScreen pauseScreen;
@@ -67,6 +67,8 @@ public partial class World : Node2D
 
     private void InitSpawns()
     {
+        spawns = new List<Spawn>();
+
         foreach (Spawn spawn in GetTree().GetNodesInGroup("spawn").OfType<Spawn>())
         {
             spawns.Add(spawn);
@@ -153,7 +155,6 @@ public partial class World : Node2D
             };
         }
     }
-
     public override void _Input(InputEvent @event)
     {
         if (@event.IsActionPressed("quit"))

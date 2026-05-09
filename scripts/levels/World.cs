@@ -11,7 +11,7 @@ public partial class World : Node2D
     [Export(PropertyHint.File, "*.tscn,")]
     public string NextScene { get; set; }
 
-    private SceneManager SceneManager { get; set; }
+    protected static SceneManager SceneManager => SceneManager.Instance;
 
     private int numObjectivesRemaining = 0;
 
@@ -33,8 +33,6 @@ public partial class World : Node2D
 
     public override void _Ready()
     {
-        SceneManager = GetNode<SceneManager>("/root/SceneManager");
-
         Input.SetCustomMouseCursor(SceneManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
 
         player = (Player)GetTree().GetFirstNodeInGroup("player");

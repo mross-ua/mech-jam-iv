@@ -6,7 +6,7 @@ public partial class PauseScreen : CanvasLayer
 
     #region Node references
 
-    protected SceneManager SceneManager { get; private set; }
+    protected static SceneManager SceneManager => SceneManager.Instance;
 
     private Button continueButton;
 
@@ -14,8 +14,6 @@ public partial class PauseScreen : CanvasLayer
 
     public override void _Ready()
     {
-        SceneManager = GetNode<SceneManager>("/root/SceneManager");
-
         continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
         if (continueButton != null)
         {

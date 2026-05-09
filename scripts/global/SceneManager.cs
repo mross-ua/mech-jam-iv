@@ -4,12 +4,16 @@ using System;
 public partial class SceneManager : Node
 {
 
+    public static SceneManager Instance { get; private set; }
+
     public CompressedTexture2D CursorTexture { get; private set; }
 
     private Node currentScene;
 
     public override void _Ready()
     {
+        Instance = this;
+
         // global scripts are loaded into the tree first,
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);

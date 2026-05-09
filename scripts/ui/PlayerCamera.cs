@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Globalization;
 
 public partial class PlayerCamera : Camera2D
 {
@@ -78,7 +79,7 @@ public partial class PlayerCamera : Camera2D
         }
         else
         {
-            primaryAmmoLabel.Text = player.WeaponManager.PrimaryWeapon?.Ammo.ToString();
+            primaryAmmoLabel.Text = player.WeaponManager.PrimaryWeapon?.Ammo.ToString("D2", CultureInfo.CurrentCulture);
         }
 
         if (player.WeaponManager.SecondaryWeapon?.Ammo < 0)
@@ -87,7 +88,7 @@ public partial class PlayerCamera : Camera2D
         }
         else
         {
-            secondaryAmmoLabel.Text = player.WeaponManager.SecondaryWeapon?.Ammo.ToString();
+            secondaryAmmoLabel.Text = player.WeaponManager.SecondaryWeapon?.Ammo.ToString("D2", CultureInfo.CurrentCulture);
         }
     }
 

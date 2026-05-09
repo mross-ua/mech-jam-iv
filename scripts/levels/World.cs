@@ -22,7 +22,7 @@ public partial class World : Node2D
 
     private PlayerCamera playerCamera;
 
-    private IList<Spawn> spawns;
+    private readonly IList<Spawn> spawns = [];
     private Spawn activeSpawn;
 
     private PauseScreen pauseScreen;
@@ -67,8 +67,6 @@ public partial class World : Node2D
 
     private void InitSpawns()
     {
-        spawns = new List<Spawn>();
-
         foreach (Spawn spawn in GetTree().GetNodesInGroup("spawn").OfType<Spawn>())
         {
             spawns.Add(spawn);
@@ -87,14 +85,16 @@ public partial class World : Node2D
 
     private void InitPickups()
     {
-        foreach (Projectile pickup in GetTree().GetNodesInGroup("pickup").OfType<Projectile>())
+        foreach (Node node in GetTree().GetNodesInGroup("pickup"))
         {
-            pickup.PickedUp += () => Pickup(pickup.WeaponType);
-        }
-
-        foreach (HitScanBulletEmitterPickup pickup in GetTree().GetNodesInGroup("pickup").OfType<HitScanBulletEmitterPickup>())
-        {
-            pickup.PickedUp += () => Pickup(PickupType.Rifle);
+            if (node is Projectile p)
+            {
+                p.PickedUp += () => Pickup(p.WeaponType);
+            }
+            else if (node is HitScanBulletEmitterPickup ep)
+            {
+                ep.PickedUp += () => Pickup(PickupType.Rifle);
+            }
         }
     }
 
@@ -155,6 +155,7 @@ public partial class World : Node2D
             };
         }
     }
+
     public override void _Input(InputEvent @event)
     {
         if (@event.IsActionPressed("quit"))

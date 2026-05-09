@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class WeaponManager : Node2D
 {
@@ -10,7 +11,7 @@ public partial class WeaponManager : Node2D
     [Signal]
     public delegate void WeaponUpdatedEventHandler(WeaponBase weapon);
 
-    private Dictionary<PickupType, WeaponBase> weapons;
+    private readonly Dictionary<PickupType, WeaponBase> weapons = [];
 
     private IEnumerable<PhysicsBody2D> bodiesToExclude = null;
 
@@ -28,8 +29,6 @@ public partial class WeaponManager : Node2D
 
     private void InitWeapons()
     {
-        weapons = new Dictionary<PickupType, WeaponBase>();
-
         foreach (WeaponBase weapon in GetChildren().Where(n => n.IsInGroup("weapon")).OfType<WeaponBase>())
         {
             InitWeapon(weapon);
@@ -72,6 +71,10 @@ public partial class WeaponManager : Node2D
                 SecondaryWeapon?.Fire(globalPos, target);
 
                 break;
+            default:
+                Debug.Assert(false, "Unexpected switch case");
+
+                break;
         }
     }
 
@@ -107,6 +110,10 @@ public partial class WeaponManager : Node2D
             case PickupType.Grenade:
             case PickupType.Missile:
                 weapons[pickupType].AddAmmo(1);
+
+                break;
+            default:
+                Debug.Assert(false, "Unexpected switch case");
 
                 break;
         }

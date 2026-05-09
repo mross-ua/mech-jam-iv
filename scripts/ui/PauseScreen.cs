@@ -17,14 +17,14 @@ public partial class PauseScreen : CanvasLayer
         continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
         if (continueButton != null)
         {
-            continueButton.Pressed += () => UnpauseGame();
+            continueButton.Pressed += UnpauseGame;
         }
 
         Button restartButton = GetNode<Button>("Menu/RestartButton");
-        restartButton.Pressed += () => RestartScene();
+        restartButton.Pressed += RestartScene;
 
         Button quitButton = GetNode<Button>("Menu/QuitButton");
-        quitButton.Pressed += () => SceneManager.QuitGame();
+        quitButton.Pressed += SceneManager.QuitGame;
     }
 
     public override void _Input(InputEvent @event)

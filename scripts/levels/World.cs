@@ -87,14 +87,16 @@ public partial class World : Node2D
 
     private void InitPickups()
     {
-        foreach (Projectile pickup in GetTree().GetNodesInGroup("pickup").OfType<Projectile>())
+        foreach (Node node in GetTree().GetNodesInGroup("pickup"))
         {
-            pickup.PickedUp += () => Pickup(pickup.WeaponType);
-        }
-
-        foreach (HitScanBulletEmitterPickup pickup in GetTree().GetNodesInGroup("pickup").OfType<HitScanBulletEmitterPickup>())
-        {
-            pickup.PickedUp += () => Pickup(PickupType.Rifle);
+            if (node is Projectile p)
+            {
+                p.PickedUp += () => Pickup(p.WeaponType);
+            }
+            else if (node is HitScanBulletEmitterPickup ep)
+            {
+                ep.PickedUp += () => Pickup(PickupType.Rifle);
+            }
         }
     }
 

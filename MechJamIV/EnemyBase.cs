@@ -26,7 +26,7 @@ namespace MechJamIV
 
         #region Node references
 
-        private readonly IList<Hitbox> hitboxes = new List<Hitbox>();
+        private readonly IList<Hitbox> hitboxes = [];
 
         #endregion
 

@@ -10,7 +10,7 @@ public partial class WeaponManager : Node2D
     [Signal]
     public delegate void WeaponUpdatedEventHandler(WeaponBase weapon);
 
-    private Dictionary<PickupType, WeaponBase> weapons;
+    private readonly Dictionary<PickupType, WeaponBase> weapons = [];
 
     private IEnumerable<PhysicsBody2D> bodiesToExclude = null;
 
@@ -28,8 +28,6 @@ public partial class WeaponManager : Node2D
 
     private void InitWeapons()
     {
-        weapons = new Dictionary<PickupType, WeaponBase>();
-
         foreach (WeaponBase weapon in GetChildren().Where(n => n.IsInGroup("weapon")).OfType<WeaponBase>())
         {
             InitWeapon(weapon);

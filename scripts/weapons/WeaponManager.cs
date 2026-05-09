@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class WeaponManager : Node2D
 {
@@ -70,6 +71,10 @@ public partial class WeaponManager : Node2D
                 SecondaryWeapon?.Fire(globalPos, target);
 
                 break;
+            default:
+                Debug.Assert(false, "Unexpected switch case");
+
+                break;
         }
     }
 
@@ -105,6 +110,10 @@ public partial class WeaponManager : Node2D
             case PickupType.Grenade:
             case PickupType.Missile:
                 weapons[pickupType].AddAmmo(1);
+
+                break;
+            default:
+                Debug.Assert(false, "Unexpected switch case");
 
                 break;
         }

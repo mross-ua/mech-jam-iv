@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MechJamIV
 {
@@ -21,6 +23,12 @@ namespace MechJamIV
             parent.CallDeferred(Node.MethodName.AddChild, node, forceReadableName, (long)@internal);
 
             return node.ToSignal(node, Node.SignalName.Ready);
+        }
+
+        public static IEnumerable<Node> FindChildrenInGroup(this Node node, string group)
+        {
+            //TODO is this fast enough with the regex?
+            return node.FindChildren("*").Where(child => child.IsInGroup(group));
         }
 
     }

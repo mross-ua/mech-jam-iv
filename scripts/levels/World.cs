@@ -5,7 +5,8 @@ using System.Linq;
 using MechJamIV;
 using System.Diagnostics;
 
-public partial class World : Node2D
+public partial class World : Node2D,
+    IUpdateable<World>
 {
 
     [Export(PropertyHint.File, "*.tscn,")]
@@ -265,5 +266,14 @@ public partial class World : Node2D
 
         return target;
     }
+
+    #region IUpdateable
+
+    public void UpdateFrom(World source)
+    {
+        player.UpdateFrom(source.player);
+    }
+
+    #endregion
 
 }

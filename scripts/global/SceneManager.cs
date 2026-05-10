@@ -40,7 +40,7 @@ public partial class SceneManager : Node
         //
         //       See https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html
 
-        currentScene.Free();
+        Node previousScene = currentScene;
 
         //TODO should we cache the packed scene?
 
@@ -55,6 +55,14 @@ public partial class SceneManager : Node
 
         // this is really important and is what SceneTree.change_scene_to_file() would do
         GetTree().CurrentScene = currentScene;
+
+        if (previousScene is World source && currentScene is World target)
+        {
+            //TODO what to do during restart?
+            target.UpdateFrom(source);
+        }
+
+        previousScene.Free();
     }
 
     public void PauseGame()

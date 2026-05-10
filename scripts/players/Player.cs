@@ -4,6 +4,7 @@ using MechJamIV;
 
 public partial class Player : CharacterBase
     , IPlayable
+    , IUpdateable<Player>
 {
 
     private bool isImmune = false;
@@ -117,6 +118,19 @@ public partial class Player : CharacterBase
     public void SetRemoteTarget(Camera2D cam)
     {
         remoteTransform.RemotePath = cam.GetPath();
+    }
+
+    #endregion
+
+    #region IUpdateable
+
+    public void UpdateFrom(Player source)
+    {
+        //TODO this is not working
+        Heal(source.Health - Health, true);
+
+        WeaponManager.PrimaryWeapon.Ammo = source.WeaponManager.PrimaryWeapon.Ammo;
+        WeaponManager.SecondaryWeapon.Ammo = source.WeaponManager.SecondaryWeapon.Ammo;
     }
 
     #endregion

@@ -64,6 +64,7 @@ position = Vector2(3192, 789)
 
 [node name="Spawn" parent="Environment" unique_id=1082792442 instance=ExtResource("9_6lsyt")]
 position = Vector2(239, 395)
+IsWorldSpawn = true
 
 [node name="Spawn2" parent="Environment" unique_id=1511195790 instance=ExtResource("9_6lsyt")]
 position = Vector2(1591, 265)

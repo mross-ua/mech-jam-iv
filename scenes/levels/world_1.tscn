@@ -59,6 +59,7 @@ position = Vector2(3192, 789)
 
 [node name="Spawn" parent="Environment" unique_id=1913739866 instance=ExtResource("6_plsmv")]
 position = Vector2(239, 395)
+IsWorldSpawn = true
 
 [node name="Medkit" parent="Environment" unique_id=1821299304 instance=ExtResource("10_hlw8o")]
 position = Vector2(2024, 568)

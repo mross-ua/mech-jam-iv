@@ -36,8 +36,6 @@ namespace MechJamIV
                 }
             }
 
-            Debug.Assert(false, "Pickup type not selected");
-
             return null;
         }
 

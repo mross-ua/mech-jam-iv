@@ -124,13 +124,17 @@ public partial class Player : CharacterBase
 
     #region IUpdateable
 
-    public void UpdateFrom(Player source)
+    [Signal]
+    public delegate void UpdatedEventHandler();
+
+    public void DeferredUpdateFrom(Player source)
     {
-        //TODO this is not working
+        //BUG: the spawn/healing pads are resetting to 0
         Heal(source.Health - Health, true);
 
-        WeaponManager.PrimaryWeapon.Ammo = source.WeaponManager.PrimaryWeapon.Ammo;
-        WeaponManager.SecondaryWeapon.Ammo = source.WeaponManager.SecondaryWeapon.Ammo;
+        WeaponManager.Updated += () => EmitSignal(SignalName.Updated);
+
+        WeaponManager.DeferredUpdateFrom(source.WeaponManager);
     }
 
     #endregion

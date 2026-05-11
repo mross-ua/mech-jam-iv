@@ -5,7 +5,8 @@ using System.Linq;
 using MechJamIV;
 using System.Diagnostics;
 
-public partial class WeaponManager : Node2D
+public partial class WeaponManager : Node2D,
+    IUpdateable<WeaponManager>
 {
 
     [Signal]
@@ -78,7 +79,7 @@ public partial class WeaponManager : Node2D
         }
     }
 
-    public async void Pickup(PickupType pickupType)
+    public void DeferredPickup(PickupType pickupType)
     {
         if (!weapons.ContainsKey(pickupType))
         {
@@ -86,7 +87,7 @@ public partial class WeaponManager : Node2D
 
             InitWeapon(weapon);
 
-            await this.AddChildDeferred(weapon);
+            AddChild(weapon);
 
             // auto-select the weapon if needed
 
@@ -203,5 +204,34 @@ public partial class WeaponManager : Node2D
             EmitSignal(SignalName.WeaponUpdated, firstWeapon);
         }
     }
+
+    #region IUpdateable
+
+    [Signal]
+    public delegate void UpdatedEventHandler();
+
+    public void DeferredUpdateFrom(WeaponManager source)
+    {
+        //TODO what if we want to start without weapons?
+
+        foreach (WeaponBase sourceWeapon in source.weapons.Values)
+        {
+            if (!weapons.ContainsKey(sourceWeapon.WeaponType))
+            {
+                DeferredPickup(sourceWeapon.WeaponType);
+            }
+
+            if (weapons.TryGetValue(sourceWeapon.WeaponType, out WeaponBase weapon))
+            {
+                weapon.SetAmmo(sourceWeapon.Ammo);
+            }
+        }
+
+        //TODO need to copy the selected weapon types (can cycle primary/secondary until they match the source)
+
+        EmitSignal(SignalName.Updated);
+    }
+
+    #endregion
 
 }

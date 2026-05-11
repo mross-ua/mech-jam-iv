@@ -78,7 +78,19 @@ namespace MechJamIV
                 return;
             }
 
-            Ammo += count;
+            SetAmmo(Ammo + count);
+        }
+
+        public void SetAmmo(int count)
+        {
+            if (Ammo < 0)
+            {
+                // allow this for infinite ammo
+
+                return;
+            }
+
+            Ammo = Math.Clamp(count, 0, 99);
 
             EmitSignal(SignalName.AmmoAdded);
         }

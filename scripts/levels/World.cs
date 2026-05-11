@@ -223,7 +223,7 @@ public partial class World : Node2D,
             case PickupType.Rifle:
             case PickupType.Grenade:
             case PickupType.Missile:
-                player.WeaponManager.Pickup(pickupType);
+                player.WeaponManager.CallDeferred(WeaponManager.MethodName.DeferredPickup, (long)pickupType);
 
                 break;
             default:
@@ -269,9 +269,17 @@ public partial class World : Node2D,
 
     #region IUpdateable
 
-    public void UpdateFrom(World source)
+    [Signal]
+    public delegate void UpdatedEventHandler();
+
+    public void DeferredUpdateFrom(World source)
     {
-        player.UpdateFrom(source.player);
+        player.Updated += () =>
+        {
+            EmitSignal(SignalName.Updated);
+        };
+
+        player.DeferredUpdateFrom(source.player);
     }
 
     #endregion

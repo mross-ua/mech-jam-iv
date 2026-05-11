@@ -59,10 +59,14 @@ public partial class SceneManager : Node
         if (previousScene is World source && currentScene is World target)
         {
             //TODO what to do during restart?
-            target.UpdateFrom(source);
-        }
+            target.Updated += previousScene.Free;
 
-        previousScene.Free();
+            target.DeferredUpdateFrom(source);
+        }
+        else
+        {
+            previousScene.Free();
+        }
     }
 
     public void PauseGame()

@@ -6,7 +6,10 @@ namespace MechJamIV
     public interface IUpdateable<T>
     {
 
-        void UpdateFrom(T source);
+        //[Signal]
+        delegate void UpdatedEventHandler();
+
+        void DeferredUpdateFrom(T source);
 
     }
 }

@@ -110,6 +110,7 @@ public partial class World : Node2D,
 
                 projectile.PickedUp += () => Pickup(projectile.WeaponType);
 
+                // this adds to the top-level scene!
                 GetTree().CurrentScene.AddChildDeferred(projectile);
             };
 

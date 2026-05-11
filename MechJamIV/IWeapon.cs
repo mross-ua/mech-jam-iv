@@ -7,27 +7,27 @@ namespace MechJamIV
     {
 
         //[Signal]
-        public delegate void FiredEventHandler();
+        delegate void FiredEventHandler();
 
         //[Signal]
-        public delegate void AmmoAddedEventHandler();
+        delegate void AmmoAddedEventHandler();
 
-        public PickupType WeaponType { get; }
+        PickupType WeaponType { get; }
 
-        public float RoundsPerSecond { get; }
+        float RoundsPerSecond { get; }
 
-        public int Ammo { get; }
+        int Ammo { get; }
 
         //[Export(PropertyHint.Layers2DPhysics)]
-        public uint CollisionMask { get; }
+        uint CollisionMask { get; }
 
-        public float LineOfSightDistance { get; }
+        float LineOfSightDistance { get; }
 
-        public Texture2D UISprite { get; }
+        Texture2D UISprite { get; }
 
-        public void Fire(Vector2 globalPos, PhysicsBody2D target = null);
+        void Fire(Vector2 globalPos, PhysicsBody2D target = null);
 
-        public void AddAmmo(int count);
+        void AddAmmo(int count);
 
     }
 }

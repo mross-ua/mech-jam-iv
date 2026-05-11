@@ -7,11 +7,11 @@ namespace MechJamIV
     {
 
         //[Signal]
-        public delegate void ImmunityShieldActivatedEventHandler();
+        delegate void ImmunityShieldActivatedEventHandler();
         //[Signal]
-        public delegate void ImmunityShieldDeactivatedEventHandler();
+        delegate void ImmunityShieldDeactivatedEventHandler();
 
-        public void SetRemoteTarget(Camera2D cam);
+        void SetRemoteTarget(Camera2D cam);
 
     }
 }

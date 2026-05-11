@@ -51,6 +51,7 @@ public partial class ProjectileEmitter : WeaponBase
 
         projectile.SetBodiesToExclude(bodiesToExclude);
 
+        // this adds to the top-level scene!
         await GetTree().CurrentScene.AddChildDeferred(projectile);
 
         Vector2 dir = (globalPos - GlobalPosition).Normalized();

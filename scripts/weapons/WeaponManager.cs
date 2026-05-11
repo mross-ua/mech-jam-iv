@@ -73,7 +73,7 @@ public partial class WeaponManager : Node2D,
 
                 break;
             default:
-                Debug.Assert(false, "Unexpected switch case");
+                Debug.Assert(false, $"Unexpected switch case: {Enum.GetName(mode)}");
 
                 break;
         }
@@ -114,7 +114,7 @@ public partial class WeaponManager : Node2D,
 
                 break;
             default:
-                Debug.Assert(false, "Unexpected switch case");
+                Debug.Assert(false, $"Unexpected switch case: {Enum.GetName(pickupType)}");
 
                 break;
         }

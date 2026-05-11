@@ -32,7 +32,7 @@ dotnet_diagnostic.IDE0005.severity = silent
 
 # deprioritize switch blocks that are
 # not populated with all cases
-dotnet_diagnostic.IDE0010.severity = suggestion
+dotnet_diagnostic.IDE0010.severity = silent
 
 # it is preferred that if expressions are readable, not compact
 dotnet_diagnostic.IDE0045.severity = silent
@@ -45,3 +45,7 @@ dotnet_diagnostic.IDE0047.severity = silent
 # some Godot calls have a return type even
 # though they always return null
 dotnet_diagnostic.IDE0058.severity = silent
+
+# deprioritize switch blocks that are
+# not populated with all cases
+dotnet_diagnostic.IDE0066.severity = silent

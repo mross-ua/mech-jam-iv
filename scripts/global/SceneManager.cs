@@ -58,7 +58,8 @@ public partial class SceneManager : Node
 
         if (previousScene is World source && currentScene is World target)
         {
-            //TODO what to do during restart?
+            // BUG: Restart level isn't getting the original values
+
             target.Updated += previousScene.Free;
 
             target.DeferredUpdateFrom(source);

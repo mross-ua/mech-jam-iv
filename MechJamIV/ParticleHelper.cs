@@ -12,6 +12,7 @@ namespace MechJamIV
 
             particles.Emitting = true;
 
+            // this adds to the top-level scene!
             await node.GetTree().CurrentScene.AddChildDeferred(particles);
 
             particles.TimedFree(particles.Lifetime + (particles.Lifetime * particles.Randomness));

@@ -129,7 +129,6 @@ public partial class Player : CharacterBase
 
     public void DeferredUpdateFrom(Player source)
     {
-        //BUG: the spawn/healing pads are resetting to 0
         Heal(source.Health - Health, true);
 
         WeaponManager.Updated += () => EmitSignal(SignalName.Updated);

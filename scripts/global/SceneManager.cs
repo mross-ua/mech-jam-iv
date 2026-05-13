@@ -58,7 +58,8 @@ public partial class SceneManager : Node
 
         if (previousScene is World source && currentScene is World target)
         {
-            // BUG: Restart level isn't getting the original values
+            // BUG #56: Set minimum player health/ammo
+            // BUG #57: Restart level isn't getting the original values
 
             target.Updated += previousScene.Free;
 

@@ -275,10 +275,7 @@ public partial class World : Node2D,
 
     public void DeferredUpdateFrom(World source)
     {
-        player.Updated += () =>
-        {
-            EmitSignal(SignalName.Updated);
-        };
+        player.Updated += () => EmitSignal(SignalName.Updated);
 
         player.DeferredUpdateFrom(source.player);
     }

@@ -2,9 +2,9 @@ using Godot;
 using System;
 using MechJamIV;
 
-public partial class Player : CharacterBase
-    , IPlayable
-    , IUpdateable<Player>
+public partial class Player : CharacterBase,
+    IPlayable,
+    IUpdateable<Player>
 {
 
     private bool isImmune = false;

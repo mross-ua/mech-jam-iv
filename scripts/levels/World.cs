@@ -86,7 +86,7 @@ public partial class World : Node2D,
 
     private void InitPickups()
     {
-        foreach (Node node in GetTree().GetNodesInGroup("pickup"))
+        foreach (Node node in this.FindChildrenInGroup("pickup"))
         {
             if (node is Projectile p)
             {

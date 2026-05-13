@@ -4,12 +4,16 @@ using System;
 public partial class SceneManager : Node
 {
 
+    public static SceneManager Instance { get; private set; }
+
     public CompressedTexture2D CursorTexture { get; private set; }
 
     private Node currentScene;
 
     public override void _Ready()
     {
+        Instance = this;
+
         // global scripts are loaded into the tree first,
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);
@@ -36,7 +40,7 @@ public partial class SceneManager : Node
         //
         //       See https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html
 
-        currentScene.Free();
+        Node previousScene = currentScene;
 
         //TODO should we cache the packed scene?
 
@@ -51,6 +55,20 @@ public partial class SceneManager : Node
 
         // this is really important and is what SceneTree.change_scene_to_file() would do
         GetTree().CurrentScene = currentScene;
+
+        if (previousScene is World source && currentScene is World target)
+        {
+            // BUG #56: Set minimum player health/ammo
+            // BUG #57: Restart level isn't getting the original values
+
+            target.Updated += previousScene.Free;
+
+            target.DeferredUpdateFrom(source);
+        }
+        else
+        {
+            previousScene.Free();
+        }
     }
 
     public void PauseGame()

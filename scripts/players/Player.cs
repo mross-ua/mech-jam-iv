@@ -2,8 +2,9 @@ using Godot;
 using System;
 using MechJamIV;
 
-public partial class Player : CharacterBase
-    , IPlayable
+public partial class Player : CharacterBase,
+    IPlayable,
+    IUpdateable<Player>
 {
 
     private bool isImmune = false;
@@ -117,6 +118,22 @@ public partial class Player : CharacterBase
     public void SetRemoteTarget(Camera2D cam)
     {
         remoteTransform.RemotePath = cam.GetPath();
+    }
+
+    #endregion
+
+    #region IUpdateable
+
+    [Signal]
+    public delegate void UpdatedEventHandler();
+
+    public void DeferredUpdateFrom(Player source)
+    {
+        Heal(source.Health - Health, true);
+
+        WeaponManager.Updated += () => EmitSignal(SignalName.Updated);
+
+        WeaponManager.DeferredUpdateFrom(source.WeaponManager);
     }
 
     #endregion

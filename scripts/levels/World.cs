@@ -5,13 +5,14 @@ using System.Linq;
 using MechJamIV;
 using System.Diagnostics;
 
-public partial class World : Node2D
+public partial class World : Node2D,
+    IUpdateable<World>
 {
 
     [Export(PropertyHint.File, "*.tscn,")]
     public string NextScene { get; set; }
 
-    private SceneManager SceneManager { get; set; }
+    protected static SceneManager SceneManager => SceneManager.Instance;
 
     private int numObjectivesRemaining = 0;
 
@@ -33,13 +34,11 @@ public partial class World : Node2D
 
     public override void _Ready()
     {
-        SceneManager = GetNode<SceneManager>("/root/SceneManager");
-
         Input.SetCustomMouseCursor(SceneManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
 
-        player = (Player)GetTree().GetFirstNodeInGroup("player");
+        player = this.FindChildrenInGroup("player").OfType<Player>().First();
 
-        robot = (Robot)GetTree().GetFirstNodeInGroup("robot");
+        robot = this.FindChildrenInGroup("robot").OfType<Robot>().First();
 
         playerCamera = GetNode<PlayerCamera>("PlayerCamera");
         pauseScreen = GetNode<PauseScreen>("PauseScreen");
@@ -69,7 +68,7 @@ public partial class World : Node2D
 
     private void InitSpawns()
     {
-        foreach (Spawn spawn in GetTree().GetNodesInGroup("spawn").OfType<Spawn>())
+        foreach (Spawn spawn in this.FindChildrenInGroup("spawn").OfType<Spawn>())
         {
             spawns.Add(spawn);
 
@@ -102,7 +101,7 @@ public partial class World : Node2D
 
     private void InitEnemies()
     {
-        foreach (EnemyBase enemy in GetTree().GetNodesInGroup("enemy").OfType<EnemyBase>())
+        foreach (EnemyBase enemy in this.FindChildrenInGroup("enemy").OfType<EnemyBase>())
         {
             enemy.PickupDropped += (pickupType) =>
             {
@@ -121,7 +120,7 @@ public partial class World : Node2D
 
     private void InitObjectives()
     {
-        foreach (Objective objective in GetTree().GetNodesInGroup("objective").OfType<Objective>())
+        foreach (Objective objective in this.FindChildrenInGroup("objective").OfType<Objective>())
         {
             if (objective is CyberSteel cyberSteel)
             {
@@ -147,7 +146,7 @@ public partial class World : Node2D
 
     private void InitDeathZones()
     {
-        foreach (Area2D deathzone in GetTree().GetNodesInGroup("deathzone").OfType<Area2D>())
+        foreach (Area2D deathzone in this.FindChildrenInGroup("deathzone").OfType<Area2D>())
         {
             deathzone.BodyEntered += (body) =>
             {
@@ -225,7 +224,7 @@ public partial class World : Node2D
             case PickupType.Rifle:
             case PickupType.Grenade:
             case PickupType.Missile:
-                player.WeaponManager.Pickup(pickupType);
+                player.WeaponManager.CallDeferred(WeaponManager.MethodName.DeferredPickup, (long)pickupType);
 
                 break;
             default:
@@ -268,5 +267,19 @@ public partial class World : Node2D
 
         return target;
     }
+
+    #region IUpdateable
+
+    [Signal]
+    public delegate void UpdatedEventHandler();
+
+    public void DeferredUpdateFrom(World source)
+    {
+        player.Updated += () => EmitSignal(SignalName.Updated);
+
+        player.DeferredUpdateFrom(source.player);
+    }
+
+    #endregion
 
 }

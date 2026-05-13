@@ -189,6 +189,12 @@ namespace MechJamIV
             {
                 return;
             }
+            else if (!allowOverHealth && Health >= MaxHealth)
+            {
+                // if health is already over max (overhealth), then skip
+
+                return;
+            }
 
             int maxHealth = allowOverHealth ? MaxHealth + MaxOverHealth : MaxHealth;
 

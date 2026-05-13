@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 namespace MechJamIV
 {
@@ -50,15 +51,9 @@ namespace MechJamIV
 
                 case PickupType.Missile:
                     return missile.Instantiate<Missile>();
-
-                default:
-                    // this should never happen
-                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
-
-                    break;
             }
 
-            throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a projectile type");
+            throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a dropped pickup type");
         }
 
         public static WeaponBase GenerateWeapon(PickupType pickupType)
@@ -73,12 +68,6 @@ namespace MechJamIV
 
                 case PickupType.Missile:
                     return missileEmitter.Instantiate<ProjectileEmitter>();
-
-                default:
-                    // this should never happen
-                    System.Diagnostics.Debug.Assert(false, "Invalid switch case");
-
-                    break;
             }
 
             throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a weapon type");

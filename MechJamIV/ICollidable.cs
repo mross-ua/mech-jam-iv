@@ -7,9 +7,9 @@ namespace MechJamIV
     {
 
         //[Signal]
-        public delegate void InjuredEventHandler(int damage);
+        delegate void InjuredEventHandler(int damage);
 
-        public void Hurt(int damage, Vector2 globalPos, Vector2 normal);
+        void Hurt(int damage, Vector2 globalPos, Vector2 normal);
 
     }
 }

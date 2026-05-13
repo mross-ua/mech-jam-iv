@@ -27,7 +27,7 @@ public partial class Spawn : Node2D
         SpawnPointMarker = GetNode<Marker2D>("SpawnPoint");
 
         healthGenTimer = GetNode<Timer>("HealthGenTimer");
-        healthGenTimer.Timeout += () => Generate();
+        healthGenTimer.Timeout += Generate;
 
         area2D = GetNode<Area2D>("Area2D");
         area2D.BodyEntered += (body) =>

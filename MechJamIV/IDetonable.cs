@@ -7,11 +7,11 @@ namespace MechJamIV
     {
 
         //[Signal]
-        public delegate void DetonatedEventHandler();
+        delegate void DetonatedEventHandler();
 
-        public float FuseDelay { get; }
+        float FuseDelay { get; }
 
-        public void PrimeFuse();
+        void PrimeFuse();
 
     }
 }

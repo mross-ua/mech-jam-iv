@@ -12,7 +12,8 @@
       "preLaunchTask": "build",
       "program": "${env:GODOT4}",
       // see https://docs.godotengine.org/en/stable/tutorials/editor/command_line_tutorial.html
-      "args": ["--maximized", "--debug"],
+      //"args": ["--maximized", "--debug"],
+      "args": ["--debug"],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false
     },

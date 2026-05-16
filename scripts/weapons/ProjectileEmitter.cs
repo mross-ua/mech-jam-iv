@@ -44,7 +44,7 @@ public partial class ProjectileEmitter : WeaponBase
         bodiesToExclude = bodies;
     }
 
-    protected override async void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
+    protected override async void _Fire(Vector2 globalPos, PhysicsBody2D? target = null)
     {
         Projectile projectile = Projectile.Instantiate<Projectile>();
         projectile.GlobalTransform = GlobalTransform;

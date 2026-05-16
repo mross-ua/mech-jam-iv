@@ -12,7 +12,7 @@ namespace MechJamIV
 
         public abstract void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies);
 
-        protected abstract void _Fire(Vector2 globalPos, PhysicsBody2D target = null);
+        protected abstract void _Fire(Vector2 globalPos, PhysicsBody2D? target = null);
 
         #region IWeapon
 
@@ -38,7 +38,7 @@ namespace MechJamIV
 
         public abstract Texture2D UISprite { get; }
 
-        public async void Fire(Vector2 globalPos, PhysicsBody2D target = null)
+        public async void Fire(Vector2 globalPos, PhysicsBody2D? target = null)
         {
             if (isCoolingDown)
             {

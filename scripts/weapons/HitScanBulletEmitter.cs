@@ -51,7 +51,7 @@ public partial class HitScanBulletEmitter : WeaponBase
         bodiesToExclude = (bodies?.Any() ?? false) ? new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid())) : null;
     }
 
-    protected override void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
+    protected override void _Fire(Vector2 globalPos, PhysicsBody2D? target = null)
     {
         Vector2 from = GlobalPosition;
         Vector2 to = from + (from.DirectionTo(globalPos) * LineOfSightDistance);

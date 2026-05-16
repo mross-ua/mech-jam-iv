@@ -59,7 +59,7 @@ public partial class WeaponManager : Node2D,
         }
     }
 
-    public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D target = null)
+    public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D? target = null)
     {
         switch (mode)
         {

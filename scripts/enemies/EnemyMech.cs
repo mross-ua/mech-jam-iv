@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class EnemyMech : EnemyBase
 {
@@ -16,6 +17,8 @@ public partial class EnemyMech : EnemyBase
     public override void _Ready()
     {
         base._Ready();
+
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
 
         weaponManager = GetNode<WeaponManager>("WeaponManager");
         weaponManager.SetBodiesToExclude(this.Yield());

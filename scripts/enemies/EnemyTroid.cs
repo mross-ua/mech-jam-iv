@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class EnemyTroid : EnemyBase
 {
@@ -8,6 +9,13 @@ public partial class EnemyTroid : EnemyBase
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
     private DateTime lastTimePlayerSeen = DateTime.MinValue;
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
+    }
 
     protected override Vector2 GetMovementDirectionForIdleState()
     {

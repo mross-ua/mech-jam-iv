@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class Missile : ExplosiveProjectile
 {
@@ -20,6 +21,8 @@ public partial class Missile : ExplosiveProjectile
     public override void _Ready()
     {
         base._Ready();
+
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
 
         gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
 

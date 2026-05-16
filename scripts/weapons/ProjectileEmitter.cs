@@ -66,12 +66,12 @@ public partial class ProjectileEmitter : WeaponBase
         //TODO we need another way to identify trackers (since we got rid of ITracker)
         if (projectile is Missile m)
         {
-            if (target == null)
+            if (target is null)
             {
                 m.Rotate(m.CharacterAnimator.SpriteFaceDirection.AngleTo(dir));
             }
 
-            m.CharacterTracker.Track(target);
+            m.CharacterTracker!.Track(target);
         }
     }
 

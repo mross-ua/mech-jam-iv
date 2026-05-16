@@ -59,7 +59,7 @@ public partial class World : Node2D,
         };
 
         robot.GlobalTransform = player.RobotMarker.GlobalTransform;
-        robot.CharacterTracker.Track(player);
+        robot.CharacterTracker!.Track(player);
 
         playerCamera.Track(player);
 
@@ -114,7 +114,7 @@ public partial class World : Node2D,
                 GetTree().CurrentScene.AddChildDeferred(projectile);
             };
 
-            enemy.CharacterTracker.Track(player);
+            enemy.CharacterTracker?.Track(player);
         }
     }
 
@@ -180,11 +180,11 @@ public partial class World : Node2D,
     {
         if (Input.IsActionPressed("fire_secondary"))
         {
-            if (player.CharacterTracker.Target == null || !isEnteringTargetMode)
+            if (player.CharacterTracker!.Target is null || !isEnteringTargetMode)
             {
                 PhysicsBody2D target = FindTarget(GetGlobalMousePosition());
 
-                if (target != null && target != player.CharacterTracker.Target)
+                if (target is not null && target != player.CharacterTracker.Target)
                 {
                     player.CharacterTracker.Track(target);
 
@@ -254,7 +254,7 @@ public partial class World : Node2D,
         {
             if (collision["collider"].Obj is CharacterBase character)
             {
-                if (target == null || player.CharacterTracker.Target != character)
+                if (target is null || player.CharacterTracker!.Target != character)
                 {
                     target = character;
                 }

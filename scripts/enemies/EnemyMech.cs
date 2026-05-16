@@ -33,7 +33,7 @@ public partial class EnemyMech : EnemyBase
 
     protected override Vector2 GetMovementDirectionForChaseState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             return Vector2.Zero;
         }
@@ -53,7 +53,7 @@ public partial class EnemyMech : EnemyBase
 
     protected override void ProcessActionForIdleState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             return;
         }
@@ -67,7 +67,7 @@ public partial class EnemyMech : EnemyBase
 
     protected override void ProcessActionForChaseState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             State = EnemyState.Idle;
         }
@@ -85,7 +85,7 @@ public partial class EnemyMech : EnemyBase
 
     protected override void ProcessActionForAttackState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             State = EnemyState.Idle;
         }

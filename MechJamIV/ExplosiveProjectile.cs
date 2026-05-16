@@ -18,7 +18,7 @@ namespace MechJamIV
         #region Node references
 
         public CharacterAnimator CharacterAnimator { get; private set; }
-        public CharacterTracker CharacterTracker { get; private set; }
+        public CharacterTracker? CharacterTracker { get; private set; }
 
         private CollisionShape2D collisionShape2D;
         private Area2D explosionAreaOfEffect;

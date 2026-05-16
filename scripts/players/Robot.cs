@@ -9,7 +9,7 @@ public partial class Robot : CharacterBase
 
     protected override Vector2 GetMovementDirection()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             return Vector2.Zero;
         }

@@ -57,7 +57,7 @@ public partial class Player : CharacterBase,
             return;
         }
 
-        WeaponManager.Fire(mode, globalPos, CharacterTracker.Target);
+        WeaponManager.Fire(mode, globalPos, CharacterTracker!.Target);
     }
 
     protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)

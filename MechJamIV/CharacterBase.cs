@@ -33,7 +33,7 @@ namespace MechJamIV
 
         #region Node references
 
-        public CharacterTracker CharacterTracker { get; private set; }
+        public CharacterTracker? CharacterTracker { get; private set; }
 
         private CharacterAnimator characterAnimator;
 

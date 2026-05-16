@@ -8,7 +8,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 {
 
     [Export]
-    public PackedScene PointDamageEffect { get; set; }
+    public PackedScene? PointDamageEffect { get; set; }
 
     [Export]
     public int Damage { get; set; }
@@ -79,7 +79,7 @@ public partial class HitScanBulletEmitter : WeaponBase
             {
                 c.Hurt(Damage, position, normal);
             }
-            else
+            else if (PointDamageEffect is not null)
             {
                 // world or environment hit
 

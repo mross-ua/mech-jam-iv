@@ -63,11 +63,6 @@ public partial class Player : CharacterBase,
         WeaponManager.Fire(mode, globalPos, CharacterTracker!.Target);
     }
 
-    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
-    {
-        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
-    }
-
     public void ActivateShield()
     {
         immunityShield.Visible = true;

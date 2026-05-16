@@ -38,11 +38,6 @@ public partial class Robot : CharacterBase
         //TODO
     }
 
-    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
-    {
-        //TODO
-    }
-
     #region ICollidable
 
     public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)

@@ -13,7 +13,7 @@ namespace MechJamIV
         public delegate void PickedUpEventHandler();
 
         [Export]
-        public PackedScene PointDamageEffect { get; set; }
+        public PackedScene? PointDamageEffect { get; set; }
 
         [Export(PropertyHint.Enum)]
         public PickupType WeaponType { get; set; }
@@ -57,7 +57,10 @@ namespace MechJamIV
 
         private void AnimateInjury(Vector2 globalPos)
         {
-            this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+            if (PointDamageEffect is not null)
+            {
+                this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+            }
         }
 
         #region ICollidable

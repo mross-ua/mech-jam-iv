@@ -104,9 +104,4 @@ public partial class EnemyMech : EnemyBase
         weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), CharacterTracker.Target);
     }
 
-    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
-    {
-        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
-    }
-
 }

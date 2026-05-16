@@ -83,9 +83,4 @@ public partial class EnemyTroid : EnemyBase
         ProcessActionForChaseState();
     }
 
-    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
-    {
-        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
-    }
-
 }

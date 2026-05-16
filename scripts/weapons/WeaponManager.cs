@@ -14,7 +14,7 @@ public partial class WeaponManager : Node2D,
 
     private readonly Dictionary<PickupType, WeaponBase> weapons = [];
 
-    private IEnumerable<PhysicsBody2D> bodiesToExclude = null;
+    private IEnumerable<PhysicsBody2D>? bodiesToExclude = null;
 
     #region Node references
 
@@ -49,9 +49,9 @@ public partial class WeaponManager : Node2D,
         weapons[weapon.WeaponType] = weapon;
     }
 
-    public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+    public void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
     {
-        bodiesToExclude = bodies == null ? null : new List<PhysicsBody2D>(bodies);
+        bodiesToExclude = bodies;
 
         foreach (WeaponBase weapon in weapons.Values)
         {

@@ -21,7 +21,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 
     private readonly Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new();
 
-    private Godot.Collections.Array<Rid> bodiesToExclude = null;
+    private Godot.Collections.Array<Rid>? bodiesToExclude = null;
 
     private bool isNeedsRedraw = false;
 
@@ -46,9 +46,9 @@ public partial class HitScanBulletEmitter : WeaponBase
         }
     }
 
-    public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+    public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
     {
-        bodiesToExclude = bodies == null ? null : new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid()));
+        bodiesToExclude = (bodies?.Any() ?? false) ? new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid())) : null;
     }
 
     protected override void _Fire(Vector2 globalPos, PhysicsBody2D target = null)

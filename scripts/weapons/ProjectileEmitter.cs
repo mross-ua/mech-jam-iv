@@ -37,11 +37,11 @@ public partial class ProjectileEmitter : WeaponBase
     [Export]
     public float ImpulseStrength { get; set; }
 
-    private IList<PhysicsBody2D> bodiesToExclude = null;
+    private IEnumerable<PhysicsBody2D>? bodiesToExclude = null;
 
-    public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+    public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
     {
-        bodiesToExclude = bodies == null ? null : new List<PhysicsBody2D>(bodies);
+        bodiesToExclude = bodies;
     }
 
     protected override async void _Fire(Vector2 globalPos, PhysicsBody2D target = null)

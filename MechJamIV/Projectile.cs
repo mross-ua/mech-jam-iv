@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MechJamIV
 {
@@ -38,16 +39,19 @@ namespace MechJamIV
             return true;
         }
 
-        public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+        public void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
         {
             foreach (PhysicsBody2D body in GetCollisionExceptions())
             {
                 RemoveCollisionExceptionWith(body);
             }
 
-            foreach (PhysicsBody2D body in bodies)
+            if (bodies?.Any() ?? false)
             {
-                AddCollisionExceptionWith(body);
+                foreach (PhysicsBody2D body in bodies)
+                {
+                    AddCollisionExceptionWith(body);
+                }
             }
         }
 

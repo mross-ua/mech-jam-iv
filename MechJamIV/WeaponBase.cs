@@ -10,7 +10,7 @@ namespace MechJamIV
 
         private bool isCoolingDown = false;
 
-        public abstract void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies);
+        public abstract void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies);
 
         protected abstract void _Fire(Vector2 globalPos, PhysicsBody2D target = null);
 

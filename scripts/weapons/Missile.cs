@@ -44,7 +44,7 @@ public partial class Missile : ExplosiveProjectile
 
         if (IsFusePrimed)
         {
-            if (CharacterTracker.Target != null)
+            if (CharacterTracker!.Target != null)
             {
                 Vector2 directionToTarget = CharacterTracker.GetDirectionToTarget();
 

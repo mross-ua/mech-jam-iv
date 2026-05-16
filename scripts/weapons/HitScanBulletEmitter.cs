@@ -37,7 +37,7 @@ public partial class HitScanBulletEmitter : WeaponBase
     {
         isNeedsRedraw = false;
 
-        while (bulletsToDraw.TryDequeue(out Tuple<Vector2, Vector2> rayPath))
+        while (bulletsToDraw.TryDequeue(out Tuple<Vector2, Vector2>? rayPath))
         {
             DrawLine(ToLocal(rayPath.Item1), ToLocal(rayPath.Item2), TracerColor, TracerWidth);
 

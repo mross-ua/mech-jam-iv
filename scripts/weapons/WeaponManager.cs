@@ -18,8 +18,8 @@ public partial class WeaponManager : Node2D,
 
     #region Node references
 
-    public WeaponBase PrimaryWeapon { get; private set; }
-    public WeaponBase SecondaryWeapon { get; private set; }
+    public WeaponBase? PrimaryWeapon { get; private set; } = null!;
+    public WeaponBase? SecondaryWeapon { get; private set; } = null!;
 
     #endregion
 
@@ -124,8 +124,8 @@ public partial class WeaponManager : Node2D,
     {
         bool isWeaponFound = false;
 
-        WeaponBase firstWeapon = null;
-        WeaponBase lastWeapon = null;
+        WeaponBase? firstWeapon = null;
+        WeaponBase? lastWeapon = null;
 
         foreach (WeaponBase weapon in weapons.Values)
         {
@@ -166,8 +166,8 @@ public partial class WeaponManager : Node2D,
     {
         bool isWeaponFound = false;
 
-        WeaponBase firstWeapon = null;
-        WeaponBase lastWeapon = null;
+        WeaponBase? firstWeapon = null;
+        WeaponBase? lastWeapon = null;
 
         foreach (WeaponBase weapon in weapons.Values)
         {
@@ -221,7 +221,7 @@ public partial class WeaponManager : Node2D,
                 DeferredPickup(sourceWeapon.WeaponType);
             }
 
-            if (weapons.TryGetValue(sourceWeapon.WeaponType, out WeaponBase weapon))
+            if (weapons.TryGetValue(sourceWeapon.WeaponType, out WeaponBase? weapon))
             {
                 weapon.SetAmmo(sourceWeapon.Ammo);
             }

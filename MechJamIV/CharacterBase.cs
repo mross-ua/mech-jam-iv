@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 namespace MechJamIV
 {
@@ -23,7 +24,7 @@ namespace MechJamIV
         public float MaxJumpAirTime { get; set; }
 
         [Export]
-        public PackedScene PointDamageEffect { get; set; }
+        public PackedScene PointDamageEffect { get; set; } = null!;
 
         protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
         protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
@@ -35,14 +36,16 @@ namespace MechJamIV
 
         public CharacterTracker? CharacterTracker { get; private set; }
 
-        private CharacterAnimator characterAnimator;
+        private CharacterAnimator characterAnimator = null!;
 
-        private CollisionShape2D collisionShape2D;
+        private CollisionShape2D collisionShape2D = null!;
 
         #endregion
 
         public override void _Ready()
         {
+            Debug.Assert(PointDamageEffect is not null, $"{nameof(PointDamageEffect)} must not be null");
+
             if (MotionMode == MotionModeEnum.Grounded)
             {
                 Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);

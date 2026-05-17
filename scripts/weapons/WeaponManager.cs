@@ -91,12 +91,12 @@ public partial class WeaponManager : Node2D,
 
             // auto-select the weapon if needed
 
-            if (PrimaryWeapon == null)
+            if (PrimaryWeapon is null)
             {
                 NextWeaponPrimary();
             }
 
-            if (SecondaryWeapon == null)
+            if (SecondaryWeapon is null)
             {
                 NextWeaponSecondary();
             }
@@ -132,7 +132,7 @@ public partial class WeaponManager : Node2D,
             switch (weapon.WeaponType)
             {
                 case PickupType.Rifle:
-                    if (PrimaryWeapon == null || isWeaponFound)
+                    if (PrimaryWeapon is null || isWeaponFound)
                     {
                         PrimaryWeapon = weapon;
 
@@ -158,7 +158,7 @@ public partial class WeaponManager : Node2D,
         {
             PrimaryWeapon = firstWeapon;
 
-            EmitSignal(SignalName.WeaponUpdated, firstWeapon);
+            EmitSignal(SignalName.WeaponUpdated, firstWeapon!);
         }
     }
 
@@ -175,7 +175,7 @@ public partial class WeaponManager : Node2D,
             {
                 case PickupType.Grenade:
                 case PickupType.Missile:
-                    if (SecondaryWeapon == null || isWeaponFound)
+                    if (SecondaryWeapon is null || isWeaponFound)
                     {
                         SecondaryWeapon = weapon;
 
@@ -201,7 +201,7 @@ public partial class WeaponManager : Node2D,
         {
             SecondaryWeapon = firstWeapon;
 
-            EmitSignal(SignalName.WeaponUpdated, firstWeapon);
+            EmitSignal(SignalName.WeaponUpdated, firstWeapon!);
         }
     }
 

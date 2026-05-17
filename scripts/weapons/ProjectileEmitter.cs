@@ -2,11 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class ProjectileEmitter : WeaponBase
 {
 
-    private PackedScene projectile = null;
+    private PackedScene projectile = null!;
 
     [Export]
     public PackedScene Projectile
@@ -14,37 +15,34 @@ public partial class ProjectileEmitter : WeaponBase
         get => projectile;
         set
         {
-            if (value == null)
-            {
-                weaponType = (PickupType)(-1);
-                uiSprite = null;
-            }
-            else
-            {
-                Projectile item = value.Instantiate<Projectile>();
-
-                weaponType = item.WeaponType;
-                uiSprite = item.UISprite;
-
-                // we have to free it ourselves because we don't add it to the scene tree
-                item.Free();
-            }
-
             projectile = value;
+
+            Projectile item = projectile.Instantiate<Projectile>();
+
+            weaponType = item.WeaponType;
+            uiSprite = item.UISprite;
+
+            // we have to free it ourselves because we don't add it to the scene tree
+            item.Free();
         }
     }
 
     [Export]
     public float ImpulseStrength { get; set; }
 
-    private IList<PhysicsBody2D> bodiesToExclude = null;
+    private IEnumerable<PhysicsBody2D>? bodiesToExclude = null;
 
-    public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+    public override void _Ready()
     {
-        bodiesToExclude = bodies == null ? null : new List<PhysicsBody2D>(bodies);
+        Debug.Assert(Projectile is not null, $"{nameof(Projectile)} must not be null");
     }
 
-    protected override async void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
+    public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
+    {
+        bodiesToExclude = bodies;
+    }
+
+    protected override async void FireSpecial(Vector2 globalPos, PhysicsBody2D? target = null)
     {
         Projectile projectile = Projectile.Instantiate<Projectile>();
         projectile.GlobalTransform = GlobalTransform;
@@ -66,23 +64,23 @@ public partial class ProjectileEmitter : WeaponBase
         //TODO we need another way to identify trackers (since we got rid of ITracker)
         if (projectile is Missile m)
         {
-            if (target == null)
+            if (target is null)
             {
                 m.Rotate(m.CharacterAnimator.SpriteFaceDirection.AngleTo(dir));
             }
 
-            m.CharacterTracker.Track(target);
+            m.CharacterTracker!.Track(target);
         }
     }
 
     #region IWeapon
 
     private PickupType weaponType = (PickupType)(-1);
-    private Texture2D uiSprite = null;
+    private Texture2D uiSprite = null!;
 
-    public override PickupType WeaponType => Enum.IsDefined(weaponType) ? weaponType : throw new InvalidOperationException("Projectile is not set");
+    public override PickupType WeaponType => weaponType;
 
-    public override Texture2D UISprite => uiSprite ?? throw new InvalidOperationException("Projectile is not set");
+    public override Texture2D UISprite => uiSprite;
 
     #endregion
 

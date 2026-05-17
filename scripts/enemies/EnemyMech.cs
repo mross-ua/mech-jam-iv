@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class EnemyMech : EnemyBase
 {
@@ -9,13 +10,15 @@ public partial class EnemyMech : EnemyBase
 
     #region Node references
 
-    private WeaponManager weaponManager;
+    private WeaponManager weaponManager = null!;
 
     #endregion
 
     public override void _Ready()
     {
         base._Ready();
+
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
 
         weaponManager = GetNode<WeaponManager>("WeaponManager");
         weaponManager.SetBodiesToExclude(this.Yield());
@@ -33,7 +36,7 @@ public partial class EnemyMech : EnemyBase
 
     protected override Vector2 GetMovementDirectionForChaseState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             return Vector2.Zero;
         }
@@ -53,7 +56,7 @@ public partial class EnemyMech : EnemyBase
 
     protected override void ProcessActionForIdleState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             return;
         }
@@ -67,7 +70,7 @@ public partial class EnemyMech : EnemyBase
 
     protected override void ProcessActionForChaseState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             State = EnemyState.Idle;
         }
@@ -85,7 +88,7 @@ public partial class EnemyMech : EnemyBase
 
     protected override void ProcessActionForAttackState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             State = EnemyState.Idle;
         }
@@ -99,11 +102,6 @@ public partial class EnemyMech : EnemyBase
         //TODO we only want to fire machine gun if player is within attack range
         //weaponManager.Fire(FireMode.PrimarySustained, Target.GlobalPosition, CharacterTracker.Target);
         weaponManager.Fire(FireMode.Secondary, ToGlobal(Vector2.Up), CharacterTracker.Target);
-    }
-
-    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
-    {
-        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 }

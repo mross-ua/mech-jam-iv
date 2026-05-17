@@ -10,7 +10,7 @@ public partial class HitScanBulletEmitterPickup : Area2D
 
     #region Node references
 
-    private HitScanBulletEmitter hitScanBulletEmitter;
+    private HitScanBulletEmitter hitScanBulletEmitter = null!;
 
     #endregion
 

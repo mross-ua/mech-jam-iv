@@ -8,7 +8,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 {
 
     [Export]
-    public PackedScene PointDamageEffect { get; set; }
+    public PackedScene? PointDamageEffect { get; set; }
 
     [Export]
     public int Damage { get; set; }
@@ -21,7 +21,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 
     private readonly Queue<Tuple<Vector2, Vector2>> bulletsToDraw = new();
 
-    private Godot.Collections.Array<Rid> bodiesToExclude = null;
+    private Godot.Collections.Array<Rid>? bodiesToExclude = null;
 
     private bool isNeedsRedraw = false;
 
@@ -37,7 +37,7 @@ public partial class HitScanBulletEmitter : WeaponBase
     {
         isNeedsRedraw = false;
 
-        while (bulletsToDraw.TryDequeue(out Tuple<Vector2, Vector2> rayPath))
+        while (bulletsToDraw.TryDequeue(out Tuple<Vector2, Vector2>? rayPath))
         {
             DrawLine(ToLocal(rayPath.Item1), ToLocal(rayPath.Item2), TracerColor, TracerWidth);
 
@@ -46,12 +46,14 @@ public partial class HitScanBulletEmitter : WeaponBase
         }
     }
 
-    public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+    public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
     {
-        bodiesToExclude = bodies == null ? null : new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid()));
+#pragma warning disable IDE0028, IDE0306 // Collection initialization can be simplified
+        bodiesToExclude = (bodies?.Any() ?? false) ? new Godot.Collections.Array<Rid>(bodies.Select(b => b.GetRid())) : null;
+#pragma warning restore IDE0028, IDE0306 // Collection initialization can be simplified
     }
 
-    protected override void _Fire(Vector2 globalPos, PhysicsBody2D target = null)
+    protected override void FireSpecial(Vector2 globalPos, PhysicsBody2D? target = null)
     {
         Vector2 from = GlobalPosition;
         Vector2 to = from + (from.DirectionTo(globalPos) * LineOfSightDistance);
@@ -79,7 +81,7 @@ public partial class HitScanBulletEmitter : WeaponBase
             {
                 c.Hurt(Damage, position, normal);
             }
-            else
+            else if (PointDamageEffect is not null)
             {
                 // world or environment hit
 

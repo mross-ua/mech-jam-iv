@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class Player : CharacterBase,
     IPlayable,
@@ -12,17 +13,19 @@ public partial class Player : CharacterBase,
 
     #region Node references
 
-    public Marker2D RobotMarker { get; private set; }
-    public WeaponManager WeaponManager { get; private set; }
+    public Marker2D RobotMarker { get; private set; } = null!;
+    public WeaponManager WeaponManager { get; private set; } = null!;
 
-    private GpuParticles2D immunityShield;
-    private RemoteTransform2D remoteTransform;
+    private GpuParticles2D immunityShield = null!;
+    private RemoteTransform2D remoteTransform = null!;
 
     #endregion
 
     public override void _Ready()
     {
         base._Ready();
+
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
 
         RobotMarker = GetNode<Marker2D>("RobotMarker");
 
@@ -57,12 +60,7 @@ public partial class Player : CharacterBase,
             return;
         }
 
-        WeaponManager.Fire(mode, globalPos, CharacterTracker.Target);
-    }
-
-    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
-    {
-        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+        WeaponManager.Fire(mode, globalPos, CharacterTracker!.Target);
     }
 
     public void ActivateShield()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://kh2l4subhovw"]
+[gd_scene format=3 uid="uid://kh2l4subhovw"]
 
 [ext_resource type="Script" uid="uid://bvod0fjya6d3d" path="res://scripts/levels/World.cs" id="1_bb6wy"]
 [ext_resource type="AudioStream" uid="uid://b7r38jr8ouyos" path="res://assets/music/zerospace2.wav" id="3_j58g3"]
@@ -36,14 +36,14 @@ collision_mask = 2
 position = Vector2(0, 1000)
 shape = SubResource("WorldBoundaryShape2D_x5i57")
 
-[node name="Player" parent="." instance=ExtResource("5_tpc8t")]
+[node name="Player" parent="." unique_id=1403047634 instance=ExtResource("5_tpc8t")]
 position = Vector2(239, 372)
 
 [node name="PlayerCamera" parent="." unique_id=1357851227 instance=ExtResource("6_k18qw")]
 limit_bottom = 950
 editor_draw_limits = true
 
-[node name="Robot" parent="." instance=ExtResource("7_ypfgn")]
+[node name="Robot" parent="." unique_id=2135746198 instance=ExtResource("7_ypfgn")]
 position = Vector2(216, 349)
 
 [node name="Objectives" type="Node" parent="." unique_id=2045314315]

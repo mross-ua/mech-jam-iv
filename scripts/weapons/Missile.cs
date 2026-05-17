@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class Missile : ExplosiveProjectile
 {
@@ -13,13 +14,15 @@ public partial class Missile : ExplosiveProjectile
 
     #region Node references
 
-    private GpuParticles2D gpuParticles2D;
+    private GpuParticles2D gpuParticles2D = null!;
 
     #endregion
 
     public override void _Ready()
     {
         base._Ready();
+
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
 
         gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
 
@@ -41,7 +44,7 @@ public partial class Missile : ExplosiveProjectile
 
         if (IsFusePrimed)
         {
-            if (CharacterTracker.Target != null)
+            if (CharacterTracker!.Target != null)
             {
                 Vector2 directionToTarget = CharacterTracker.GetDirectionToTarget();
 

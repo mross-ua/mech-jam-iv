@@ -7,7 +7,7 @@ public partial class CharacterTracker : Node2D
 {
 
     //[Export(PropertyHint.NodeType)]
-    public PhysicsBody2D Target { get; private set; }
+    public PhysicsBody2D? Target { get; private set; }
 
     [Export(PropertyHint.Layers2DPhysics)]
     public uint LineOfSightMask { get; private set; }
@@ -20,8 +20,8 @@ public partial class CharacterTracker : Node2D
 
     #region Node references
 
-    private RayCast2D rayCast;
-    private Sprite2D sprite2d;
+    private RayCast2D rayCast = null!;
+    private Sprite2D sprite2d = null!;
 
     #endregion
 
@@ -43,7 +43,7 @@ public partial class CharacterTracker : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Target != null)
+        if (Target is not null)
         {
             if (DrawReticle)
             {
@@ -61,7 +61,7 @@ public partial class CharacterTracker : Node2D
 
     public override void _Draw()
     {
-        if (OS.IsDebugBuild() && Target != null)
+        if (OS.IsDebugBuild() && Target is not null)
         {
             if (IsTargetInLineOfSight())
             {
@@ -78,7 +78,7 @@ public partial class CharacterTracker : Node2D
 
     public Vector2 GetDirectionToTarget()
     {
-        Debug.Assert(Target != null, "A target is not currently being tracked.");
+        Debug.Assert(Target is not null, "A target is not currently being tracked.");
 
         return GlobalPosition.DirectionTo(Target.GlobalPosition);
     }
@@ -90,27 +90,27 @@ public partial class CharacterTracker : Node2D
 
     public bool IsTargetInLineOfSight()
     {
-        Debug.Assert(Target != null, "A target is not currently being tracked.");
+        Debug.Assert(Target is not null, "A target is not currently being tracked.");
 
         return rayCast.GetCollider() == Target;
     }
 
-    public void Track(PhysicsBody2D target)
+    public void Track(PhysicsBody2D? target)
     {
         Target = target;
 
-        if (target != null)
+        if (Target is not null)
         {
             sprite2d.Visible = DrawReticle;
             sprite2d.Rotation = 0.0f;
 
             //TODO we need another way to identify destructibles (we can't subscribe
             //     to signals through interfaces, AFAIK)
-            // if (target is IDestructible d)
+            // if (Target is IDestructible d)
             // {
-            //     d.Killed += () => Untrack(target);
+            //     d.Killed += () => Untrack();
             // }
-            if (target is CharacterBase c)
+            if (Target is CharacterBase c)
             {
                 c.Killed += () =>
                 {
@@ -123,7 +123,7 @@ public partial class CharacterTracker : Node2D
             }
 
             // just in case we miss the Killed signal
-            target.TreeExiting += () =>
+            Target.TreeExiting += () =>
             {
                 // make sure we are still tracking the object that fired this event
                 if (Target == target)

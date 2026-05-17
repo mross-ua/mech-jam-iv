@@ -8,17 +8,17 @@ public partial class PlayerCamera : Camera2D
 
     #region Node references
 
-    private Player player;
+    private Player player = null!;
 
-    private GpuParticles2D immunityShield;
-    private ProgressBar healthBar;
-    private ProgressBar overHealthBar;
+    private GpuParticles2D immunityShield = null!;
+    private ProgressBar healthBar = null!;
+    private ProgressBar overHealthBar = null!;
 
-    private TextureRect primaryTextureRect;
-    private Label primaryAmmoLabel;
+    private TextureRect primaryTextureRect = null!;
+    private Label primaryAmmoLabel = null!;
 
-    private TextureRect secondaryTextureRect;
-    private Label secondaryAmmoLabel;
+    private TextureRect secondaryTextureRect = null!;
+    private Label secondaryAmmoLabel = null!;
 
     #endregion
 
@@ -37,7 +37,7 @@ public partial class PlayerCamera : Camera2D
 
     public void Track(Player p)
     {
-        if (player != null)
+        if (player is not null)
         {
             // NOTE: We throw an exception so we don't have to figure
             //       out if we need to unregister event handlers from

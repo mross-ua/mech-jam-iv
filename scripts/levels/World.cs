@@ -10,7 +10,7 @@ public partial class World : Node2D,
 {
 
     [Export(PropertyHint.File, "*.tscn,")]
-    public string NextScene { get; set; }
+    public string NextScene { get; set; } = null!;
 
     protected static SceneManager SceneManager => SceneManager.Instance;
 
@@ -18,15 +18,15 @@ public partial class World : Node2D,
 
     #region Node references
 
-    private Player player;
-    private Robot robot;
+    private Player player = null!;
+    private Robot robot = null!;
 
-    private PlayerCamera playerCamera;
+    private PlayerCamera playerCamera = null!;
 
     private readonly IList<Spawn> spawns = [];
-    private Spawn activeSpawn;
+    private Spawn activeSpawn = null!;
 
-    private PauseScreen pauseScreen;
+    private PauseScreen pauseScreen = null!;
 
     private bool isEnteringTargetMode = false;
 
@@ -59,7 +59,7 @@ public partial class World : Node2D,
         };
 
         robot.GlobalTransform = player.RobotMarker.GlobalTransform;
-        robot.CharacterTracker.Track(player);
+        robot.CharacterTracker!.Track(player);
 
         playerCamera.Track(player);
 
@@ -114,7 +114,7 @@ public partial class World : Node2D,
                 GetTree().CurrentScene.AddChildDeferred(projectile);
             };
 
-            enemy.CharacterTracker.Track(player);
+            enemy.CharacterTracker?.Track(player);
         }
     }
 
@@ -180,11 +180,11 @@ public partial class World : Node2D,
     {
         if (Input.IsActionPressed("fire_secondary"))
         {
-            if (player.CharacterTracker.Target == null || !isEnteringTargetMode)
+            if (player.CharacterTracker!.Target is null || !isEnteringTargetMode)
             {
-                PhysicsBody2D target = FindTarget(GetGlobalMousePosition());
+                PhysicsBody2D? target = FindTarget(GetGlobalMousePosition());
 
-                if (target != null && target != player.CharacterTracker.Target)
+                if (target is not null && target != player.CharacterTracker.Target)
                 {
                     player.CharacterTracker.Track(target);
 
@@ -232,9 +232,9 @@ public partial class World : Node2D,
         }
     }
 
-    private PhysicsBody2D FindTarget(Vector2 globalPos)
+    private PhysicsBody2D? FindTarget(Vector2 globalPos)
     {
-        PhysicsBody2D target = null;
+        PhysicsBody2D? target = null;
 
         PhysicsShapeQueryParameters2D queryParams = new()
         {
@@ -254,7 +254,7 @@ public partial class World : Node2D,
         {
             if (collision["collider"].Obj is CharacterBase character)
             {
-                if (target == null || player.CharacterTracker.Target != character)
+                if (target is null || player.CharacterTracker!.Target != character)
                 {
                     target = character;
                 }

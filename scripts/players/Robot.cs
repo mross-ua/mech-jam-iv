@@ -1,15 +1,23 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class Robot : CharacterBase
 {
 
     protected override Vector2 Gravity { get; set; } = Vector2.Zero;
 
+    public override void _Ready()
+    {
+        base._Ready();
+
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
+    }
+
     protected override Vector2 GetMovementDirection()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             return Vector2.Zero;
         }
@@ -26,11 +34,6 @@ public partial class Robot : CharacterBase
     }
 
     protected override void ProcessAction()
-    {
-        //TODO
-    }
-
-    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
     {
         //TODO
     }

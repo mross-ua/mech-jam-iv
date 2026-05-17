@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MechJamIV
 {
@@ -12,13 +13,13 @@ namespace MechJamIV
         public delegate void PickedUpEventHandler();
 
         [Export]
-        public PackedScene PointDamageEffect { get; set; }
+        public PackedScene? PointDamageEffect { get; set; }
 
         [Export(PropertyHint.Enum)]
         public PickupType WeaponType { get; set; }
 
         [Export]
-        public Texture2D UISprite { get; set; }
+        public Texture2D UISprite { get; set; } = null!;
 
         public override void _Ready()
         {
@@ -38,22 +39,28 @@ namespace MechJamIV
             return true;
         }
 
-        public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+        public void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
         {
             foreach (PhysicsBody2D body in GetCollisionExceptions())
             {
                 RemoveCollisionExceptionWith(body);
             }
 
-            foreach (PhysicsBody2D body in bodies)
+            if (bodies?.Any() ?? false)
             {
-                AddCollisionExceptionWith(body);
+                foreach (PhysicsBody2D body in bodies)
+                {
+                    AddCollisionExceptionWith(body);
+                }
             }
         }
 
         private void AnimateInjury(Vector2 globalPos)
         {
-            this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+            if (PointDamageEffect is not null)
+            {
+                this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+            }
         }
 
         #region ICollidable

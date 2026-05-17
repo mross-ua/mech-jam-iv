@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class EnemyTroid : EnemyBase
 {
@@ -9,6 +10,13 @@ public partial class EnemyTroid : EnemyBase
 
     private DateTime lastTimePlayerSeen = DateTime.MinValue;
 
+    public override void _Ready()
+    {
+        base._Ready();
+
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
+    }
+
     protected override Vector2 GetMovementDirectionForIdleState()
     {
         return Vector2.Zero;
@@ -16,7 +24,7 @@ public partial class EnemyTroid : EnemyBase
 
     protected override Vector2 GetMovementDirectionForChaseState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             return Vector2.Zero;
         }
@@ -37,7 +45,7 @@ public partial class EnemyTroid : EnemyBase
 
     protected override void ProcessActionForIdleState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             return;
         }
@@ -51,7 +59,7 @@ public partial class EnemyTroid : EnemyBase
 
     protected override void ProcessActionForChaseState()
     {
-        if (CharacterTracker.Target == null)
+        if (CharacterTracker!.Target is null)
         {
             State = EnemyState.Idle;
         }
@@ -73,11 +81,6 @@ public partial class EnemyTroid : EnemyBase
         //       hitboxes so attacks happen automatically.
 
         ProcessActionForChaseState();
-    }
-
-    protected override void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal)
-    {
-        this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
     }
 
 }

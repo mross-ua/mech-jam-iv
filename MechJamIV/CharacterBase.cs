@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 namespace MechJamIV
 {
@@ -23,7 +24,7 @@ namespace MechJamIV
         public float MaxJumpAirTime { get; set; }
 
         [Export]
-        public PackedScene PointDamageEffect { get; set; }
+        public PackedScene? PointDamageEffect { get; set; }
 
         protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
         protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
@@ -33,16 +34,18 @@ namespace MechJamIV
 
         #region Node references
 
-        public CharacterTracker CharacterTracker { get; private set; }
+        public CharacterTracker? CharacterTracker { get; private set; }
 
-        private CharacterAnimator characterAnimator;
+        private CharacterAnimator characterAnimator = null!;
 
-        private CollisionShape2D collisionShape2D;
+        private CollisionShape2D collisionShape2D = null!;
 
         #endregion
 
         public override void _Ready()
         {
+            Debug.Assert(PointDamageEffect is not null, $"{nameof(PointDamageEffect)} must not be null");
+
             if (MotionMode == MotionModeEnum.Grounded)
             {
                 Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
@@ -129,7 +132,13 @@ namespace MechJamIV
             characterAnimator.AnimateMovement(FaceDirection);
         }
 
-        protected abstract void AnimateInjury(int damage, Vector2 globalPos, Vector2 normal);
+        private void AnimateInjury(Vector2 globalPos)
+        {
+            if (PointDamageEffect is not null)
+            {
+                this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+            }
+        }
 
         protected void AnimateDeath()
         {
@@ -162,7 +171,7 @@ namespace MechJamIV
 
             Health = Math.Max(0, Health - damage);
 
-            AnimateInjury(damage, globalPos, normal);
+            AnimateInjury(globalPos);
 
             EmitSignal(SignalName.Injured, damage);
 

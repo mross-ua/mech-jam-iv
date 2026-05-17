@@ -8,14 +8,14 @@ public partial class PauseScreen : CanvasLayer
 
     protected static SceneManager SceneManager => SceneManager.Instance;
 
-    private Button continueButton;
+    private Button? continueButton;
 
     #endregion
 
     public override void _Ready()
     {
         continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
-        if (continueButton != null)
+        if (continueButton is not null)
         {
             continueButton.Pressed += UnpauseGame;
         }
@@ -29,7 +29,7 @@ public partial class PauseScreen : CanvasLayer
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("quit") && continueButton != null)
+        if (@event.IsActionPressed("quit") && continueButton is not null)
         {
             CallDeferred(MethodName.UnpauseGame);
 

@@ -4,21 +4,21 @@ using System;
 public partial class SceneManager : Node
 {
 
-    public static SceneManager Instance { get; private set; }
+    public static SceneManager Instance { get; private set; } = null!;
 
-    public CompressedTexture2D CursorTexture { get; private set; }
+    public CompressedTexture2D CursorTexture { get; private set; } = null!;
 
-    private Node currentScene;
+    private Node currentScene = null!;
 
     public override void _Ready()
     {
         Instance = this;
 
+        CursorTexture = ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png");
+
         // global scripts are loaded into the tree first,
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);
-
-        CursorTexture = ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png");
     }
 
     public void GoToScene(string path)

@@ -14,12 +14,12 @@ public partial class WeaponManager : Node2D,
 
     private readonly Dictionary<PickupType, WeaponBase> weapons = [];
 
-    private IEnumerable<PhysicsBody2D> bodiesToExclude = null;
+    private IEnumerable<PhysicsBody2D>? bodiesToExclude = null;
 
     #region Node references
 
-    public WeaponBase PrimaryWeapon { get; private set; }
-    public WeaponBase SecondaryWeapon { get; private set; }
+    public WeaponBase? PrimaryWeapon { get; private set; } = null!;
+    public WeaponBase? SecondaryWeapon { get; private set; } = null!;
 
     #endregion
 
@@ -49,9 +49,9 @@ public partial class WeaponManager : Node2D,
         weapons[weapon.WeaponType] = weapon;
     }
 
-    public void SetBodiesToExclude(IEnumerable<PhysicsBody2D> bodies)
+    public void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
     {
-        bodiesToExclude = bodies == null ? null : new List<PhysicsBody2D>(bodies);
+        bodiesToExclude = bodies;
 
         foreach (WeaponBase weapon in weapons.Values)
         {
@@ -59,7 +59,7 @@ public partial class WeaponManager : Node2D,
         }
     }
 
-    public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D target = null)
+    public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D? target = null)
     {
         switch (mode)
         {
@@ -91,12 +91,12 @@ public partial class WeaponManager : Node2D,
 
             // auto-select the weapon if needed
 
-            if (PrimaryWeapon == null)
+            if (PrimaryWeapon is null)
             {
                 NextWeaponPrimary();
             }
 
-            if (SecondaryWeapon == null)
+            if (SecondaryWeapon is null)
             {
                 NextWeaponSecondary();
             }
@@ -124,15 +124,15 @@ public partial class WeaponManager : Node2D,
     {
         bool isWeaponFound = false;
 
-        WeaponBase firstWeapon = null;
-        WeaponBase lastWeapon = null;
+        WeaponBase? firstWeapon = null;
+        WeaponBase? lastWeapon = null;
 
         foreach (WeaponBase weapon in weapons.Values)
         {
             switch (weapon.WeaponType)
             {
                 case PickupType.Rifle:
-                    if (PrimaryWeapon == null || isWeaponFound)
+                    if (PrimaryWeapon is null || isWeaponFound)
                     {
                         PrimaryWeapon = weapon;
 
@@ -158,7 +158,7 @@ public partial class WeaponManager : Node2D,
         {
             PrimaryWeapon = firstWeapon;
 
-            EmitSignal(SignalName.WeaponUpdated, firstWeapon);
+            EmitSignal(SignalName.WeaponUpdated, firstWeapon!);
         }
     }
 
@@ -166,8 +166,8 @@ public partial class WeaponManager : Node2D,
     {
         bool isWeaponFound = false;
 
-        WeaponBase firstWeapon = null;
-        WeaponBase lastWeapon = null;
+        WeaponBase? firstWeapon = null;
+        WeaponBase? lastWeapon = null;
 
         foreach (WeaponBase weapon in weapons.Values)
         {
@@ -175,7 +175,7 @@ public partial class WeaponManager : Node2D,
             {
                 case PickupType.Grenade:
                 case PickupType.Missile:
-                    if (SecondaryWeapon == null || isWeaponFound)
+                    if (SecondaryWeapon is null || isWeaponFound)
                     {
                         SecondaryWeapon = weapon;
 
@@ -201,7 +201,7 @@ public partial class WeaponManager : Node2D,
         {
             SecondaryWeapon = firstWeapon;
 
-            EmitSignal(SignalName.WeaponUpdated, firstWeapon);
+            EmitSignal(SignalName.WeaponUpdated, firstWeapon!);
         }
     }
 
@@ -221,7 +221,7 @@ public partial class WeaponManager : Node2D,
                 DeferredPickup(sourceWeapon.WeaponType);
             }
 
-            if (weapons.TryGetValue(sourceWeapon.WeaponType, out WeaponBase weapon))
+            if (weapons.TryGetValue(sourceWeapon.WeaponType, out WeaponBase? weapon))
             {
                 weapon.SetAmmo(sourceWeapon.Ammo);
             }

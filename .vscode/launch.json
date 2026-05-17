@@ -28,6 +28,17 @@
       "args": ["${fileDirname}/${fileBasenameNoExtension}.tscn"],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false
+    },
+    // Debug the test scene.
+    {
+      "name": "🎭 Debug Test Scene",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${env:GODOT4}",
+      "args": ["scenes/levels/world_test.tscn"],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false
     }
     // {
     //   "name": "🧪 Debug Tests",

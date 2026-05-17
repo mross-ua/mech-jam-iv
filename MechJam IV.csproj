@@ -3,6 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>MechJamIV</RootNamespace>
+    <Nullable>enable</Nullable>
     <AnalysisMode>Recommended</AnalysisMode>
     <!-- <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors> -->
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>

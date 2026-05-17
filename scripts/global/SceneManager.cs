@@ -14,11 +14,11 @@ public partial class SceneManager : Node
     {
         Instance = this;
 
+        CursorTexture = ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png");
+
         // global scripts are loaded into the tree first,
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);
-
-        CursorTexture = ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png");
     }
 
     public void GoToScene(string path)

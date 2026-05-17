@@ -8,7 +8,7 @@ public partial class PlayerCamera : Camera2D
 
     #region Node references
 
-    private Player player;
+    private Player player = null!;
 
     private GpuParticles2D immunityShield = null!;
     private ProgressBar healthBar = null!;

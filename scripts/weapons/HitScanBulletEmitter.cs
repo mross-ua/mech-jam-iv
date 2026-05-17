@@ -53,7 +53,7 @@ public partial class HitScanBulletEmitter : WeaponBase
 #pragma warning restore IDE0028, IDE0306 // Collection initialization can be simplified
     }
 
-    protected override void _Fire(Vector2 globalPos, PhysicsBody2D? target = null)
+    protected override void FireSpecial(Vector2 globalPos, PhysicsBody2D? target = null)
     {
         Vector2 from = GlobalPosition;
         Vector2 to = from + (from.DirectionTo(globalPos) * LineOfSightDistance);

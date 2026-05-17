@@ -12,7 +12,7 @@ namespace MechJamIV
 
         public abstract void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies);
 
-        protected abstract void _Fire(Vector2 globalPos, PhysicsBody2D? target = null);
+        protected abstract void FireSpecial(Vector2 globalPos, PhysicsBody2D? target = null);
 
         #region IWeapon
 
@@ -57,7 +57,7 @@ namespace MechJamIV
 
             isCoolingDown = true;
 
-            _Fire(globalPos, target);
+            FireSpecial(globalPos, target);
 
             EmitSignal(SignalName.Fired);
 

@@ -2,11 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using MechJamIV;
+using System.Diagnostics;
 
 public partial class ProjectileEmitter : WeaponBase
 {
 
-    private PackedScene projectile = null;
+    private PackedScene projectile = null!;
 
     [Export]
     public PackedScene Projectile
@@ -14,23 +15,15 @@ public partial class ProjectileEmitter : WeaponBase
         get => projectile;
         set
         {
-            if (value == null)
-            {
-                weaponType = (PickupType)(-1);
-                uiSprite = null;
-            }
-            else
-            {
-                Projectile item = value.Instantiate<Projectile>();
-
-                weaponType = item.WeaponType;
-                uiSprite = item.UISprite;
-
-                // we have to free it ourselves because we don't add it to the scene tree
-                item.Free();
-            }
-
             projectile = value;
+
+            Projectile item = projectile.Instantiate<Projectile>();
+
+            weaponType = item.WeaponType;
+            uiSprite = item.UISprite;
+
+            // we have to free it ourselves because we don't add it to the scene tree
+            item.Free();
         }
     }
 
@@ -38,6 +31,11 @@ public partial class ProjectileEmitter : WeaponBase
     public float ImpulseStrength { get; set; }
 
     private IEnumerable<PhysicsBody2D>? bodiesToExclude = null;
+
+    public override void _Ready()
+    {
+        Debug.Assert(Projectile is not null, $"{nameof(Projectile)} must not be null");
+    }
 
     public override void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
     {
@@ -78,11 +76,11 @@ public partial class ProjectileEmitter : WeaponBase
     #region IWeapon
 
     private PickupType weaponType = (PickupType)(-1);
-    private Texture2D uiSprite = null;
+    private Texture2D uiSprite = null!;
 
-    public override PickupType WeaponType => Enum.IsDefined(weaponType) ? weaponType : throw new InvalidOperationException("Projectile is not set");
+    public override PickupType WeaponType => weaponType;
 
-    public override Texture2D UISprite => uiSprite ?? throw new InvalidOperationException("Projectile is not set");
+    public override Texture2D UISprite => uiSprite;
 
     #endregion
 

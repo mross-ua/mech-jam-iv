@@ -37,7 +37,7 @@ public partial class PlayerCamera : Camera2D
 
     public void Track(Player p)
     {
-        if (player != null)
+        if (player is not null)
         {
             // NOTE: We throw an exception so we don't have to figure
             //       out if we need to unregister event handlers from

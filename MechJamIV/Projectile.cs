@@ -19,7 +19,7 @@ namespace MechJamIV
         public PickupType WeaponType { get; set; }
 
         [Export]
-        public Texture2D UISprite { get; set; }
+        public Texture2D UISprite { get; set; } = null!;
 
         public override void _Ready()
         {

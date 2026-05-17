@@ -95,7 +95,7 @@ public partial class CharacterTracker : Node2D
         return rayCast.GetCollider() == Target;
     }
 
-    public void Track(PhysicsBody2D target)
+    public void Track(PhysicsBody2D? target)
     {
         Target = target;
 

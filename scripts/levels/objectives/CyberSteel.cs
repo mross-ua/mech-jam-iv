@@ -7,8 +7,8 @@ public partial class CyberSteel : Objective
 
     #region Node references
 
-    private AnimatedSprite2D animatedSprite2D;
-    private CollisionShape2D collisionShape2D;
+    private AnimatedSprite2D animatedSprite2D = null!;
+    private CollisionShape2D collisionShape2D = null!;
 
     #endregion
 

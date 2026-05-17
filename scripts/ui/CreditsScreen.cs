@@ -8,7 +8,7 @@ public partial class CreditsScreen : TitleScreen
 
     #region Node references
 
-    private TextureButton linkToGitHubButton;
+    private TextureButton linkToGitHubButton = null!;
 
     #endregion
 

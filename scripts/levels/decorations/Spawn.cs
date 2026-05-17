@@ -13,12 +13,12 @@ public partial class Spawn : Node2D
 
     #region Node references
 
-    public Marker2D SpawnPointMarker { get; private set; }
+    public Marker2D SpawnPointMarker { get; private set; } = null!;
 
-    private Timer healthGenTimer;
-    private Area2D area2D;
-    private CollisionShape2D collisionShape2D;
-    private GpuParticles2D gpuParticles2D;
+    private Timer healthGenTimer = null!;
+    private Area2D area2D = null!;
+    private CollisionShape2D collisionShape2D = null!;
+    private GpuParticles2D gpuParticles2D = null!;
 
     #endregion
 

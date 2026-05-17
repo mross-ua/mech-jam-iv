@@ -7,7 +7,7 @@ public partial class JumpPad : Area2D
     [Export]
     public float JumpMultiplier { get; set; }
 
-    private AnimatedSprite2D animatedSprite2D;
+    private AnimatedSprite2D animatedSprite2D = null!;
 
     public override void _Ready()
     {

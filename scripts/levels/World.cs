@@ -18,15 +18,15 @@ public partial class World : Node2D,
 
     #region Node references
 
-    private Player player;
-    private Robot robot;
+    private Player player = null!;
+    private Robot robot = null!;
 
-    private PlayerCamera playerCamera;
+    private PlayerCamera playerCamera = null!;
 
     private readonly IList<Spawn> spawns = [];
-    private Spawn activeSpawn;
+    private Spawn activeSpawn = null!;
 
-    private PauseScreen pauseScreen;
+    private PauseScreen pauseScreen = null!;
 
     private bool isEnteringTargetMode = false;
 
@@ -182,7 +182,7 @@ public partial class World : Node2D,
         {
             if (player.CharacterTracker!.Target is null || !isEnteringTargetMode)
             {
-                PhysicsBody2D target = FindTarget(GetGlobalMousePosition());
+                PhysicsBody2D? target = FindTarget(GetGlobalMousePosition());
 
                 if (target is not null && target != player.CharacterTracker.Target)
                 {
@@ -232,9 +232,9 @@ public partial class World : Node2D,
         }
     }
 
-    private PhysicsBody2D FindTarget(Vector2 globalPos)
+    private PhysicsBody2D? FindTarget(Vector2 globalPos)
     {
-        PhysicsBody2D target = null;
+        PhysicsBody2D? target = null;
 
         PhysicsShapeQueryParameters2D queryParams = new()
         {

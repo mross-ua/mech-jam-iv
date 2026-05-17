@@ -13,11 +13,11 @@ public partial class Player : CharacterBase,
 
     #region Node references
 
-    public Marker2D RobotMarker { get; private set; }
-    public WeaponManager WeaponManager { get; private set; }
+    public Marker2D RobotMarker { get; private set; } = null!;
+    public WeaponManager WeaponManager { get; private set; } = null!;
 
-    private GpuParticles2D immunityShield;
-    private RemoteTransform2D remoteTransform;
+    private GpuParticles2D immunityShield = null!;
+    private RemoteTransform2D remoteTransform = null!;
 
     #endregion
 

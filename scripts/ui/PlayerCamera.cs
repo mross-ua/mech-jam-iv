@@ -10,15 +10,15 @@ public partial class PlayerCamera : Camera2D
 
     private Player player;
 
-    private GpuParticles2D immunityShield;
-    private ProgressBar healthBar;
-    private ProgressBar overHealthBar;
+    private GpuParticles2D immunityShield = null!;
+    private ProgressBar healthBar = null!;
+    private ProgressBar overHealthBar = null!;
 
-    private TextureRect primaryTextureRect;
-    private Label primaryAmmoLabel;
+    private TextureRect primaryTextureRect = null!;
+    private Label primaryAmmoLabel = null!;
 
-    private TextureRect secondaryTextureRect;
-    private Label secondaryAmmoLabel;
+    private TextureRect secondaryTextureRect = null!;
+    private Label secondaryAmmoLabel = null!;
 
     #endregion
 

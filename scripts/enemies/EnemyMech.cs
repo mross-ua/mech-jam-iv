@@ -10,7 +10,7 @@ public partial class EnemyMech : EnemyBase
 
     #region Node references
 
-    private WeaponManager weaponManager;
+    private WeaponManager weaponManager = null!;
 
     #endregion
 

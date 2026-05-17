@@ -14,7 +14,7 @@ public partial class Missile : ExplosiveProjectile
 
     #region Node references
 
-    private GpuParticles2D gpuParticles2D;
+    private GpuParticles2D gpuParticles2D = null!;
 
     #endregion
 

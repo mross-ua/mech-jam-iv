@@ -4,11 +4,11 @@ using System;
 public partial class SceneManager : Node
 {
 
-    public static SceneManager Instance { get; private set; }
+    public static SceneManager Instance { get; private set; } = null!;
 
-    public CompressedTexture2D CursorTexture { get; private set; }
+    public CompressedTexture2D CursorTexture { get; private set; } = null!;
 
-    private Node currentScene;
+    private Node currentScene = null!;
 
     public override void _Ready()
     {

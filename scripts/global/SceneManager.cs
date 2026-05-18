@@ -8,6 +8,8 @@ public partial class SceneManager : Node
 
     private static Node currentScene = null!;
 
+    private static readonly ConfigFile reloadConfig = new();
+
     public override void _Ready()
     {
         Instance ??= this;
@@ -19,15 +21,22 @@ public partial class SceneManager : Node
 
     public static void GoToScene(string path)
     {
-        Instance.CallDeferred(MethodName.DeferredGoToScene, path);
+        if (currentScene is World source)
+        {
+            reloadConfig.Clear();
+
+            source.Save(reloadConfig);
+        }
+
+        Instance.CallDeferred(MethodName.DeferredGoToScene, path, reloadConfig);
     }
 
     public static void ReloadScene()
     {
-        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath);
+        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath, reloadConfig);
     }
 
-    private static void DeferredGoToScene(string path)
+    private static void DeferredGoToScene(string path, ConfigFile config)
     {
         // NOTE: There is more than one way to load a scene into the
         //       scene tree. For a simpler game with simple levels,
@@ -52,14 +61,15 @@ public partial class SceneManager : Node
         // this is really important and is what SceneTree.change_scene_to_file() would do
         Instance.GetTree().CurrentScene = currentScene;
 
-        if (previousScene is World source && currentScene is World target)
+        if (currentScene is World target)
         {
             // BUG #56: Set minimum player health/ammo
-            // BUG #57: Restart level isn't getting the original values
+            // BUG #57: Restart level works but restart game still persists game state!
 
-            target.Updated += previousScene.Free;
 
-            target.DeferredUpdateFrom(source);
+            target.Loaded += previousScene.Free;
+
+            target.DeferredLoad(config);
         }
         else
         {

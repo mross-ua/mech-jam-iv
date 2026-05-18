@@ -6,7 +6,7 @@ using MechJamIV;
 using System.Diagnostics;
 
 public partial class World : Node2D,
-    IUpdateable<World>
+    IUpdateable
 {
 
     [Export(PropertyHint.File, "*.tscn,")]
@@ -269,13 +269,18 @@ public partial class World : Node2D,
     #region IUpdateable
 
     [Signal]
-    public delegate void UpdatedEventHandler();
+    public delegate void LoadedEventHandler();
 
-    public void DeferredUpdateFrom(World source)
+    public void Save(ConfigFile config)
     {
-        player.Updated += () => EmitSignal(SignalName.Updated);
+        player.Save(config);
+    }
 
-        player.DeferredUpdateFrom(source.player);
+    public void DeferredLoad(ConfigFile config)
+    {
+        player.Loaded += () => EmitSignal(SignalName.Loaded);
+
+        player.DeferredLoad(config);
     }
 
     #endregion

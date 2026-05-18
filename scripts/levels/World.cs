@@ -34,7 +34,7 @@ public partial class World : Node2D,
 
     public override void _Ready()
     {
-        Input.SetCustomMouseCursor(SceneManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
+        Input.SetCustomMouseCursor(ResourceManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
 
         player = this.FindChildrenInGroup("player").OfType<Player>().First();
 

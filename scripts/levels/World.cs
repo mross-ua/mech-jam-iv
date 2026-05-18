@@ -216,7 +216,7 @@ public partial class World : Node2D,
         switch (pickupType)
         {
             case PickupType.Medkit:
-                player.Heal(50, true);
+                player.Heal(ConfigManager.MedkitHealth, true);
 
                 break;
             case PickupType.Rifle:
@@ -242,7 +242,7 @@ public partial class World : Node2D,
             },
             Shape = new CircleShape2D()
             {
-                Radius = 300.0f
+                Radius = ConfigManager.MouseSensitivity
             },
             CollisionMask = (uint)CollisionLayerMask.Enemy,
             Exclude = null

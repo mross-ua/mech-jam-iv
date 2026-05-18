@@ -21,6 +21,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+ConfigManager="*uid://bf47bjsl0khcc"
+ResourceManager="*uid://ymr0bhhcmc3x"
 SceneManager="*res://scripts/global/SceneManager.cs"
 
 [display]

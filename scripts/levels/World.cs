@@ -12,8 +12,6 @@ public partial class World : Node2D,
     [Export(PropertyHint.File, "*.tscn,")]
     public string NextScene { get; set; } = null!;
 
-    protected static SceneManager SceneManager => SceneManager.Instance;
-
     private int numObjectivesRemaining = 0;
 
     #region Node references
@@ -34,7 +32,7 @@ public partial class World : Node2D,
 
     public override void _Ready()
     {
-        Input.SetCustomMouseCursor(SceneManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
+        Input.SetCustomMouseCursor(ResourceManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
 
         player = this.FindChildrenInGroup("player").OfType<Player>().First();
 
@@ -218,7 +216,7 @@ public partial class World : Node2D,
         switch (pickupType)
         {
             case PickupType.Medkit:
-                player.Heal(50, true);
+                player.Heal(ConfigManager.MedkitHealth, true);
 
                 break;
             case PickupType.Rifle:
@@ -244,7 +242,7 @@ public partial class World : Node2D,
             },
             Shape = new CircleShape2D()
             {
-                Radius = 300.0f
+                Radius = ConfigManager.MouseSensitivity
             },
             CollisionMask = (uint)CollisionLayerMask.Enemy,
             Exclude = null

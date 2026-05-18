@@ -105,12 +105,12 @@ public partial class WeaponManager : Node2D,
         switch (pickupType)
         {
             case PickupType.Rifle:
-                weapons[pickupType].AddAmmo(30);
+                weapons[pickupType].AddAmmo(ConfigManager.RifleAmmo);
 
                 break;
             case PickupType.Grenade:
             case PickupType.Missile:
-                weapons[pickupType].AddAmmo(1);
+                weapons[pickupType].AddAmmo(ConfigManager.MissileAmmo);
 
                 break;
             default:

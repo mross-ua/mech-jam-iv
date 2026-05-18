@@ -4,34 +4,30 @@ using System;
 public partial class SceneManager : Node
 {
 
-    public static SceneManager Instance { get; private set; } = null!;
+    private static SceneManager Instance { get; set; } = null!;
 
-    public CompressedTexture2D CursorTexture { get; private set; } = null!;
-
-    private Node currentScene = null!;
+    private static Node currentScene = null!;
 
     public override void _Ready()
     {
-        Instance = this;
-
-        CursorTexture = ResourceLoader.Load<CompressedTexture2D>("res://assets/sprites/WhiteCrosshair-5.png");
+        Instance ??= this;
 
         // global scripts are loaded into the tree first,
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);
     }
 
-    public void GoToScene(string path)
+    public static void GoToScene(string path)
     {
-        CallDeferred(MethodName.DeferredGoToScene, path);
+        Instance.CallDeferred(MethodName.DeferredGoToScene, path);
     }
 
-    public void ReloadScene()
+    public static void ReloadScene()
     {
-        CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath);
+        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath);
     }
 
-    private void DeferredGoToScene(string path)
+    private static void DeferredGoToScene(string path)
     {
         // NOTE: There is more than one way to load a scene into the
         //       scene tree. For a simpler game with simple levels,
@@ -51,10 +47,10 @@ public partial class SceneManager : Node
 
         currentScene = scene.Instantiate();
 
-        GetTree().Root.AddChild(currentScene);
+        Instance.GetTree().Root.AddChild(currentScene);
 
         // this is really important and is what SceneTree.change_scene_to_file() would do
-        GetTree().CurrentScene = currentScene;
+        Instance.GetTree().CurrentScene = currentScene;
 
         if (previousScene is World source && currentScene is World target)
         {
@@ -71,22 +67,22 @@ public partial class SceneManager : Node
         }
     }
 
-    public void PauseGame()
+    public static void PauseGame()
     {
-        GetTree().Paused = true;
+        Instance.GetTree().Paused = true;
     }
 
-    public void UnpauseGame()
+    public static void UnpauseGame()
     {
-        GetTree().Paused = false;
+        Instance.GetTree().Paused = false;
     }
 
-    public void QuitGame()
+    public static void QuitGame()
     {
         // notify all nodes
-        GetTree().Root.PropagateNotification((int)NotificationWMCloseRequest);
+        Instance.GetTree().Root.PropagateNotification((int)NotificationWMCloseRequest);
 
-        GetTree().Quit();
+        Instance.GetTree().Quit();
     }
 
 }

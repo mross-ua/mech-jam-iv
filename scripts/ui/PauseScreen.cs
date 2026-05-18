@@ -6,8 +6,6 @@ public partial class PauseScreen : CanvasLayer
 
     #region Node references
 
-    protected static SceneManager SceneManager => SceneManager.Instance;
-
     private Button? continueButton;
 
     #endregion

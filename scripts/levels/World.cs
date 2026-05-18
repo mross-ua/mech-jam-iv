@@ -12,8 +12,6 @@ public partial class World : Node2D,
     [Export(PropertyHint.File, "*.tscn,")]
     public string NextScene { get; set; } = null!;
 
-    protected static SceneManager SceneManager => SceneManager.Instance;
-
     private int numObjectivesRemaining = 0;
 
     #region Node references

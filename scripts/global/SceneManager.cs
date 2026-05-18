@@ -21,10 +21,10 @@ public partial class SceneManager : Node
 
     public static void GoToScene(string path)
     {
+        reloadConfig.Clear();
+
         if (currentScene is World source)
         {
-            reloadConfig.Clear();
-
             source.Save(reloadConfig);
         }
 
@@ -64,8 +64,6 @@ public partial class SceneManager : Node
         if (currentScene is World target)
         {
             // BUG #56: Set minimum player health/ammo
-            // BUG #57: Restart level works but restart game still persists game state!
-
 
             target.Loaded += previousScene.Free;
 

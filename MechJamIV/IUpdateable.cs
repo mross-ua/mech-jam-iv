@@ -3,13 +3,15 @@ using System;
 
 namespace MechJamIV
 {
-    public interface IUpdateable<T>
+    public interface IUpdateable
     {
 
         //[Signal]
-        delegate void UpdatedEventHandler();
+        delegate void LoadedEventHandler();
 
-        void DeferredUpdateFrom(T source);
+        void Save(ConfigFile config);
+
+        void DeferredLoad(ConfigFile config);
 
     }
 }

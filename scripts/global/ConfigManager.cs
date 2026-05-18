@@ -49,16 +49,16 @@ public partial class ConfigManager : Node
         }
 
         string section = "Pickup";
-        MedkitHealth = (int)config.GetValue(section, nameof(MedkitHealth), 50);
-        MissileAmmo = (int)config.GetValue(section, nameof(MissileAmmo), 1);
-        RifleAmmo = (int)config.GetValue(section, nameof(RifleAmmo), 30);
+        MedkitHealth = config.GetValue(section, nameof(MedkitHealth), 50).AsInt32();
+        MissileAmmo = config.GetValue(section, nameof(MissileAmmo), 1).AsInt32();
+        RifleAmmo = config.GetValue(section, nameof(RifleAmmo), 30).AsInt32();
 
         section = "World";
-        SpikeDamage = (int)config.GetValue(section, nameof(SpikeDamage), 10);
-        SpawnHealth = (int)config.GetValue(section, nameof(SpawnHealth), 10);
+        SpikeDamage = config.GetValue(section, nameof(SpikeDamage), 10).AsInt32();
+        SpawnHealth = config.GetValue(section, nameof(SpawnHealth), 10).AsInt32();
 
         section = "UI";
-        MouseSensitivity = (float)config.GetValue(section, nameof(MouseSensitivity), 300.0f);
+        MouseSensitivity = config.GetValue(section, nameof(MouseSensitivity), 300.0f).AsSingle();
     }
 
 }

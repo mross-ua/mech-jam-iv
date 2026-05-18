@@ -6,7 +6,7 @@ using MechJamIV;
 using System.Diagnostics;
 
 public partial class WeaponManager : Node2D,
-    IUpdateable<WeaponManager>
+    IUpdateable
 {
 
     [Signal]
@@ -208,28 +208,52 @@ public partial class WeaponManager : Node2D,
     #region IUpdateable
 
     [Signal]
-    public delegate void UpdatedEventHandler();
+    public delegate void LoadedEventHandler();
 
-    public void DeferredUpdateFrom(WeaponManager source)
+    public void Save(ConfigFile config)
     {
         //TODO what if we want to start without weapons?
 
-        foreach (WeaponBase sourceWeapon in source.weapons.Values)
+        foreach (KeyValuePair<PickupType, WeaponBase> kvp in weapons)
         {
-            if (!weapons.ContainsKey(sourceWeapon.WeaponType))
-            {
-                DeferredPickup(sourceWeapon.WeaponType);
-            }
+            config.SetValue($"{nameof(WeaponManager)}:{kvp.Key}", nameof(WeaponBase.Ammo), kvp.Value.Ammo);
+        }
 
-            if (weapons.TryGetValue(sourceWeapon.WeaponType, out WeaponBase? weapon))
+        //TODO don't save if not selected?
+        // config.SetValue(nameof(WeaponManager), "PrimaryWeaponType", (int)(PrimaryWeapon?.WeaponType ?? (PickupType)(-1)));
+        // config.SetValue(nameof(WeaponManager), "SecondaryWeaponType", (int)(SecondaryWeapon?.WeaponType ?? (PickupType)(-1)));
+    }
+
+    public void DeferredLoad(ConfigFile config)
+    {
+        foreach (PickupType pickupType in Enum.GetValues<PickupType>())
+        {
+            if (config.HasSectionKey($"{nameof(WeaponManager)}:{pickupType}", nameof(WeaponBase.Ammo)))
             {
-                weapon.SetAmmo(sourceWeapon.Ammo);
+                if (!weapons.ContainsKey(pickupType))
+                {
+                    DeferredPickup(pickupType);
+                }
+
+                if (weapons.TryGetValue(pickupType, out WeaponBase? weapon))
+                {
+                    weapon.SetAmmo(config.GetValue($"{nameof(WeaponManager)}:{pickupType}", nameof(WeaponBase.Ammo)).AsInt32());
+                }
             }
         }
 
         //TODO need to copy the selected weapon types (can cycle primary/secondary until they match the source)
+        // if (config.HasSectionKey(nameof(WeaponManager), "PrimaryWeaponType"))
+        // {
+        //     _ = config.GetValue(nameof(WeaponManager), "PrimaryWeaponType");
+        // }
 
-        EmitSignal(SignalName.Updated);
+        // if (config.HasSectionKey(nameof(WeaponManager), "SecondaryWeaponType"))
+        // {
+        //     _ = config.GetValue(nameof(WeaponManager), "SecondaryWeaponType");
+        // }
+
+        EmitSignal(SignalName.Loaded);
     }
 
     #endregion

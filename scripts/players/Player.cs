@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 public partial class Player : CharacterBase,
     IPlayable,
-    IUpdateable<Player>
+    IUpdateable
 {
 
     private bool isImmune = false;
@@ -123,15 +123,27 @@ public partial class Player : CharacterBase,
     #region IUpdateable
 
     [Signal]
-    public delegate void UpdatedEventHandler();
+    public delegate void LoadedEventHandler();
 
-    public void DeferredUpdateFrom(Player source)
+    public void Save(ConfigFile config)
     {
-        Heal(source.Health - Health, true);
+        config.SetValue(nameof(Player), nameof(Health), Health);
 
-        WeaponManager.Updated += () => EmitSignal(SignalName.Updated);
+        WeaponManager.Save(config);
+    }
 
-        WeaponManager.DeferredUpdateFrom(source.WeaponManager);
+    public void DeferredLoad(ConfigFile config)
+    {
+        if (config.HasSectionKey(nameof(Player), nameof(Health)))
+        {
+            int health = config.GetValue(nameof(Player), nameof(Health)).AsInt32();
+
+            Heal(health - Health, true);
+        }
+
+        WeaponManager.Loaded += () => EmitSignal(SignalName.Loaded);
+
+        WeaponManager.DeferredLoad(config);
     }
 
     #endregion

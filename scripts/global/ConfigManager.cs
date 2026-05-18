@@ -16,21 +16,17 @@ public partial class ConfigManager : Node
 
     #endregion
 
-    #region UI
-
-    public static float MouseSensitivity { get; private set; }
-
-    #endregion
-
-    #region Hazard
+    #region World
 
     public static int SpikeDamage { get; private set; }
 
+    public static int SpawnHealth { get; private set; }
+
     #endregion
 
-    #region World
+    #region UI
 
-    public static int SpawnHealth { get; private set; }
+    public static float MouseSensitivity { get; private set; }
 
     #endregion
 
@@ -57,10 +53,8 @@ public partial class ConfigManager : Node
         MissileAmmo = (int)config.GetValue(section, nameof(MissileAmmo), 1);
         RifleAmmo = (int)config.GetValue(section, nameof(RifleAmmo), 30);
 
-        section = "Hazard";
-        SpikeDamage = (int)config.GetValue(section, nameof(SpikeDamage), 10);
-
         section = "World";
+        SpikeDamage = (int)config.GetValue(section, nameof(SpikeDamage), 10);
         SpawnHealth = (int)config.GetValue(section, nameof(SpawnHealth), 10);
 
         section = "UI";

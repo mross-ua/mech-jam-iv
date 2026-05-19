@@ -17,6 +17,17 @@
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false
     },
+    // Debug the test scene.
+    {
+      "name": "🎭 Debug Test Scene",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${env:GODOT4}",
+      "args": ["--debug", "scenes/levels/world_test.tscn"],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false
+    },
     // Debug the scene that matches the name of the currently open *.cs file
     // (if there's a scene with the same name in the same directory).
     {
@@ -26,17 +37,6 @@
       "preLaunchTask": "build",
       "program": "${env:GODOT4}",
       "args": ["--debug", "{fileDirname}/${fileBasenameNoExtension}.tscn"],
-      "cwd": "${workspaceFolder}",
-      "stopAtEntry": false
-    },
-    // Debug the test scene.
-    {
-      "name": "🎭 Debug Test Scene",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${env:GODOT4}",
-      "args": ["--debug", "scenes/levels/world_test.tscn"],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false
     }

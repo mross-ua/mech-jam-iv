@@ -95,6 +95,14 @@ namespace MechJamIV
 
         protected sealed override void ProcessAction()
         {
+            // NOTE: For performance reasons, we update this enemy
+            //       only about every other physics frame.
+
+            if (GD.Randi() % 2 == 0)
+            {
+                return;
+            }
+
             switch (State)
             {
                 case EnemyState.Idle:

@@ -19,6 +19,35 @@ public partial class SceneManager : Node
         currentScene = GetTree().Root.GetChild(-1);
     }
 
+    public override void _Notification(int what)
+    {
+        // do *not* call base method (per docs)
+        //base._Notification(what);
+
+        if (what == NotificationWMCloseRequest)
+        {
+            if (OS.IsStdOutVerbose())
+            {
+                GD.Print($"{nameof(SceneManager)} received request to close window.");
+
+                GD.Print($"Quitting game...");
+            }
+
+            // NOTE: This gets called before the rest of the scene tree
+            //       gets the notification (since this is an autoload).
+            //       In future, we may have to force a notification order.
+
+            // BUG: This is causing a memory leak and sometimes the game
+            //      process doesn't seem to terminate (even though the
+            //      window closes). The Godot editor deals with it okay
+            //      but the VS Code debugger remains running.
+
+            //TODO revisit this after 4.7
+            //     https://github.com/godotengine/godot/pull/116711
+            Instance.GetTree().Quit();
+        }
+    }
+
     public static void GoToScene(string path)
     {
         reloadConfig.Clear();
@@ -89,8 +118,6 @@ public partial class SceneManager : Node
     {
         // notify all nodes
         Instance.GetTree().Root.PropagateNotification((int)NotificationWMCloseRequest);
-
-        Instance.GetTree().Quit();
     }
 
 }

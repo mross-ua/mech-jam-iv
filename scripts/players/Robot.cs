@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using MechJamIV;
+using MechJamIV.Base;
 using System.Diagnostics;
 
 public partial class Robot : CharacterBase

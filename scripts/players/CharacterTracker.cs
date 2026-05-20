@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Diagnostics;
-using MechJamIV;
+using MechJamIV.Base;
 
 public partial class CharacterTracker : Node2D
 {

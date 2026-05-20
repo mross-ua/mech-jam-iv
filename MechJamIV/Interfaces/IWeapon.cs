@@ -1,7 +1,8 @@
 using Godot;
+using MechJamIV.Enums;
 using System;
 
-namespace MechJamIV
+namespace MechJamIV.Interfaces
 {
     public interface IWeapon
     {

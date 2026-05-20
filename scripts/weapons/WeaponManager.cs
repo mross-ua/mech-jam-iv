@@ -2,7 +2,10 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MechJamIV;
+using MechJamIV.Base;
+using MechJamIV.Enums;
+using MechJamIV.Extensions;
+using MechJamIV.Interfaces;
 using System.Diagnostics;
 
 public partial class WeaponManager : Node2D,

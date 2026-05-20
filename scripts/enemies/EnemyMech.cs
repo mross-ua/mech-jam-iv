@@ -1,6 +1,8 @@
 using Godot;
 using System;
-using MechJamIV;
+using MechJamIV.Base;
+using MechJamIV.Enums;
+using MechJamIV.Extensions;
 using System.Diagnostics;
 
 public partial class EnemyMech : EnemyBase

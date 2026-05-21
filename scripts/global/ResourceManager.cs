@@ -1,4 +1,6 @@
 using Godot;
+using MechJamIV.Base;
+using MechJamIV.Enums;
 using System;
 
 namespace MechJamIV
@@ -25,6 +27,40 @@ namespace MechJamIV
         public override void _Ready()
         {
             Instance ??= this;
+        }
+
+        public static Projectile GenerateProjectile(PickupType pickupType)
+        {
+            switch (pickupType)
+            {
+                case PickupType.Medkit:
+                    return Medkit.Instantiate<Projectile>();
+
+                case PickupType.Grenade:
+                    return Grenade.Instantiate<Projectile>();
+
+                case PickupType.Missile:
+                    return Missile.Instantiate<Missile>();
+            }
+
+            throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a dropped pickup type");
+        }
+
+        public static WeaponBase GenerateWeapon(PickupType pickupType)
+        {
+            switch (pickupType)
+            {
+                case PickupType.Rifle:
+                    return HitScanBulletEmitter.Instantiate<HitScanBulletEmitter>();
+
+                case PickupType.Grenade:
+                    return GrenadeEmitter.Instantiate<ProjectileEmitter>();
+
+                case PickupType.Missile:
+                    return MissileEmitter.Instantiate<ProjectileEmitter>();
+            }
+
+            throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a weapon type");
         }
 
     }

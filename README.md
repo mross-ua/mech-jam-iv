@@ -41,11 +41,28 @@ Now imagine a world where macro-sized machines can be built at the molecular lev
 
 ### Prerequisites
 
+- Git LFS
 - [Godot 4.1.1 C# engine](https://downloads.tuxfamily.org/godotengine/4.1.1/mono/)
 
 Set the `GODOT4` environment variable to the install location of the Godot 4 runtime executable (e.g. `/opt/godot/Godot_v4.1.1-stable_mono_linux.x86_64`).
 
 For more information about this environment variable, see [here](https://github.com/godotengine/godot-csharp-vscode/issues/43#issuecomment-1258321229).
+
+### Fetch binary art assets
+
+First, ensure you have the `git lfs` extension installed. See [GitHub's documentation](https://docs.github.com/en/repositories/working-with-files/managing-large-files) for more information.
+
+If you have not done so, first configure Git LFS for your local system. The following command will add a small section to your `.gitconfig`:
+
+```bash
+git lfs install
+```
+
+Then to pull to your local repo:
+
+```bash
+git lfs fetch --all
+```
 
 ### Godot Editor Recommended Extensions
 

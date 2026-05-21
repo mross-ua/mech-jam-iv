@@ -1,17 +1,16 @@
 using Godot;
 using System;
 
-namespace MechJamIV.Interfaces
+namespace MechJamIV.Interfaces;
+
+public interface IDetonable
 {
-    public interface IDetonable
-    {
 
-        //[Signal]
-        delegate void DetonatedEventHandler();
+    //[Signal]
+    delegate void DetonatedEventHandler();
 
-        float FuseDelay { get; }
+    float FuseDelay { get; }
 
-        void PrimeFuse();
+    void PrimeFuse();
 
-    }
 }

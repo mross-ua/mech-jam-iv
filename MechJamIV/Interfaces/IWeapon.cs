@@ -2,33 +2,32 @@ using Godot;
 using MechJamIV.Enums;
 using System;
 
-namespace MechJamIV.Interfaces
+namespace MechJamIV.Interfaces;
+
+public interface IWeapon
 {
-    public interface IWeapon
-    {
 
-        //[Signal]
-        delegate void FiredEventHandler();
+    //[Signal]
+    delegate void FiredEventHandler();
 
-        //[Signal]
-        delegate void AmmoAddedEventHandler();
+    //[Signal]
+    delegate void AmmoAddedEventHandler();
 
-        PickupType WeaponType { get; }
+    PickupType WeaponType { get; }
 
-        float RoundsPerSecond { get; }
+    float RoundsPerSecond { get; }
 
-        int Ammo { get; }
+    int Ammo { get; }
 
-        //[Export(PropertyHint.Layers2DPhysics)]
-        uint CollisionMask { get; }
+    //[Export(PropertyHint.Layers2DPhysics)]
+    uint CollisionMask { get; }
 
-        float LineOfSightDistance { get; }
+    float LineOfSightDistance { get; }
 
-        Texture2D UISprite { get; }
+    Texture2D UISprite { get; }
 
-        void Fire(Vector2 globalPos, PhysicsBody2D? target = null);
+    void Fire(Vector2 globalPos, PhysicsBody2D? target = null);
 
-        void AddAmmo(int count);
+    void AddAmmo(int count);
 
-    }
 }

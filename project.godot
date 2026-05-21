@@ -16,6 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="CyberSteel Rapture"
 run/main_scene="res://scenes/ui/title_screen.tscn"
+config/auto_accept_quit=false
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

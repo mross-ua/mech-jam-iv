@@ -8,287 +8,286 @@ using MechJamIV.Extensions;
 using MechJamIV.Interfaces;
 using MechJamIV.Levels;
 
-namespace MechJamIV
+namespace MechJamIV;
+
+public partial class World : Node2D,
+    IUpdateable
 {
-    public partial class World : Node2D,
-        IUpdateable
+
+    [Export(PropertyHint.File, "*.tscn,")]
+    public string NextScene { get; set; } = null!;
+
+    private int numObjectivesRemaining = 0;
+
+    #region Node references
+
+    private Player player = null!;
+    private Robot robot = null!;
+
+    private PlayerCamera playerCamera = null!;
+
+    private readonly IList<Spawn> spawns = [];
+    private Spawn activeSpawn = null!;
+
+    private PauseScreen pauseScreen = null!;
+
+    private bool isEnteringTargetMode = false;
+
+    #endregion
+
+    public override void _Ready()
     {
+        Input.SetCustomMouseCursor(ResourceManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
 
-        [Export(PropertyHint.File, "*.tscn,")]
-        public string NextScene { get; set; } = null!;
+        player = this.FindChildrenInGroup("player").OfType<Player>().First();
 
-        private int numObjectivesRemaining = 0;
+        robot = this.FindChildrenInGroup("robot").OfType<Robot>().First();
 
-        #region Node references
+        playerCamera = GetNode<PlayerCamera>("PlayerCamera");
+        pauseScreen = GetNode<PauseScreen>("PauseScreen");
 
-        private Player player = null!;
-        private Robot robot = null!;
+        InitSpawns();
+        InitPickups();
+        InitEnemies();
+        InitObjectives();
+        InitDeathZones();
 
-        private PlayerCamera playerCamera = null!;
-
-        private readonly IList<Spawn> spawns = [];
-        private Spawn activeSpawn = null!;
-
-        private PauseScreen pauseScreen = null!;
-
-        private bool isEnteringTargetMode = false;
-
-        #endregion
-
-        public override void _Ready()
+        player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
+        player.Killed += async () =>
         {
-            Input.SetCustomMouseCursor(ResourceManager.CursorTexture, Input.CursorShape.Arrow, new Vector2(32.0f, 32.0f));
+            //TODO ideally this should wait for the death animation to finish (using a signal)
+            await ToSignal(GetTree().CreateTimer(3.0f, false, true), SceneTreeTimer.SignalName.Timeout);
 
-            player = this.FindChildrenInGroup("player").OfType<Player>().First();
+            pauseScreen.PauseGame();
+        };
 
-            robot = this.FindChildrenInGroup("robot").OfType<Robot>().First();
+        robot.GlobalTransform = player.RobotMarker.GlobalTransform;
+        robot.CharacterTracker!.Track(player);
 
-            playerCamera = GetNode<PlayerCamera>("PlayerCamera");
-            pauseScreen = GetNode<PauseScreen>("PauseScreen");
+        playerCamera.Track(player);
 
-            InitSpawns();
-            InitPickups();
-            InitEnemies();
-            InitObjectives();
-            InitDeathZones();
+        SceneManager.UnpauseGame();
+    }
 
-            player.GlobalTransform = activeSpawn.SpawnPointMarker.GlobalTransform;
-            player.Killed += async () =>
+    private void InitSpawns()
+    {
+        foreach (Spawn spawn in this.FindChildrenInGroup("spawn").OfType<Spawn>())
+        {
+            spawns.Add(spawn);
+
+            if (activeSpawn == null || spawn.IsWorldSpawn)
             {
-                //TODO ideally this should wait for the death animation to finish (using a signal)
-                await ToSignal(GetTree().CreateTimer(3.0f, false, true), SceneTreeTimer.SignalName.Timeout);
+                activeSpawn = spawn;
+            }
 
-                pauseScreen.PauseGame();
+            spawn.SpawnReached += (player) =>
+            {
+                activeSpawn = spawn;
+            };
+        }
+    }
+
+    private void InitPickups()
+    {
+        foreach (Node node in this.FindChildrenInGroup("pickup"))
+        {
+            if (node is Projectile p)
+            {
+                p.PickedUp += () => Pickup(p.WeaponType);
+            }
+            else if (node is HitScanBulletEmitterPickup ep)
+            {
+                ep.PickedUp += () => Pickup(PickupType.Rifle);
+            }
+        }
+    }
+
+    private void InitEnemies()
+    {
+        foreach (EnemyBase enemy in this.FindChildrenInGroup("enemy").OfType<EnemyBase>())
+        {
+            enemy.PickupDropped += (pickupType) =>
+            {
+                Projectile projectile = PickupHelper.GenerateProjectile((PickupType)pickupType);
+                projectile.GlobalPosition = enemy.GlobalPosition;
+
+                projectile.PickedUp += () => Pickup(projectile.WeaponType);
+
+                // this adds to the top-level scene!
+                GetTree().CurrentScene.AddChildDeferred(projectile);
             };
 
-            robot.GlobalTransform = player.RobotMarker.GlobalTransform;
-            robot.CharacterTracker!.Track(player);
-
-            playerCamera.Track(player);
-
-            SceneManager.UnpauseGame();
+            enemy.CharacterTracker?.Track(player);
         }
+    }
 
-        private void InitSpawns()
+    private void InitObjectives()
+    {
+        foreach (Objective objective in this.FindChildrenInGroup("objective").OfType<Objective>())
         {
-            foreach (Spawn spawn in this.FindChildrenInGroup("spawn").OfType<Spawn>())
+            if (objective is CyberSteel cyberSteel)
             {
-                spawns.Add(spawn);
-
-                if (activeSpawn == null || spawn.IsWorldSpawn)
-                {
-                    activeSpawn = spawn;
-                }
-
-                spawn.SpawnReached += (player) =>
-                {
-                    activeSpawn = spawn;
-                };
+                numObjectivesRemaining++;
             }
-        }
 
-        private void InitPickups()
-        {
-            foreach (Node node in this.FindChildrenInGroup("pickup"))
-            {
-                if (node is Projectile p)
-                {
-                    p.PickedUp += () => Pickup(p.WeaponType);
-                }
-                else if (node is HitScanBulletEmitterPickup ep)
-                {
-                    ep.PickedUp += () => Pickup(PickupType.Rifle);
-                }
-            }
-        }
-
-        private void InitEnemies()
-        {
-            foreach (EnemyBase enemy in this.FindChildrenInGroup("enemy").OfType<EnemyBase>())
-            {
-                enemy.PickupDropped += (pickupType) =>
-                {
-                    Projectile projectile = PickupHelper.GenerateProjectile((PickupType)pickupType);
-                    projectile.GlobalPosition = enemy.GlobalPosition;
-
-                    projectile.PickedUp += () => Pickup(projectile.WeaponType);
-
-                    // this adds to the top-level scene!
-                    GetTree().CurrentScene.AddChildDeferred(projectile);
-                };
-
-                enemy.CharacterTracker?.Track(player);
-            }
-        }
-
-        private void InitObjectives()
-        {
-            foreach (Objective objective in this.FindChildrenInGroup("objective").OfType<Objective>())
+            objective.ObjectiveReached += () =>
             {
                 if (objective is CyberSteel cyberSteel)
                 {
-                    numObjectivesRemaining++;
+                    numObjectivesRemaining--;
                 }
-
-                objective.ObjectiveReached += () =>
+                else if (objective is Spaceship spaceship)
                 {
-                    if (objective is CyberSteel cyberSteel)
+                    if (numObjectivesRemaining == 0)
                     {
-                        numObjectivesRemaining--;
-                    }
-                    else if (objective is Spaceship spaceship)
-                    {
-                        if (numObjectivesRemaining == 0)
-                        {
-                            SceneManager.GoToScene(NextScene);
-                        }
-                    }
-                };
-            }
-        }
-
-        private void InitDeathZones()
-        {
-            foreach (Area2D deathzone in this.FindChildrenInGroup("deathzone").OfType<Area2D>())
-            {
-                deathzone.BodyEntered += (body) =>
-                {
-                    if (body is Player player)
-                    {
-                        player.Hurt(player.Health, player.GlobalPosition, Vector2.Zero);
-                    }
-                };
-            }
-        }
-
-        public override void _Input(InputEvent @event)
-        {
-            if (@event.IsActionPressed("quit"))
-            {
-                pauseScreen.PauseGame();
-
-                GetViewport().SetInputAsHandled();
-            }
-            else if (@event.IsActionPressed("next_weapon_primary"))
-            {
-                player.WeaponManager.NextWeaponPrimary();
-            }
-            else if (@event.IsActionPressed("next_weapon_secondary"))
-            {
-                player.WeaponManager.NextWeaponSecondary();
-            }
-        }
-
-        public override void _PhysicsProcess(double delta)
-        {
-            if (Input.IsActionPressed("fire_secondary"))
-            {
-                if (player.CharacterTracker!.Target is null || !isEnteringTargetMode)
-                {
-                    PhysicsBody2D? target = FindTarget(GetGlobalMousePosition());
-
-                    if (target is not null && target != player.CharacterTracker.Target)
-                    {
-                        player.CharacterTracker.Track(target);
-
-                        isEnteringTargetMode = true;
+                        SceneManager.GoToScene(NextScene);
                     }
                 }
-            }
-            else if (Input.IsActionJustReleased("fire_secondary"))
-            {
-                if (isEnteringTargetMode)
-                {
-                    isEnteringTargetMode = false;
-                }
-                else
-                {
-                    player.Fire(FireMode.Secondary, GetGlobalMousePosition());
-                }
-            }
-            else if (Input.IsActionJustPressed("fire_primary"))
-            {
-                player.Fire(FireMode.Primary, GetGlobalMousePosition());
-            }
-            else if (Input.IsActionPressed("fire_primary"))
-            {
-                player.Fire(FireMode.Primary, GetGlobalMousePosition());
-            }
-        }
-
-        private void Pickup(PickupType pickupType)
-        {
-            switch (pickupType)
-            {
-                case PickupType.Medkit:
-                    player.Heal(ConfigManager.MedkitHealth, true);
-
-                    break;
-                case PickupType.Rifle:
-                case PickupType.Grenade:
-                case PickupType.Missile:
-                    player.WeaponManager.CallDeferred(WeaponManager.MethodName.DeferredPickup, (long)pickupType);
-
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        private PhysicsBody2D? FindTarget(Vector2 globalPos)
-        {
-            PhysicsBody2D? target = null;
-
-            PhysicsShapeQueryParameters2D queryParams = new()
-            {
-                Transform = new Transform2D()
-                {
-                    Origin = globalPos
-                },
-                Shape = new CircleShape2D()
-                {
-                    Radius = ConfigManager.MouseSensitivity
-                },
-                CollisionMask = (uint)CollisionLayerMask.Enemy,
-                Exclude = null
             };
+        }
+    }
 
-            foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
+    private void InitDeathZones()
+    {
+        foreach (Area2D deathzone in this.FindChildrenInGroup("deathzone").OfType<Area2D>())
+        {
+            deathzone.BodyEntered += (body) =>
             {
-                if (collision["collider"].Obj is CharacterBase character)
+                if (body is Player player)
                 {
-                    if (target is null || player.CharacterTracker!.Target != character)
-                    {
-                        target = character;
-                    }
-                    else if ((character.GlobalPosition - GlobalPosition).Length() < (target.GlobalPosition - GlobalPosition).Length())
-                    {
-                        target = character;
-                    }
+                    player.Hurt(player.Health, player.GlobalPosition, Vector2.Zero);
+                }
+            };
+        }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("quit"))
+        {
+            pauseScreen.PauseGame();
+
+            GetViewport().SetInputAsHandled();
+        }
+        else if (@event.IsActionPressed("next_weapon_primary"))
+        {
+            player.WeaponManager.NextWeaponPrimary();
+        }
+        else if (@event.IsActionPressed("next_weapon_secondary"))
+        {
+            player.WeaponManager.NextWeaponSecondary();
+        }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (Input.IsActionPressed("fire_secondary"))
+        {
+            if (player.CharacterTracker!.Target is null || !isEnteringTargetMode)
+            {
+                PhysicsBody2D? target = FindTarget(GetGlobalMousePosition());
+
+                if (target is not null && target != player.CharacterTracker.Target)
+                {
+                    player.CharacterTracker.Track(target);
+
+                    isEnteringTargetMode = true;
                 }
             }
-
-            return target;
         }
-
-        #region IUpdateable
-
-        [Signal]
-        public delegate void LoadedEventHandler();
-
-        public void Save(ConfigFile config)
+        else if (Input.IsActionJustReleased("fire_secondary"))
         {
-            player.Save(config);
+            if (isEnteringTargetMode)
+            {
+                isEnteringTargetMode = false;
+            }
+            else
+            {
+                player.Fire(FireMode.Secondary, GetGlobalMousePosition());
+            }
         }
-
-        public void DeferredLoad(ConfigFile config)
+        else if (Input.IsActionJustPressed("fire_primary"))
         {
-            player.Loaded += () => EmitSignal(SignalName.Loaded);
-
-            player.DeferredLoad(config);
+            player.Fire(FireMode.Primary, GetGlobalMousePosition());
         }
-
-        #endregion
-
+        else if (Input.IsActionPressed("fire_primary"))
+        {
+            player.Fire(FireMode.Primary, GetGlobalMousePosition());
+        }
     }
+
+    private void Pickup(PickupType pickupType)
+    {
+        switch (pickupType)
+        {
+            case PickupType.Medkit:
+                player.Heal(ConfigManager.MedkitHealth, true);
+
+                break;
+            case PickupType.Rifle:
+            case PickupType.Grenade:
+            case PickupType.Missile:
+                player.WeaponManager.CallDeferred(WeaponManager.MethodName.DeferredPickup, (long)pickupType);
+
+                break;
+            default:
+                throw new NotImplementedException();
+        }
+    }
+
+    private PhysicsBody2D? FindTarget(Vector2 globalPos)
+    {
+        PhysicsBody2D? target = null;
+
+        PhysicsShapeQueryParameters2D queryParams = new()
+        {
+            Transform = new Transform2D()
+            {
+                Origin = globalPos
+            },
+            Shape = new CircleShape2D()
+            {
+                Radius = ConfigManager.MouseSensitivity
+            },
+            CollisionMask = (uint)CollisionLayerMask.Enemy,
+            Exclude = null
+        };
+
+        foreach (Godot.Collections.Dictionary collision in GetWorld2D().DirectSpaceState.IntersectShape(queryParams))
+        {
+            if (collision["collider"].Obj is CharacterBase character)
+            {
+                if (target is null || player.CharacterTracker!.Target != character)
+                {
+                    target = character;
+                }
+                else if ((character.GlobalPosition - GlobalPosition).Length() < (target.GlobalPosition - GlobalPosition).Length())
+                {
+                    target = character;
+                }
+            }
+        }
+
+        return target;
+    }
+
+    #region IUpdateable
+
+    [Signal]
+    public delegate void LoadedEventHandler();
+
+    public void Save(ConfigFile config)
+    {
+        player.Save(config);
+    }
+
+    public void DeferredLoad(ConfigFile config)
+    {
+        player.Loaded += () => EmitSignal(SignalName.Loaded);
+
+        player.DeferredLoad(config);
+    }
+
+    #endregion
+
 }

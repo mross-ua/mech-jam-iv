@@ -1,15 +1,14 @@
 using Godot;
 using System;
 
-namespace MechJamIV.Interfaces
+namespace MechJamIV.Interfaces;
+
+public interface ICollidable
 {
-    public interface ICollidable
-    {
 
-        //[Signal]
-        delegate void InjuredEventHandler(int damage);
+    //[Signal]
+    delegate void InjuredEventHandler(int damage);
 
-        void Hurt(int damage, Vector2 globalPos, Vector2 normal);
+    void Hurt(int damage, Vector2 globalPos, Vector2 normal);
 
-    }
 }

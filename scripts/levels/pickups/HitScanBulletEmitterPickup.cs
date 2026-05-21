@@ -2,39 +2,38 @@ using Godot;
 using System;
 using MechJamIV;
 
-namespace MechJamIV
+namespace MechJamIV;
+
+public partial class HitScanBulletEmitterPickup : Area2D
 {
-    public partial class HitScanBulletEmitterPickup : Area2D
+
+    [Signal]
+    public delegate void PickedUpEventHandler();
+
+    #region Node references
+
+    private HitScanBulletEmitter hitScanBulletEmitter = null!;
+
+    #endregion
+
+    public override void _Ready()
     {
+        base._Ready();
 
-        [Signal]
-        public delegate void PickedUpEventHandler();
+        // NOTE: In order to get the RemoteTransform2D to work, I had to
+        //       set HitScanBulletEmitter.TopLevel = true. Therefore, we have to set
+        //       the initial position.
 
-        #region Node references
+        hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
+        hitScanBulletEmitter.GlobalPosition = GlobalPosition;
+        hitScanBulletEmitter.GetNode<Sprite2D>("UISprite").Visible = true;
 
-        private HitScanBulletEmitter hitScanBulletEmitter = null!;
-
-        #endregion
-
-        public override void _Ready()
+        BodyEntered += (body) =>
         {
-            base._Ready();
+            EmitSignal(SignalName.PickedUp);
 
-            // NOTE: In order to get the RemoteTransform2D to work, I had to
-            //       set HitScanBulletEmitter.TopLevel = true. Therefore, we have to set
-            //       the initial position.
-
-            hitScanBulletEmitter = GetNode<HitScanBulletEmitter>("HitScanBulletEmitter");
-            hitScanBulletEmitter.GlobalPosition = GlobalPosition;
-            hitScanBulletEmitter.GetNode<Sprite2D>("UISprite").Visible = true;
-
-            BodyEntered += (body) =>
-            {
-                EmitSignal(SignalName.PickedUp);
-
-                QueueFree();
-            };
-        }
-
+            QueueFree();
+        };
     }
+
 }

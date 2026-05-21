@@ -1,24 +1,23 @@
 using Godot;
 using System;
 
-namespace MechJamIV.Levels
+namespace MechJamIV.Levels;
+
+public partial class Objective : Area2D
 {
-    public partial class Objective : Area2D
+
+    [Signal]
+    public delegate void ObjectiveReachedEventHandler();
+
+    public override void _Ready()
     {
-
-        [Signal]
-        public delegate void ObjectiveReachedEventHandler();
-
-        public override void _Ready()
+        BodyEntered += (body) =>
         {
-            BodyEntered += (body) =>
+            if (body is Player player)
             {
-                if (body is Player player)
-                {
-                    EmitSignal(SignalName.ObjectiveReached);
-                }
-            };
-        }
-
+                EmitSignal(SignalName.ObjectiveReached);
+            }
+        };
     }
+
 }

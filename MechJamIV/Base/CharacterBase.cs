@@ -4,217 +4,216 @@ using MechJamIV.Interfaces;
 using System;
 using System.Diagnostics;
 
-namespace MechJamIV.Base
+namespace MechJamIV.Base;
+
+public abstract partial class CharacterBase : CharacterBody2D
+    , IDestructible
 {
-    public abstract partial class CharacterBase : CharacterBody2D
-        , IDestructible
+
+    [Export]
+    public Vector2 FaceDirection { get; set; } = Vector2.Zero;
+
+    [Export]
+    public float MoveAcceleration { get; set; } = 1.0f;
+
+    [Export]
+    public float MaxMoveSpeed { get; set; } = 10.0f;
+
+    [Export]
+    public float JumpVelocity { get; set; } = -10.0f;
+
+    [Export]
+    public float MaxJumpAirTime { get; set; }
+
+    [Export]
+    public PackedScene? PointDamageEffect { get; set; }
+
+    protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+    protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
+
+    private float jumpAirTime = 0.0f;
+    private bool isJumping = false;
+
+    #region Node references
+
+    public CharacterTracker? CharacterTracker { get; private set; }
+
+    private CharacterAnimator characterAnimator = null!;
+
+    private CollisionShape2D collisionShape2D = null!;
+
+    #endregion
+
+    public override void _Ready()
+    {
+        Debug.Assert(PointDamageEffect is not null, $"{nameof(PointDamageEffect)} must not be null");
+
+        if (MotionMode == MotionModeEnum.Grounded)
+        {
+            Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
+        }
+        else
+        {
+            Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, MoveAcceleration / MaxMoveSpeed);
+        }
+
+        CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
+
+        characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
+        collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+    }
+
+    protected abstract Vector2 GetMovementDirection();
+
+    private bool IsJumping(double delta)
+    {
+        if (jumpAirTime >= MaxJumpAirTime && IsJumping())
+        {
+            jumpAirTime = MaxJumpAirTime;
+            isJumping = false;
+        }
+        else if (isJumping && jumpAirTime < MaxJumpAirTime && IsJumping())
+        {
+            jumpAirTime += (float)delta;
+            isJumping = true;
+        }
+        else if (isJumping)
+        {
+            jumpAirTime = 0.0f;
+            isJumping = false;
+        }
+        else if (!isJumping)
+        {
+            jumpAirTime = 0.0f;
+            isJumping = IsJumping();
+        }
+
+        return isJumping;
+    }
+
+    protected abstract bool IsJumping();
+
+    public override void _Process(double delta)
+    {
+        if (Health <= 0)
+        {
+            return;
+        }
+
+        AnimateMovement();
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (Health <= 0)
+        {
+            return;
+        }
+
+        FaceDirection = GetMovementDirection();
+
+        ProcessAction();
+
+        Velocity += (MoveAcceleration * FaceDirection) - (Drag * Velocity) + ((float)delta * Gravity);
+
+        MoveAndSlide();
+
+        if (IsJumping(delta))
+        {
+            Velocity += new Vector2(0.0f, JumpVelocity * (1.0f - (jumpAirTime / MaxJumpAirTime))) - ((float)delta * Gravity);
+        }
+    }
+
+    protected virtual void ProcessAction()
     {
 
-        [Export]
-        public Vector2 FaceDirection { get; set; } = Vector2.Zero;
-
-        [Export]
-        public float MoveAcceleration { get; set; } = 1.0f;
-
-        [Export]
-        public float MaxMoveSpeed { get; set; } = 10.0f;
-
-        [Export]
-        public float JumpVelocity { get; set; } = -10.0f;
-
-        [Export]
-        public float MaxJumpAirTime { get; set; }
-
-        [Export]
-        public PackedScene? PointDamageEffect { get; set; }
-
-        protected virtual Vector2 Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity_vector").AsVector2().Normalized() * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
-        protected virtual Vector2 Drag { get; set; } = Vector2.Zero;
-
-        private float jumpAirTime = 0.0f;
-        private bool isJumping = false;
-
-        #region Node references
-
-        public CharacterTracker? CharacterTracker { get; private set; }
-
-        private CharacterAnimator characterAnimator = null!;
-
-        private CollisionShape2D collisionShape2D = null!;
-
-        #endregion
-
-        public override void _Ready()
-        {
-            Debug.Assert(PointDamageEffect is not null, $"{nameof(PointDamageEffect)} must not be null");
-
-            if (MotionMode == MotionModeEnum.Grounded)
-            {
-                Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, 0.0f);
-            }
-            else
-            {
-                Drag = new Vector2(MoveAcceleration / MaxMoveSpeed, MoveAcceleration / MaxMoveSpeed);
-            }
-
-            CharacterTracker = GetNodeOrNull<CharacterTracker>("CharacterTracker");
-
-            characterAnimator = GetNode<CharacterAnimator>("CharacterAnimator");
-            collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
-        }
-
-        protected abstract Vector2 GetMovementDirection();
-
-        private bool IsJumping(double delta)
-        {
-            if (jumpAirTime >= MaxJumpAirTime && IsJumping())
-            {
-                jumpAirTime = MaxJumpAirTime;
-                isJumping = false;
-            }
-            else if (isJumping && jumpAirTime < MaxJumpAirTime && IsJumping())
-            {
-                jumpAirTime += (float)delta;
-                isJumping = true;
-            }
-            else if (isJumping)
-            {
-                jumpAirTime = 0.0f;
-                isJumping = false;
-            }
-            else if (!isJumping)
-            {
-                jumpAirTime = 0.0f;
-                isJumping = IsJumping();
-            }
-
-            return isJumping;
-        }
-
-        protected abstract bool IsJumping();
-
-        public override void _Process(double delta)
-        {
-            if (Health <= 0)
-            {
-                return;
-            }
-
-            AnimateMovement();
-        }
-
-        public override void _PhysicsProcess(double delta)
-        {
-            if (Health <= 0)
-            {
-                return;
-            }
-
-            FaceDirection = GetMovementDirection();
-
-            ProcessAction();
-
-            Velocity += (MoveAcceleration * FaceDirection) - (Drag * Velocity) + ((float)delta * Gravity);
-
-            MoveAndSlide();
-
-            if (IsJumping(delta))
-            {
-                Velocity += new Vector2(0.0f, JumpVelocity * (1.0f - (jumpAirTime / MaxJumpAirTime))) - ((float)delta * Gravity);
-            }
-        }
-
-        protected virtual void ProcessAction()
-        {
-
-        }
-
-        protected void AnimateMovement()
-        {
-            characterAnimator.AnimateMovement(FaceDirection);
-        }
-
-        private void AnimateInjury(Vector2 globalPos)
-        {
-            if (PointDamageEffect is not null)
-            {
-                this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
-            }
-        }
-
-        protected void AnimateDeath()
-        {
-            characterAnimator.AnimateDeath();
-        }
-
-        #region IDestructible/ICollidable
-
-        [Signal]
-        public delegate void InjuredEventHandler(int damage);
-        [Signal]
-        public delegate void KilledEventHandler();
-        [Signal]
-        public delegate void HealedEventHandler(int health);
-
-        [Export]
-        public int MaxHealth { get; set; }
-        [Export]
-        public int MaxOverHealth { get; set; }
-
-        [Export]
-        public int Health { get; set; }
-
-        public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
-        {
-            if (Health <= 0)
-            {
-                return;
-            }
-
-            Health = Math.Max(0, Health - damage);
-
-            AnimateInjury(globalPos);
-
-            EmitSignal(SignalName.Injured, damage);
-
-            if (Health <= 0)
-            {
-                AnimateDeath();
-
-                EmitSignal(SignalName.Killed);
-
-                CharacterTracker?.Untrack();
-
-                // NOTE: We disable the collision shape and wait to
-                //       free so the death animation can fully play.
-
-                collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-
-                this.TimedFree(5.0f);
-            }
-        }
-
-        public virtual void Heal(int health, bool allowOverHealth)
-        {
-            if (Health <= 0)
-            {
-                return;
-            }
-            else if (!allowOverHealth && Health >= MaxHealth)
-            {
-                // if health is already over max (overhealth), then skip
-
-                return;
-            }
-
-            int maxHealth = allowOverHealth ? MaxHealth + MaxOverHealth : MaxHealth;
-
-            Health = Math.Min(maxHealth, Health + health);
-
-            EmitSignal(SignalName.Healed, health);
-        }
-
-        #endregion
-
     }
+
+    protected void AnimateMovement()
+    {
+        characterAnimator.AnimateMovement(FaceDirection);
+    }
+
+    private void AnimateInjury(Vector2 globalPos)
+    {
+        if (PointDamageEffect is not null)
+        {
+            this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+        }
+    }
+
+    protected void AnimateDeath()
+    {
+        characterAnimator.AnimateDeath();
+    }
+
+    #region IDestructible/ICollidable
+
+    [Signal]
+    public delegate void InjuredEventHandler(int damage);
+    [Signal]
+    public delegate void KilledEventHandler();
+    [Signal]
+    public delegate void HealedEventHandler(int health);
+
+    [Export]
+    public int MaxHealth { get; set; }
+    [Export]
+    public int MaxOverHealth { get; set; }
+
+    [Export]
+    public int Health { get; set; }
+
+    public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+    {
+        if (Health <= 0)
+        {
+            return;
+        }
+
+        Health = Math.Max(0, Health - damage);
+
+        AnimateInjury(globalPos);
+
+        EmitSignal(SignalName.Injured, damage);
+
+        if (Health <= 0)
+        {
+            AnimateDeath();
+
+            EmitSignal(SignalName.Killed);
+
+            CharacterTracker?.Untrack();
+
+            // NOTE: We disable the collision shape and wait to
+            //       free so the death animation can fully play.
+
+            collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+
+            this.TimedFree(5.0f);
+        }
+    }
+
+    public virtual void Heal(int health, bool allowOverHealth)
+    {
+        if (Health <= 0)
+        {
+            return;
+        }
+        else if (!allowOverHealth && Health >= MaxHealth)
+        {
+            // if health is already over max (overhealth), then skip
+
+            return;
+        }
+
+        int maxHealth = allowOverHealth ? MaxHealth + MaxOverHealth : MaxHealth;
+
+        Health = Math.Min(maxHealth, Health + health);
+
+        EmitSignal(SignalName.Healed, health);
+    }
+
+    #endregion
+
 }

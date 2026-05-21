@@ -3,52 +3,51 @@ using System;
 using MechJamIV.Base;
 using System.Diagnostics;
 
-namespace MechJamIV
+namespace MechJamIV;
+
+public partial class Robot : CharacterBase
 {
-    public partial class Robot : CharacterBase
+
+    protected override Vector2 Gravity { get; set; } = Vector2.Zero;
+
+    public override void _Ready()
     {
+        base._Ready();
 
-        protected override Vector2 Gravity { get; set; } = Vector2.Zero;
-
-        public override void _Ready()
-        {
-            base._Ready();
-
-            Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
-        }
-
-        protected override Vector2 GetMovementDirection()
-        {
-            if (CharacterTracker!.Target is null)
-            {
-                return Vector2.Zero;
-            }
-
-            //TODO there's a hard cast here--need to refactor...something.
-            //     we don't need to rely on the marker--the robot will eventually
-            //     have other logic or user input
-            return GlobalPosition.DirectionTo(((Player)CharacterTracker.Target).RobotMarker.GlobalPosition);
-        }
-
-        protected override bool IsJumping()
-        {
-            return false;
-        }
-
-        protected override void ProcessAction()
-        {
-            //TODO
-        }
-
-        #region ICollidable
-
-        public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
-        {
-            // ignore damage
-            //base.Hurt(damage, globalPos, normal);
-        }
-
-        #endregion
-
+        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
     }
+
+    protected override Vector2 GetMovementDirection()
+    {
+        if (CharacterTracker!.Target is null)
+        {
+            return Vector2.Zero;
+        }
+
+        //TODO there's a hard cast here--need to refactor...something.
+        //     we don't need to rely on the marker--the robot will eventually
+        //     have other logic or user input
+        return GlobalPosition.DirectionTo(((Player)CharacterTracker.Target).RobotMarker.GlobalPosition);
+    }
+
+    protected override bool IsJumping()
+    {
+        return false;
+    }
+
+    protected override void ProcessAction()
+    {
+        //TODO
+    }
+
+    #region ICollidable
+
+    public override void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+    {
+        // ignore damage
+        //base.Hurt(damage, globalPos, normal);
+    }
+
+    #endregion
+
 }

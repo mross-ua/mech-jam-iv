@@ -1,24 +1,23 @@
 using Godot;
 using System;
 
-namespace MechJamIV.Interfaces
+namespace MechJamIV.Interfaces;
+
+public interface IDestructible : ICollidable
 {
-    public interface IDestructible : ICollidable
-    {
 
-        //[Signal]
-        delegate void KilledEventHandler();
+    //[Signal]
+    delegate void KilledEventHandler();
 
-        //[Signal]
-        delegate void HealedEventHandler(int health);
+    //[Signal]
+    delegate void HealedEventHandler(int health);
 
-        int MaxHealth { get; }
+    int MaxHealth { get; }
 
-        int MaxOverHealth { get; }
+    int MaxOverHealth { get; }
 
-        int Health { get; }
+    int Health { get; }
 
-        void Heal(int health, bool allowOverHealth);
+    void Heal(int health, bool allowOverHealth);
 
-    }
 }

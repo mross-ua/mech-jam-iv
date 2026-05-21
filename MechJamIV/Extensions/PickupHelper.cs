@@ -8,18 +8,6 @@ namespace MechJamIV.Extensions
     public static class PickupHelper
     {
 
-        #region Resources
-
-        private static readonly PackedScene medkit = ResourceLoader.Load<PackedScene>("res://scenes/levels/pickups/medkit.tscn");
-        private static readonly PackedScene grenade = ResourceLoader.Load<PackedScene>("res://scenes/weapons/grenade.tscn");
-        private static readonly PackedScene missile = ResourceLoader.Load<PackedScene>("res://scenes/weapons/missile.tscn");
-
-        private static readonly PackedScene hitScanBulletEmitter = ResourceLoader.Load<PackedScene>("res://scenes/weapons/hit_scan_bullet_emitter.tscn");
-        private static readonly PackedScene grenadeEmitter = ResourceLoader.Load<PackedScene>("res://scenes/weapons/grenade_emitter.tscn");
-        private static readonly PackedScene missileEmitter = ResourceLoader.Load<PackedScene>("res://scenes/weapons/missile_emitter.tscn");
-
-        #endregion
-
         public static PickupType? GenerateRandomPickup(float probability)
         {
             if (GD.Randf() <= probability)
@@ -45,13 +33,13 @@ namespace MechJamIV.Extensions
             switch (pickupType)
             {
                 case PickupType.Medkit:
-                    return medkit.Instantiate<Projectile>();
+                    return ResourceManager.Medkit.Instantiate<Projectile>();
 
                 case PickupType.Grenade:
-                    return grenade.Instantiate<Projectile>();
+                    return ResourceManager.Grenade.Instantiate<Projectile>();
 
                 case PickupType.Missile:
-                    return missile.Instantiate<Missile>();
+                    return ResourceManager.Missile.Instantiate<Missile>();
             }
 
             throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a dropped pickup type");
@@ -62,13 +50,13 @@ namespace MechJamIV.Extensions
             switch (pickupType)
             {
                 case PickupType.Rifle:
-                    return hitScanBulletEmitter.Instantiate<HitScanBulletEmitter>();
+                    return ResourceManager.HitScanBulletEmitter.Instantiate<HitScanBulletEmitter>();
 
                 case PickupType.Grenade:
-                    return grenadeEmitter.Instantiate<ProjectileEmitter>();
+                    return ResourceManager.GrenadeEmitter.Instantiate<ProjectileEmitter>();
 
                 case PickupType.Missile:
-                    return missileEmitter.Instantiate<ProjectileEmitter>();
+                    return ResourceManager.MissileEmitter.Instantiate<ProjectileEmitter>();
             }
 
             throw new ArgumentException($"Pickup type {Enum.GetName(pickupType)} is not a weapon type");

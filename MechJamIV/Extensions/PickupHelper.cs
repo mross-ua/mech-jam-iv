@@ -8,7 +8,7 @@ namespace MechJamIV.Extensions
     public static class PickupHelper
     {
 
-        public static PickupType? GenerateRandomPickup(float probability)
+        public static PickupType? GetRandomPickup(float probability)
         {
             if (GD.Randf() <= probability)
             {

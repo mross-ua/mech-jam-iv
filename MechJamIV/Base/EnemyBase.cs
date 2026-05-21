@@ -134,7 +134,7 @@ namespace MechJamIV.Base
 
         private void DropPickup()
         {
-            PickupType? pickupType = PickupHelper.GenerateRandomPickup(PickupDropRate);
+            PickupType? pickupType = PickupHelper.GetRandomPickup(PickupDropRate);
 
             if (pickupType.HasValue)
             {

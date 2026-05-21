@@ -1,9 +1,7 @@
 using Godot;
 using MechJamIV.Base;
 using MechJamIV.Enums;
-using MechJamIV.Interfaces;
 using System;
-using System.Diagnostics;
 
 namespace MechJamIV.Extensions
 {

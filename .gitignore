@@ -3,6 +3,5 @@
 addons/
 exports/
 
-# exclude third-party files
-assets/
+# staging folder for original art collections (see README)
 raw_assets/

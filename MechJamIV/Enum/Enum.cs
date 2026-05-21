@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace MechJamIV
+namespace MechJamIV.Enums
 {
     public enum CollisionLayer : long
     {

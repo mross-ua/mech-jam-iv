@@ -1,8 +1,10 @@
 using Godot;
+using MechJamIV.Enums;
+using MechJamIV.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace MechJamIV
+namespace MechJamIV.Base
 {
     public abstract partial class WeaponBase : Node2D
         , IWeapon

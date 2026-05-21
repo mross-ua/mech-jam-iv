@@ -1,24 +1,27 @@
 using Godot;
 using System;
 
-public partial class TitleScreen : PauseScreen
+namespace MechJamIV
 {
-
-    [Export(PropertyHint.File, "*.tscn,")]
-    public string NextScene { get; set; } = null!;
-
-    public override void _Ready()
+    public partial class TitleScreen : PauseScreen
     {
-        base._Ready();
 
-        PauseGame();
+        [Export(PropertyHint.File, "*.tscn,")]
+        public string NextScene { get; set; } = null!;
+
+        public override void _Ready()
+        {
+            base._Ready();
+
+            PauseGame();
+        }
+
+        public override void RestartScene()
+        {
+            // HACK: This actually starts the game.
+
+            SceneManager.GoToScene(NextScene);
+        }
+
     }
-
-    public override void RestartScene()
-    {
-        // HACK: This actually starts the game.
-
-        SceneManager.GoToScene(NextScene);
-    }
-
 }

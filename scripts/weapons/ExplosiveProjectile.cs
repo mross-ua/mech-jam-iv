@@ -1,4 +1,7 @@
 using Godot;
+using MechJamIV.Base;
+using MechJamIV.Extensions;
+using MechJamIV.Interfaces;
 using System;
 using System.Linq;
 

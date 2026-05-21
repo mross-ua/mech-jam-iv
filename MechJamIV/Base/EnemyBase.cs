@@ -1,8 +1,10 @@
 using Godot;
+using MechJamIV.Enums;
+using MechJamIV.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MechJamIV
+namespace MechJamIV.Base
 {
     public abstract partial class EnemyBase : CharacterBase
     {

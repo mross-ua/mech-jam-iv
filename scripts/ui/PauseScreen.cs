@@ -1,57 +1,60 @@
 using Godot;
 using System;
 
-public partial class PauseScreen : CanvasLayer
+namespace MechJamIV
 {
-
-    #region Node references
-
-    private Button? continueButton;
-
-    #endregion
-
-    public override void _Ready()
+    public partial class PauseScreen : CanvasLayer
     {
-        continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
-        if (continueButton is not null)
+
+        #region Node references
+
+        private Button? continueButton;
+
+        #endregion
+
+        public override void _Ready()
         {
-            continueButton.Pressed += UnpauseGame;
+            continueButton = GetNodeOrNull<Button>("Menu/ContinueButton");
+            if (continueButton is not null)
+            {
+                continueButton.Pressed += UnpauseGame;
+            }
+
+            Button restartButton = GetNode<Button>("Menu/RestartButton");
+            restartButton.Pressed += RestartScene;
+
+            Button quitButton = GetNode<Button>("Menu/QuitButton");
+            quitButton.Pressed += SceneManager.QuitGame;
         }
 
-        Button restartButton = GetNode<Button>("Menu/RestartButton");
-        restartButton.Pressed += RestartScene;
-
-        Button quitButton = GetNode<Button>("Menu/QuitButton");
-        quitButton.Pressed += SceneManager.QuitGame;
-    }
-
-    public override void _Input(InputEvent @event)
-    {
-        if (@event.IsActionPressed("quit") && continueButton is not null)
+        public override void _Input(InputEvent @event)
         {
-            CallDeferred(MethodName.UnpauseGame);
+            if (@event.IsActionPressed("quit") && continueButton is not null)
+            {
+                CallDeferred(MethodName.UnpauseGame);
 
-            GetViewport().SetInputAsHandled();
+                GetViewport().SetInputAsHandled();
+            }
         }
+
+        public void PauseGame()
+        {
+            SceneManager.PauseGame();
+
+            Visible = true;
+        }
+
+        public void UnpauseGame()
+        {
+            Visible = false;
+
+            SceneManager.UnpauseGame();
+        }
+
+        public virtual void RestartScene()
+        {
+            SceneManager.ReloadScene();
+        }
+
     }
-
-    public void PauseGame()
-    {
-        SceneManager.PauseGame();
-
-        Visible = true;
-    }
-
-    public void UnpauseGame()
-    {
-        Visible = false;
-
-        SceneManager.UnpauseGame();
-    }
-
-    public virtual void RestartScene()
-    {
-        SceneManager.ReloadScene();
-    }
-
 }

@@ -8,257 +8,260 @@ using MechJamIV.Extensions;
 using MechJamIV.Interfaces;
 using System.Diagnostics;
 
-public partial class WeaponManager : Node2D,
-    IUpdateable
+namespace MechJamIV
 {
-
-    [Signal]
-    public delegate void WeaponUpdatedEventHandler(WeaponBase weapon);
-
-    private readonly Dictionary<PickupType, WeaponBase> weapons = [];
-
-    private IEnumerable<PhysicsBody2D>? bodiesToExclude = null;
-
-    #region Node references
-
-    public WeaponBase? PrimaryWeapon { get; private set; } = null!;
-    public WeaponBase? SecondaryWeapon { get; private set; } = null!;
-
-    #endregion
-
-    public override void _Ready()
+    public partial class WeaponManager : Node2D,
+        IUpdateable
     {
-        InitWeapons();
-    }
 
-    private void InitWeapons()
-    {
-        foreach (WeaponBase weapon in GetChildren().Where(n => n.IsInGroup("weapon")).OfType<WeaponBase>())
+        [Signal]
+        public delegate void WeaponUpdatedEventHandler(WeaponBase weapon);
+
+        private readonly Dictionary<PickupType, WeaponBase> weapons = [];
+
+        private IEnumerable<PhysicsBody2D>? bodiesToExclude = null;
+
+        #region Node references
+
+        public WeaponBase? PrimaryWeapon { get; private set; } = null!;
+        public WeaponBase? SecondaryWeapon { get; private set; } = null!;
+
+        #endregion
+
+        public override void _Ready()
         {
-            InitWeapon(weapon);
+            InitWeapons();
         }
 
-        NextWeaponPrimary();
-        NextWeaponSecondary();
-    }
-
-    private void InitWeapon(WeaponBase weapon)
-    {
-        weapon.SetBodiesToExclude(bodiesToExclude);
-
-        weapon.Fired += () => EmitSignal(SignalName.WeaponUpdated, weapon);
-        weapon.AmmoAdded += () => EmitSignal(SignalName.WeaponUpdated, weapon);
-
-        weapons[weapon.WeaponType] = weapon;
-    }
-
-    public void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
-    {
-        bodiesToExclude = bodies;
-
-        foreach (WeaponBase weapon in weapons.Values)
+        private void InitWeapons()
         {
-            weapon.SetBodiesToExclude(bodies);
-        }
-    }
-
-    public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D? target = null)
-    {
-        switch (mode)
-        {
-            case FireMode.Primary:
-            case FireMode.PrimarySustained:
-                PrimaryWeapon?.Fire(globalPos, target);
-
-                break;
-            case FireMode.Secondary:
-                SecondaryWeapon?.Fire(globalPos, target);
-
-                break;
-            default:
-                Debug.Assert(false, $"Unexpected switch case: {Enum.GetName(mode)}");
-
-                break;
-        }
-    }
-
-    public void DeferredPickup(PickupType pickupType)
-    {
-        if (!weapons.ContainsKey(pickupType))
-        {
-            WeaponBase weapon = PickupHelper.GenerateWeapon(pickupType);
-
-            InitWeapon(weapon);
-
-            AddChild(weapon);
-
-            // auto-select the weapon if needed
-
-            if (PrimaryWeapon is null)
+            foreach (WeaponBase weapon in GetChildren().Where(n => n.IsInGroup("weapon")).OfType<WeaponBase>())
             {
-                NextWeaponPrimary();
+                InitWeapon(weapon);
             }
 
-            if (SecondaryWeapon is null)
+            NextWeaponPrimary();
+            NextWeaponSecondary();
+        }
+
+        private void InitWeapon(WeaponBase weapon)
+        {
+            weapon.SetBodiesToExclude(bodiesToExclude);
+
+            weapon.Fired += () => EmitSignal(SignalName.WeaponUpdated, weapon);
+            weapon.AmmoAdded += () => EmitSignal(SignalName.WeaponUpdated, weapon);
+
+            weapons[weapon.WeaponType] = weapon;
+        }
+
+        public void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
+        {
+            bodiesToExclude = bodies;
+
+            foreach (WeaponBase weapon in weapons.Values)
             {
-                NextWeaponSecondary();
+                weapon.SetBodiesToExclude(bodies);
             }
         }
 
-        switch (pickupType)
+        public void Fire(FireMode mode, Vector2 globalPos, PhysicsBody2D? target = null)
         {
-            case PickupType.Rifle:
-                weapons[pickupType].AddAmmo(ConfigManager.RifleAmmo);
+            switch (mode)
+            {
+                case FireMode.Primary:
+                case FireMode.PrimarySustained:
+                    PrimaryWeapon?.Fire(globalPos, target);
 
-                break;
-            case PickupType.Grenade:
-            case PickupType.Missile:
-                weapons[pickupType].AddAmmo(ConfigManager.MissileAmmo);
+                    break;
+                case FireMode.Secondary:
+                    SecondaryWeapon?.Fire(globalPos, target);
 
-                break;
-            default:
-                Debug.Assert(false, $"Unexpected switch case: {Enum.GetName(pickupType)}");
+                    break;
+                default:
+                    Debug.Assert(false, $"Unexpected switch case: {Enum.GetName(mode)}");
 
-                break;
+                    break;
+            }
         }
-    }
 
-    public void NextWeaponPrimary()
-    {
-        bool isWeaponFound = false;
-
-        WeaponBase? firstWeapon = null;
-        WeaponBase? lastWeapon = null;
-
-        foreach (WeaponBase weapon in weapons.Values)
+        public void DeferredPickup(PickupType pickupType)
         {
-            switch (weapon.WeaponType)
+            if (!weapons.ContainsKey(pickupType))
+            {
+                WeaponBase weapon = PickupHelper.GenerateWeapon(pickupType);
+
+                InitWeapon(weapon);
+
+                AddChild(weapon);
+
+                // auto-select the weapon if needed
+
+                if (PrimaryWeapon is null)
+                {
+                    NextWeaponPrimary();
+                }
+
+                if (SecondaryWeapon is null)
+                {
+                    NextWeaponSecondary();
+                }
+            }
+
+            switch (pickupType)
             {
                 case PickupType.Rifle:
-                    if (PrimaryWeapon is null || isWeaponFound)
-                    {
-                        PrimaryWeapon = weapon;
-
-                        EmitSignal(SignalName.WeaponUpdated, weapon);
-
-                        return;
-                    }
-
-                    firstWeapon ??= weapon;
-                    lastWeapon = weapon;
-
-                    isWeaponFound = (PrimaryWeapon == weapon);
+                    weapons[pickupType].AddAmmo(ConfigManager.RifleAmmo);
 
                     break;
-                default:
-                    // ignore
-
-                    break;
-            }
-        }
-
-        if (isWeaponFound && firstWeapon != lastWeapon)
-        {
-            PrimaryWeapon = firstWeapon;
-
-            EmitSignal(SignalName.WeaponUpdated, firstWeapon!);
-        }
-    }
-
-    public void NextWeaponSecondary()
-    {
-        bool isWeaponFound = false;
-
-        WeaponBase? firstWeapon = null;
-        WeaponBase? lastWeapon = null;
-
-        foreach (WeaponBase weapon in weapons.Values)
-        {
-            switch (weapon.WeaponType)
-            {
                 case PickupType.Grenade:
                 case PickupType.Missile:
-                    if (SecondaryWeapon is null || isWeaponFound)
-                    {
-                        SecondaryWeapon = weapon;
-
-                        EmitSignal(SignalName.WeaponUpdated, weapon);
-
-                        return;
-                    }
-
-                    firstWeapon ??= weapon;
-                    lastWeapon = weapon;
-
-                    isWeaponFound = (SecondaryWeapon == weapon);
+                    weapons[pickupType].AddAmmo(ConfigManager.MissileAmmo);
 
                     break;
                 default:
-                    // ignore
+                    Debug.Assert(false, $"Unexpected switch case: {Enum.GetName(pickupType)}");
 
                     break;
             }
         }
 
-        if (isWeaponFound && firstWeapon != lastWeapon)
+        public void NextWeaponPrimary()
         {
-            SecondaryWeapon = firstWeapon;
+            bool isWeaponFound = false;
 
-            EmitSignal(SignalName.WeaponUpdated, firstWeapon!);
-        }
-    }
+            WeaponBase? firstWeapon = null;
+            WeaponBase? lastWeapon = null;
 
-    #region IUpdateable
-
-    [Signal]
-    public delegate void LoadedEventHandler();
-
-    public void Save(ConfigFile config)
-    {
-        //TODO what if we want to start without weapons?
-
-        foreach (KeyValuePair<PickupType, WeaponBase> kvp in weapons)
-        {
-            config.SetValue($"{nameof(WeaponManager)}:{kvp.Key}", nameof(WeaponBase.Ammo), kvp.Value.Ammo);
-        }
-
-        //TODO don't save if not selected?
-        // config.SetValue(nameof(WeaponManager), "PrimaryWeaponType", (int)(PrimaryWeapon?.WeaponType ?? (PickupType)(-1)));
-        // config.SetValue(nameof(WeaponManager), "SecondaryWeaponType", (int)(SecondaryWeapon?.WeaponType ?? (PickupType)(-1)));
-    }
-
-    public void DeferredLoad(ConfigFile config)
-    {
-        foreach (PickupType pickupType in Enum.GetValues<PickupType>())
-        {
-            if (config.HasSectionKey($"{nameof(WeaponManager)}:{pickupType}", nameof(WeaponBase.Ammo)))
+            foreach (WeaponBase weapon in weapons.Values)
             {
-                if (!weapons.ContainsKey(pickupType))
+                switch (weapon.WeaponType)
                 {
-                    DeferredPickup(pickupType);
-                }
+                    case PickupType.Rifle:
+                        if (PrimaryWeapon is null || isWeaponFound)
+                        {
+                            PrimaryWeapon = weapon;
 
-                if (weapons.TryGetValue(pickupType, out WeaponBase? weapon))
-                {
-                    weapon.SetAmmo(config.GetValue($"{nameof(WeaponManager)}:{pickupType}", nameof(WeaponBase.Ammo)).AsInt32());
+                            EmitSignal(SignalName.WeaponUpdated, weapon);
+
+                            return;
+                        }
+
+                        firstWeapon ??= weapon;
+                        lastWeapon = weapon;
+
+                        isWeaponFound = (PrimaryWeapon == weapon);
+
+                        break;
+                    default:
+                        // ignore
+
+                        break;
                 }
+            }
+
+            if (isWeaponFound && firstWeapon != lastWeapon)
+            {
+                PrimaryWeapon = firstWeapon;
+
+                EmitSignal(SignalName.WeaponUpdated, firstWeapon!);
             }
         }
 
-        //TODO need to copy the selected weapon types (can cycle primary/secondary until they match the source)
-        // if (config.HasSectionKey(nameof(WeaponManager), "PrimaryWeaponType"))
-        // {
-        //     _ = config.GetValue(nameof(WeaponManager), "PrimaryWeaponType");
-        // }
+        public void NextWeaponSecondary()
+        {
+            bool isWeaponFound = false;
 
-        // if (config.HasSectionKey(nameof(WeaponManager), "SecondaryWeaponType"))
-        // {
-        //     _ = config.GetValue(nameof(WeaponManager), "SecondaryWeaponType");
-        // }
+            WeaponBase? firstWeapon = null;
+            WeaponBase? lastWeapon = null;
 
-        EmitSignal(SignalName.Loaded);
+            foreach (WeaponBase weapon in weapons.Values)
+            {
+                switch (weapon.WeaponType)
+                {
+                    case PickupType.Grenade:
+                    case PickupType.Missile:
+                        if (SecondaryWeapon is null || isWeaponFound)
+                        {
+                            SecondaryWeapon = weapon;
+
+                            EmitSignal(SignalName.WeaponUpdated, weapon);
+
+                            return;
+                        }
+
+                        firstWeapon ??= weapon;
+                        lastWeapon = weapon;
+
+                        isWeaponFound = (SecondaryWeapon == weapon);
+
+                        break;
+                    default:
+                        // ignore
+
+                        break;
+                }
+            }
+
+            if (isWeaponFound && firstWeapon != lastWeapon)
+            {
+                SecondaryWeapon = firstWeapon;
+
+                EmitSignal(SignalName.WeaponUpdated, firstWeapon!);
+            }
+        }
+
+        #region IUpdateable
+
+        [Signal]
+        public delegate void LoadedEventHandler();
+
+        public void Save(ConfigFile config)
+        {
+            //TODO what if we want to start without weapons?
+
+            foreach (KeyValuePair<PickupType, WeaponBase> kvp in weapons)
+            {
+                config.SetValue($"{nameof(WeaponManager)}:{kvp.Key}", nameof(WeaponBase.Ammo), kvp.Value.Ammo);
+            }
+
+            //TODO don't save if not selected?
+            // config.SetValue(nameof(WeaponManager), "PrimaryWeaponType", (int)(PrimaryWeapon?.WeaponType ?? (PickupType)(-1)));
+            // config.SetValue(nameof(WeaponManager), "SecondaryWeaponType", (int)(SecondaryWeapon?.WeaponType ?? (PickupType)(-1)));
+        }
+
+        public void DeferredLoad(ConfigFile config)
+        {
+            foreach (PickupType pickupType in Enum.GetValues<PickupType>())
+            {
+                if (config.HasSectionKey($"{nameof(WeaponManager)}:{pickupType}", nameof(WeaponBase.Ammo)))
+                {
+                    if (!weapons.ContainsKey(pickupType))
+                    {
+                        DeferredPickup(pickupType);
+                    }
+
+                    if (weapons.TryGetValue(pickupType, out WeaponBase? weapon))
+                    {
+                        weapon.SetAmmo(config.GetValue($"{nameof(WeaponManager)}:{pickupType}", nameof(WeaponBase.Ammo)).AsInt32());
+                    }
+                }
+            }
+
+            //TODO need to copy the selected weapon types (can cycle primary/secondary until they match the source)
+            // if (config.HasSectionKey(nameof(WeaponManager), "PrimaryWeaponType"))
+            // {
+            //     _ = config.GetValue(nameof(WeaponManager), "PrimaryWeaponType");
+            // }
+
+            // if (config.HasSectionKey(nameof(WeaponManager), "SecondaryWeaponType"))
+            // {
+            //     _ = config.GetValue(nameof(WeaponManager), "SecondaryWeaponType");
+            // }
+
+            EmitSignal(SignalName.Loaded);
+        }
+
+        #endregion
+
     }
-
-    #endregion
-
 }

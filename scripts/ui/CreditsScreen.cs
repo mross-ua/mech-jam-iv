@@ -1,32 +1,35 @@
 using Godot;
 using System;
 
-public partial class CreditsScreen : TitleScreen
+namespace MechJamIV
 {
-
-    private static readonly string URL_GITHUB = "https://github.com/krazkidd/mech-jam-iv".URIEncode();
-
-    #region Node references
-
-    private TextureButton linkToGitHubButton = null!;
-
-    #endregion
-
-    public override void _Ready()
+    public partial class CreditsScreen : TitleScreen
     {
-        base._Ready();
 
-        //TODO this isn't working
-        Input.SetDefaultCursorShape();
+        private static readonly string URL_GITHUB = "https://github.com/krazkidd/mech-jam-iv".URIEncode();
 
-        linkToGitHubButton = GetNode<TextureButton>("MarginContainer/VBoxContainer/LinkToGitHubButton");
-        linkToGitHubButton.Pressed += () =>
+        #region Node references
+
+        private TextureButton linkToGitHubButton = null!;
+
+        #endregion
+
+        public override void _Ready()
         {
-            if (OS.ShellOpen(URL_GITHUB) != Error.Ok)
-            {
-                GD.PrintErr($"Cannot open URL {URL_GITHUB}");
-            }
-        };
-    }
+            base._Ready();
 
+            //TODO this isn't working
+            Input.SetDefaultCursorShape();
+
+            linkToGitHubButton = GetNode<TextureButton>("MarginContainer/VBoxContainer/LinkToGitHubButton");
+            linkToGitHubButton.Pressed += () =>
+            {
+                if (OS.ShellOpen(URL_GITHUB) != Error.Ok)
+                {
+                    GD.PrintErr($"Cannot open URL {URL_GITHUB}");
+                }
+            };
+        }
+
+    }
 }

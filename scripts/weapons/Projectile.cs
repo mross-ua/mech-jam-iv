@@ -6,74 +6,77 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class Projectile : RigidBody2D
-    , ICollidable
+namespace MechJamIV
 {
-
-    [Signal]
-    public delegate void PickedUpEventHandler();
-
-    [Export]
-    public PackedScene? PointDamageEffect { get; set; }
-
-    [Export(PropertyHint.Enum)]
-    public PickupType WeaponType { get; set; }
-
-    [Export]
-    public Texture2D UISprite { get; set; } = null!;
-
-    public override void _Ready()
+    public partial class Projectile : RigidBody2D
+        , ICollidable
     {
-        BodyEntered += (body) =>
+
+        [Signal]
+        public delegate void PickedUpEventHandler();
+
+        [Export]
+        public PackedScene? PointDamageEffect { get; set; }
+
+        [Export(PropertyHint.Enum)]
+        public PickupType WeaponType { get; set; }
+
+        [Export]
+        public Texture2D UISprite { get; set; } = null!;
+
+        public override void _Ready()
         {
-            if (CanBePickedUp() && body is Player player)
+            BodyEntered += (body) =>
             {
-                EmitSignal(SignalName.PickedUp);
+                if (CanBePickedUp() && body is Player player)
+                {
+                    EmitSignal(SignalName.PickedUp);
 
-                QueueFree();
-            }
-        };
-    }
-
-    protected virtual bool CanBePickedUp()
-    {
-        return true;
-    }
-
-    public void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
-    {
-        foreach (PhysicsBody2D body in GetCollisionExceptions())
-        {
-            RemoveCollisionExceptionWith(body);
+                    QueueFree();
+                }
+            };
         }
 
-        if (bodies?.Any() ?? false)
+        protected virtual bool CanBePickedUp()
         {
-            foreach (PhysicsBody2D body in bodies)
+            return true;
+        }
+
+        public void SetBodiesToExclude(IEnumerable<PhysicsBody2D>? bodies)
+        {
+            foreach (PhysicsBody2D body in GetCollisionExceptions())
             {
-                AddCollisionExceptionWith(body);
+                RemoveCollisionExceptionWith(body);
+            }
+
+            if (bodies?.Any() ?? false)
+            {
+                foreach (PhysicsBody2D body in bodies)
+                {
+                    AddCollisionExceptionWith(body);
+                }
             }
         }
-    }
 
-    private void AnimateInjury(Vector2 globalPos)
-    {
-        if (PointDamageEffect is not null)
+        private void AnimateInjury(Vector2 globalPos)
         {
-            this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+            if (PointDamageEffect is not null)
+            {
+                this.EmitParticlesOnce(PointDamageEffect.Instantiate<GpuParticles2D>(), globalPos);
+            }
         }
+
+        #region ICollidable
+
+        [Signal]
+        public delegate void InjuredEventHandler(int damage);
+
+        public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
+        {
+            AnimateInjury(globalPos);
+        }
+
+        #endregion
+
     }
-
-    #region ICollidable
-
-    [Signal]
-    public delegate void InjuredEventHandler(int damage);
-
-    public virtual void Hurt(int damage, Vector2 globalPos, Vector2 normal)
-    {
-        AnimateInjury(globalPos);
-    }
-
-    #endregion
-
 }

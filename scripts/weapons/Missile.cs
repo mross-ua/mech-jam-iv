@@ -2,88 +2,91 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-public partial class Missile : ExplosiveProjectile
+namespace MechJamIV
 {
-
-    [Export]
-    public float ThrustForce { get; set; }
-
-    [Export]
-    public float TurnSpeed { get; set; }
-
-    #region Node references
-
-    private GpuParticles2D gpuParticles2D = null!;
-
-    #endregion
-
-    public override void _Ready()
+    public partial class Missile : ExplosiveProjectile
     {
-        base._Ready();
 
-        Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
+        [Export]
+        public float ThrustForce { get; set; }
 
-        gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
+        [Export]
+        public float TurnSpeed { get; set; }
 
-        BodyEntered += (body) =>
+        #region Node references
+
+        private GpuParticles2D gpuParticles2D = null!;
+
+        #endregion
+
+        public override void _Ready()
         {
+            base._Ready();
+
+            Debug.Assert(CharacterTracker is not null, $"{nameof(CharacterTracker)} must not be null");
+
+            gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
+
+            BodyEntered += (body) =>
+            {
+                if (IsFusePrimed)
+                {
+                    Hurt(Health, GlobalPosition, Vector2.Zero);
+                }
+            };
+        }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            if (Health <= 0)
+            {
+                return;
+            }
+
             if (IsFusePrimed)
             {
-                Hurt(Health, GlobalPosition, Vector2.Zero);
-            }
-        };
-    }
+                if (CharacterTracker!.Target != null)
+                {
+                    Vector2 directionToTarget = CharacterTracker.GetDirectionToTarget();
 
-    public override void _PhysicsProcess(double delta)
-    {
-        if (Health <= 0)
-        {
-            return;
+                    float angleDiff = Mathf.RadToDeg(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
+                    int turnDirection = Mathf.Sign(angleDiff);
+
+                    float rotation = TurnSpeed * (float)delta;
+
+                    if (Mathf.Abs(angleDiff) < rotation)
+                    {
+                        Rotate(Mathf.DegToRad(angleDiff));
+                    }
+                    else
+                    {
+                        Rotate(Mathf.DegToRad(rotation) * turnDirection);
+                    }
+                }
+
+                ApplyForce(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
+            }
         }
 
-        if (IsFusePrimed)
+        protected override void AnimateDeath()
         {
-            if (CharacterTracker!.Target != null)
-            {
-                Vector2 directionToTarget = CharacterTracker.GetDirectionToTarget();
+            base.AnimateDeath();
 
-                float angleDiff = Mathf.RadToDeg(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation).AngleTo(directionToTarget));
-                int turnDirection = Mathf.Sign(angleDiff);
-
-                float rotation = TurnSpeed * (float)delta;
-
-                if (Mathf.Abs(angleDiff) < rotation)
-                {
-                    Rotate(Mathf.DegToRad(angleDiff));
-                }
-                else
-                {
-                    Rotate(Mathf.DegToRad(rotation) * turnDirection);
-                }
-            }
-
-            ApplyForce(CharacterAnimator.SpriteFaceDirection.Rotated(Rotation) * ThrustForce * (float)delta);
+            // allow emitted particles to decay
+            gpuParticles2D.Emitting = false;
         }
+
+        #region IDetonable
+
+        public override void PrimeFuse()
+        {
+            gpuParticles2D.Visible = true;
+            GravityScale = 0.0f;
+
+            base.PrimeFuse();
+        }
+
+        #endregion
+
     }
-
-    protected override void AnimateDeath()
-    {
-        base.AnimateDeath();
-
-        // allow emitted particles to decay
-        gpuParticles2D.Emitting = false;
-    }
-
-    #region IDetonable
-
-    public override void PrimeFuse()
-    {
-        gpuParticles2D.Visible = true;
-        GravityScale = 0.0f;
-
-        base.PrimeFuse();
-    }
-
-    #endregion
-
 }

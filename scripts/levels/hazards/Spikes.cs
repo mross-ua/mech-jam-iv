@@ -1,29 +1,32 @@
 using Godot;
 using System;
 
-public partial class Spikes : Area2D
+namespace MechJamIV
 {
-
-    public override void _Ready()
+    public partial class Spikes : Area2D
     {
-        BodyEntered += (body) =>
-        {
-            if (body is Player player)
-            {
-                player.Hurt(ConfigManager.SpikeDamage, player.GlobalPosition, Vector2.Zero);
-            }
-        };
-    }
 
-    public override void _PhysicsProcess(double delta)
-    {
-        foreach (Node2D node in GetOverlappingBodies())
+        public override void _Ready()
         {
-            if (node is Player player)
+            BodyEntered += (body) =>
             {
-                player.Hurt(ConfigManager.SpikeDamage, player.GlobalPosition, Vector2.Zero);
+                if (body is Player player)
+                {
+                    player.Hurt(ConfigManager.SpikeDamage, player.GlobalPosition, Vector2.Zero);
+                }
+            };
+        }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            foreach (Node2D node in GetOverlappingBodies())
+            {
+                if (node is Player player)
+                {
+                    player.Hurt(ConfigManager.SpikeDamage, player.GlobalPosition, Vector2.Zero);
+                }
             }
         }
-    }
 
+    }
 }

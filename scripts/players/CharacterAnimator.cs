@@ -1,29 +1,32 @@
 using Godot;
 using System;
 
-public partial class CharacterAnimator : AnimatedSprite2D
+namespace MechJamIV
 {
-
-    [Export]
-    public Vector2 SpriteFaceDirection { get; set; } = Vector2.Zero;
-
-    public void AnimateMovement(Vector2 direction)
+    public partial class CharacterAnimator : AnimatedSprite2D
     {
-        if (Mathf.IsZeroApprox(direction.X))
+
+        [Export]
+        public Vector2 SpriteFaceDirection { get; set; } = Vector2.Zero;
+
+        public void AnimateMovement(Vector2 direction)
         {
-            Play("idle");
+            if (Mathf.IsZeroApprox(direction.X))
+            {
+                Play("idle");
+            }
+            else
+            {
+                Play("run");
+
+                FlipH = !SpriteFaceDirection.IsEqualApprox(direction);
+            }
         }
-        else
+
+        public void AnimateDeath()
         {
-            Play("run");
-
-            FlipH = !SpriteFaceDirection.IsEqualApprox(direction);
+            Play("death");
         }
-    }
 
-    public void AnimateDeath()
-    {
-        Play("death");
     }
-
 }

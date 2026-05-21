@@ -1,0 +1,5 @@
+# ignore this folder entirely
+[*]
+# doesn't work
+#dotnet_analyzer_diagnostic.severity = none
+generated_code = true

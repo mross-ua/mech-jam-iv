@@ -1,32 +1,35 @@
 using Godot;
 using System;
-using MechJamIV;
+using MechJamIV.Levels;
 
-public partial class CyberSteel : Objective
+namespace MechJamIV
 {
-
-    #region Node references
-
-    private AnimatedSprite2D animatedSprite2D = null!;
-    private CollisionShape2D collisionShape2D = null!;
-
-    #endregion
-
-    public override void _Ready()
+    public partial class CyberSteel : Objective
     {
-        base._Ready();
 
-        animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        // make it flicker
-        animatedSprite2D.AnimationLooped += () => animatedSprite2D.Rotate((float)GD.RandRange(0.0f, 2 * Mathf.Pi));
+        #region Node references
 
-        collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+        private AnimatedSprite2D animatedSprite2D = null!;
+        private CollisionShape2D collisionShape2D = null!;
 
-        BodyEntered += (body) =>
+        #endregion
+
+        public override void _Ready()
         {
-            Visible = false;
-            collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-        };
-    }
+            base._Ready();
 
+            animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+            // make it flicker
+            animatedSprite2D.AnimationLooped += () => animatedSprite2D.Rotate((float)GD.RandRange(0.0f, 2 * Mathf.Pi));
+
+            collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+
+            BodyEntered += (body) =>
+            {
+                Visible = false;
+                collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+            };
+        }
+
+    }
 }

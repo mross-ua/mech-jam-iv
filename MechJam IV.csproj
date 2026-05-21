@@ -8,4 +8,9 @@
     <!-- <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors> -->
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ignore script templates -->
+    <Compile Remove="script_templates/**/*.cs" />
+  </ItemGroup>
 </Project>

@@ -1,8 +1,10 @@
 using Godot;
+using MechJamIV.Extensions;
+using MechJamIV.Interfaces;
 using System;
 using System.Diagnostics;
 
-namespace MechJamIV
+namespace MechJamIV.Base
 {
     public abstract partial class CharacterBase : CharacterBody2D
         , IDestructible

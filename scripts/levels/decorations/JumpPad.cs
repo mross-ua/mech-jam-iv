@@ -1,37 +1,36 @@
 using Godot;
 using System;
 
-namespace MechJamIV
+namespace MechJamIV;
+
+public partial class JumpPad : Area2D
 {
-    public partial class JumpPad : Area2D
+
+    [Export]
+    public float JumpMultiplier { get; set; }
+
+    private AnimatedSprite2D animatedSprite2D = null!;
+
+    public override void _Ready()
     {
-
-        [Export]
-        public float JumpMultiplier { get; set; }
-
-        private AnimatedSprite2D animatedSprite2D = null!;
-
-        public override void _Ready()
+        animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        animatedSprite2D.AnimationFinished += () =>
         {
-            animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-            animatedSprite2D.AnimationFinished += () =>
+            if (animatedSprite2D.Animation == "jump")
             {
-                if (animatedSprite2D.Animation == "jump")
-                {
-                    animatedSprite2D.Animation = "idle";
-                }
-            };
+                animatedSprite2D.Animation = "idle";
+            }
+        };
 
-            BodyEntered += (body) =>
+        BodyEntered += (body) =>
+        {
+            if (body is Player player && player.Velocity.Y > 0.0f)
             {
-                if (body is Player player && player.Velocity.Y > 0.0f)
-                {
-                    player.Velocity = new Vector2(0.0f, player.JumpVelocity * JumpMultiplier);
+                player.Velocity = new Vector2(0.0f, player.JumpVelocity * JumpMultiplier);
 
-                    animatedSprite2D.Play("jump");
-                }
-            };
-        }
-
+                animatedSprite2D.Play("jump");
+            }
+        };
     }
+
 }

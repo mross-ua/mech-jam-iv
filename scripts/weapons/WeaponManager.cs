@@ -88,7 +88,7 @@ public partial class WeaponManager : Node2D,
     {
         if (!weapons.ContainsKey(pickupType))
         {
-            WeaponBase weapon = PickupHelper.GenerateWeapon(pickupType);
+            WeaponBase weapon = ResourceManager.GenerateWeapon(pickupType);
 
             InitWeapon(weapon);
 

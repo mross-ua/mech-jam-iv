@@ -4,13 +4,15 @@ This is my entry for the [MechJam IV game jam hosted on itch.io](https://itch.io
 
 Run, jump, and shoot your way through a hostile alien environment while completing mission objectives.
 
-Project hosted at: https://github.com/krazkidd/mech-jam-iv
-
-Itch.io page: https://reckless.itch.io/cybersteel-rapture
-
-Game jam submission: https://itch.io/jam/mechjam4/rate/2178643
-
 License: TBD
+
+## Links
+
+- Project hosted on [GitHub](https://github.com/krazkidd/mech-jam-iv)
+
+- Releases published to [Itch.io](https://reckless.itch.io/cybersteel-rapture)
+
+- [Initial game jam submission](https://itch.io/jam/mechjam4/rate/2178643)
 
 ## Story
 
@@ -41,16 +43,16 @@ Now imagine a world where macro-sized machines can be built at the molecular lev
 
 ### Prerequisites
 
-- Git LFS
-- [Godot 4.1.1 C# engine](https://downloads.tuxfamily.org/godotengine/4.1.1/mono/)
+- [Git LFS](https://git-lfs.com/)
+- [Godot 4.6.2+ engine](https://godotengine.org/download/) w/ C# support
 
-Set the `GODOT4` environment variable to the install location of the Godot 4 runtime executable (e.g. `/opt/godot/Godot_v4.1.1-stable_mono_linux.x86_64`).
+Set the `GODOT4` environment variable to the install location of the Godot 4 runtime executable (e.g. `/opt/godot/Godot_v4.x.y-stable_mono_linux.x86_64`).
 
 For more information about this environment variable, see [here](https://github.com/godotengine/godot-csharp-vscode/issues/43#issuecomment-1258321229).
 
 ### Fetch binary art assets
 
-First, ensure you have the `git lfs` extension installed. See [GitHub's documentation](https://docs.github.com/en/repositories/working-with-files/managing-large-files) for more information.
+First, ensure you have the Git LFS extension installed. See [GitHub's documentation](https://docs.github.com/en/repositories/working-with-files/managing-large-files) for more information.
 
 If you have not done so, first configure Git LFS for your local system. The following command will add a small section to your `.gitconfig`:
 
@@ -71,6 +73,7 @@ git lfs fetch --all
 ### VS Code Recommended Extensions
 
 - [ms-dotnettools.csharp](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+- [EditorConfig.EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 
 ### Starting the game (Godot editor)
 
@@ -78,19 +81,19 @@ git lfs fetch --all
 
 ### Starting the game (VS Code)
 
-Press **Build** in the Godot editor at least once to populate dependencies. (I'm not sure how else to do this.)
+Press **Build Project** in the Godot editor at least once to populate dependencies. (I'm not sure how else to do this.)
 
 1. In the Run and Debug view, launch **Debug Game**.
 
 ### Other
 
-* Debug builds will show line-of-sight raycasts.
+- Debug builds will show line-of-sight raycasts.
 
-* The planet animation was made with the [Pixel Planet Generator](https://deep-fold.itch.io/pixel-planet-generator) and the following inputs:
+- The planet animation on the title screen was made with the [Pixel Planet Generator](https://deep-fold.itch.io/pixel-planet-generator) and the following inputs:
 
-  * Planet Type: Terran Dry
-  * Seed: 2508822703
-  * Colors:
+  - Planet Type: Terran Dry
+  - Seed: 2508822703
+  - Colors:
 
     ```Text
     #ff8933

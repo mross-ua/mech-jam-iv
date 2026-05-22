@@ -108,7 +108,7 @@ public partial class World : Node2D,
         {
             enemy.PickupDropped += (pickupType) =>
             {
-                Projectile projectile = PickupHelper.GenerateProjectile((PickupType)pickupType);
+                Projectile projectile = ResourceManager.GenerateProjectile((PickupType)pickupType);
                 projectile.GlobalPosition = enemy.GlobalPosition;
 
                 projectile.PickedUp += () => Pickup(projectile.WeaponType);

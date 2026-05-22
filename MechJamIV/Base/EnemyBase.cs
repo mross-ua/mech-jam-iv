@@ -134,7 +134,7 @@ public abstract partial class EnemyBase : CharacterBase
 
     private void DropPickup()
     {
-        PickupType? pickupType = PickupHelper.GenerateRandomPickup(PickupDropRate);
+        PickupType? pickupType = PickupHelper.GetRandomPickup(PickupDropRate);
 
         if (pickupType.HasValue)
         {

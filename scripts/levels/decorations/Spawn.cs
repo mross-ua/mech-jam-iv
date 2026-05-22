@@ -2,77 +2,76 @@ using Godot;
 using System;
 using System.Linq;
 
-namespace MechJamIV
+namespace MechJamIV;
+
+public partial class Spawn : Node2D
 {
-    public partial class Spawn : Node2D
+
+    [Signal]
+    public delegate void SpawnReachedEventHandler(Player player);
+
+    [Export]
+    public bool IsWorldSpawn { get; set; }
+
+    #region Node references
+
+    public Marker2D SpawnPointMarker { get; private set; } = null!;
+
+    private Timer healthGenTimer = null!;
+    private Area2D area2D = null!;
+    private CollisionShape2D collisionShape2D = null!;
+    private GpuParticles2D gpuParticles2D = null!;
+
+    #endregion
+
+    public override void _Ready()
     {
+        SpawnPointMarker = GetNode<Marker2D>("SpawnPoint");
 
-        [Signal]
-        public delegate void SpawnReachedEventHandler(Player player);
+        healthGenTimer = GetNode<Timer>("HealthGenTimer");
+        healthGenTimer.Timeout += Generate;
 
-        [Export]
-        public bool IsWorldSpawn { get; set; }
-
-        #region Node references
-
-        public Marker2D SpawnPointMarker { get; private set; } = null!;
-
-        private Timer healthGenTimer = null!;
-        private Area2D area2D = null!;
-        private CollisionShape2D collisionShape2D = null!;
-        private GpuParticles2D gpuParticles2D = null!;
-
-        #endregion
-
-        public override void _Ready()
+        area2D = GetNode<Area2D>("Area2D");
+        area2D.BodyEntered += (body) =>
         {
-            SpawnPointMarker = GetNode<Marker2D>("SpawnPoint");
-
-            healthGenTimer = GetNode<Timer>("HealthGenTimer");
-            healthGenTimer.Timeout += Generate;
-
-            area2D = GetNode<Area2D>("Area2D");
-            area2D.BodyEntered += (body) =>
+            if (body is Player player)
             {
-                if (body is Player player)
+                gpuParticles2D.Visible = true;
+
+                if (healthGenTimer.IsStopped())
                 {
-                    gpuParticles2D.Visible = true;
-
-                    if (healthGenTimer.IsStopped())
-                    {
-                        healthGenTimer.Start();
-                    }
-
-                    EmitSignal(SignalName.SpawnReached, player);
+                    healthGenTimer.Start();
                 }
-            };
-            area2D.BodyExited += (body) =>
-            {
-                if (body is Player player)
-                {
-                    if (!area2D.GetOverlappingBodies().OfType<Player>().Any())
-                    {
-                        gpuParticles2D.Visible = false;
 
-                        healthGenTimer.Stop();
-                    }
-                }
-            };
-
-            collisionShape2D = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
-            gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
-        }
-
-        private void Generate()
+                EmitSignal(SignalName.SpawnReached, player);
+            }
+        };
+        area2D.BodyExited += (body) =>
         {
-            foreach (Node2D body in area2D.GetOverlappingBodies())
+            if (body is Player player)
             {
-                if (body is Player player)
+                if (!area2D.GetOverlappingBodies().OfType<Player>().Any())
                 {
-                    player.Heal(ConfigManager.SpawnHealth, false);
+                    gpuParticles2D.Visible = false;
+
+                    healthGenTimer.Stop();
                 }
             }
-        }
+        };
 
+        collisionShape2D = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
+        gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
     }
+
+    private void Generate()
+    {
+        foreach (Node2D body in area2D.GetOverlappingBodies())
+        {
+            if (body is Player player)
+            {
+                player.Heal(ConfigManager.SpawnHealth, false);
+            }
+        }
+    }
+
 }

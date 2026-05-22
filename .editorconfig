@@ -49,3 +49,6 @@ dotnet_diagnostic.IDE0058.severity = silent
 # deprioritize switch blocks that are
 # not populated with all cases
 dotnet_diagnostic.IDE0066.severity = silent
+
+# Prefer file-scoped namespaces
+csharp_style_namespace_declarations = file_scoped:suggestion

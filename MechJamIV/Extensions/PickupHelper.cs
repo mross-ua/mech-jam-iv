@@ -17,13 +17,15 @@ public static class PickupHelper
                 case 0:
                     return PickupType.Medkit;
 
-            case 1:
-                return PickupType.Grenade;
+                case 1:
+                    return PickupType.Grenade;
 
-            case 2:
-                return PickupType.Missile;
+                case 2:
+                    return PickupType.Missile;
+            }
         }
+
+        return null;
     }
 
-    return null;
 }

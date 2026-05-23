@@ -19,7 +19,7 @@ color = Color(0, 0.666667, 0, 1)
 [node name="Spawn" type="Node2D" unique_id=2091070391 groups=["spawn"]]
 script = ExtResource("1_lewgn")
 
-[node name="TileMapTechSteelGreen" parent="." unique_id=1880936602 instance=ExtResource("1_lodwd")]
+[node name="TileMap" parent="." unique_id=1880936602 instance=ExtResource("1_lodwd")]
 position = Vector2(8, 0)
 layer_0/tile_data = PackedInt32Array(65534, 458752, 13, 65535, 524288, 13, 0, 589824, 13)
 

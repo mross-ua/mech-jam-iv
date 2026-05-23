@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7u0w5qpcxohb"]
+[gd_scene format=3 uid="uid://c7u0w5qpcxohb"]
 
-[ext_resource type="Script" path="res://scripts/ui/PauseScreen.cs" id="1_er4pt"]
+[ext_resource type="Script" uid="uid://d1yw6xcfqfb4c" path="res://scripts/ui/PauseScreen.cs" id="1_er4pt"]
 [ext_resource type="PackedScene" uid="uid://bgh7iu7ibpoxu" path="res://scenes/ui/user_input_explainer.tscn" id="2_u1iu1"]
 
-[node name="PauseScreen" type="CanvasLayer"]
+[node name="PauseScreen" type="CanvasLayer" unique_id=637247019]
 process_mode = 2
 script = ExtResource("1_er4pt")
 
-[node name="Menu" type="VBoxContainer" parent="."]
+[node name="Menu" type="VBoxContainer" parent="." unique_id=1687533600]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -20,19 +20,19 @@ offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ContinueButton" type="Button" parent="Menu"]
+[node name="ContinueButton" type="Button" parent="Menu" unique_id=1571419562]
 layout_mode = 2
 text = "CONTINUE"
 
-[node name="RestartButton" type="Button" parent="Menu"]
+[node name="RestartButton" type="Button" parent="Menu" unique_id=1941569062]
 layout_mode = 2
 text = "RESTART"
 
-[node name="QuitButton" type="Button" parent="Menu"]
+[node name="QuitButton" type="Button" parent="Menu" unique_id=1426654612]
 layout_mode = 2
 text = "QUIT"
 
-[node name="UserInputExplainer" parent="." instance=ExtResource("2_u1iu1")]
+[node name="UserInputExplainer" parent="." unique_id=1707616182 instance=ExtResource("2_u1iu1")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0

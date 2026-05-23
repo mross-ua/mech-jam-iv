@@ -1,6 +1,6 @@
-[gd_scene load_steps=56 format=3 uid="uid://bul8r3r8yejqt"]
+[gd_scene format=3 uid="uid://bul8r3r8yejqt"]
 
-[ext_resource type="Script" path="res://scripts/ui/TitleScreen.cs" id="1_8nffn"]
+[ext_resource type="Script" uid="uid://cipfasdjp3q6i" path="res://scripts/ui/TitleScreen.cs" id="1_8nffn"]
 [ext_resource type="Texture2D" uid="uid://dd16kqi8py3r0" path="res://assets/spritesheets/2508822703.png" id="1_d4aqq"]
 [ext_resource type="StyleBox" uid="uid://b08eihf13eg7t" path="res://resources/panel_style.tres" id="3_d7trr"]
 [ext_resource type="PackedScene" uid="uid://bgh7iu7ibpoxu" path="res://scenes/ui/user_input_explainer.tscn" id="3_y3rsy"]
@@ -363,17 +363,17 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="TitleScreen" type="CanvasLayer"]
+[node name="TitleScreen" type="CanvasLayer" unique_id=1771170282]
 process_mode = 2
 script = ExtResource("1_8nffn")
 NextScene = "res://scenes/levels/world_1.tscn"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1193765110]
 position = Vector2(576, 156)
 sprite_frames = SubResource("SpriteFrames_d1ypu")
 autoplay = "default"
 
-[node name="Menu" type="VBoxContainer" parent="."]
+[node name="Menu" type="VBoxContainer" parent="." unique_id=1039505422]
 offset_left = 548.0
 offset_top = 291.0
 offset_right = 604.0
@@ -381,15 +381,15 @@ offset_bottom = 357.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RestartButton" type="Button" parent="Menu"]
+[node name="RestartButton" type="Button" parent="Menu" unique_id=1605646069]
 layout_mode = 2
 text = "START"
 
-[node name="QuitButton" type="Button" parent="Menu"]
+[node name="QuitButton" type="Button" parent="Menu" unique_id=77414873]
 layout_mode = 2
 text = "QUIT"
 
-[node name="UserInputExplainer" parent="." instance=ExtResource("3_y3rsy")]
+[node name="UserInputExplainer" parent="." unique_id=1354517318 instance=ExtResource("3_y3rsy")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -397,7 +397,7 @@ offset_top = -166.0
 offset_bottom = 0.0
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=304134365]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -409,7 +409,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = ExtResource("3_d7trr")
 
-[node name="Label" type="Label" parent="PanelContainer"]
+[node name="Label" type="Label" parent="PanelContainer" unique_id=671657348]
 layout_mode = 2
 text = "It is the year 5079, 600 years after Earth was first
 invaded by the Tuason's. Off-world rebellion groups
@@ -418,7 +418,7 @@ counter-offensive and taken the fight 38 light years beyond
 their front line."
 horizontal_alignment = 3
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=205191895]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -432,6 +432,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_d7trr")
 
-[node name="Label" type="Label" parent="PanelContainer2"]
+[node name="Label" type="Label" parent="PanelContainer2" unique_id=800705914]
 layout_mode = 2
 text = "CyberSteel Rapture"

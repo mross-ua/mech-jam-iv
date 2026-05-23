@@ -28,6 +28,10 @@ text = "CONTINUE"
 layout_mode = 2
 text = "RESPAWN"
 
+[node name="HSeparator" type="HSeparator" parent="Menu" unique_id=1177006403]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
 [node name="RestartButton" type="Button" parent="Menu" unique_id=1941569062]
 layout_mode = 2
 text = "RESTART"

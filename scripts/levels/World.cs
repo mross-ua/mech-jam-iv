@@ -14,6 +14,9 @@ public partial class World : Node2D,
     IUpdateable
 {
 
+    [Signal]
+    public delegate void SpawnReachedEventHandler(Player player);
+
     [Export(PropertyHint.File, "*.tscn,")]
     public string NextScene { get; set; } = null!;
 
@@ -83,6 +86,8 @@ public partial class World : Node2D,
             spawn.SpawnReached += (player) =>
             {
                 activeSpawn = spawn;
+
+                EmitSignal(SignalName.SpawnReached, player);
             };
         }
     }
@@ -273,17 +278,21 @@ public partial class World : Node2D,
 
     #region IUpdateable
 
-    [Signal]
-    public delegate void LoadedEventHandler();
-
     public void Save(ConfigFile config)
     {
+        config.SetValue(nameof(World), nameof(Spawn.SpawnPointMarker), activeSpawn.SpawnPointMarker.GlobalTransform);
+
         player.Save(config);
     }
 
     public void DeferredLoad(ConfigFile config)
     {
-        player.Loaded += () => EmitSignal(SignalName.Loaded);
+        if (config.HasSectionKey(nameof(World), nameof(Spawn.SpawnPointMarker)))
+        {
+            player.GlobalTransform = config.GetValue(nameof(World), nameof(Spawn.SpawnPointMarker)).AsTransform2D();
+            // reunite Robot with Player
+            robot.GlobalTransform = config.GetValue(nameof(World), nameof(Spawn.SpawnPointMarker)).AsTransform2D();
+        }
 
         player.DeferredLoad(config);
     }

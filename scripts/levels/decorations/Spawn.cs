@@ -13,10 +13,13 @@ public partial class Spawn : Node2D
     [Export]
     public bool IsWorldSpawn { get; set; }
 
+    private Tween? ModulationTween;
+
     #region Node references
 
     public Marker2D SpawnPointMarker { get; private set; } = null!;
 
+    public CanvasItem tileMap = null!;
     private Timer healthGenTimer = null!;
     private Area2D area2D = null!;
     private CollisionShape2D collisionShape2D = null!;
@@ -27,6 +30,8 @@ public partial class Spawn : Node2D
     public override void _Ready()
     {
         SpawnPointMarker = GetNode<Marker2D>("SpawnPoint");
+
+        tileMap = GetNode<CanvasItem>("TileMap");
 
         healthGenTimer = GetNode<Timer>("HealthGenTimer");
         healthGenTimer.Timeout += Generate;
@@ -43,6 +48,12 @@ public partial class Spawn : Node2D
                     healthGenTimer.Start();
                 }
 
+                ModulationTween?.Kill();
+                ModulationTween = CreateTween();
+                ModulationTween.TweenProperty(tileMap, "self_modulate", Colors.Red, 0.5f)
+                    .SetTrans(Tween.TransitionType.Sine)
+                    .SetEase(Tween.EaseType.In);
+
                 EmitSignal(SignalName.SpawnReached, player);
             }
         };
@@ -55,6 +66,12 @@ public partial class Spawn : Node2D
                     gpuParticles2D.Visible = false;
 
                     healthGenTimer.Stop();
+
+                    ModulationTween?.Kill();
+                    ModulationTween = CreateTween();
+                    ModulationTween.TweenProperty(tileMap, "self_modulate", Colors.White, 2.0f)
+                        .SetTrans(Tween.TransitionType.Sine)
+                        .SetEase(Tween.EaseType.Out);
                 }
             }
         };

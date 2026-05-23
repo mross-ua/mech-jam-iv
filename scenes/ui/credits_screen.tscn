@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cih14kvkdr7ww"]
+[gd_scene format=3 uid="uid://cih14kvkdr7ww"]
 
-[ext_resource type="Script" path="res://scripts/ui/CreditsScreen.cs" id="1_66kps"]
+[ext_resource type="Script" uid="uid://dx8x51i3beuhv" path="res://scripts/ui/CreditsScreen.cs" id="1_66kps"]
 [ext_resource type="Texture2D" uid="uid://dcba5406u54qk" path="res://assets/other/qr-github.png" id="3_ccrig"]
 [ext_resource type="StyleBox" uid="uid://b08eihf13eg7t" path="res://resources/panel_style.tres" id="3_iiwy0"]
 
-[node name="CreditsScreen" type="CanvasLayer"]
+[node name="CreditsScreen" type="CanvasLayer" unique_id=155388055]
 process_mode = 2
 script = ExtResource("1_66kps")
 NextScene = "res://scenes/levels/world_1.tscn"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1917209848]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -20,11 +20,11 @@ offset_bottom = 176.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=739302073]
 layout_mode = 2
 text = "YOU WIN"
 
-[node name="Menu" type="VBoxContainer" parent="."]
+[node name="Menu" type="VBoxContainer" parent="." unique_id=2078384789]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -38,15 +38,15 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="RestartButton" type="Button" parent="Menu"]
+[node name="RestartButton" type="Button" parent="Menu" unique_id=704805055]
 layout_mode = 2
 text = "RESTART"
 
-[node name="QuitButton" type="Button" parent="Menu"]
+[node name="QuitButton" type="Button" parent="Menu" unique_id=955139314]
 layout_mode = 2
 text = "QUIT"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1738389975]
 visible = false
 anchors_preset = 3
 anchor_left = 1.0
@@ -60,21 +60,21 @@ grow_vertical = 0
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1137099946]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1369709388]
 layout_mode = 2
 text = "Find source code and links
 to art assets on GitHub"
 horizontal_alignment = 2
 
-[node name="LinkToGitHubButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+[node name="LinkToGitHubButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=399812257]
 layout_mode = 2
 texture_normal = ExtResource("3_ccrig")
 stretch_mode = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1655900068]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -84,73 +84,73 @@ offset_bottom = 116.0
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_iiwy0")
 
-[node name="HBoxContainer" type="GridContainer" parent="PanelContainer"]
+[node name="HBoxContainer" type="GridContainer" parent="PanelContainer" unique_id=1578359863]
 layout_mode = 2
 size_flags_horizontal = 0
 columns = 2
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer" unique_id=523471813]
 layout_mode = 2
 text = "GAME DESIGN &
 PROGRAMMING"
 
-[node name="Label2" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="PanelContainer/HBoxContainer" unique_id=1889687680]
 layout_mode = 2
 text = "reckless"
 
-[node name="Label3" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label3" type="Label" parent="PanelContainer/HBoxContainer" unique_id=97229830]
 layout_mode = 2
 text = "STORY CONCEPT"
 
-[node name="Label4" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label4" type="Label" parent="PanelContainer/HBoxContainer" unique_id=1318809925]
 layout_mode = 2
 text = "Ziuz"
 
-[node name="Label5" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label5" type="Label" parent="PanelContainer/HBoxContainer" unique_id=325721448]
 layout_mode = 2
 text = "ART"
 
-[node name="Label6" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label6" type="Label" parent="PanelContainer/HBoxContainer" unique_id=1667424871]
 layout_mode = 2
 text = "Emcee Flesher"
 
-[node name="Label7" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label7" type="Label" parent="PanelContainer/HBoxContainer" unique_id=1195323587]
 layout_mode = 2
 
-[node name="Label8" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label8" type="Label" parent="PanelContainer/HBoxContainer" unique_id=1762564080]
 layout_mode = 2
 text = "surt"
 
-[node name="Label13" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label13" type="Label" parent="PanelContainer/HBoxContainer" unique_id=835482088]
 layout_mode = 2
 
-[node name="Label14" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label14" type="Label" parent="PanelContainer/HBoxContainer" unique_id=878387728]
 layout_mode = 2
 text = "Deep-Fold"
 
-[node name="Label11" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label11" type="Label" parent="PanelContainer/HBoxContainer" unique_id=742742925]
 layout_mode = 2
 
-[node name="Label12" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label12" type="Label" parent="PanelContainer/HBoxContainer" unique_id=1468494334]
 layout_mode = 2
 text = "ansimuz"
 
-[node name="Label15" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label15" type="Label" parent="PanelContainer/HBoxContainer" unique_id=1840090811]
 layout_mode = 2
 
-[node name="Label16" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label16" type="Label" parent="PanelContainer/HBoxContainer" unique_id=953721608]
 layout_mode = 2
 text = "Rad Potato"
 
-[node name="Label9" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label9" type="Label" parent="PanelContainer/HBoxContainer" unique_id=288647671]
 layout_mode = 2
 text = "MUSIC"
 
-[node name="Label10" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="Label10" type="Label" parent="PanelContainer/HBoxContainer" unique_id=229408885]
 layout_mode = 2
 text = "clonethirteen"
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=49822949]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5
@@ -164,6 +164,6 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = ExtResource("3_iiwy0")
 
-[node name="Label" type="Label" parent="PanelContainer2"]
+[node name="Label" type="Label" parent="PanelContainer2" unique_id=222481682]
 layout_mode = 2
 text = "Special thanks to my spouse for supporting my efforts in this game jam!"

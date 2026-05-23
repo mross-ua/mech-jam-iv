@@ -20,6 +20,12 @@ public partial class PauseScreen : CanvasLayer
             continueButton.Pressed += UnpauseGame;
         }
 
+        Button respawnButton = GetNodeOrNull<Button>("Menu/RespawnButton");
+        if (respawnButton is not null)
+        {
+            respawnButton.Pressed += RespawnPlayer;
+        }
+
         Button restartButton = GetNode<Button>("Menu/RestartButton");
         restartButton.Pressed += RestartScene;
 
@@ -53,7 +59,12 @@ public partial class PauseScreen : CanvasLayer
 
     public virtual void RestartScene()
     {
-        SceneManager.ReloadScene();
+        SceneManager.RestartScene();
+    }
+
+    public virtual void RespawnPlayer()
+    {
+        SceneManager.RespawnPlayer();
     }
 
 }

@@ -10,7 +10,8 @@ public partial class SceneManager : Node
 
     private static Node currentScene = null!;
 
-    private static readonly ConfigFile reloadConfig = new();
+    private static readonly ConfigFile restartConfig = new();
+    private static readonly ConfigFile respawnConfig = new();
 
     public override void _Ready()
     {
@@ -19,6 +20,25 @@ public partial class SceneManager : Node
         // global scripts are loaded into the tree first,
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);
+
+        if (currentScene is World world)
+        {
+            // NOTE: This is for when we start directly
+            //       into a level from the editor.
+
+            world.SpawnReached += (player) =>
+            {
+                //TODO user always starts on a spawn pad,
+                //     but this relies on a collision to
+                //     save the initial state
+                if (restartConfig.GetSections().Length == 0)
+                {
+                    world.Save(restartConfig);
+                }
+
+                world.Save(respawnConfig);
+            };
+        }
     }
 
     public override void _Notification(int what)
@@ -52,19 +72,30 @@ public partial class SceneManager : Node
 
     public static void GoToScene(string path)
     {
-        reloadConfig.Clear();
+        ConfigFile config = new();
 
-        if (currentScene is World source)
+        if (currentScene is World world)
         {
-            source.Save(reloadConfig);
+            restartConfig.Clear();
+            respawnConfig.Clear();
+
+            world.Save(config);
+
+            // player must start at the world spawn
+            config.EraseSectionKey(nameof(World), nameof(Spawn.SpawnPointMarker));
         }
 
-        Instance.CallDeferred(MethodName.DeferredGoToScene, path, reloadConfig);
+        Instance.CallDeferred(MethodName.DeferredGoToScene, path, config);
     }
 
-    public static void ReloadScene()
+    public static void RestartScene()
     {
-        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath, reloadConfig);
+        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath, restartConfig);
+    }
+
+    public static void RespawnPlayer()
+    {
+        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath, respawnConfig);
     }
 
     private static void DeferredGoToScene(string path, ConfigFile config)
@@ -92,18 +123,27 @@ public partial class SceneManager : Node
         // this is really important and is what SceneTree.change_scene_to_file() would do
         Instance.GetTree().CurrentScene = currentScene;
 
-        if (currentScene is World target)
+        if (currentScene is World world)
         {
             // BUG #56: Set minimum player health/ammo
 
-            target.Loaded += previousScene.Free;
+            world.SpawnReached += (player) =>
+            {
+                //TODO user always starts on a spawn pad,
+                //     but this relies on a collision to
+                //     save the initial state
+                if (restartConfig.GetSections().Length == 0)
+                {
+                    world.Save(restartConfig);
+                }
 
-            target.DeferredLoad(config);
+                world.Save(respawnConfig);
+            };
+
+            world.DeferredLoad(config);
         }
-        else
-        {
-            previousScene.Free();
-        }
+
+        previousScene.Free();
     }
 
     public static void PauseGame()

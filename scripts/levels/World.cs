@@ -278,9 +278,6 @@ public partial class World : Node2D,
 
     #region IUpdateable
 
-    [Signal]
-    public delegate void LoadedEventHandler();
-
     public void Save(ConfigFile config)
     {
         config.SetValue(nameof(World), nameof(Spawn.SpawnPointMarker), activeSpawn.SpawnPointMarker.GlobalTransform);
@@ -296,8 +293,6 @@ public partial class World : Node2D,
             // reunite Robot with Player
             robot.GlobalTransform = config.GetValue(nameof(World), nameof(Spawn.SpawnPointMarker)).AsTransform2D();
         }
-
-        player.Loaded += () => EmitSignal(SignalName.Loaded);
 
         player.DeferredLoad(config);
     }

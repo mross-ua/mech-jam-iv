@@ -127,9 +127,6 @@ public partial class Player : CharacterBase,
 
     #region IUpdateable
 
-    [Signal]
-    public delegate void LoadedEventHandler();
-
     public void Save(ConfigFile config)
     {
         config.SetValue(nameof(Player), nameof(Health), Health);
@@ -145,8 +142,6 @@ public partial class Player : CharacterBase,
 
             Heal(health - Health, true);
         }
-
-        WeaponManager.Loaded += () => EmitSignal(SignalName.Loaded);
 
         WeaponManager.DeferredLoad(config);
     }

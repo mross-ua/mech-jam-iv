@@ -124,16 +124,12 @@ public partial class SceneManager : Node
                 world.Save(respawnConfig);
             };
 
-            world.Loaded += previousScene.Free;
-
             world.DeferredLoad(config);
 
             world.Save(restartConfig);
         }
-        else
-        {
-            previousScene.Free();
-        }
+
+        previousScene.Free();
     }
 
     public static void PauseGame()

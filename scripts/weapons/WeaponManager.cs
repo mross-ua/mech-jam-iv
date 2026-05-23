@@ -212,9 +212,6 @@ public partial class WeaponManager : Node2D,
 
     #region IUpdateable
 
-    [Signal]
-    public delegate void LoadedEventHandler();
-
     public void Save(ConfigFile config)
     {
         //TODO what if we want to start without weapons?
@@ -257,8 +254,6 @@ public partial class WeaponManager : Node2D,
         // {
         //     _ = config.GetValue(nameof(WeaponManager), "SecondaryWeaponType");
         // }
-
-        EmitSignal(SignalName.Loaded);
     }
 
     #endregion

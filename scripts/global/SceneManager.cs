@@ -21,19 +21,23 @@ public partial class SceneManager : Node
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);
 
-        //TODO this is not strictly necessary; it's for
-        //     when we start directly into a level from the
-        //     editor but it needs more testing!
-        //TODO can this be deduped with DeferredGoToScene()?
         if (currentScene is World world)
         {
+            // NOTE: This is for when we start directly
+            //       into a level from the editor.
+
             world.SpawnReached += (player) =>
             {
+                //TODO user always starts on a spawn pad,
+                //     but this relies on a collision to
+                //     save the initial state
+                if (restartConfig.GetSections().Length == 0)
+                {
+                    world.Save(restartConfig);
+                }
+
                 world.Save(respawnConfig);
             };
-
-            // world may not be fully initialized
-            //world.Save(restartConfig);
         }
     }
 
@@ -72,6 +76,9 @@ public partial class SceneManager : Node
 
         if (currentScene is World world)
         {
+            restartConfig.Clear();
+            respawnConfig.Clear();
+
             world.Save(config);
 
             // player must start at the world spawn
@@ -122,12 +129,18 @@ public partial class SceneManager : Node
 
             world.SpawnReached += (player) =>
             {
+                //TODO user always starts on a spawn pad,
+                //     but this relies on a collision to
+                //     save the initial state
+                if (restartConfig.GetSections().Length == 0)
+                {
+                    world.Save(restartConfig);
+                }
+
                 world.Save(respawnConfig);
             };
 
             world.DeferredLoad(config);
-
-            world.Save(restartConfig);
         }
 
         previousScene.Free();

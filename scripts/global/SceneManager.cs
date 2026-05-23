@@ -11,6 +11,7 @@ public partial class SceneManager : Node
     private static Node currentScene = null!;
 
     private static readonly ConfigFile restartConfig = new();
+    private static readonly ConfigFile respawnConfig = new();
 
     public override void _Ready()
     {
@@ -70,6 +71,11 @@ public partial class SceneManager : Node
         Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath, restartConfig);
     }
 
+    public static void RespawnPlayer()
+    {
+        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath, respawnConfig);
+    }
+
     private static void DeferredGoToScene(string path, ConfigFile config)
     {
         // NOTE: There is more than one way to load a scene into the
@@ -101,12 +107,14 @@ public partial class SceneManager : Node
 
             world.SpawnReached += (player) =>
             {
-                world.Save(restartConfig);
+                world.Save(respawnConfig);
             };
 
             world.Loaded += previousScene.Free;
 
             world.DeferredLoad(config);
+
+            world.Save(restartConfig);
         }
         else
         {

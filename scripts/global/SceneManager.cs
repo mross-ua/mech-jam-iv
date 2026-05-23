@@ -54,9 +54,9 @@ public partial class SceneManager : Node
     {
         reloadConfig.Clear();
 
-        if (currentScene is World source)
+        if (currentScene is World world)
         {
-            source.Save(reloadConfig);
+            world.Save(reloadConfig);
         }
 
         Instance.CallDeferred(MethodName.DeferredGoToScene, path, reloadConfig);
@@ -92,13 +92,13 @@ public partial class SceneManager : Node
         // this is really important and is what SceneTree.change_scene_to_file() would do
         Instance.GetTree().CurrentScene = currentScene;
 
-        if (currentScene is World target)
+        if (currentScene is World world)
         {
             // BUG #56: Set minimum player health/ammo
 
-            target.Loaded += previousScene.Free;
+            world.Loaded += previousScene.Free;
 
-            target.DeferredLoad(config);
+            world.DeferredLoad(config);
         }
         else
         {

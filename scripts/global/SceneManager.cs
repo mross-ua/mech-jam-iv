@@ -32,7 +32,8 @@ public partial class SceneManager : Node
                 world.Save(respawnConfig);
             };
 
-            world.Save(restartConfig);
+            // world may not be fully initialized
+            //world.Save(restartConfig);
         }
     }
 

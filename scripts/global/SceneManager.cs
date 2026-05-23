@@ -52,14 +52,17 @@ public partial class SceneManager : Node
 
     public static void GoToScene(string path)
     {
-        reloadConfig.Clear();
+        ConfigFile config = new();
 
         if (currentScene is World world)
         {
-            world.Save(reloadConfig);
+            world.Save(config);
+
+            // player must start at the world spawn
+            config.EraseSectionKey(nameof(World), nameof(Spawn.SpawnPointMarker));
         }
 
-        Instance.CallDeferred(MethodName.DeferredGoToScene, path, reloadConfig);
+        Instance.CallDeferred(MethodName.DeferredGoToScene, path, config);
     }
 
     public static void ReloadScene()
@@ -95,6 +98,11 @@ public partial class SceneManager : Node
         if (currentScene is World world)
         {
             // BUG #56: Set minimum player health/ammo
+
+            world.SpawnReached += (player) =>
+            {
+                world.Save(reloadConfig);
+            };
 
             world.Loaded += previousScene.Free;
 

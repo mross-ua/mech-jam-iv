@@ -20,6 +20,20 @@ public partial class SceneManager : Node
         // global scripts are loaded into the tree first,
         // and the project's main scene is loaded last
         currentScene = GetTree().Root.GetChild(-1);
+
+        //TODO this is not strictly necessary; it's for
+        //     when we start directly into a level from the
+        //     editor but it needs more testing!
+        //TODO can this be deduped with DeferredGoToScene()?
+        if (currentScene is World world)
+        {
+            world.SpawnReached += (player) =>
+            {
+                world.Save(respawnConfig);
+            };
+
+            world.Save(restartConfig);
+        }
     }
 
     public override void _Notification(int what)

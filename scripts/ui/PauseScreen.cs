@@ -53,7 +53,7 @@ public partial class PauseScreen : CanvasLayer
 
     public virtual void RestartScene()
     {
-        SceneManager.ReloadScene();
+        SceneManager.RestartScene();
     }
 
 }

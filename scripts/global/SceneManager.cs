@@ -10,7 +10,7 @@ public partial class SceneManager : Node
 
     private static Node currentScene = null!;
 
-    private static readonly ConfigFile reloadConfig = new();
+    private static readonly ConfigFile restartConfig = new();
 
     public override void _Ready()
     {
@@ -65,9 +65,9 @@ public partial class SceneManager : Node
         Instance.CallDeferred(MethodName.DeferredGoToScene, path, config);
     }
 
-    public static void ReloadScene()
+    public static void RestartScene()
     {
-        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath, reloadConfig);
+        Instance.CallDeferred(MethodName.DeferredGoToScene, currentScene.SceneFilePath, restartConfig);
     }
 
     private static void DeferredGoToScene(string path, ConfigFile config)
@@ -101,7 +101,7 @@ public partial class SceneManager : Node
 
             world.SpawnReached += (player) =>
             {
-                world.Save(reloadConfig);
+                world.Save(restartConfig);
             };
 
             world.Loaded += previousScene.Free;

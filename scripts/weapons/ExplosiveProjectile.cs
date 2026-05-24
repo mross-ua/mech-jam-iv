@@ -78,7 +78,7 @@ public partial class ExplosiveProjectile : Projectile
 
         Health = Math.Max(0, Health - damage);
 
-        EmitSignal(SignalName.Injured, damage);
+        EmitSignal(Projectile.SignalName.Injured, damage);
 
         if (Health <= 0)
         {
@@ -96,7 +96,7 @@ public partial class ExplosiveProjectile : Projectile
             //       the projectile or else the death animation
             //       will continue moving/falling and it looks bad.
 
-            SetDeferred(PropertyName.Freeze, true);
+            SetDeferred(RigidBody2D.PropertyName.Freeze, true);
             collisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
             this.TimedFree(5.0f);

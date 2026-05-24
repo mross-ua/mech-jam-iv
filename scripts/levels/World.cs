@@ -111,16 +111,7 @@ public partial class World : Node2D,
     {
         foreach (EnemyBase enemy in this.FindChildrenInGroup("enemy").OfType<EnemyBase>())
         {
-            enemy.PickupDropped += (pickupType) =>
-            {
-                Projectile projectile = ResourceManager.GenerateProjectile((PickupType)pickupType);
-                projectile.GlobalPosition = enemy.GlobalPosition;
-
-                projectile.PickedUp += () => Pickup(projectile.WeaponType);
-
-                // this adds to the top-level scene!
-                GetTree().CurrentScene.AddChildDeferred(projectile);
-            };
+            enemy.PickupDropped += (pickupType) => DropPickup((PickupType)pickupType, enemy.GlobalPosition);
 
             enemy.CharacterTracker?.Track(player);
         }
@@ -238,6 +229,16 @@ public partial class World : Node2D,
             default:
                 throw new NotImplementedException();
         }
+    }
+
+    private void DropPickup(PickupType pickupType, Vector2 globalPos)
+    {
+        Projectile projectile = ResourceManager.GenerateProjectile(pickupType);
+        projectile.GlobalPosition = globalPos;
+
+        projectile.PickedUp += () => Pickup(projectile.WeaponType);
+
+        GetTree().CurrentScene.AddChildDeferred(projectile);
     }
 
     private PhysicsBody2D? FindTarget(Vector2 globalPos)

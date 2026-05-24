@@ -19,7 +19,7 @@ public partial class Spawn : Node2D
 
     public Marker2D SpawnPointMarker { get; private set; } = null!;
 
-    public CanvasItem tileMap = null!;
+    private CanvasItem tileMap = null!;
     private Timer healthGenTimer = null!;
     private Area2D area2D = null!;
     private CollisionShape2D collisionShape2D = null!;

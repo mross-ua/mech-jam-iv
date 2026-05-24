@@ -13,7 +13,7 @@ public enum CollisionLayer : long
     Hitbox,
     Enemy,
     Objective,
-    Projectile
+    Projectile,
 }
 
 [Flags]
@@ -27,7 +27,7 @@ public enum CollisionLayerMask : uint
     Hitbox = 32,
     Enemy = 64,
     Objective = 128,
-    Projectile = 256
+    Projectile = 256,
 }
 
 public enum PickupType : long
@@ -35,19 +35,19 @@ public enum PickupType : long
     Medkit = 0,
     Rifle = 1,
     Grenade = 2,
-    Missile = 3
+    Missile = 3,
 }
 
 public enum EnemyState : long
 {
     Idle,
     Chase,
-    Attack
+    Attack,
 }
 
 public enum FireMode : long
 {
     Primary,
     PrimarySustained,
-    Secondary
+    Secondary,
 }

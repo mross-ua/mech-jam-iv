@@ -26,18 +26,7 @@ public partial class SceneManager : Node
             // NOTE: This is for when we start directly
             //       into a level from the editor.
 
-            world.SpawnReached += (player) =>
-            {
-                //TODO user always starts on a spawn pad,
-                //     but this relies on a collision to
-                //     save the initial state
-                if (restartConfig.GetSections().Length == 0)
-                {
-                    world.Save(restartConfig);
-                }
-
-                world.Save(respawnConfig);
-            };
+            world.SpawnReached += (player) => SaveGame(world);
         }
     }
 
@@ -127,23 +116,25 @@ public partial class SceneManager : Node
         {
             // BUG #56: Set minimum player health/ammo
 
-            world.SpawnReached += (player) =>
-            {
-                //TODO user always starts on a spawn pad,
-                //     but this relies on a collision to
-                //     save the initial state
-                if (restartConfig.GetSections().Length == 0)
-                {
-                    world.Save(restartConfig);
-                }
-
-                world.Save(respawnConfig);
-            };
+            world.SpawnReached += (player) => SaveGame(world);
 
             world.DeferredLoad(config);
         }
 
         previousScene.Free();
+    }
+
+    private static void SaveGame(World world)
+    {
+        //TODO user always starts on a spawn pad,
+        //     but this relies on a collision to
+        //     save the initial state
+        if (restartConfig.GetSections().Length == 0)
+        {
+            world.Save(restartConfig);
+        }
+
+        world.Save(respawnConfig);
     }
 
     public static void PauseGame()

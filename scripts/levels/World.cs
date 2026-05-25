@@ -74,7 +74,7 @@ public partial class World : Node2D,
 
     private void InitSpawns()
     {
-        foreach (Spawn spawn in this.FindChildrenInGroup("spawn").OfType<Spawn>())
+        foreach (Spawn spawn in GetSpawns())
         {
             spawns.Add(spawn);
 
@@ -94,7 +94,7 @@ public partial class World : Node2D,
 
     private void InitPickups()
     {
-        foreach (Node node in this.FindChildrenInGroup("pickup"))
+        foreach (Node node in GetPickups())
         {
             if (node is Projectile p)
             {
@@ -109,7 +109,7 @@ public partial class World : Node2D,
 
     private void InitEnemies()
     {
-        foreach (EnemyBase enemy in this.FindChildrenInGroup("enemy").OfType<EnemyBase>())
+        foreach (EnemyBase enemy in GetEnemies())
         {
             enemy.PickupDropped += (pickupType) => DropPickup((PickupType)pickupType, enemy.GlobalPosition);
 
@@ -119,7 +119,7 @@ public partial class World : Node2D,
 
     private void InitObjectives()
     {
-        foreach (Objective objective in this.FindChildrenInGroup("objective").OfType<Objective>())
+        foreach (Objective objective in GetObjectives())
         {
             if (objective is CyberSteel cyberSteel)
             {
@@ -145,7 +145,7 @@ public partial class World : Node2D,
 
     private void InitDeathZones()
     {
-        foreach (Area2D deathzone in this.FindChildrenInGroup("deathzone").OfType<Area2D>())
+        foreach (Area2D deathzone in GetDeathZones())
         {
             deathzone.BodyEntered += (body) =>
             {
@@ -155,6 +155,31 @@ public partial class World : Node2D,
                 }
             };
         }
+    }
+
+    private IEnumerable<Spawn> GetSpawns()
+    {
+        return this.FindChildrenInGroup("spawn").Where(n => !n.IsQueuedForDeletion()).OfType<Spawn>();
+    }
+
+    private IEnumerable<Node> GetPickups()
+    {
+        return this.FindChildrenInGroup("pickup").Where(n => !n.IsQueuedForDeletion());
+    }
+
+    private IEnumerable<EnemyBase> GetEnemies()
+    {
+        return this.FindChildrenInGroup("enemy").Where(n => !n.IsQueuedForDeletion()).OfType<EnemyBase>();
+    }
+
+    private IEnumerable<Objective> GetObjectives()
+    {
+        return this.FindChildrenInGroup("objective").Where(n => !n.IsQueuedForDeletion()).OfType<Objective>();
+    }
+
+    private IEnumerable<Area2D> GetDeathZones()
+    {
+        return this.FindChildrenInGroup("deathzone").Where(n => !n.IsQueuedForDeletion()).OfType<Area2D>();
     }
 
     public override void _Input(InputEvent @event)
